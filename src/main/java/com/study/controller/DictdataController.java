@@ -91,8 +91,15 @@ public class DictdataController {
   }
   
   @RequestMapping(value="/dictdata/getDataTree",method=RequestMethod.GET)
-  public List<Dictionarydata> getDataTree(){
-    List<Dictionarydata> dicts = dictdataService.selectDictdataByParentId(null, null);
+  public List<Dictionarydata> getDataTree(@RequestParam(value="dictCode",required=false)String dictCode,@RequestParam(value="parentId",required=false)Integer parentId){
+    Map<String, Object> map=new HashMap<String, Object>();
+    if(dictCode!=null&&!"".equals(dictCode)){
+      map.put("dictCode", dictCode);
+    }
+    if(parentId!=null&&!"".equals(parentId)){
+      map.put("parentId", parentId);
+    }
+    List<Dictionarydata> dicts = dictdataService.selectDictdataByParentId(map, null);
     return dicts;
   }
       

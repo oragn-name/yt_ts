@@ -12,103 +12,101 @@
 	   
 	   	   <table cellpadding="5">
                 <tr>
-                    <td>所属街道办事处:</td>
+                    <td style="text-align: right;">所属街道办事处:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwAddress" data-options=""></input></td>
-                    <td>涉及道路名称:</td>
+                    <td  style="text-align: right;">涉及道路名称:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwRoadName" data-options=""></input></td>
-                    <td>起点:</td>
+                    <td  style="text-align: right;">起点:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwOrigin" data-options=""></input></td>
                 </tr>
                 <tr>
-                    <td>止点:</td>
+                    <td  style="text-align: right;">止点:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwStop" data-options=""></input></td>
-                    <td>道路权属:</td>
+                    <td  style="text-align: right;">道路权属:</td>
                     <td>
                       <select class="easyui-combobox" name="prwOwnership" style="width: 148px;" >
 	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'DLQS')}"></option>
 	           					</select>
                     </td>
-                    <td>是否随大修路:</td>
+                    <td  style="text-align: right;">是否随大修路:</td>
                     <td>
                       <select class="easyui-combobox" name="prwRepair" style="width: 148px;" >
-	           				  	<option value="0">--请选择--</option>
 	           				  	<option value="1">是</option>
 	           				  	<option value="2">否</option>
 	           					</select>
                     </td>
                 </tr>
                 <tr>
-                    <td>是否非开挖:</td>
+                    <td  style="text-align: right;">是否非开挖:</td>
                     <td>
                       <select class="easyui-combobox" name="prwExcavation" style="width: 148px;" >
-	           				  	<option value="0">--请选择--</option>
 	           				  	<option value="1">是</option>
 	           				  	<option value="2">否</option>
 	           					</select>
                     </td>
-                    <td>预判施工工时:</td>
+                    <td  style="text-align: right;">预判施工工时:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwPreliminaryTime" data-options=""></input></td>
-                    <td>施工员:</td>
+                    <td  style="text-align: right;">施工员:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwUserId" data-options=""></input></td>
                 </tr>
                 <tr>
-                		<td>电话:</td>
+                		<td  style="text-align: right;">电话:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwPhone" data-options=""></input></td>
-                    <td>完成DMA口径:</td>
+                    <td  style="text-align: right;">完成DMA口径:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwDmaCaliber" data-options=""></input></td>
-                    <td>完成DMA数量:</td>
+                    <td  style="text-align: right;">完成DMA数量:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwDmaCount" data-options=""></input></td>
                 </tr>
                 <tr>
-                		<td>完成倒流防止器口径:</td>
+                		<td  style="text-align: right;">完成倒流防止器口径:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwBackCaliber" data-options=""></input></td>
-                    <td>完成倒流防止器数量:</td>
+                    <td  style="text-align: right;">完成倒流防止器数量:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwBackCount" data-options=""></input></td>
-                    <td>下周计划:</td>
+                    <td  style="text-align: right;">下周计划:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwWeekPlan" data-options=""></input></td>
                 </tr>
                 <tr>
-                		<td>下月计划:</td>
+                		<td  style="text-align: right;">下月计划:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwMonthPlan" data-options=""></input></td>
-                    <td>计划开工时间:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwPst" data-options=""></input></td>
-                    <td>计划完工时间:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwPet" data-options=""></input></td>
+                    <td  style="text-align: right;">计划开工时间:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="prwPst" data-options=""></input></td>
+                    <td  style="text-align: right;">计划完工时间:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="prwPet" data-options=""></input></td>
                 </tr>
                 <tr>
-                		<td>计划总工期 :</td>
+                		<td  style="text-align: right;">计划总工期 :</td>
                     <td><input class="easyui-validatebox" type="text" name="prwTotalDuration" data-options=""></input></td>
-                    <td>实际开工时间:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwAst" data-options=""></input></td>
-                    <td>实际竣工时间:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwAet" data-options=""></input></td>
+                    <td  style="text-align: right;">实际开工时间:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="prwAst" data-options=""></input></td>
+                    <td  style="text-align: right;">实际竣工时间:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="prwAet" data-options=""></input></td>
                 </tr>
                 <tr>
-                		<td>竣工验收日期:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwReceptionTime" data-options=""></input></td>
-                    <td>转闸单日期:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwSwitchingDate" data-options=""></input></td>
-                    <td>转图日期:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwFigureDate" data-options=""></input></td>
+                		<td  style="text-align: right;">竣工验收日期:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="prwReceptionTime" data-options=""></input></td>
+                    <td  style="text-align: right;">转闸单日期:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="prwSwitchingDate" data-options=""></input></td>
+                    <td  style="text-align: right;">转图日期:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="prwFigureDate" data-options=""></input></td>
                 </tr>
                 <tr>
-                		<td>工程进展问题 :</td>
+                		<td  style="text-align: right;">工程进展问题 :</td>
                     <td><input class="easyui-validatebox" type="text" name="prwProgressReport" data-options=""></input></td>
-                    <td>未开工原因:</td>
+                    <td  style="text-align: right;">未开工原因:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwReason" data-options=""></input></td>
-                    <td>未完工说明 :</td>
+                    <td  style="text-align: right;">未完工说明 :</td>
                     <td><input class="easyui-validatebox" type="text" name="prwExplain" data-options=""></input></td>
                 </tr>
                 <tr>
-                		<td>预算价:</td>
+                		<td  style="text-align: right;">预算价:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwBudget" data-options=""></input></td>
-                    <td>结算价:</td>
+                    <td  style="text-align: right;">结算价:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwSettlement" data-options=""></input></td>
-                    <td>累计投入人力 :</td>
+                    <td  style="text-align: right;">累计投入人力 :</td>
                     <td><input class="easyui-validatebox" type="text" name="prwManpower" data-options=""></input></td>
                 </tr>
                 <tr>
-                		<td>施工:</td>
+                		<td  style="text-align: right;">施工员:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwRoadWork" data-options=""></input></td>
                 </tr>
             </table>

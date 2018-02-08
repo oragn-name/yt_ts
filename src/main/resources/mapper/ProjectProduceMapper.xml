@@ -28,4 +28,13 @@
     <result column="create_user" jdbcType="INTEGER" property="createUser" />
     <result column="create_time" jdbcType="VARCHAR" property="createTime" />
   </resultMap>
+  <select id="selectProjectProAll" parameterType="com.study.model.ProjectProduce" resultType="com.study.model.ProjectProduce">
+    select * from (select id,pro_gauge as "proGauge",(select dictdata_name from dictionarydata where id=pro_job_type) as "proJobTypeName" ,(select dictdata_name from dictionarydata where id=pro_engine_type) as "proEngineTypeName" ,(select dictdata_name from dictionarydata where id=pro_nature) as "proNatureName",pro_name as "proName",(select dictdata_name from dictionarydata where id=pro_source) as "proSourceName",pro_number as "proNumber",pro_snap_number as "proSnapNumber",
+	pro_serial_number as "proSerialNumber",pro_lssued_time as "proLssuedTime",(select dictdata_name from dictionarydata where id=pro_area) as "proAreaName",pro_roads_time as "proRoadsTime",pro_traffic_time as "proTrafficTime",(select dictdata_name from dictionarydata where id=pro_period) as "proPeriodName",(select name from dept where id=pro_const) as "proConstName",(select name from dept where id=pro_dept) as "proDeptName",pro_design_length as "proDesignLength",
+	pro_pipe_length as "proPipeLength",pro_snap_length as "proSnapLength",create_user as "createUser",create_time as "createTime" from project_produce) t where 1=1
+	<if test="proName!=null and proName!=''">
+	 and proName like CONCAT(CONCAT('%', #{proName}), '%')
+	</if>
+    
+  </select>
 </mapper>

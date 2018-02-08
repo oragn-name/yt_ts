@@ -23,7 +23,7 @@ public class ProjectProduceServiceImpl extends BaseService<ProjectProduce> imple
     if(PageBeanUtil.pageBeanIsNotEmpty(bean)){
       PageHelper.startPage(bean.getPage(), bean.getRows());
     }
-    List<ProjectProduce> selectByExample = projectProduceMapper.selectByExample(null);
+    List<ProjectProduce> selectByExample = projectProduceMapper.selectProjectProAll(produce);
     return selectByExample;
   }
 

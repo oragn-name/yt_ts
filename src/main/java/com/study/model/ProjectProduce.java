@@ -134,6 +134,91 @@ public class ProjectProduce {
     @Column(name = "create_time")
     private String createTime;
 
+    
+    
+    @Transient
+    private String proJobTypeName;
+    @Transient
+    private String proEngineTypeName;
+    @Transient
+    private String proNatureName;
+    @Transient
+    private String proSourceName;
+    @Transient
+    private String proAreaName;
+    @Transient
+    private String proPeriodName;
+    @Transient
+    private String proConstName;
+    @Transient
+    private String proDeptName;
+    
+    
+    
+    public String getProJobTypeName() {
+      return proJobTypeName;
+    }
+
+    public void setProJobTypeName(String proJobTypeName) {
+      this.proJobTypeName = proJobTypeName;
+    }
+
+    public String getProEngineTypeName() {
+      return proEngineTypeName;
+    }
+
+    public void setProEngineTypeName(String proEngineTypeName) {
+      this.proEngineTypeName = proEngineTypeName;
+    }
+
+    public String getProNatureName() {
+      return proNatureName;
+    }
+
+    public void setProNatureName(String proNatureName) {
+      this.proNatureName = proNatureName;
+    }
+
+    public String getProSourceName() {
+      return proSourceName;
+    }
+
+    public void setProSourceName(String proSourceName) {
+      this.proSourceName = proSourceName;
+    }
+
+    public String getProAreaName() {
+      return proAreaName;
+    }
+
+    public void setProAreaName(String proAreaName) {
+      this.proAreaName = proAreaName;
+    }
+
+    public String getProPeriodName() {
+      return proPeriodName;
+    }
+
+    public void setProPeriodName(String proPeriodName) {
+      this.proPeriodName = proPeriodName;
+    }
+
+    public String getProConstName() {
+      return proConstName;
+    }
+
+    public void setProConstName(String proConstName) {
+      this.proConstName = proConstName;
+    }
+
+    public String getProDeptName() {
+      return proDeptName;
+    }
+
+    public void setProDeptName(String proDeptName) {
+      this.proDeptName = proDeptName;
+    }
+
     /**
      * @return id
      */
