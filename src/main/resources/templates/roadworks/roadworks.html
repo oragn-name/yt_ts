@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="common/head :: header">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body class="easyui-layout">
+	<table id="tb1" class="easyui-datagrid" title="" width="100%" height="100%" fit="true" border="0"
+           data-options="rownumbers:true,pagination:true,url:'/roadworks/getData.do',singleSelect:false,method:'get',toolbar:'#toolbar1',sortName:'sequence',sortOrder:'asc'">
+        <thead>
+            <tr>
+            	<th data-options="field:'ck',checkbox:true"></th>
+            	<th data-options="field:'prwAddress',width:100,align:'center',sortable:'true'">所属街道办事处</th>
+            	<th data-options="field:'prwRoadName',width:200,align:'center',sortable:'true'">涉及道路名称</th>
+            	<th data-options="field:'prwOrigin',width:200,align:'center',sortable:'true'">起点</th>
+            	<th data-options="field:'prwStop',width:200,align:'center',sortable:'true'">止点</th>
+            	<th data-options="field:'prwOwnership',width:100,align:'center',sortable:'true'">道路权属</th>
+            	<th data-options="field:'prwRepair',width:200,align:'center',sortable:'true'">是否随大修路</th>
+            	<th data-options="field:'prwExcavation',width:200,align:'center',sortable:'true'">是否非开挖</th>
+            	<th data-options="field:'prwPreliminaryTime',width:200,align:'center',sortable:'true'">预判施工工时</th>
+            	<th data-options="field:'prwUserId',width:100,align:'center',sortable:'true'">施工员</th>
+            	<th data-options="field:'prwPhone',width:200,align:'center',sortable:'true'">电话</th>
+            	<th data-options="field:'prwCondition',width:200,align:'center',sortable:'true'">路管情况</th>
+            	<th data-options="field:'prwDmaCaliber',width:200,align:'center',sortable:'true'">完成DMA口径</th>
+            	<th data-options="field:'prwDmaCount',width:100,align:'center',sortable:'true'">完成DMA数量</th>
+            	<th data-options="field:'prwBackCaliber',width:200,align:'center',sortable:'true'">完成倒流防止器口径</th>
+            	<th data-options="field:'prwBackCount',width:200,align:'center',sortable:'true'">完成倒流防止器数量</th>
+            	<th data-options="field:'prwWeekPlan',width:200,align:'center',sortable:'true'">下周计划</th>
+            	<th data-options="field:'prwMonthPlan',width:200,align:'center',sortable:'true'">下月计划</th>
+            	<th data-options="field:'prwPst',width:100,align:'center',sortable:'true'">计划开工时间</th>
+            	<th data-options="field:'prwPet',width:200,align:'center',sortable:'true'">计划完工时间</th>
+            	<th data-options="field:'prwTotalDuration',width:200,align:'center',sortable:'true'">计划总工期</th>
+            	<th data-options="field:'prwAst',width:200,align:'center',sortable:'true'">实际开工时间</th>
+            	<th data-options="field:'prwAet',width:100,align:'center',sortable:'true'">实际竣工时间</th>
+            	<th data-options="field:'prwReceptionTime',width:200,align:'center',sortable:'true'">竣工验收日期</th>
+            	<th data-options="field:'prwSwitchingDate',width:200,align:'center',sortable:'true'">转闸单日期</th>
+            	<th data-options="field:'prwFigureDate',width:200,align:'center',sortable:'true'">转图日期</th>
+            	<th data-options="field:'prwProgressReport',width:200,align:'center',sortable:'true'">工程进展问题</th>
+            	<th data-options="field:'prwReason',width:100,align:'center',sortable:'true'">未开工原因</th>
+            	<th data-options="field:'prwExplain',width:200,align:'center',sortable:'true'">未完工说明 </th>
+            	<th data-options="field:'prwBudget',width:200,align:'center',sortable:'true'">预算价</th>
+            	<th data-options="field:'prwSettlement',width:200,align:'center',sortable:'true'">结算价</th>
+            	<th data-options="field:'prwManpower',width:200,align:'center',sortable:'true'">累计投入人力</th>
+            	<th data-options="field:'prwRoadWork',width:100,align:'center',sortable:'true'">施工</th>
+            	<th data-options="field:'prwCreator',width:200,align:'center',sortable:'true'">创建人</th>
+            	<th data-options="field:'prwCreateAt',width:200,align:'center',sortable:'true'">创建时间</th>
+            </tr>
+        </thead>
+   	</table>
+    <div id="toolbar1" class="easyui-layout" style="height:65px;margin:3px;">
+        <div data-options="region:'center',border:false">
+        <a th:each="but : ${buttons}" th:shiro:hasPermission="${but.resurl}" th: class="easyui-linkbutton" th:icon="${but.iconCls}" plain="true" th:href="|javascript:${but.butFun};|" th:text="${but.name}"></a>
+        </div>
+        <div data-options="region:'north',border:true" style="height:40px;">
+            <form id="fm" method="post" novalidate>
+            <table cellpadding="5">
+              <tr>
+                   <td>菜单名称:</td>
+                   <td><input class="easyui-validatebox textbox" type="text" name="roledesc" id="roledesc"></input></td>
+                   <td><a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查找</a></td>
+               </tr>
+           </table>
+           </form>
+        </div>
+        
+    </div>
+    <script th:inline="javascript">
+    var menuName=[[${menuName}]]
+    function add(){
+		top.framework.openTab('新增数据', '/roadworks/add?menuName=新增数据&parentMenuName='+menuName);
+	}
+    function edit(){
+		var selecteds = $('#tb1').datagrid('getSelections');
+        if (selecteds == null || selecteds.length == 0) { 
+        	Common.showMsg('修改数据','请选择操作项！');
+        	return;
+        }
+        if (selecteds.length>1) {
+        	Common.showMsg('修改数据','不支持多个操作！');
+        	return; 
+        }
+		top.framework.openTab('修改数据', '/roadworks/add.do?menuName=修改数据&id='+selecteds[0].id+'&parentMenuName='+menuName);
+	}
+    
+    function remove(){
+		var selecteds = $('#tb1').datagrid('getSelections');
+        if (selecteds == null || selecteds.length == 0) { 
+        	Common.showMsg('提示','请选择操作项！');
+        	return;
+        }
+        $.messager.confirm('提示','确定删除吗?', 
+        function(r){
+            if (r){
+            	var ids = '';
+                $(selecteds).each(function (index) {
+                    ids = ids + selecteds[index].id + ",";
+                });
+                ids = ids.substring(0, ids.length - 1);
+        		$.ajax( {
+    				url : '/roadworks/delete.do?ids='+ids,
+    				dataType:'text',
+    				type: 'delete',
+    				success : function(result) {
+    					if ("success"==result){
+    						Common.showMsg('提示',"删除成功");
+        				    search();
+    					}else{
+    						Common.showMsg('提示',"删除失败");
+    					}
+    					
+    				}
+    			});
+            }
+        });
+        
+	}
+    function search(){
+    	var names = $("#roledesc").val();
+		$('#tb1').datagrid({
+            url:"/roadworks/getData.do",
+            queryParams:{
+            	name:names
+            }
+        });
+	}
+    </script>
+</body>
+

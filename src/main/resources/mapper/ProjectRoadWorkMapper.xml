@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ProjectRoadWorkMapper">
+  <resultMap id="BaseResultMap" type="com.study.model.ProjectRoadWork">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="prw_dma_caliber" jdbcType="INTEGER" property="prwDmaCaliber" />
+    <result column="prw_dma_count" jdbcType="INTEGER" property="prwDmaCount" />
+    <result column="prw_back_caliber" jdbcType="INTEGER" property="prwBackCaliber" />
+    <result column="prw_back_count" jdbcType="INTEGER" property="prwBackCount" />
+    <result column="prw_week_plan" jdbcType="DOUBLE" property="prwWeekPlan" />
+    <result column="prw_month_plan" jdbcType="DOUBLE" property="prwMonthPlan" />
+    <result column="prw_pst" jdbcType="VARCHAR" property="prwPst" />
+    <result column="prw_pet" jdbcType="VARCHAR" property="prwPet" />
+    <result column="prw_total_duration" jdbcType="INTEGER" property="prwTotalDuration" />
+    <result column="prw_ast" jdbcType="VARCHAR" property="prwAst" />
+    <result column="prw_aet" jdbcType="VARCHAR" property="prwAet" />
+    <result column="prw_reception_time" jdbcType="VARCHAR" property="prwReceptionTime" />
+    <result column="prw_switching_date" jdbcType="VARCHAR" property="prwSwitchingDate" />
+    <result column="prw_figure_date" jdbcType="VARCHAR" property="prwFigureDate" />
+    <result column="prw_progress_report" jdbcType="VARCHAR" property="prwProgressReport" />
+    <result column="prw_reason" jdbcType="VARCHAR" property="prwReason" />
+    <result column="prw_explain" jdbcType="VARCHAR" property="prwExplain" />
+    <result column="prw_budget" jdbcType="DOUBLE" property="prwBudget" />
+    <result column="prw_settlement" jdbcType="DOUBLE" property="prwSettlement" />
+    <result column="prw_manpower" jdbcType="INTEGER" property="prwManpower" />
+    <result column="prw_road_work" jdbcType="VARCHAR" property="prwRoadWork" />
+    <result column="prw_address" jdbcType="VARCHAR" property="prwAddress" />
+    <result column="prw_road_name" jdbcType="VARCHAR" property="prwRoadName" />
+    <result column="prw_origin" jdbcType="VARCHAR" property="prwOrigin" />
+    <result column="prw_stop" jdbcType="VARCHAR" property="prwStop" />
+    <result column="prw_ownership" jdbcType="INTEGER" property="prwOwnership" />
+    <result column="prw_repair" jdbcType="INTEGER" property="prwRepair" />
+    <result column="prw_excavation" jdbcType="INTEGER" property="prwExcavation" />
+    <result column="prw_preliminary_time" jdbcType="VARCHAR" property="prwPreliminaryTime" />
+    <result column="prw_user_id" jdbcType="VARCHAR" property="prwUserId" />
+    <result column="prw_phone" jdbcType="VARCHAR" property="prwPhone" />
+    <result column="prw_condition" jdbcType="INTEGER" property="prwCondition" />
+    <result column="prw_creator" jdbcType="INTEGER" property="prwCreator" />
+    <result column="prw_create_at" jdbcType="VARCHAR" property="prwCreateAt" />
+  </resultMap>
+</mapper>

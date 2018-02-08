@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="common/head :: header">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'center'" border="false">
+	<div id="dlg" style="padding:10px 20px">
+	   <div class="myftitle">基本信息</div>
+	   <form id="myfm" method="post" novalidate>
+	       <input type="hidden" name="id" th:value="${roadWork.id}"/>
+	   	   <table cellpadding="5">
+                <!-- <tr>
+                    <td>部门编码:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${dept.code}" name="code" data-options="required:true,validType:'length[3,32]'"></input></td>
+                </tr>
+                <tr>
+                    <td>部门名称:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${dept.name}" name="name" data-options="required:true,validType:'length[3,32]'"></input></td>
+                </tr>
+                <tr>
+                    <td>上级部门:</td>
+                    <td>
+                        <select class="easyui-combobox" name="parentId" style="width: 148px;" >
+	           				  <option value="0" th:selected="${#strings.contains(dept.parentId,0)}">--请选择--</option>
+	           				  <span th:each="dt : ${depts}" th:remove="tag">
+		           				<option th:value="${dt.id}" th:text="${dt.name}"  th:selected="${#strings.contains(dept.parentId,dt.id)}"></option>
+	           				  </span>
+	           			</select>
+
+                    </td>
+                </tr> -->
+                
+                <tr>
+                    <td>所属街道办事处:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwAddress}" name="prwAddress" data-options=""></input></td>
+                    <td>涉及道路名称:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwRoadName}" name="prwRoadName" data-options=""></input></td>
+                    <td>起点:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwOrigin}" name="prwOrigin" data-options=""></input></td>
+                </tr>
+                <tr>
+                    <td>止点:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwStop}" name="prwStop" data-options=""></input></td>
+                    <td>道路权属:</td>
+                    <td>
+                      <select class="easyui-combobox" name="prwOwnership" style="width: 148px;" >
+	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(roadWork.prwOwnership,dict1.id)}"></option>
+	           					</select>
+                    </td>
+                    <td>是否随大修路:</td>
+                    <td>
+                      <select class="easyui-combobox" name="prwRepair" style="width: 148px;" >
+	           				  	<option value="0" th:checked="${#strings.contains(roadWork.prwRepair,0)}">--请选择--</option>
+	           				  	<option value="1" th:checked="${#strings.contains(roadWork.prwRepair,1)}">是</option>
+	           				  	<option value="2" th:checked="${#strings.contains(roadWork.prwRepair,2)}">否</option>
+	           					</select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>是否非开挖:</td>
+                    <td>
+                      <select class="easyui-combobox" name="prwExcavation" style="width: 148px;" >
+	           				  	<option value="0" th:checked="${#strings.contains(roadWork.prwExcavation,0)}">--请选择--</option>
+	           				  	<option value="1" th:checked="${#strings.contains(roadWork.prwExcavation,1)}">是</option>
+	           				  	<option value="2" th:checked="${#strings.contains(roadWork.prwExcavation,2)}">否</option>
+	           					</select>
+                    </td>
+                    <td>预判施工工时:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwPreliminaryTime}" name="prwPreliminaryTime" data-options=""></input></td>
+                    <td>施工员:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwUserId}" name="prwUserId" data-options=""></input></td>
+                </tr>
+                <tr>
+                		<td>电话:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwPhone}" name="prwPhone" data-options=""></input></td>
+                    <td>完成DMA口径:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwDmaCaliber}" name="prwDmaCaliber" data-options=""></input></td>
+                    <td>完成DMA数量:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwDmaCount}" name="prwDmaCount" data-options=""></input></td>
+                </tr>
+                <tr>
+                		<td>完成倒流防止器口径:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwBackCaliber}" name="prwBackCaliber" data-options=""></input></td>
+                    <td>完成倒流防止器数量:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwBackCount}" name="prwBackCount" data-options=""></input></td>
+                    <td>下周计划:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwWeekPlan}" name="prwWeekPlan" data-options=""></input></td>
+                </tr>
+                <tr>
+                		<td>下月计划:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwMonthPlan}" name="prwMonthPlan" data-options=""></input></td>
+                    <td>计划开工时间:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwPst}" name="prwPst" data-options=""></input></td>
+                    <td>计划完工时间:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwPet}" name="prwPet" data-options=""></input></td>
+                </tr>
+                <tr>
+                		<td>计划总工期 :</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwTotalDuration}" name="prwTotalDuration" data-options=""></input></td>
+                    <td>实际开工时间:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwAst}" name="prwAst" data-options=""></input></td>
+                    <td>实际竣工时间:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwAet}" name="prwAet" data-options=""></input></td>
+                </tr>
+                <tr>
+                		<td>竣工验收日期:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwReceptionTime}" name="prwReceptionTime" data-options=""></input></td>
+                    <td>转闸单日期:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwSwitchingDate}" name="prwSwitchingDate" data-options=""></input></td>
+                    <td>转图日期:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwFigureDate}" name="prwFigureDate" data-options=""></input></td>
+                </tr>
+                <tr>
+                		<td>工程进展问题 :</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwProgressReport}" name="prwProgressReport" data-options=""></input></td>
+                    <td>未开工原因:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwReason}" name="prwReason" data-options=""></input></td>
+                    <td>未完工说明 :</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwExplain}" name="prwExplain" data-options=""></input></td>
+                </tr>
+                <tr>
+                		<td>预算价:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwBudget}" name="prwBudget" data-options=""></input></td>
+                    <td>结算价:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwSettlement}" name="prwSettlement" data-options=""></input></td>
+                    <td>累计投入人力 :</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwManpower}" name="prwManpower" data-options=""></input></td>
+                </tr>
+                <tr>
+                		<td>施工:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${roadWork.prwRoadWork}" name="prwRoadWork" data-options=""></input></td>
+                </tr>
+            </table>
+	   </form>
+    </div>
+    </div>
+    <div data-options="region:'south'" style="height: 40px;" border="false">
+		<hr>
+		<div style="text-align:center;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">保存</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" th:onclick="|top.framework.closeTab('${menu.menuName}')|">关闭</a>
+    	</div>
+	</div>
+	<script th:inline="javascript">
+	var parentMenuName=[[${menu.parentMenuName}]]
+	var menuName=[[${menu.menuName}]]
+	function submitForm(){
+        $('#myfm').form('submit',{
+            url: '/roadworks/edit.html',
+            onSubmit: function(){
+                return $(this).form('validate');
+            },
+            success: function(result){
+                if ("success"==result){
+                	Common.showMsg('提示',"修改成功");
+                	top.framework.closeAndReloadTab(menuName, parentMenuName);
+                } else {
+                	Common.showMsg('提示',"修改失败");
+                }
+            }
+        });
+	}
+	</script>
+</body>
+
