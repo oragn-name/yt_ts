@@ -27,6 +27,20 @@ public class Dictionarydata {
     @Transient
     private String parentdataName;
     
+    @Transient
+    private String dictCode;
+    
+    
+    
+    
+
+    public String getDictCode() {
+      return dictCode;
+    }
+
+    public void setDictCode(String dictCode) {
+      this.dictCode = dictCode;
+    }
 
     public String getParentdataName() {
       return parentdataName;

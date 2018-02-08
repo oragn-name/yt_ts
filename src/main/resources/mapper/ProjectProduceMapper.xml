@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ProjectProduceMapper">
+  <resultMap id="BaseResultMap" type="com.study.model.ProjectProduce">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pro_gauge" jdbcType="INTEGER" property="proGauge" />
+    <result column="pro_job_type" jdbcType="INTEGER" property="proJobType" />
+    <result column="pro_engine_type" jdbcType="INTEGER" property="proEngineType" />
+    <result column="pro_nature" jdbcType="INTEGER" property="proNature" />
+    <result column="pro_name" jdbcType="VARCHAR" property="proName" />
+    <result column="pro_source" jdbcType="INTEGER" property="proSource" />
+    <result column="pro_number" jdbcType="VARCHAR" property="proNumber" />
+    <result column="pro_snap_number" jdbcType="VARCHAR" property="proSnapNumber" />
+    <result column="pro_serial_number" jdbcType="VARCHAR" property="proSerialNumber" />
+    <result column="pro_lssued_time" jdbcType="VARCHAR" property="proLssuedTime" />
+    <result column="pro_area" jdbcType="INTEGER" property="proArea" />
+    <result column="pro_roads_time" jdbcType="VARCHAR" property="proRoadsTime" />
+    <result column="pro_traffic_time" jdbcType="VARCHAR" property="proTrafficTime" />
+    <result column="pro_period" jdbcType="INTEGER" property="proPeriod" />
+    <result column="pro_const" jdbcType="INTEGER" property="proConst" />
+    <result column="pro_dept" jdbcType="INTEGER" property="proDept" />
+    <result column="pro_design_length" jdbcType="DOUBLE" property="proDesignLength" />
+    <result column="pro_pipe_length" jdbcType="DOUBLE" property="proPipeLength" />
+    <result column="pro_snap_length" jdbcType="DOUBLE" property="proSnapLength" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+  </resultMap>
+</mapper>

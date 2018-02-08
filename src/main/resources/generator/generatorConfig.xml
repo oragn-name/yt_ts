@@ -27,7 +27,7 @@
         <javaClientGenerator targetPackage="com.study.mapper" targetProject="src/main/java"
                              type="XMLMAPPER"/>
 
-        <table tableName="dictionarydata">
+        <table tableName="project_produce">
             <!--mysql 配置-->
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
             <!--oracle 配置-->
