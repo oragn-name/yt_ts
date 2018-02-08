@@ -3,14 +3,14 @@ Navicat MySQL Data Transfer
 
 Source Server         : localhost
 Source Server Version : 50713
-Source Host           : localhost:3306
+Source Host           : 127.0.0.1:3306
 Source Database       : shiro_t
 
 Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2018-02-08 18:59:40
+Date: 2018-02-08 23:03:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -44,7 +44,7 @@ CREATE TABLE `dictionary` (
   `dict_code` varchar(100) DEFAULT NULL,
   `dict_mark` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dictionary
@@ -56,6 +56,7 @@ INSERT INTO `dictionary` VALUES ('6', '工程性质', 'GCXZ', '工程性质');
 INSERT INTO `dictionary` VALUES ('7', '工程地区', 'GCDQ', '工程所在地');
 INSERT INTO `dictionary` VALUES ('8', '道路权属', 'DLQS', '道路权属');
 INSERT INTO `dictionary` VALUES ('9', '期次', 'QC', '期次');
+INSERT INTO `dictionary` VALUES ('11', '路管情况', 'LGQK', '路管情况');
 
 -- ----------------------------
 -- Table structure for dictionarydata
@@ -69,7 +70,7 @@ CREATE TABLE `dictionarydata` (
   `dict_id` int(11) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dictionarydata
@@ -95,6 +96,8 @@ INSERT INTO `dictionarydata` VALUES ('21', '集团', 'JT', '集团', '2', '1');
 INSERT INTO `dictionarydata` VALUES ('22', '大干线', 'DGX', '大干线', '3', '18');
 INSERT INTO `dictionarydata` VALUES ('23', '东城', 'DC', '东城', '9', '0');
 INSERT INTO `dictionarydata` VALUES ('24', '西城', 'XC', '西城', '9', '0');
+INSERT INTO `dictionarydata` VALUES ('25', '原路由原管径', 'YLUYGJ', '原路由原管径', '11', '0');
+INSERT INTO `dictionarydata` VALUES ('26', '原路由新管径', 'YLYXGJ', '原路由新管径', '11', '0');
 
 -- ----------------------------
 -- Table structure for project_produce
@@ -124,12 +127,13 @@ CREATE TABLE `project_produce` (
   `create_user` int(11) DEFAULT NULL COMMENT '创建人',
   `create_time` varchar(30) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of project_produce
 -- ----------------------------
 INSERT INTO `project_produce` VALUES ('5', '1', '1', '22', '6', '444', '18', '111', '222', '333', '2018-02-08 18:30:43', '9', '2018-02-08 18:30:46', '2018-02-08 18:30:48', '23', '6', '6', '22', '22', '22', '1', '2018-02-08 06:30:56');
+INSERT INTO `project_produce` VALUES ('6', '1', '1', '22', '6', '22', '18', '222', '22', '22', '2018-02-08 21:24:08', '9', '2018-02-08 21:24:10', '2018-02-08 21:24:16', '23', '6', '6', '323', '323', '232', '1', '2018-02-08 09:24:21');
 
 -- ----------------------------
 -- Table structure for project_road_work
@@ -157,7 +161,7 @@ CREATE TABLE `project_road_work` (
   `prw_budget` double DEFAULT NULL COMMENT '预算价',
   `prw_settlement` double DEFAULT NULL COMMENT '结算价',
   `prw_manpower` int(11) DEFAULT NULL COMMENT '累计投入人力',
-  `prw_road_work` varchar(255) DEFAULT NULL COMMENT '施工',
+  `prw_road_work` double DEFAULT NULL COMMENT '累计投入机械台班',
   `prw_address` varchar(255) DEFAULT NULL COMMENT '所属街道办事处',
   `prw_road_name` varchar(255) DEFAULT NULL COMMENT '涉及道路名称',
   `prw_origin` varchar(255) DEFAULT NULL COMMENT '起点',
@@ -172,14 +176,13 @@ CREATE TABLE `project_road_work` (
   `prw_creator` int(11) DEFAULT NULL COMMENT '创建人',
   `prw_create_at` varchar(50) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of project_road_work
 -- ----------------------------
-INSERT INTO `project_road_work` VALUES ('3', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '2', '0', '0', '0', '2', '2', '2', null, null, null);
-INSERT INTO `project_road_work` VALUES ('4', '11', '11', '11', '11', '11', '11', '11', '11', '11', '11', '11', '11', '11', '11', '11', '1', '1', '11', '11', '11', '11', '11', '11', '11', '11', '13', '1', '2', '11', '11', '11', null, null, null);
-INSERT INTO `project_road_work` VALUES ('5', null, null, null, null, null, null, '', '', null, '', '', '', '', '', '', '', '', null, null, null, '', '1', '1', '11', '', '13', '2', '1', '', '', '', null, null, null);
+INSERT INTO `project_road_work` VALUES ('7', '100', '20', '30', '10', '200', '300', '2018-02-08 22:17:37', '2018-02-08 22:17:39', '300', '2018-02-08 22:17:45', '2018-02-08 22:17:42', '2018-02-08 22:17:49', '2018-02-08 22:17:47', '2018-02-08 22:17:43', '工程进展', '未开工原因', '未完成说明', '100', '200', '100', '200', '街道办事处', '涉及道路名称', '起点', '止点', '13', '1', '1', '1', '李宛霖', '15254566709', null, null, null);
+INSERT INTO `project_road_work` VALUES ('8', null, null, null, null, null, null, '', '', null, '', '', '', '', '', '', '', '', null, null, null, null, '', '', '', '', '13', '1', '1', '', '', '', '25', null, null);
 
 -- ----------------------------
 -- Table structure for project_road_work_daily
