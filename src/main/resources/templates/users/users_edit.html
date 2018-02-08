@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="common/head :: header">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'center'" border="false">
+	<div id="dlg" style="padding:10px 20px">
+	   <div class="myftitle">基本信息</div>
+	   <form id="myfm" method="post" novalidate>
+	       <input type="hidden" name="id" th:value="${user.id}">
+	   	   <table cellpadding="5">
+                <tr>
+                    <td>登录名:</td>
+                    <td><input class="easyui-validatebox" type="text" name="username" readonly="readonly" th:value="${user.username}" data-options="required:false"></input></td>
+                </tr>
+                <tr>
+                    <td>姓名:</td>
+                    <td><input class="easyui-validatebox" type="text" name="name" th:value="${user.name}" data-options="required:true,validType:'length[2,32]'"></input></td>
+                </tr>
+                <tr>
+                    <td>手机号:</td>
+                    <td><input class="easyui-validatebox" type="text" name="phone"  th:value="${user.phone}" data-options="required:true,validType:'length[7,20]'"></input></td>
+                </tr>
+                <tr>
+                    <td>地址:</td>
+                    <td><input class="easyui-validatebox" type="text" name="address" th:value="${user.address}"></input></td>
+                </tr>
+                <tr>
+                    <td>所属部门:</td>
+                    <td>
+                        <select class="easyui-combobox" name="deptId"  style="width: 148px;" >
+	           				  <span th:each="dt : ${depts}" th:remove="tag">
+		           				<option th:value="${dt.id}" th:text="${dt.name}" th:selected="${#strings.contains(user.deptId,dt.id)}"></option>
+	           				  </span>
+	           			</select>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>是否启用:</td>
+                    <td>
+                            <input type="radio" name="enable" value="1" th:checked="${#strings.contains(user.enable,1)}"  />启用
+                            <input type="radio" name="enable" value="0" th:checked="${#strings.contains(user.enable,0)}"/>不启用
+                    </td>
+                </tr>
+                <tr>
+                   <td>角色</td>
+                   <td>
+                     <input id="xsry" name="rolesId"   style="width: 150px;"  class="easyui-combobox" >  
+                   </td>
+                </tr>
+                <script th:inline="javascript">
+                $('#xsry').combobox({  
+                    url:'/roles/getUserData', //后台获取下拉框数据的url  
+                    method:'get',  
+                    panelHeight:200,//设置为固定高度，combobox出现竖直滚动条  
+                    valueField:'id',  
+                    textField:'roledesc',  
+                    multiple:true,  
+                    formatter: function (row) { //formatter方法就是实现了在每个下拉选项前面增加checkbox框的方法  
+                        var opts = $(this).combobox('options');  
+                        return  row[opts.textField]  
+                    }
+                }); 
+               $(function(){
+            		   var reoles=[[${roles?.roleIds}]]
+                	   $('#xsry').combobox('setValues',reoles.split(','))
+                })
+                </script>
+                <tr>
+                    <td>备注:</td>
+                    <td>
+                      <textarea rows="6" cols="50" name="mark" th:text="${user.mark}"></textarea>
+                    </td>
+                </tr>
+            </table>
+	   </form>
+    </div>
+    </div>
+    <div data-options="region:'south'" style="height: 40px;" border="false">
+		<hr>
+		<div style="text-align:center;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">保存</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" th:onclick="|top.framework.closeTab('${menu.menuName}')|">关闭</a>
+    	</div>
+	</div>
+	<script type="text/javascript">
+	function submitForm(){
+        $('#myfm').form('submit',{
+            url: '/users/edit.html',
+            onSubmit: function(){
+                return $(this).form('validate');
+            },
+            success: function(result){
+                if ("success"==result){
+                	Common.showMsg('提示',"修改成功");
+                	top.framework.closeAndReloadTab('修改用户', '用户管理');
+                } else {
+                	Common.showMsg('提示',"修改失败");
+                }
+            }
+        });
+	}
+	</script>
+</body>
+
