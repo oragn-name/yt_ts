@@ -5,8 +5,56 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body class="easyui-layout">
-	<table id="tb1" class="easyui-datagrid" title="" width="100%" height="100%" fit="true" border="0"
-           data-options="rownumbers:true,pagination:true,url:'/roadworks/getData.do',singleSelect:false,method:'get',toolbar:'#toolbar1',sortName:'sequence',sortOrder:'asc'">
+<table id="tb2" class="easyui-datagrid" title="" style="width:1200px;height:255px;"  border="0"
+           data-options="rownumbers:true,pagination:true,url:'/produces/getData.do',singleSelect:true,method:'get',toolbar:'#toolbar2'">
+        <thead>
+            <tr>
+            	<th data-options="field:'ck',checkbox:true"></th>
+            	<th data-options="field:'id',width:100,align:'center',sortable:'true',hidden:'true'">id</th>
+            	<th data-options="field:'proGauge',width:80,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }">测量定线</th>
+	            <th data-options="field:'proNumber',width:100,align:'center',sortable:'true'">工号</th>
+            	<th data-options="field:'proSnapNumber',width:100,align:'center',sortable:'true'">临时工号</th>
+            	<th data-options="field:'proSerialNumber',width:100,align:'center',sortable:'true'">序号</th>
+            	<th data-options="field:'proName',width:100,align:'center',sortable:'true'">工程名称</th>
+            	<th data-options="field:'proJobTypeName',width:100,align:'center',sortable:'true'">工号类别</th>
+            	<th data-options="field:'proEngineTypeName',width:100,align:'center',sortable:'true'">工程类别</th>
+            	<th data-options="field:'proNatureName',width:100,align:'center',sortable:'true'">工程性质</th>
+            	<th data-options="field:'proSourceName',width:100,align:'center',sortable:'true'">工程来源</th>
+            	<th data-options="field:'proLssuedTime',width:150,align:'center',sortable:'true'">任务下达时间</th>
+            	<th data-options="field:'proAreaName',width:100,align:'center',sortable:'true'">工程地址</th>
+            	<th data-options="field:'proRoadsTime',width:150,align:'center',sortable:'true'">路政报批时间</th>
+            	<th data-options="field:'proTrafficTime',width:150,align:'center',sortable:'true'">交通报批时间</th>
+            	<th data-options="field:'proPeriodName',width:100,align:'center',sortable:'true'">期次</th>
+            	<th data-options="field:'proConstName',width:100,align:'center',sortable:'true'">施工单位</th>
+            	<th data-options="field:'proDeptName',width:100,align:'center',sortable:'true'">转入单位</th>
+            	<th data-options="field:'proDesignLength',width:100,align:'center',sortable:'true'">设计长度</th>
+            	<th data-options="field:'proPipeLength',width:100,align:'center',sortable:'true'">管径</th>
+            	<th data-options="field:'proSnapLength',width:100,align:'center',sortable:'true'">临时线长度</th>
+            	<th data-options="field:'createUser',width:100,align:'center',sortable:'true'">创建人</th>
+            	<th data-options="field:'createTime',width:150,align:'center',sortable:'true'">创建时间</th>
+            	
+            </tr>
+        </thead>
+   	</table>
+    <div id="toolbar2" class="easyui-layout" style="height:40px;margin:3px;">
+        <div data-options="region:'north',border:true" style="height:40px;">
+            <form id="fm" method="post" novalidate>
+            <table cellpadding="5">
+              <tr>
+                   <td>项目名称:</td>
+                   <td><input class="easyui-validatebox textbox" type="text" name="pname" id="pname"></input></td>
+                   <td><a href="javascript:searchProp()" class="easyui-linkbutton" iconCls="icon-search">查找</a></td>
+               </tr>
+           </table>
+           </form>
+        </div>
+        
+    </div>
+	<table id="tb1" class="easyui-datagrid" title="" style="width:1200px;height:255px;"  border="0"
+           data-options="rownumbers:true,pagination:true,url:'',singleSelect:false,method:'get',toolbar:'#toolbar1'">
         <thead>
             <tr>
             	<th data-options="field:'ck',checkbox:true"></th>
@@ -14,13 +62,13 @@
             	<th data-options="field:'prwRoadName',width:200,align:'center',sortable:'true'">涉及道路名称</th>
             	<th data-options="field:'prwOrigin',width:200,align:'center',sortable:'true'">起点</th>
             	<th data-options="field:'prwStop',width:200,align:'center',sortable:'true'">止点</th>
-            	<th data-options="field:'prwOwnership',width:100,align:'center',sortable:'true'">道路权属</th>
+            	<th data-options="field:'prwOwnershipName',width:100,align:'center',sortable:'true'">道路权属</th>
             	<th data-options="field:'prwRepair',width:200,align:'center',sortable:'true'">是否随大修路</th>
             	<th data-options="field:'prwExcavation',width:200,align:'center',sortable:'true'">是否非开挖</th>
             	<th data-options="field:'prwPreliminaryTime',width:200,align:'center',sortable:'true'">预判施工工时</th>
             	<th data-options="field:'prwUserId',width:100,align:'center',sortable:'true'">施工员</th>
             	<th data-options="field:'prwPhone',width:200,align:'center',sortable:'true'">电话</th>
-            	<th data-options="field:'prwCondition',width:200,align:'center',sortable:'true'">路管情况</th>
+            	<th data-options="field:'prwConditionName',width:200,align:'center',sortable:'true'">路管情况</th>
             	<th data-options="field:'prwDmaCaliber',width:200,align:'center',sortable:'true'">完成DMA口径</th>
             	<th data-options="field:'prwDmaCount',width:100,align:'center',sortable:'true'">完成DMA数量</th>
             	<th data-options="field:'prwBackCaliber',width:200,align:'center',sortable:'true'">完成倒流防止器口径</th>
@@ -47,25 +95,34 @@
             </tr>
         </thead>
    	</table>
-    <div id="toolbar1" class="easyui-layout" style="height:65px;margin:3px;">
+    <div id="toolbar1" class="easyui-layout" style="height:30px;margin:3px;">
         <div data-options="region:'center',border:false">
         <a th:each="but : ${buttons}" th:shiro:hasPermission="${but.resurl}" th: class="easyui-linkbutton" th:icon="${but.iconCls}" plain="true" th:href="|javascript:${but.butFun};|" th:text="${but.name}"></a>
         </div>
-        <div data-options="region:'north',border:true" style="height:40px;">
+        <!-- <div data-options="region:'north',border:true" style="height:1px;">
             <form id="fm" method="post" novalidate>
             <table cellpadding="5">
               <tr>
                    <td>菜单名称:</td>
-                   <td><input class="easyui-validatebox textbox" type="text" name="roledesc" id="roledesc"></input></td>
+                   <td><input class="easyui-validatebox textbox" type="text" name="name" id="name"></input></td>
                    <td><a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查找</a></td>
                </tr>
            </table>
            </form>
-        </div>
+        </div>  -->
         
-    </div>
+    </div> 
     <script th:inline="javascript">
     var menuName=[[${menuName}]]
+    
+    $(function(){ 
+    	$('#tb2').datagrid({
+    	onClickRow:function(rowIndex,rowData){
+    		search();
+    	}
+    	});
+    	});
+    
     function add(){
 		top.framework.openTab('新增数据', '/roadworks/add?menuName=新增数据&parentMenuName='+menuName);
 	}
@@ -115,11 +172,20 @@
         
 	}
     function search(){
-    	var names = $("#roledesc").val();
+    	var names = $("#name").val();
 		$('#tb1').datagrid({
             url:"/roadworks/getData.do",
             queryParams:{
             	name:names
+            }
+        });
+	}
+    function searchProp(){
+    	var names = $("#pname").val();
+		$('#tb2').datagrid({
+            url:"/produces/getData.do",
+            queryParams:{
+            	proName:names
             }
         });
 	}

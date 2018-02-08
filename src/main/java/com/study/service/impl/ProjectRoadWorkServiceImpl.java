@@ -24,7 +24,7 @@ public class ProjectRoadWorkServiceImpl extends BaseService<ProjectRoadWork> imp
 		if(PageBeanUtil.pageBeanIsNotEmpty(bean)){
 			PageHelper.startPage(bean.getPage(), bean.getRows());
 		}
-		List<ProjectRoadWork> selectByExample = roadWorkMapper.selectByExample(null);
+		List<ProjectRoadWork> selectByExample = roadWorkMapper.selectProjectWorkAll(projectRoadWork);
 		return selectByExample;
 	}
 

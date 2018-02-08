@@ -1,9 +1,13 @@
 package com.study.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import io.swagger.annotations.Api;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,6 +40,11 @@ public class ProjectRoadWorkController {
 	@RequestMapping(value = "/roadworks/add",method={RequestMethod.POST})
     public String add(@ModelAttribute ProjectRoadWork roadWork) {
 		try {
+		  SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+      Session session = SecurityUtils.getSubject().getSession();
+      User user = (User)session.getAttribute("userSession");
+      roadWork.setPrwCreator(user.getId());
+      roadWork.setPrwCreateAt(sdf.format(new Date()));
 			roadWorkService.save(roadWork);
 			return "success";
 		} catch (Exception e) {

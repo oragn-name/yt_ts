@@ -132,10 +132,10 @@ public class ProjectRoadWork {
     private Integer prwManpower;
 
     /**
-     * 施工
+     * 累计投入机械台班
      */
     @Column(name = "prw_road_work")
-    private String prwRoadWork;
+    private Double prwRoadWork;
 
     /**
      * 所属街道办事处
@@ -166,6 +166,10 @@ public class ProjectRoadWork {
      */
     @Column(name = "prw_ownership")
     private Integer prwOwnership;
+    @Transient
+    private String prwOwnershipName;
+    
+    
 
     /**
      * 是否随大修路
@@ -202,6 +206,8 @@ public class ProjectRoadWork {
      */
     @Column(name = "prw_condition")
     private Integer prwCondition;
+    @Transient
+    private String prwConditionName;
 
     /**
      * 创建人
@@ -258,6 +264,22 @@ public class ProjectRoadWork {
      */
     public Integer getPrwDmaCount() {
         return prwDmaCount;
+    }
+
+    public String getPrwOwnershipName() {
+      return prwOwnershipName;
+    }
+
+    public void setPrwOwnershipName(String prwOwnershipName) {
+      this.prwOwnershipName = prwOwnershipName;
+    }
+
+    public String getPrwConditionName() {
+      return prwConditionName;
+    }
+
+    public void setPrwConditionName(String prwConditionName) {
+      this.prwConditionName = prwConditionName;
     }
 
     /**
@@ -598,7 +620,7 @@ public class ProjectRoadWork {
      *
      * @return prw_road_work - 施工
      */
-    public String getPrwRoadWork() {
+    public Double getPrwRoadWork() {
         return prwRoadWork;
     }
 
@@ -607,7 +629,7 @@ public class ProjectRoadWork {
      *
      * @param prwRoadWork 施工
      */
-    public void setPrwRoadWork(String prwRoadWork) {
+    public void setPrwRoadWork(Double prwRoadWork) {
         this.prwRoadWork = prwRoadWork;
     }
 

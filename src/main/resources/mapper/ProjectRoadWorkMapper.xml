@@ -26,7 +26,7 @@
     <result column="prw_budget" jdbcType="DOUBLE" property="prwBudget" />
     <result column="prw_settlement" jdbcType="DOUBLE" property="prwSettlement" />
     <result column="prw_manpower" jdbcType="INTEGER" property="prwManpower" />
-    <result column="prw_road_work" jdbcType="VARCHAR" property="prwRoadWork" />
+    <result column="prw_road_work" jdbcType="DOUBLE" property="prwRoadWork" />
     <result column="prw_address" jdbcType="VARCHAR" property="prwAddress" />
     <result column="prw_road_name" jdbcType="VARCHAR" property="prwRoadName" />
     <result column="prw_origin" jdbcType="VARCHAR" property="prwOrigin" />
@@ -41,4 +41,15 @@
     <result column="prw_creator" jdbcType="INTEGER" property="prwCreator" />
     <result column="prw_create_at" jdbcType="VARCHAR" property="prwCreateAt" />
   </resultMap>
+  
+  <select id="selectProjectWorkAll" parameterType="com.study.model.ProjectRoadWork" resultType="com.study.model.ProjectRoadWork">
+    select id,prw_dma_caliber as "prwDmaCaliber",prw_dma_count as "prwDmaCount",prw_back_caliber as "prwBackCaliber",prw_back_count as "prwBackCount",
+		prw_week_plan as "prwWeekPlan",prw_month_plan as "prwMonthPlan",prw_pst as "prwPst",prw_pet as "prwPet",prw_total_duration as "prwTotalDuration",
+		prw_ast as "prwAst",prw_aet as "prwAet",prw_reception_time as "prwReceptionTime",prw_switching_date as "prwSwitchingDate",
+		prw_figure_date as "prwFigureDate",prw_progress_report as "prwProgressReport",prw_reason as "prwReason",prw_explain as "prwExplain",
+		prw_budget as "prwBudget",prw_settlement as "prwSettlement",prw_manpower as "prwManpower",prw_road_work as "prwRoadWork",
+		prw_address as "prwAddress",prw_road_name as "prwRoadName",prw_origin as "prwOrigin",prw_stop as "prwStop",(select dictdata_name from dictionarydata where id=prw_ownership) as "prwOwnershipName",
+		prw_repair as "prwRepair",prw_excavation as "prwExcavation",prw_preliminary_time as "prwPreliminaryTime",prw_user_id as "prwUserId",
+		prw_phone as "prwPhone",(select dictdata_name from dictionarydata where id=prw_condition) as "prwConditionName",prw_creator as "prwCreator",prw_create_at as "prwCreateAt" from project_road_work
+  </select>
 </mapper>
