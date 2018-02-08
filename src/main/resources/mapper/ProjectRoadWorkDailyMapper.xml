@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ProjectRoadWorkDailyMapper">
+  <resultMap id="BaseResultMap" type="com.study.model.ProjectRoadWorkDaily">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="prwd_one" jdbcType="DOUBLE" property="prwdOne" />
+    <result column="prwd_two" jdbcType="DOUBLE" property="prwdTwo" />
+    <result column="prwd_three" jdbcType="DOUBLE" property="prwdThree" />
+    <result column="prwd_four" jdbcType="DOUBLE" property="prwdFour" />
+    <result column="prwd_five" jdbcType="DOUBLE" property="prwdFive" />
+    <result column="prwd_six" jdbcType="DOUBLE" property="prwdSix" />
+    <result column="prwd_seven" jdbcType="DOUBLE" property="prwdSeven" />
+    <result column="prwd_eight" jdbcType="DOUBLE" property="prwdEight" />
+    <result column="prwd_nine" jdbcType="DOUBLE" property="prwdNine" />
+    <result column="prwd_subtotal" jdbcType="DOUBLE" property="prwdSubtotal" />
+  </resultMap>
+</mapper>
