@@ -16,7 +16,7 @@ public class loginFormAuthenticationFilter extends FormAuthenticationFilter {
    */
   @Override
   protected void issueSuccessRedirect(ServletRequest request,
-      ServletResponse response) throws Exception {
+      ServletResponse response) throws Exception { 
     /*WebUtils.getAndClearSavedRequest(request);*/
     WebUtils.issueRedirect(request, response, "/index", null,true);
   }
