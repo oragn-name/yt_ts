@@ -31,8 +31,10 @@ public class ProjectRoadWorkController {
 	private ProjectRoadWorkService roadWorkService;
 	
 	@RequestMapping(value="/roadworks/getData",method={RequestMethod.GET})
-	public DataGridResultInfo getData(@ModelAttribute PageBean bean){
-		List<ProjectRoadWork> projectRoadWorkAll = roadWorkService.getProjectRoadWorkAll(null, bean);
+	public DataGridResultInfo getData(@ModelAttribute PageBean bean,@RequestParam(value="proId",required=true)Integer proId){
+	  ProjectRoadWork projectRoadWork=new ProjectRoadWork();
+	  projectRoadWork.setProId(proId);
+	  List<ProjectRoadWork> projectRoadWorkAll = roadWorkService.getProjectRoadWorkAll(projectRoadWork, bean);
 		PageInfo<ProjectRoadWork> info=new PageInfo<ProjectRoadWork>(projectRoadWorkAll);
 		return ResultUtil.createDataGridResult(info.getTotal(), info.getList());
 	}

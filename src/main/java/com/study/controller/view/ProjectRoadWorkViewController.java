@@ -28,7 +28,7 @@ public class ProjectRoadWorkViewController {
 	private ProjectRoadWorkService roadWorkService;
 	
 	@RequestMapping(value="roadworks/add",method={RequestMethod.GET})
-	public String add(HttpServletRequest request,@RequestParam(value="id",required=false) Integer id, @ModelAttribute MenuBean bean){
+	public String add(HttpServletRequest request,@RequestParam(value="id",required=false) Integer id, @ModelAttribute MenuBean bean,@RequestParam(value="proId",required=false)Integer proId){
 		request.setAttribute("menu", bean);
 		 List<Dictionarydata> dicts = dictdataService.selectDictdataByParentId(null, null);
 		 request.setAttribute("dicts", dicts);
@@ -37,6 +37,7 @@ public class ProjectRoadWorkViewController {
 			request.setAttribute("roadWork", roadWork);
 			return "roadworks/roadworks_edit";
 		} else {
+		  request.setAttribute("proId", proId);
 			return "roadworks/roadworks_add";
 		}
 		

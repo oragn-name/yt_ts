@@ -9,7 +9,7 @@
 	<div id="dlg" style="padding:10px 20px">
 	   <div class="myftitle">基本信息</div>
 	   <form id="myfm" method="post" novalidate>
-	   
+	   <input type="hidden" th:value="${proId}"  name="proId">
 	   	   <table cellpadding="5">
                 <tr>
                     <td style="text-align: right;">所属街道办事处:</td>
@@ -39,20 +39,21 @@
                 <tr>
                 <td  style="text-align: right;">是否随大修路:</td>
                     <td>
-                      <select class="easyui-combobox" name="prwRepair" style="width: 148px;" >
+                      <select class="easyui-combobox" name="prwRepair" style="width: 148px;">
 	           				  	<option value="1">是</option>
 	           				  	<option value="2">否</option>
 	           					</select>
                     </td>
                     <td  style="text-align: right;">是否非开挖:</td>
                     <td>
-                      <select class="easyui-combobox" name="prwExcavation" style="width: 148px;" >
+                     <select class="easyui-combobox" name="prwExcavation" style="width: 148px;" >
 	           				  	<option value="1">是</option>
 	           				  	<option value="2">否</option>
 	           					</select>
+                      
                     </td>
                     <td  style="text-align: right;">预判施工工时:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwPreliminaryTime" data-options=""></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwPreliminaryTime" ></input></td>
                     
                 </tr>
                 <tr>
@@ -61,23 +62,23 @@
                 		<td  style="text-align: right;">电话:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwPhone" data-options=""></input></td>
                     <td  style="text-align: right;">完成DMA口径:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwDmaCaliber" data-options=""></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwDmaCaliber" data-options="validType:'number'"></input></td>
                     
                 </tr>
                 <tr>
                 <td  style="text-align: right;">完成DMA数量:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwDmaCount" data-options=""></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwDmaCount" data-options="validType:'number'"></input></td>
                 		<td  style="text-align: right;">完成倒流防止器口径:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwBackCaliber" data-options=""></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwBackCaliber" data-options="validType:'number'"></input></td>
                     <td  style="text-align: right;">完成倒流防止器数量:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwBackCount" data-options=""></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwBackCount" data-options="validType:'number'"></input></td>
                     
                 </tr>
                 <tr>
                 <td  style="text-align: right;">下周计划:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwWeekPlan" data-options=""></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwWeekPlan" data-options="validType:'intOrFloat'"></input></td>
                 		<td  style="text-align: right;">下月计划:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwMonthPlan" data-options=""></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwMonthPlan" data-options="validType:'intOrFloat'"></input></td>
                     <td  style="text-align: right;">计划开工时间:</td>
                     <td><input class="easyui-datetimebox" type="text" name="prwPst" data-options=""></input></td>
                     
@@ -86,7 +87,7 @@
                 <td  style="text-align: right;">计划完工时间:</td>
                     <td><input class="easyui-datetimebox" type="text" name="prwPet" data-options=""></input></td>
                 		<td  style="text-align: right;">计划总工期 :</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwTotalDuration" data-options=""></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwTotalDuration" data-options="validType:'number'"></input></td>
                     <td  style="text-align: right;">实际开工时间:</td>
                     <td><input class="easyui-datetimebox" type="text" name="prwAst" data-options=""></input></td>
                     
@@ -113,16 +114,16 @@
                  <td  style="text-align: right;">未完工说明 :</td>
                     <td><input class="easyui-validatebox" type="text" name="prwExplain" data-options=""></input></td>
                 		<td  style="text-align: right;">预算价:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwBudget" data-options=""></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwBudget" data-options="validType:'intOrFloat'"></input></td>
                     <td  style="text-align: right;">结算价:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwSettlement" data-options=""></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwSettlement" data-options="validType:'intOrFloat'"></input></td>
                     
                 </tr>
                 <tr>
                     <td  style="text-align: right;">累计投入人力 :</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwManpower" data-options=""></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwManpower" data-options="validType:'number'"></input></td>
                 		<td  style="text-align: right;">累计投入机械台班:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwRoadWork" data-options=""></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwRoadWork" data-options="validType:'number'"></input></td>
                 </tr>
             </table>
 	   </form>

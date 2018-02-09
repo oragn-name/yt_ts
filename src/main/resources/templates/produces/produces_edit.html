@@ -165,17 +165,17 @@
                 <tr>
                     <td style="width: 90px;text-align: right;">设计长度:</td>
                     <td>
-                    <input class="easyui-validatebox" type="text" name="proDesignLength"  th:value="${prop.proDesignLength}" data-options=""></input>
+                    <input class="easyui-validatebox" type="text" name="proDesignLength"  th:value="${prop.proDesignLength}" data-options="validType:'intOrFloat'"></input>
                     </td>
                     <td style="width: 90px;text-align: right;">管径:</td>
                     <td>
-                    <input class="easyui-validatebox" type="text" name="proPipeLength" th:value="${prop.proPipeLength}" data-options=""></input>
+                    <input class="easyui-validatebox" type="text" name="proPipeLength" th:value="${prop.proPipeLength}" data-options="validType:'intOrFloat'"></input>
                      </td>
                 </tr>
                 <tr>
                     <td style="width: 90px;text-align: right;">临时长度:</td>
                     <td colspan="3">
-                    <input class="easyui-validatebox" type="text" name="proSnapLength" th:value="${prop.proSnapLength}" data-options=""></input>
+                    <input class="easyui-validatebox" type="text" name="proSnapLength" th:value="${prop.proSnapLength}" data-options="validType:'intOrFloat'"></input>
                     </td>
                 </tr>
             </table>

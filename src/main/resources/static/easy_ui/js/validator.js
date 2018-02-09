@@ -32,6 +32,18 @@ $
 						},
 						message : '身份证号码格式不正确'
 					},
+					intOrFloat:{
+						validator:function(value){
+							return /^\d+(\.\d+)?$/i.test(value);
+						},
+					    message:'请输入小数或整数'
+					},
+					number : {//正整数，包括0（00，01非数字）  
+				        validator: function(value, param){  
+				            return isNumber(value);  
+				        },  
+				        message: '只能输入整数'  
+				    },
 					qq : {// 验证QQ,从10000开始
 						validator : function(value) {
 							return /^[1-9]\d{4,9}$/i.test(value);
@@ -58,3 +70,10 @@ $
 						message : ''
 					}
 				})
+				
+				
+				
+ function isNumber(z_check_value){  
+    var z_reg = /^(([0-9])|([1-9]([0-9]+)))$/;  
+    return z_reg.test($.trim(z_check_value));  
+};  

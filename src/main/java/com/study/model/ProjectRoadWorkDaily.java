@@ -10,6 +10,13 @@ public class ProjectRoadWorkDaily {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name = "pro_id")
+    private Integer proId;
+    
+    @Column(name = "create_time")
+    private String createTime;
+    @Column(name = "create_user")
+    private Integer createUser;
 
     /**
      * DN15
@@ -260,6 +267,14 @@ public class ProjectRoadWorkDaily {
         return prwdSubtotal;
     }
 
+    public Integer getProId() {
+      return proId;
+    }
+
+    public void setProId(Integer proId) {
+      this.proId = proId;
+    }
+
     /**
      * 设置小计
      *
@@ -268,4 +283,21 @@ public class ProjectRoadWorkDaily {
     public void setPrwdSubtotal(Double prwdSubtotal) {
         this.prwdSubtotal = prwdSubtotal;
     }
+
+    public String getCreateTime() {
+      return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+      this.createTime = createTime;
+    }
+
+    public Integer getCreateUser() {
+      return createUser;
+    }
+
+    public void setCreateUser(Integer createUser) {
+      this.createUser = createUser;
+    }
+    
 }

@@ -10,6 +10,9 @@ public class ProjectRoadWork {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    
+    @Column(name = "pro_id")
+    private Integer proId;
 
     /**
      * 完成DMA口径 数值
@@ -866,4 +869,14 @@ public class ProjectRoadWork {
     public void setPrwCreateAt(String prwCreateAt) {
         this.prwCreateAt = prwCreateAt;
     }
+
+    public Integer getProId() {
+      return proId;
+    }
+
+    public void setProId(Integer proId) {
+      this.proId = proId;
+    }
+    
+    
 }

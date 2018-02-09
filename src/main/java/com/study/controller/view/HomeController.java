@@ -92,6 +92,14 @@ public class HomeController {
         subject.logout();
         return "login";
     }
+    
+    
+@ApiOperation(value="注销",notes="注销登录")
+    
+    @RequestMapping(value="/home",method={RequestMethod.GET})
+    public String home() {
+        return "home";
+    }
     /**
      * 首页
      * @param request
