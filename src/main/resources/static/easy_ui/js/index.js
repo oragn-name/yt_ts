@@ -69,8 +69,24 @@ Wraper.prototype = {
 			if (tab != null){
 				tab.panel('refresh');
 			}
+		},
+		closeAndReloadTab : function(closeText,reloadText,datagridId) {
+			var tabs = $("#tabs");
+			tabs.tabs("close", closeText);
+			var tab = tabs.tabs("getTab", reloadText);
+			if (tab != null){
+				var _refresh_ifram = tab.find('iframe')[0];//获取到选定的tab下的iframe 
+			    var refresh_doc = _refresh_ifram.contentWindow;//获取到选定的tab下的iframe中的内容 
+			    var refind = refresh_doc.$('.pagination-load').parent().parent().parent();//获取到刷新元素class
+			    if(refind==null){ 
+			        return false;//没有元素时返回false 
+			        } else{  
+			        refind.click();//找到元素ID时，进行点击事件刷新。 
+			        }
+			}
 		}
 };
+
 window.framework= new Wraper();
 
 

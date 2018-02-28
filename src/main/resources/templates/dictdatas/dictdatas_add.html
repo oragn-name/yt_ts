@@ -20,14 +20,9 @@
                     <td><input class="easyui-validatebox" type="text" name="dictdataName" data-options="required:true,validType:'length[2,32]'"></input></td>
                 </tr>
                 
-                <tr  >
+                <!-- <tr  >
                     <td>上级单位:</td>
                     <td>
-                        <!--  <select class="easyui-combobox" name="parentId" id="" style="width: 148px;" >
-	           				  <span th:each="dic : ${dictds}" th:remove="tag">
-		           				<option th:value="${dic.id}" th:text="${dic.dictdataName}" ></option>
-	           				  </span>
-	           			</select> -->
                     <select id="cc"  name="parentId" style="width:200px;" ></select>  
                     </td>
                 </tr>
@@ -39,7 +34,7 @@
                     textFiled:"dictdataName",
                     idFiled:"id"
                 })
-                </script>
+                </script> -->
                 <tr>
                     <td>类别:</td>
                     <td>
@@ -71,6 +66,7 @@
 	<script th:inline="javascript">
 	var parentMenuName=[[${menu.parentMenuName}]]
 	var menuName=[[${menu.menuName}]]
+	var dictId=[[${dictId}]]
 	function submitForm(){
         $('#myfm').form('submit',{
             url: '/dictdata/add.html',
@@ -80,7 +76,7 @@
             success: function(result){
                 if ("success"==result){
                 	Common.showMsg('提示',"添加成功");
-                	top.framework.closeAndReloadTab(menuName, parentMenuName);
+                	top.framework.closeAndReloadTab(menuName, parentMenuName,"tb1");
                 } else {
                 	Common.showMsg('提示',"添加失败");
                 }
