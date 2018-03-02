@@ -22,6 +22,7 @@ import com.github.pagehelper.PageInfo;
 import com.study.model.Dictionarydata;
 import com.study.model.ProjectProduce;
 import com.study.model.User;
+import com.study.service.DictdataService;
 import com.study.service.ProjectProduceService;
 import com.study.util.ResultUtil;
 import com.study.util.bean.DataGridResultInfo;
@@ -30,7 +31,8 @@ import com.study.util.bean.PageBean;
 @Api(value="ProjectProduceController",description="生产科项目立项操作API")
 @RestController
 public class ProjectProduceController {
-
+  @Autowired
+  private DictdataService dictdataService;
   @Autowired
   private ProjectProduceService projectProduceService;
   
@@ -40,6 +42,22 @@ public class ProjectProduceController {
     ProjectProduce produce=new ProjectProduce();
     produce.setProName(proName);
     List<ProjectProduce> projectProduceAll = projectProduceService.getProjectProduceAll(produce, bean);
+    for (ProjectProduce projectProduce : projectProduceAll) {
+      String proConsts="";
+      if(projectProduce.getProConst()!=null&&!"".equals(projectProduce.getProConst())){
+        String[] proConst=projectProduce.getProConst().split(",");
+        for (String string : proConst) {
+          Dictionarydata selectByKey = dictdataService.selectByKey(Integer.parseInt(string));
+          if(selectByKey!=null){
+            proConsts+=selectByKey.getDictdataName()+",";
+          }
+        }
+      }
+      if(proConsts.length()>0){
+        proConsts=proConsts.substring(0, proConsts.length()-1);
+      }
+      projectProduce.setProConst(proConsts);
+    }
     PageInfo<ProjectProduce> info=new PageInfo<ProjectProduce>(projectProduceAll);
     return ResultUtil.createDataGridResult(info.getTotal(), info.getList());
   }

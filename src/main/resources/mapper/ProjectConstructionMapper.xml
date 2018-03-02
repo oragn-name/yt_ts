@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ProjectConstructionMapper">
+  <resultMap id="BaseResultMap" type="com.study.model.ProjectConstruction">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="proId" jdbcType="INTEGER" property="proid" />
+    <result column="prwId" jdbcType="INTEGER" property="prwid" />
+    <result column="pc_workers" jdbcType="VARCHAR" property="pcWorkers" />
+    <result column="pc_phone" jdbcType="VARCHAR" property="pcPhone" />
+    <result column="pc_week_plan" jdbcType="VARCHAR" property="pcWeekPlan" />
+    <result column="pc_month_plan" jdbcType="VARCHAR" property="pcMonthPlan" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+  </resultMap>
+  
+  <select id="selectByAll" parameterType="com.study.model.ProjectConstruction" resultType="com.study.model.ProjectConstruction">
+     select id, proId as "proid",prwId as "prwid",pc_workers as "pcWorkers", pc_phone as "pcPhone",
+     pc_week_plan as "pcWeekPlan" ,pc_month_plan as "pcMonthPlan",create_user as "createUser",create_time as "createTime" from project_construction where 1=1
+       <if test="proid!=null">
+          and proId=#{proid}
+       </if>
+       order by id
+      
+  
+  </select>
+  
+</mapper>

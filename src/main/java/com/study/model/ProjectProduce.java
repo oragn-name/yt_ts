@@ -96,7 +96,7 @@ public class ProjectProduce {
      * 施工单位 字典id
      */
     @Column(name = "pro_const")
-    private Integer proConst;
+    private String proConst;
 
     /**
      * 转入单位  部门id
@@ -133,6 +133,78 @@ public class ProjectProduce {
      */
     @Column(name = "create_time")
     private String createTime;
+    
+    /**
+     * 编号性质，字典id
+     */
+    @Column(name = "pro_number_type")
+    private Integer proNumberType;
+    
+    /**
+     * 联系人
+     */
+    @Column(name = "pro_user")
+    private String proUser;
+    
+    /**
+     * 联系人电话
+     */
+    @Column(name = "pro_user_phone")
+    private String proUserPhone;
+    
+    /**
+     * 备注
+     */
+    @Column(name = "pro_remark")
+    private String proRemark;
+    
+    /**
+     * 管阀口径
+     */
+    @Column(name = "pro_pipe")
+    private Double proPipe;
+    /**
+     * 管阀长度
+     */
+    @Column(name = "pro_pipe_lengths")
+    private Double proPipeLengths;
+    
+    /**
+     * 水表口径
+     */
+    @Column(name = "pro_water")
+    private Double proWater;
+    
+    /**
+     * 水表数量
+     */
+    @Column(name = "pro_water_number")
+    private Integer proWaterNumber;
+    
+    /**
+     * 是否需要设计交底
+     */
+    @Column(name = "pro_design")
+    private Integer proDesign;
+    
+    /**
+     * 是否需要计费协议
+     */
+    @Column(name = "pro_billing")
+    private Integer proBilling;
+    
+    /**
+     * 临时水开始日期，工程性质如果是临水
+     */
+    @Column(name = "pro_water_begintime")
+    private String proWaterBegintime;
+    
+    /**
+     * 临时水结束日期，工程性质如果是临水
+     */
+    @Column(name = "pro_water_endtime")
+    private String  proWaterEndtime;
+    
 
     
     
@@ -152,6 +224,8 @@ public class ProjectProduce {
     private String proConstName;
     @Transient
     private String proDeptName;
+    @Transient
+    private String proNumberName;
     
     
     
@@ -490,7 +564,7 @@ public class ProjectProduce {
      *
      * @return pro_const - 施工单位 字典id
      */
-    public Integer getProConst() {
+    public String getProConst() {
         return proConst;
     }
 
@@ -499,7 +573,7 @@ public class ProjectProduce {
      *
      * @param proConst 施工单位 字典id
      */
-    public void setProConst(Integer proConst) {
+    public void setProConst(String proConst) {
         this.proConst = proConst;
     }
 
@@ -610,4 +684,111 @@ public class ProjectProduce {
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
+
+    public Integer getProNumberType() {
+      return proNumberType;
+    }
+
+    public void setProNumberType(Integer proNumberType) {
+      this.proNumberType = proNumberType;
+    }
+
+    public String getProUser() {
+      return proUser;
+    }
+
+    public void setProUser(String proUser) {
+      this.proUser = proUser;
+    }
+
+    public String getProUserPhone() {
+      return proUserPhone;
+    }
+
+    public void setProUserPhone(String proUserPhone) {
+      this.proUserPhone = proUserPhone;
+    }
+
+    public String getProRemark() {
+      return proRemark;
+    }
+
+    public void setProRemark(String proRemark) {
+      this.proRemark = proRemark;
+    }
+
+    public Double getProPipe() {
+      return proPipe;
+    }
+
+    public void setProPipe(Double proPipe) {
+      this.proPipe = proPipe;
+    }
+
+    public Double getProPipeLengths() {
+      return proPipeLengths;
+    }
+
+    public void setProPipeLengths(Double proPipeLengths) {
+      this.proPipeLengths = proPipeLengths;
+    }
+
+    public Double getProWater() {
+      return proWater;
+    }
+
+    public void setProWater(Double proWater) {
+      this.proWater = proWater;
+    }
+
+    public Integer getProWaterNumber() {
+      return proWaterNumber;
+    }
+
+    public void setProWaterNumber(Integer proWaterNumber) {
+      this.proWaterNumber = proWaterNumber;
+    }
+
+    public Integer getProDesign() {
+      return proDesign;
+    }
+
+    public void setProDesign(Integer proDesign) {
+      this.proDesign = proDesign;
+    }
+
+    public Integer getProBilling() {
+      return proBilling;
+    }
+
+    public void setProBilling(Integer proBilling) {
+      this.proBilling = proBilling;
+    }
+
+    public String getProWaterBegintime() {
+      return proWaterBegintime;
+    }
+
+    public void setProWaterBegintime(String proWaterBegintime) {
+      this.proWaterBegintime = proWaterBegintime;
+    }
+
+    public String getProWaterEndtime() {
+      return proWaterEndtime;
+    }
+
+    public void setProWaterEndtime(String proWaterEndtime) {
+      this.proWaterEndtime = proWaterEndtime;
+    }
+
+    public String getProNumberName() {
+      return proNumberName;
+    }
+
+    public void setProNumberName(String proNumberName) {
+      this.proNumberName = proNumberName;
+    }
+    
+    
+    
 }

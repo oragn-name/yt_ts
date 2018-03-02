@@ -57,10 +57,19 @@
                     
                 </tr>
                 <tr>
-                <td  style="text-align: right;">施工员:</td>
+                <td style="text-align: right;">路政报批时间:</td>
+               <td>
+                    <input class="easyui-datetimebox" type="text" name="prwRoadsTime" data-options=""></input>
+                     </td>
+                    <td style="text-align: right;">交通报批时间:</td>
+                    <td>
+                    <input class="easyui-datetimebox" type="text" name="prwTrafficTime" data-options=""></input>
+                    </td>
+                
+               <!--  <td  style="text-align: right;">施工员:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwUserId" data-options=""></input></td>
                 		<td  style="text-align: right;">电话:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwPhone" data-options=""></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwPhone" data-options=""></input></td> -->
                     <td  style="text-align: right;">完成DMA口径:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwDmaCaliber" data-options="validType:'number'"></input></td>
                     
@@ -75,10 +84,14 @@
                     
                 </tr>
                 <tr>
-                <td  style="text-align: right;">下周计划:</td>
+                <td  style="text-align: right;">预算编制人:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwBudgetUser" ></input></td>
+                		<td  style="text-align: right;">预算审核日期:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="prwBudgetTime" ></input></td>
+                <!-- <td  style="text-align: right;">下周计划:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwWeekPlan" data-options="validType:'intOrFloat'"></input></td>
                 		<td  style="text-align: right;">下月计划:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwMonthPlan" data-options="validType:'intOrFloat'"></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwMonthPlan" data-options="validType:'intOrFloat'"></input></td> -->
                     <td  style="text-align: right;">计划开工时间:</td>
                     <td><input class="easyui-datetimebox" type="text" name="prwPst" data-options=""></input></td>
                     
@@ -124,6 +137,36 @@
                     <td><input class="easyui-validatebox" type="text" name="prwManpower" data-options="validType:'number'"></input></td>
                 		<td  style="text-align: right;">累计投入机械台班:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwRoadWork" data-options="validType:'number'"></input></td>
+                    <td  style="text-align: right;">劳务分包队伍:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwTeam" ></input></td>
+                </tr>
+                
+                <tr>
+                    <td  style="text-align: right;">合同签订日期 :</td>
+                    <td><input class="easyui-datetimebox" type="text" name="prwContractTime" ></input></td>
+                		<td  style="text-align: right;">标办审核存档日期:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="prwArchiveTime" ></input></td>
+                    <td  style="text-align: right;">合同号:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwContractNumber" ></input></td>
+                </tr>
+                
+                <tr>
+                    <td  style="text-align: right;">合同金额 :</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwContractPrice" data-options="validType:'intOrFloat'" ></input></td>
+                		<td  style="text-align: right;">施组审核日期:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="prwGroupTime" ></input></td>
+                    <td  style="text-align: right;">质检员:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwQuality" ></input></td>
+                    
+                </tr>
+                <tr>
+                    
+                    <td  th:if="${#strings.contains(pro.proDesign,'1')}" style="text-align: right;">设计交底时间:</td>
+                    <td th:if="${#strings.contains(pro.proDesign,'1')}"><input class="easyui-datetimebox" type="text" name="prwDesignTime" ></input></td>
+                    
+                    <td  th:if="${#strings.contains(pro.proBilling,'1')}" style="text-align: right;">计费协议签订时间:</td>
+                    <td th:if="${#strings.contains(pro.proBilling,'1')}"><input class="easyui-datetimebox" type="text" name="prwBillingTime" ></input></td>
+                		
                 </tr>
             </table>
 	   </form>

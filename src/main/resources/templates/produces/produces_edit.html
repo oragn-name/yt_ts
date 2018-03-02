@@ -29,14 +29,20 @@
                     <td>
                       <input class="easyui-validatebox" type="text" name="proSerialNumber" th:value="${prop.proSerialNumber}" data-options=""></input>
                     </td>
-                    <td style="width: 90px;text-align: right;">工程名称:</td>
+                    <td style="width: 90px;text-align: right;">编号性质:</td>
                     <td>
-                      <input class="easyui-validatebox" type="text" name="proName" th:value="${prop.proName}" data-options=""></input>
+                      <select class="easyui-combobox" name="proNumberType" style="width: 148px;" >
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'BHXZ')}" th:selected="${#strings.contains(prop.proNumberType,dict1.id)}"></option>
+                         </select>
                     </td>
                    
                 </tr>
 	   	   
                 <tr>
+                <td style="width: 90px;text-align: right;">工程名称:</td>
+                    <td>
+                      <input class="easyui-validatebox" type="text" name="proName" th:value="${prop.proName}" data-options=""></input>
+                    </td>
                     <td style="width: 90px; text-align: right;">测量定线:</td>
                     <td>
                         <select class="easyui-combobox" name="proGauge" style="width: 148px;" >
@@ -44,7 +50,21 @@
                            <option value="0" th:selected="${#strings.contains(prop.proGauge,0)}">否</option>
                          </select>
                     </td>
-                    <td style="width: 90px;text-align: right;">工号类别:</td>
+                    
+                </tr>
+                <tr>
+                <td style="width: 90px;text-align: right;">联系人:</td>
+                    <td>
+                      <input class="easyui-validatebox" type="text" name="proUser" th:value="${prop.proUser}" data-options=""></input>
+                    </td>
+                    <td style="width: 90px; text-align: right;">联系电话:</td>
+                    <td>
+                       <input class="easyui-validatebox" type="text" name="proUserPhone" th:value="${prop.proUserPhone}" data-options=""></input>
+                    </td>
+                   
+                </tr>
+                <tr>
+                <td style="width: 90px;text-align: right;">工号类别:</td>
                     <td>
                     <select class="easyui-combobox" name="proJobType" style="width: 148px;" >
                          <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'GHLB')}" th:selected="${#strings.contains(prop.proJobType,dict1.id)}"></option>
@@ -61,8 +81,6 @@
                     >  -->
                     
                      </td>
-                </tr>
-                <tr>
                 <td style="width: 90px;text-align: right;">工程来源:</td>
                     <td>
                     <select class="easyui-combobox" name="proSource" style="width: 148px;" >
@@ -75,7 +93,11 @@
 							>  
 							 -->
                      </td>
-                    <td style="width: 90px;text-align: right;">工程类别:</td>
+                    
+                    
+                </tr>
+                <tr>
+                <td style="width: 90px;text-align: right;">工程类别:</td>
                     <td>
                     <select class="easyui-combobox" name="proEngineType" style="width: 148px;" >
                          <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'GCLB')}" th:selected="${#strings.contains(prop.proEngineType,dict1.id)}"></option>
@@ -92,50 +114,81 @@
 							>  -->
                        
                     </td>
-                    
-                </tr>
-                <tr>
                 <td style="width: 90px;text-align: right;">工程性质:</td>
                     <td>
-                         <select class="easyui-combobox" name="proNature" style="width: 148px;" >
+                         <select class="easyui-combobox" name="proNature" id="proNature" style="width: 148px;" >
                              <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'GCXZ')}" th:selected="${#strings.contains(prop.proNature,dict1.id)}"></option>
                          </select>
-                     </td>
-                     <td style="width: 90px;text-align: right;">任务下达时间:</td>
-                    <td>
-                    <input class="easyui-datetimebox" type="text" name="proLssuedTime" th:value="${prop.proLssuedTime}" data-options=""></input>
                      </td>
                     
                 </tr>
                
                 <tr>
+                 <td style="width: 90px;text-align: right;">任务下达时间:</td>
+                    <td>
+                    <input class="easyui-datetimebox" type="text" name="proLssuedTime" th:value="${prop.proLssuedTime}" data-options=""></input>
+                     </td>
+                    
                     <td style="width: 90px;text-align: right;">工程所在地区:</td>
                     <td>
                       <select class="easyui-combobox" name="proArea" style="width: 148px;" >
                          <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'GCDQ')}" th:selected="${#strings.contains(prop.proArea,dict1.id)}"></option>
                          </select>
                     </td>
-                    <td style="width: 90px;text-align: right;">路政报批时间:</td>
+                   
+                </tr>
+                <!-- <tr>
+                 <td style="width: 90px;text-align: right;">路政报批时间:</td>
                     <td>
                     <input class="easyui-datetimebox" type="text" name="proRoadsTime" th:value="${prop.proRoadsTime}" data-options=""></input>
                      </td>
-                </tr>
-                <tr>
                     <td style="width: 90px;text-align: right;">交通报批时间:</td>
                     <td>
                     <input class="easyui-datetimebox" type="text" name="proTrafficTime" th:value="${prop.proTrafficTime}"  data-options=""></input>
                     </td>
-                    <td style="width: 90px;text-align: right;">期次:</td>
+                    
+                </tr> -->
+                <tr id="LS"  th:style="${#strings.contains(prop.proNature,'8')}?'':'display: none'" >
+                <td style="width: 90px;text-align: right;">临水开始时间:</td>
+                    <td>
+                    <input class="easyui-datetimebox" type="text" name="proWaterBegintime" id="proWaterBegintime" th:value="${prop.proWaterBegintime}"  data-options=""></input>
+                     </td>
+                    <td style="width: 90px;text-align: right;">临水结束时间:</td>
+                    <td>
+                    <input class="easyui-datetimebox" type="text" name="proWaterEndtime" id="proWaterEndtime" th:value="${prop.proWaterEndtime}"  data-options=""></input>
+                    </td>
+                    
+                </tr> 
+                <tr>
+                <td style="width: 90px;text-align: right;">期次:</td>
                     <td>
                      <select class="easyui-combobox" name="proPeriod" style="width: 148px;" >
                          <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'QC')}" th:selected="${#strings.contains(prop.proPeriod,dict1.id)}"></option>
                          </select>
                      </td>
-                </tr>
-                <tr>
                     <td style="width: 90px;text-align: right;">施工单位:</td>
                     <td>
-                    <select  id="proConst" name="proConst"  style="width: 148px;" >
+                    <input id="proConst" name="proConst"   style="width: 150px;"  class="easyui-combobox" >
+                    <script th:inline="javascript">
+		                $('#proConst').combobox({  
+		                    url:'/dictdata/getDataTree?dictCode=SGDW', //后台获取下拉框数据的url  
+		                    method:'get',  
+		                    panelHeight:200,//设置为固定高度，combobox出现竖直滚动条  
+		                    valueField:'id',  
+		                    textField:'dictdataName',  
+		                    multiple:true,  
+		                    formatter: function (row) { //formatter方法就是实现了在每个下拉选项前面增加checkbox框的方法  
+		                        var opts = $(this).combobox('options');  
+		                        return  row[opts.textField]  
+		                    }
+		                }); 
+		                var proConst=[[${prop.proConst}]]
+		               $(function(){
+		                	$('#proConst').combobox('setValues',proConst.split(','))
+		                })
+		                </script>
+                    
+                    <!-- <select  id="proConst" name="proConst"  style="width: 148px;" >
                      </select>
                      <script th:inline="javascript">
 		                $('#proConst').combotree({
@@ -149,9 +202,12 @@
 		                if(parents!=0){
 		                	$('#proConst').combotree('setValue', parents); 
 		                }
-		                </script>
+		                </script> -->
                     </td>
-                    <td style="width: 90px;text-align: right;">转入单位:</td>
+                   
+                </tr>
+                <tr>
+                 <td style="width: 90px;text-align: right;">转入单位:</td>
                     <td>
                      <select id="proDept" name="proDept"  style="width: 148px;" >
                          </select>
@@ -169,22 +225,64 @@
 		                }
 		                </script>
                      </td>
-                </tr>
-                <tr>
                     <td style="width: 90px;text-align: right;">设计长度:</td>
                     <td>
                     <input class="easyui-validatebox" type="text" name="proDesignLength"  th:value="${prop.proDesignLength}" data-options="validType:'intOrFloat'"></input>
                     </td>
-                    <td style="width: 90px;text-align: right;">管径:</td>
+                    
+                </tr>
+                <tr>
+                <td style="width: 90px;text-align: right;">管径:</td>
                     <td>
                     <input class="easyui-validatebox" type="text" name="proPipeLength" th:value="${prop.proPipeLength}" data-options="validType:'intOrFloat'"></input>
                      </td>
-                </tr>
-                <tr>
                     <td style="width: 90px;text-align: right;">临时长度:</td>
                     <td colspan="3">
                     <input class="easyui-validatebox" type="text" name="proSnapLength" th:value="${prop.proSnapLength}" data-options="validType:'intOrFloat'"></input>
                     </td>
+                </tr>
+                <tr>
+                <td style="width: 90px;text-align: right;">管阀口径:</td>
+                    <td>
+                    <input class="easyui-validatebox" type="text" name="proPipe" th:value="${prop.proPipe}" data-options="validType:'intOrFloat'"></input>
+                     </td>
+                    <td style="width: 90px;text-align: right;">管阀长度:</td>
+                    <td colspan="3">
+                    <input class="easyui-validatebox" type="text" name="proPipeLengths" th:value="${prop.proPipeLengths}" data-options="validType:'intOrFloat'"></input>
+                    </td>
+                </tr>
+                <tr>
+                <td style="width: 90px;text-align: right;">水表口径:</td>
+                    <td>
+                    <input class="easyui-validatebox" type="text" name="proWater" th:value="${prop.proWater}" data-options="validType:'intOrFloat'"></input>
+                     </td>
+                    <td style="width: 90px;text-align: right;">水表数量:</td>
+                    <td colspan="3">
+                    <input class="easyui-validatebox" type="text" name="proWaterNumber" th:value="${prop.proWaterNumber}" data-options="validType:'number'"></input>
+                    </td>
+                </tr>
+                
+                <tr>
+                <td style="width: 90px;text-align: right;">是否设计交底:</td>
+                    <td>
+                     <select class="easyui-combobox" name="proDesign" style="width: 148px;" >
+                           <option value="1" th:selected="${#strings.contains(prop.proDesign,1)}">是</option>
+                           <option value="0" th:selected="${#strings.contains(prop.proDesign,0)}">否</option>
+                         </select>
+                     </td>
+                    <td style="width: 90px;text-align: right;">是否计费协议:</td>
+                    <td colspan="3">
+                     <select class="easyui-combobox" name="proBilling" style="width: 148px;" >
+                           <option value="1" th:selected="${#strings.contains(prop.proBilling,1)}">是</option>
+                           <option value="0" th:selected="${#strings.contains(prop.proBilling,0)}">否</option>
+                         </select>
+                    </td>
+                </tr>
+                <tr>
+                <td style="width: 90px;text-align: right;">备注:</td>
+                    <td colspan="3">
+                       <textarea rows="5" cols="70" name="proRemark" th:text="${prop.proRemark}"></textarea>
+                     </td>
                 </tr>
             </table>
 	   </form>
@@ -198,6 +296,19 @@
     	</div>
 	</div>
 	<script th:inline="javascript">
+	$(document).ready(function () {
+    	$("#proNature").combobox({
+    		onChange: function (n,o) {
+    			if(n=="8"){
+    	    		  $("#LS").show();
+    	    	  }else{
+    	    		  $('#proWaterBegintime').datebox('setValue','');
+    	    		  $('#proWaterEndtime').datebox('setValue','');
+    	    		  $("#LS").hide();
+    	    	  } 
+    		}
+    	})
+    })
 	var parentMenuName=[[${menu.parentMenuName}]]
 	var menuName=[[${menu.menuName}]]
 	function submitForm(){

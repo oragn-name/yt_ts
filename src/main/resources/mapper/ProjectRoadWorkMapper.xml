@@ -41,6 +41,20 @@
     <result column="prw_creator" jdbcType="INTEGER" property="prwCreator" />
     <result column="prw_create_at" jdbcType="VARCHAR" property="prwCreateAt" />
     <result column="pro_id" jdbcType="INTEGER" property="proId" />
+    
+    <result column="prw_roads_time" jdbcType="VARCHAR" property="prwRoadsTime" />
+    <result column="prw_traffic_time" jdbcType="VARCHAR" property="prwTrafficTime" />
+    <result column="prw_team" jdbcType="VARCHAR" property="prwTeam" />
+    <result column="prw_budget_user" jdbcType="VARCHAR" property="prwBudgetUser" />
+    <result column="prw_budget_time" jdbcType="VARCHAR" property="prwBudgetTime" />
+    <result column="prw_contract_time" jdbcType="VARCHAR" property="prwContractTime" />
+    <result column="prw_archive_time" jdbcType="VARCHAR" property="prwArchiveTime" />
+    <result column="prw_contract_number" jdbcType="VARCHAR" property="prwContractNumber" />
+    <result column="prw_contract_price" jdbcType="DOUBLE" property="prwContractPrice" />
+    <result column="prw_group_time" jdbcType="VARCHAR" property="prwGroupTime" />
+    <result column="prw_design_time" jdbcType="VARCHAR" property="prwDesignTime" />
+    <result column="prw_billing_time" jdbcType="VARCHAR" property="prwBillingTime" />
+    <result column="prw_quality" jdbcType="VARCHAR" property="prwQuality" />
   </resultMap>
   
   <select id="selectProjectWorkAll" parameterType="com.study.model.ProjectRoadWork" resultType="com.study.model.ProjectRoadWork">
@@ -51,7 +65,9 @@
 		prw_budget as "prwBudget",prw_settlement as "prwSettlement",prw_manpower as "prwManpower",prw_road_work as "prwRoadWork",
 		prw_address as "prwAddress",prw_road_name as "prwRoadName",prw_origin as "prwOrigin",prw_stop as "prwStop",(select dictdata_name from dictionarydata where id=prw_ownership) as "prwOwnershipName",
 		prw_repair as "prwRepair",prw_excavation as "prwExcavation",prw_preliminary_time as "prwPreliminaryTime",prw_user_id as "prwUserId",
-		prw_phone as "prwPhone",(select dictdata_name from dictionarydata where id=prw_condition) as "prwConditionName",prw_creator as "prwCreator",prw_create_at as "prwCreateAt" from project_road_work where 1=1
+		prw_phone as "prwPhone",(select dictdata_name from dictionarydata where id=prw_condition) as "prwConditionName",prw_creator as "prwCreator",prw_create_at as "prwCreateAt",prw_roads_time as "prwRoadsTime",
+		prw_traffic_time as "prwTrafficTime",prw_team as "prwTeam",prw_budget_user as "prwBudgetUser",prw_budget_time as "prwBudgetTime",prw_contract_time as "prwContractTime",prw_archive_time as "prwArchiveTime",
+		prw_contract_number as "prwContractNumber",prw_contract_price as "prwContractPrice",prw_group_time as "prwGroupTime",prw_design_time as "prwDesignTime",prw_billing_time as "prwBillingTime",prw_quality as "prwQuality" from project_road_work where 1=1
 		<if test="proId!=null and proId!=''">
 		 and pro_id=#{proId}
 		</if>

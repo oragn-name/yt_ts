@@ -18,21 +18,46 @@
 	            <th data-options="field:'proNumber',width:100,align:'center',sortable:'true'">工号</th>
             	<th data-options="field:'proSnapNumber',width:100,align:'center',sortable:'true'">临时工号</th>
             	<th data-options="field:'proSerialNumber',width:100,align:'center',sortable:'true'">序号</th>
+            	<th data-options="field:'proNumberName',width:80,align:'center',sortable:'true'">编号性质</th>
             	<th data-options="field:'proName',width:100,align:'center',sortable:'true'">工程名称</th>
             	<th data-options="field:'proJobTypeName',width:100,align:'center',sortable:'true'">工号类别</th>
             	<th data-options="field:'proEngineTypeName',width:100,align:'center',sortable:'true'">工程类别</th>
             	<th data-options="field:'proNatureName',width:100,align:'center',sortable:'true'">工程性质</th>
             	<th data-options="field:'proSourceName',width:100,align:'center',sortable:'true'">工程来源</th>
+            	<th data-options="field:'proUser',width:100,align:'center',sortable:'true'">联系人</th>
+            	<th data-options="field:'proUserPhone',width:100,align:'center',sortable:'true'">电话</th>
             	<th data-options="field:'proLssuedTime',width:150,align:'center',sortable:'true'">任务下达时间</th>
             	<th data-options="field:'proAreaName',width:100,align:'center',sortable:'true'">工程地址</th>
-            	<th data-options="field:'proRoadsTime',width:150,align:'center',sortable:'true'">路政报批时间</th>
-            	<th data-options="field:'proTrafficTime',width:150,align:'center',sortable:'true'">交通报批时间</th>
+            	<!-- <th data-options="field:'proRoadsTime',width:150,align:'center',sortable:'true'">路政报批时间</th>
+            	<th data-options="field:'proTrafficTime',width:150,align:'center',sortable:'true'">交通报批时间</th> -->
             	<th data-options="field:'proPeriodName',width:100,align:'center',sortable:'true'">期次</th>
-            	<th data-options="field:'proConstName',width:100,align:'center',sortable:'true'">施工单位</th>
+            	<th data-options="field:'proConst',width:100,align:'center',sortable:'true'">施工单位</th>
             	<th data-options="field:'proDeptName',width:100,align:'center',sortable:'true'">转入单位</th>
             	<th data-options="field:'proDesignLength',width:100,align:'center',sortable:'true'">设计长度</th>
             	<th data-options="field:'proPipeLength',width:100,align:'center',sortable:'true'">管径</th>
             	<th data-options="field:'proSnapLength',width:100,align:'center',sortable:'true'">临时线长度</th>
+            	
+            	<th data-options="field:'proPipe',width:100,align:'center',sortable:'true'">管阀口径</th>
+            	<th data-options="field:'proPipeLengths',width:100,align:'center',sortable:'true'">管阀长度</th>
+            	<th data-options="field:'proWater',width:100,align:'center',sortable:'true'">水表口径</th>
+            	<th data-options="field:'proWaterNumber',width:100,align:'center',sortable:'true'">水表数量</th>
+            	<th data-options="field:'proDesign',width:100,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }">是否需设计交底</th>
+            	<th data-options="field:'proBilling',width:100,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }">是否需计费协议</th>
+            	<th data-options="field:'proWaterBegintime',width:100,align:'center',sortable:'true'">临水开始时间</th>
+            	<th data-options="field:'proWaterEndtime',width:100,align:'center',sortable:'true'">临水结束时间</th>
+            	<th data-options="field:'proRemark',width:100,align:'center',sortable:'true'">备注</th>
+            	
+            	
+            	
+            	
+            	
+            	
             	<th data-options="field:'createUser',width:100,align:'center',sortable:'true'">创建人</th>
             	<th data-options="field:'createTime',width:150,align:'center',sortable:'true'">创建时间</th>
             	
@@ -74,15 +99,19 @@
 	                                    return '否';
 	                		  }">是否非开挖</th>
             	<th data-options="field:'prwPreliminaryTime',width:100,align:'center',sortable:'true'">预判施工工时</th>
-            	<th data-options="field:'prwUserId',width:100,align:'center',sortable:'true'">施工员</th>
-            	<th data-options="field:'prwPhone',width:100,align:'center',sortable:'true'">电话</th>
+            	<!-- <th data-options="field:'prwUserId',width:100,align:'center',sortable:'true'">施工员</th>
+            	<th data-options="field:'prwPhone',width:100,align:'center',sortable:'true'">电话</th> -->
+            	<th data-options="field:'prwRoadsTime',width:150,align:'center',sortable:'true'">路政报批时间</th>
+            	<th data-options="field:'prwTrafficTime',width:150,align:'center',sortable:'true'">交通报批时间</th>
+            	<!-- <th data-options="field:'prwUserId',width:100,align:'center',sortable:'true'">施工员</th>
+            	<th data-options="field:'prwPhone',width:100,align:'center',sortable:'true'">电话</th> -->
             	<th data-options="field:'prwConditionName',width:100,align:'center',sortable:'true'">路管情况</th>
             	<th data-options="field:'prwDmaCaliber',width:100,align:'center',sortable:'true'">完成DMA口径</th>
             	<th data-options="field:'prwDmaCount',width:100,align:'center',sortable:'true'">完成DMA数量</th>
             	<th data-options="field:'prwBackCaliber',width:100,align:'center',sortable:'true'">完成倒流防止器口径</th>
             	<th data-options="field:'prwBackCount',width:100,align:'center',sortable:'true'">完成倒流防止器数量</th>
-            	<th data-options="field:'prwWeekPlan',width:100,align:'center',sortable:'true'">下周计划</th>
-            	<th data-options="field:'prwMonthPlan',width:100,align:'center',sortable:'true'">下月计划</th>
+            	<!-- <th data-options="field:'prwWeekPlan',width:100,align:'center',sortable:'true'">下周计划</th>
+            	<th data-options="field:'prwMonthPlan',width:100,align:'center',sortable:'true'">下月计划</th> -->
             	<th data-options="field:'prwPst',width:100,align:'center',sortable:'true'">计划开工时间</th>
             	<th data-options="field:'prwPet',width:100,align:'center',sortable:'true'">计划完工时间</th>
             	<th data-options="field:'prwTotalDuration',width:100,align:'center',sortable:'true'">计划总工期</th>
@@ -97,7 +126,22 @@
             	<th data-options="field:'prwBudget',width:100,align:'center',sortable:'true'">预算价</th>
             	<th data-options="field:'prwSettlement',width:100,align:'center',sortable:'true'">结算价</th>
             	<th data-options="field:'prwManpower',width:100,align:'center',sortable:'true'">累计投入人力</th>
-            	<th data-options="field:'prwRoadWork',width:100,align:'center',sortable:'true'">施工</th>
+            	<th data-options="field:'prwRoadWork',width:100,align:'center',sortable:'true'">累计投入机械台班</th>
+            	
+            	<th data-options="field:'prwTeam',width:100,align:'center',sortable:'true'">劳务分包队伍</th>
+            	<th data-options="field:'prwBudgetUser',width:100,align:'center',sortable:'true'">预算编制人</th>
+            	<th data-options="field:'prwBudgetTime',width:100,align:'center',sortable:'true'">预算审核合格日期</th>
+            	<th data-options="field:'prwContractTime',width:100,align:'center',sortable:'true'">合同签订日期</th>
+            	<th data-options="field:'prwArchiveTime',width:100,align:'center',sortable:'true'">标办存档日期</th>
+            	<th data-options="field:'prwContractNumber',width:100,align:'center',sortable:'true'">合同号</th>
+            	<th data-options="field:'prwContractPrice',width:100,align:'center',sortable:'true'">合同金额</th>
+            	<th data-options="field:'prwGroupTime',width:100,align:'center',sortable:'true'">施组审核合格日期</th>
+            	<th data-options="field:'prwDesignTime',width:100,align:'center',sortable:'true'">设计交底时间</th>
+            	<th data-options="field:'prwBillingTime',width:100,align:'center',sortable:'true'">计费协议签订时间</th>
+            	<th data-options="field:'prwQuality',width:100,align:'center',sortable:'true'">质检员</th>
+            	
+            	
+            	
             	<th data-options="field:'prwCreator',width:100,align:'center',sortable:'true'">创建人</th>
             	<th data-options="field:'prwCreateAt',width:150,align:'center',sortable:'true'">创建时间</th>
             </tr>
@@ -145,6 +189,7 @@
 	}
     function edit(){
 		var selecteds = $('#tb1').datagrid('getSelections');
+		var selecteds2 = $('#tb2').datagrid('getSelections');
         if (selecteds == null || selecteds.length == 0) { 
         	Common.showMsg('修改数据','请选择操作项！');
         	return;
@@ -153,7 +198,7 @@
         	Common.showMsg('修改数据','不支持多个操作！');
         	return; 
         }
-		top.framework.openTab('修改数据', '/roadworks/add.do?menuName=修改数据&id='+selecteds[0].id+'&parentMenuName='+menuName);
+		top.framework.openTab('修改数据', '/roadworks/add.do?menuName=修改数据&id='+selecteds[0].id+'&parentMenuName='+menuName+'&proId='+selecteds2[0].id);
 	}
     
     function remove(){

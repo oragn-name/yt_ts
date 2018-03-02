@@ -63,6 +63,17 @@ public class ProjectRoadWork {
     private String prwPet;
 
     /**
+     * 路政报批时间
+     */
+    @Column(name = "prw_roads_time")
+    private String prwRoadsTime;
+
+    /**
+     * 交通报批时间
+     */
+    @Column(name = "prw_traffic_time")
+    private String prwTrafficTime;
+    /**
      * 计划总工期 
      */
     @Column(name = "prw_total_duration")
@@ -223,6 +234,74 @@ public class ProjectRoadWork {
      */
     @Column(name = "prw_create_at")
     private String prwCreateAt;
+    
+    
+    /**
+     * 劳务分包队伍
+     */
+    @Column(name = "prw_team")
+    private String prwTeam;
+    
+    /**
+     * 预算编制人
+     */
+    @Column(name = "prw_budget_user")
+    private String prwBudgetUser;
+    
+    /**
+     * 预算审核合格日期
+     */
+    @Column(name = "prw_budget_time")
+    private String prwBudgetTime;
+    
+    /**
+     * 合同签订日期
+     */
+    @Column(name = "prw_contract_time")
+    private String prwContractTime;
+    
+    /**
+     * 标办存档日期
+     */
+    @Column(name = "prw_archive_time")
+    private String prwArchiveTime;
+    
+    /**
+     * 合同号
+     */
+    @Column(name = "prw_contract_number")
+    private String prwContractNumber;
+    
+    /**
+     * 合同金额
+     */
+    @Column(name = "prw_contract_price")
+    private Double prwContractPrice;
+    
+    /**
+     * 施组审核合格日期
+     */
+    @Column(name = "prw_group_time")
+    private String prwGroupTime;
+    /**
+     * 设计交底时间
+     */
+    @Column(name = "prw_design_time")
+    private String prwDesignTime;
+    
+    /**
+     * 计费协议签订时间
+     */
+    @Column(name = "prw_billing_time")
+    private String prwBillingTime;
+    
+    /**
+     * 质检员
+     */
+    @Column(name = "prw_quality")
+    private String prwQuality;
+    
+    
 
     /**
      * 获取主键
@@ -876,6 +955,110 @@ public class ProjectRoadWork {
 
     public void setProId(Integer proId) {
       this.proId = proId;
+    }
+
+    public String getPrwRoadsTime() {
+      return prwRoadsTime;
+    }
+
+    public void setPrwRoadsTime(String prwRoadsTime) {
+      this.prwRoadsTime = prwRoadsTime;
+    }
+
+    public String getPrwTrafficTime() {
+      return prwTrafficTime;
+    }
+
+    public void setPrwTrafficTime(String prwTrafficTime) {
+      this.prwTrafficTime = prwTrafficTime;
+    }
+
+    public String getPrwTeam() {
+      return prwTeam;
+    }
+
+    public void setPrwTeam(String prwTeam) {
+      this.prwTeam = prwTeam;
+    }
+
+    public String getPrwBudgetUser() {
+      return prwBudgetUser;
+    }
+
+    public void setPrwBudgetUser(String prwBudgetUser) {
+      this.prwBudgetUser = prwBudgetUser;
+    }
+
+    public String getPrwBudgetTime() {
+      return prwBudgetTime;
+    }
+
+    public void setPrwBudgetTime(String prwBudgetTime) {
+      this.prwBudgetTime = prwBudgetTime;
+    }
+
+    public String getPrwContractTime() {
+      return prwContractTime;
+    }
+
+    public void setPrwContractTime(String prwContractTime) {
+      this.prwContractTime = prwContractTime;
+    }
+
+    public String getPrwArchiveTime() {
+      return prwArchiveTime;
+    }
+
+    public void setPrwArchiveTime(String prwArchiveTime) {
+      this.prwArchiveTime = prwArchiveTime;
+    }
+
+    public String getPrwContractNumber() {
+      return prwContractNumber;
+    }
+
+    public void setPrwContractNumber(String prwContractNumber) {
+      this.prwContractNumber = prwContractNumber;
+    }
+
+    public Double getPrwContractPrice() {
+      return prwContractPrice;
+    }
+
+    public void setPrwContractPrice(Double prwContractPrice) {
+      this.prwContractPrice = prwContractPrice;
+    }
+
+    public String getPrwGroupTime() {
+      return prwGroupTime;
+    }
+
+    public void setPrwGroupTime(String prwGroupTime) {
+      this.prwGroupTime = prwGroupTime;
+    }
+
+    public String getPrwDesignTime() {
+      return prwDesignTime;
+    }
+
+    public void setPrwDesignTime(String prwDesignTime) {
+      this.prwDesignTime = prwDesignTime;
+    }
+
+    public String getPrwBillingTime() {
+      return prwBillingTime;
+    }
+
+    public void setPrwBillingTime(String prwBillingTime) {
+      this.prwBillingTime = prwBillingTime;
+    }
+
+    public String getPrwQuality() {
+      return prwQuality;
+    }
+
+    public void setPrwQuality(String prwQuality) {
+      this.prwQuality = prwQuality;
     }
     
     

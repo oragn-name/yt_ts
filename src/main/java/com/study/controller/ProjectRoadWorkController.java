@@ -58,7 +58,7 @@ public class ProjectRoadWorkController {
 	@RequestMapping(value = "/roadworks/edit",method={RequestMethod.POST})
     public String edit(@ModelAttribute ProjectRoadWork roadWork) {
 		try {
-			roadWorkService.updateNotNull(roadWork);
+			roadWorkService.updateAll(roadWork);
 			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();
