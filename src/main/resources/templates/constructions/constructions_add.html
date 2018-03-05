@@ -9,46 +9,44 @@
 	<div id="dlg" style="padding:10px 20px">
 	   <div class="myftitle">基本信息</div>
 	   <form id="myfm" method="post" novalidate>
-	       <input type="hidden" name="proId" th:value="${proId}">
-	       <input type="hidden" name="pcId" th:value="${pcId}">
+	       <input type="hidden" name="proid" th:value="${proId}">
 	   	   <table cellpadding="5">
                 <tr>
-                    <td>DN15:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdOne" data-options="validType:'intOrFloat'"></input></td>
+                    <td>施工单位:</td>
+                    <td>
+                    <select class="easyui-combobox" name="pcDept" style="width: 148px;" >
+	           				  	    <option th:each="dict1 : ${dtd}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" ></option>
+	           					</select>
+                    </td>
                 </tr>
                 <tr>
-                    <td>DN20:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdTwo" data-options="validType:'intOrFloat'"></input></td>
+                    <td>施工人员:</td>
+                    <td>
+                    <input class="easyui-validatebox" type="text" name="pcWorkers" ></input>
+                    </td>
                 </tr>
                 <tr>
-                    <td>DN25:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdThree" data-options="validType:'intOrFloat'"></input></td>
+                    <td>电话:</td>
+                    <td><input class="easyui-validatebox" type="text" name="pcPhone" ></input></td>
                 </tr>
                 <tr>
-                    <td>DN40:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdFour" data-options="validType:'intOrFloat'"></input></td>
+                    <td>下周计划:</td>
+                    <td>
+                    <textarea rows="5" cols="70" name="pcWeekPlan"></textarea>
+                    </td>
                 </tr>
                 <tr>
-                    <td>DN50:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdFive" data-options="validType:'intOrFloat'"></input></td>
+                    <td>下月计划:</td>
+                    <td>
+                      <textarea rows="5" cols="70" name="pcMonthPlan"></textarea>
+                    </td>
                 </tr>
                 <tr>
-                    <td>DN75:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdSix" data-options="validType:'intOrFloat'"></input></td>
+                <td >备注:</td>
+                    <td>
+                       <textarea rows="5" cols="70" name="pcRemark"></textarea>
+                     </td>
                 </tr>
-                <tr>
-                    <td>DN100:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdSeven" data-options="validType:'intOrFloat'"></input></td>
-                </tr>
-                <tr>
-                    <td>DN150:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdEight" data-options="validType:'intOrFloat'"></input></td>
-                </tr>
-                <tr>
-                    <td>DN200:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdNine" data-options="validType:'intOrFloat'"></input></td>
-                </tr>
-
             </table>
 	   </form>
     </div>
@@ -65,7 +63,7 @@
 	var menuName=[[${menu.menuName}]]
 	function submitForm(){
         $('#myfm').form('submit',{
-            url: '/workdailys/add.html',
+            url: '/constructions/add.html',
             onSubmit: function(){
                 return $(this).form('validate');
             },

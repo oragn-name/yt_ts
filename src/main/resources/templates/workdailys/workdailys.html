@@ -6,11 +6,25 @@
 </head>
 <body class="easyui-layout">
 <table id="tb2" class="easyui-datagrid" title="" style="width:1260px;height:255px;"  border="0"
-           data-options="rownumbers:true,pagination:true,url:'/produces/getData.do',singleSelect:true,method:'get',toolbar:'#toolbar2'">
+           data-options="rownumbers:true,pagination:true,url:'/workdailys/getItemData.do',singleSelect:true,method:'get',toolbar:'#toolbar2'">
         <thead>
             <tr>
             	<th data-options="field:'ck',checkbox:true"></th>
-            	<th data-options="field:'id',width:100,align:'center',sortable:'true',hidden:'true'">id</th>
+            	<th data-options="field:'proId',width:100,align:'center',sortable:'true',hidden:'true'">proId</th>
+            	<th data-options="field:'pcId',width:100,align:'center',sortable:'true',hidden:'true'">pcId</th>
+            	<th data-options="field:'proNumber',width:100,align:'center',sortable:'true'">工号</th>
+            	<th data-options="field:'proSnapNumber',width:100,align:'center',sortable:'true'">临时工号</th>
+            	<th data-options="field:'proSerialNumber',width:100,align:'center',sortable:'true'">序号</th>
+            	<th data-options="field:'proName',width:100,align:'center',sortable:'true'">工程名称</th>
+            	<th data-options="field:'pcDeptName',width:100,align:'center',sortable:'true'">施工单位</th>
+            	<th data-options="field:'pcWorkers',width:100,align:'center',sortable:'true'">施工人员</th>
+            	<th data-options="field:'pcPhone',width:100,align:'center',sortable:'true'">电话</th>
+            	<th data-options="field:'pcWeekPlan',width:100,align:'center',sortable:'true'">周计划</th>
+            	<th data-options="field:'pcMonthPlan',width:100,align:'center',sortable:'true'">月计划</th>
+            	<th data-options="field:'pcRemark',width:100,align:'center',sortable:'true'">备注</th>
+            	<th data-options="field:'createUser',width:100,align:'center',sortable:'true'">创建人</th>
+            	<th data-options="field:'createTime',width:100,align:'center',sortable:'true'">创建时间</th>
+            	<!-- <th data-options="field:'id',width:100,align:'center',sortable:'true',hidden:'true'">id</th>
             	<th data-options="field:'proGauge',width:80,align:'center',sortable:'true',formatter:function(value,row){
             							if (value == 1) return '是';
 	                                    return '否';
@@ -33,8 +47,8 @@
             	<th data-options="field:'proDesignLength',width:100,align:'center',sortable:'true'">设计长度</th>
             	<th data-options="field:'proPipeLength',width:100,align:'center',sortable:'true'">管径</th>
             	<th data-options="field:'proSnapLength',width:100,align:'center',sortable:'true'">临时线长度</th>
-            	<!-- <th data-options="field:'createUser',width:100,align:'center',sortable:'true'">创建人</th> -->
-            	<th data-options="field:'createTime',width:150,align:'center',sortable:'true'">创建时间</th>
+            	<th data-options="field:'createUser',width:100,align:'center',sortable:'true'">创建人</th>
+            	<th data-options="field:'createTime',width:150,align:'center',sortable:'true'">创建时间</th> -->
             	
             </tr>
         </thead>
@@ -113,7 +127,7 @@
         	Common.showMsg('提示','不支持多个操作！');
         	return; 
         }
-		top.framework.openTab('新增数据', '/workdailys/add?menuName=新增数据&parentMenuName='+menuName+'&proId='+selecteds[0].id);
+		top.framework.openTab('新增数据', '/workdailys/add?menuName=新增数据&parentMenuName='+menuName+'&proId='+selecteds[0].proId+'&pcId='+selecteds[0].pcId);
 	}
     function edit(){
 		var selecteds = $('#tb1').datagrid('getSelections');
@@ -166,14 +180,14 @@
 		$('#tb1').datagrid({
             url:"/workdailys/getData.do",
             queryParams:{
-            	proId:selecteds[0].id
+            	pcId:selecteds[0].pcId
             }
         });
 	}
     function searchProp(){
     	var names = $("#pname").val();
 		$('#tb2').datagrid({
-            url:"/produces/getData.do",
+            url:"/workdailys/getItemData.do",
             queryParams:{
             	proName:names
             }

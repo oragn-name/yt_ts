@@ -55,6 +55,49 @@ public class ProjectConstruction {
      */
     @Column(name = "create_time")
     private String createTime;
+    
+    /**
+     * 施工单位
+     */
+    @Column(name = "pc_dept")
+    private Integer pcDept;
+    
+    
+    /**
+     * 备注
+     */
+    @Column(name = "pc_remark")
+    private String pcRemark;
+    
+    @Transient
+    private String pcDeptName;
+    
+    
+    
+
+    public String getPcDeptName() {
+      return pcDeptName;
+    }
+
+    public void setPcDeptName(String pcDeptName) {
+      this.pcDeptName = pcDeptName;
+    }
+
+    public Integer getPcDept() {
+      return pcDept;
+    }
+
+    public void setPcDept(Integer pcDept) {
+      this.pcDept = pcDept;
+    }
+
+    public String getPcRemark() {
+      return pcRemark;
+    }
+
+    public void setPcRemark(String pcRemark) {
+      this.pcRemark = pcRemark;
+    }
 
     /**
      * @return id

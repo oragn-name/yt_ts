@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="common/head :: header">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'center'" border="false">
+	<div id="dlg" style="padding:10px 20px">
+	   <div class="myftitle">基本信息</div>
+	   <form id="myfm" method="post" novalidate>
+	       <input type="hidden" name="proid" th:value="${pc.proid}">
+	       <input type="hidden" name="prwid" th:value="${pc.prwid}">
+	       <input type="hidden" name="id" th:value="${pc.id}">
+	   	   <table cellpadding="5">
+                <tr>
+                    <td>施工单位:</td>
+                    <td>
+                    <select class="easyui-combobox" name="pcDept" style="width: 148px;" >
+	           				  	    <option th:each="dict1 : ${dtd}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" ></option>
+	           					</select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>施工人员:</td>
+                    <td>
+                    <input class="easyui-validatebox" type="text" name="pcWorkers" th:value="${pc.pcWorkers}" ></input>
+                    </td>
+                </tr>
+                <tr>
+                    <td>电话:</td>
+                    <td><input class="easyui-validatebox" type="text" name="pcPhone" th:value="${pc.pcPhone}"></input></td>
+                </tr>
+                <tr>
+                    <td>下周计划:</td>
+                    <td>
+                    <textarea rows="5" cols="70" name="pcWeekPlan" th:text="${pc.pcWeekPlan}"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td>下月计划:</td>
+                    <td>
+                      <textarea rows="5" cols="70"  name="pcMonthPlan" th:text="${pc.pcMonthPlan}"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                <td >备注:</td>
+                    <td>
+                       <textarea rows="5" cols="70" name="pcRemark" th:text="${pc.pcRemark}"></textarea>
+                     </td>
+                </tr>
+            </table>
+	   </form>
+    </div>
+    </div>
+    <div data-options="region:'south'" style="height: 40px;" border="false">
+		<hr>
+		<div style="text-align:center;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">保存</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" th:onclick="|top.framework.closeTab('${menu.menuName}')|">关闭</a>
+    	</div>
+	</div>
+	<script th:inline="javascript">
+	var parentMenuName=[[${menu.parentMenuName}]]
+	var menuName=[[${menu.menuName}]]
+	function submitForm(){
+        $('#myfm').form('submit',{
+            url: '/constructions/edit.html',
+            onSubmit: function(){
+                return $(this).form('validate');
+            },
+            success: function(result){
+                if ("success"==result){
+                	Common.showMsg('提示',"修改成功");
+                	top.framework.closeAndReloadTab(menuName, parentMenuName);
+                } else {
+                	Common.showMsg('提示',"修改失败");
+                }
+            }
+        });
+	}
+	</script>
+</body>
+

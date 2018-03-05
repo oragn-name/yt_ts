@@ -7,6 +7,7 @@
     -->
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="pro_id" jdbcType="INTEGER" property="proId" />
+    <result column="pc_id" jdbcType="INTEGER" property="pcId" />
     <result column="create_user" jdbcType="INTEGER" property="createUser" />
     <result column="create_time" jdbcType="VARCHAR" property="createTime" />
     <result column="prwd_one" jdbcType="DOUBLE" property="prwdOne" />
@@ -20,14 +21,23 @@
     <result column="prwd_nine" jdbcType="DOUBLE" property="prwdNine" />
     <result column="prwd_subtotal" jdbcType="DOUBLE" property="prwdSubtotal" />
   </resultMap>
-  <select id="selectRoadWorkDaily" parameterType="com.study.model.ProjectRoadWorkDaily" resultType="com.study.model.ProjectRoadWorkDaily">
   
-   select id,pro_id as "proId",create_user as "createUser",create_time as "createTime",
+  <select id="selectProjectItemConstruction" parameterType="com.study.model.vo.ProjectItemConstruction" resultType="com.study.model.vo.ProjectItemConstruction">
+     select pp.pro_name as "proName",pp.pro_number as "proNumber",pp.pro_snap_number as "proSnapNumber",pp.pro_serial_number as "proSerialNumber",pp.id as "proId",pc.id as "pcId",(select dictdata_name from dictionarydata where id=pc.pc_dept)  as "pcDeptName",
+     pc.pc_workers as "pcWorkers",pc.pc_phone as "pcPhone",pc.pc_month_plan as "pcMonthPlan",pc.pc_week_plan as "pcWeekPlan",pc.create_user as "createUser",pc.create_time as "createTime",pc.pc_remark as "pcRemark" 
+     from project_produce pp INNER join project_construction pc on pp.id=pc.proId where 1=1
+     <if test="proName!=null and proName!=''">
+    and pp.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
+     </if>
+  </select>
+  
+  <select id="selectRoadWorkDaily" parameterType="com.study.model.ProjectRoadWorkDaily" resultType="com.study.model.ProjectRoadWorkDaily">
+   select id,pro_id as "proId",pc_id as "pcId",create_user as "createUser",create_time as "createTime",
     prwd_one as "prwdOne",prwd_two as "prwdTwo",prwd_three as "prwdThree",prwd_four as "prwdFour",
       prwd_five as "prwdFive",prwd_six as "prwdSix",prwd_seven as "prwdSeven",prwd_eight as "prwdEight",
        prwd_nine as "prwdNine" ,(ifnull(prwd_one,0) + ifnull(prwd_two,0) + ifnull(prwd_three,0) + ifnull(prwd_four,0) + ifnull(prwd_five,0) + ifnull(prwd_six,0) + ifnull(prwd_seven,0) + ifnull(prwd_eight,0) + ifnull(prwd_nine,0)) as "prwdSubtotal"   from project_road_work_daily where 1=1
-       <if test="proId!=null and proId!=''">
-        and pro_id=#{proId}
+       <if test="pcId!=null and pcId!=''">
+        and pc_id=#{pcId}
        </if>
     
   </select>

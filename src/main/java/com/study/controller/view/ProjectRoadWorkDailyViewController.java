@@ -23,13 +23,14 @@ public class ProjectRoadWorkDailyViewController {
   private ProjectRoadWorkDailyService roadWorkDailyService;
   
   @RequestMapping(value="/workdailys/add",method={RequestMethod.GET})
-  public String add(HttpServletRequest request,@RequestParam(value="id",required=false)Integer id,@ModelAttribute MenuBean bean,@RequestParam(value="proId",required=false)Integer proId){
+  public String add(HttpServletRequest request,@RequestParam(value="id",required=false)Integer id,@ModelAttribute MenuBean bean,@RequestParam(value="proId",required=false)Integer proId,@RequestParam(value="pcId",required=false)Integer pcId){
     request.setAttribute("menu", bean);
     if(id!=null){
       ProjectRoadWorkDaily selectByKey = roadWorkDailyService.selectByKey(id);
       request.setAttribute("daily", selectByKey);
       return "workdailys/workdailys_edit";
     }else{
+      request.setAttribute("pcId", pcId);
       request.setAttribute("proId", proId);
       return "workdailys/workdailys_add";
     }

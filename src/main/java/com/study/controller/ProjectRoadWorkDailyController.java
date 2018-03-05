@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.pagehelper.PageInfo;
 import com.study.model.ProjectRoadWorkDaily;
 import com.study.model.User;
+import com.study.model.vo.ProjectItemConstruction;
 import com.study.service.ProjectRoadWorkDailyService;
 import com.study.util.ResultUtil;
 import com.study.util.bean.DataGridResultInfo;
@@ -30,11 +31,20 @@ public class ProjectRoadWorkDailyController {
   @Autowired
   private ProjectRoadWorkDailyService roadWorkDailyService;
 
+  @RequestMapping(value = "/workdailys/getItemData", method = { RequestMethod.GET })
+  public DataGridResultInfo getItemData(@ModelAttribute PageBean bean,String proName){
+    ProjectItemConstruction construction=new ProjectItemConstruction();
+    construction.setProName(proName);
+    List<ProjectItemConstruction> selectProjectItemConstruction = roadWorkDailyService.selectProjectItemConstruction(construction, bean);
+    PageInfo<ProjectItemConstruction> info=new PageInfo<ProjectItemConstruction>(selectProjectItemConstruction);
+    return ResultUtil.createDataGridResult(info.getTotal(), info.getList());
+  }
+  
   @RequestMapping(value = "/workdailys/getData", method = { RequestMethod.GET })
   public DataGridResultInfo getData(@ModelAttribute PageBean bean,
-      @RequestParam(value = "proId", required = true) Integer proId) {
+      @RequestParam(value = "pcId", required = true) Integer pcId) {
     ProjectRoadWorkDaily daily = new ProjectRoadWorkDaily();
-    daily.setProId(proId);
+    daily.setPcId(pcId);
     List<ProjectRoadWorkDaily> selectWorkDailyAll = roadWorkDailyService
         .selectWorkDailyAll(daily, bean);
     PageInfo<ProjectRoadWorkDaily> info = new PageInfo<ProjectRoadWorkDaily>(

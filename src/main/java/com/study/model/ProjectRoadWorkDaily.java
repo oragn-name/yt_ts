@@ -13,6 +13,9 @@ public class ProjectRoadWorkDaily {
     @Column(name = "pro_id")
     private Integer proId;
     
+    @Column(name = "pc_id")
+    private Integer pcId;
+    
     @Column(name = "create_time")
     private String createTime;
     @Column(name = "create_user")
@@ -298,6 +301,14 @@ public class ProjectRoadWorkDaily {
 
     public void setCreateUser(Integer createUser) {
       this.createUser = createUser;
+    }
+
+    public Integer getPcId() {
+      return pcId;
+    }
+
+    public void setPcId(Integer pcId) {
+      this.pcId = pcId;
     }
     
 }

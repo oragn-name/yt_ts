@@ -11,6 +11,7 @@ import tk.mybatis.mapper.entity.Example.Criteria;
 import com.github.pagehelper.PageHelper;
 import com.study.mapper.ProjectRoadWorkDailyMapper;
 import com.study.model.ProjectRoadWorkDaily;
+import com.study.model.vo.ProjectItemConstruction;
 import com.study.service.ProjectRoadWorkDailyService;
 import com.study.util.PageBeanUtil;
 import com.study.util.bean.PageBean;
@@ -30,6 +31,15 @@ public class ProjectRoadWorkDailyServiceImpl extends BaseService<ProjectRoadWork
     List<ProjectRoadWorkDaily> selectByExample = roadWorkDailyMapper.selectRoadWorkDaily(daily);
     return selectByExample;
     
+  }
+  @Override
+  public List<ProjectItemConstruction> selectProjectItemConstruction(
+      ProjectItemConstruction itemConstruction, PageBean bean) {
+    if(PageBeanUtil.pageBeanIsNotEmpty(bean)){
+      PageHelper.startPage(bean.getPage(), bean.getRows());
+    }
+    List<ProjectItemConstruction> selectProjectItemConstruction = roadWorkDailyMapper.selectProjectItemConstruction(itemConstruction);
+    return selectProjectItemConstruction;
   }
 
 }
