@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ProjectReceiptsMapper">
+  <resultMap id="BaseResultMap" type="com.study.model.ProjectReceipts">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="receipts_id" jdbcType="INTEGER" property="receiptsId" />
+    <result column="pro_id" jdbcType="INTEGER" property="proId" />
+    <result column="receipts_money" jdbcType="DOUBLE" property="receiptsMoney" />
+    <result column="receipts_time" jdbcType="VARCHAR" property="receiptsTime" />
+    <result column="receipts_unit" jdbcType="VARCHAR" property="receiptsUnit" />
+    <result column="receipts_user" jdbcType="VARCHAR" property="receiptsUser" />
+    <result column="receipts_create_user" jdbcType="INTEGER" property="receiptsCreateUser" />
+    <result column="receipts_create_time" jdbcType="VARCHAR" property="receiptsCreateTime" />
+    <result column="receipts_source" jdbcType="INTEGER" property="receiptsSource" />
+  </resultMap>
+  <select id="selectReceiptsByAll" parameterType="com.study.model.ProjectReceipts" resultType="com.study.model.ProjectReceipts">
+   select  receipts_id as "receiptsId",pro_id as "proId",receipts_money as "receiptsMoney",
+           receipts_time as "receiptsTime",receipts_unit as "receiptsUnit",receipts_user as "receiptsUser",
+           receipts_create_user as "receiptsCreateUser",receipts_create_time as "receiptsCreateTime",receipts_source as "receiptsSource"
+      from project_receipts where 1=1 and pro_id=#{proId}
+  </select>
+  
+</mapper>

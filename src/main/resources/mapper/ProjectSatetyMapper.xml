@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ProjectSatetyMapper">
+  <resultMap id="BaseResultMap" type="com.study.model.ProjectSatety">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="safety_id" jdbcType="INTEGER" property="safetyId" />
+    <result column="safety_qualified_time" jdbcType="VARCHAR" property="safetyQualifiedTime" />
+    <result column="safety_hand_man" jdbcType="VARCHAR" property="safetyHandMan" />
+    <result column="safety_edit" jdbcType="INTEGER" property="safetyEdit" />
+    <result column="safety_reporter" jdbcType="VARCHAR" property="safetyReporter" />
+    <result column="safety_principal" jdbcType="VARCHAR" property="safetyPrincipal" />
+    <result column="safety_phone" jdbcType="VARCHAR" property="safetyPhone" />
+    <result column="safety_safe" jdbcType="VARCHAR" property="safetySafe" />
+    <result column="safety_pro" jdbcType="VARCHAR" property="safetyPro" />
+    <result column="safety_fire" jdbcType="VARCHAR" property="safetyFire" />
+    <result column="safety_step" jdbcType="VARCHAR" property="safetyStep" />
+    <result column="safety_user" jdbcType="INTEGER" property="safetyUser" />
+    <result column="safety_user_time" jdbcType="VARCHAR" property="safetyUserTime" />
+    <result column="pro_id" jdbcType="INTEGER" property="proId" />
+  </resultMap>
+  <select id="selectSafetyByAll" parameterType="com.study.model.ProjectSatety" resultType="com.study.model.ProjectSatety">
+  
+  select safety_id as "safetyId",safety_qualified_time as "safetyQualifiedTime",safety_hand_man	as "safetyHandMan",safety_edit as "safetyEdit",safety_reporter as "safetyReporter",
+  	     safety_principal as "safetyPrincipal",safety_phone as "safetyPhone",safety_safe as "safetySafe",safety_pro as "safetyPro",
+  	     safety_fire as "safetyFire",safety_step as "safetyStep",safety_user as "safetyUser",safety_user_time as "safetyUserTime",pro_id as "proId" 
+  from project_satety where 1=1 and pro_id=#{proId}
+  
+  
+  </select>
+</mapper>
