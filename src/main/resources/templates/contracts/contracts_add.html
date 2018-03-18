@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="common/head :: header">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'center'" border="false">
+	<div id="dlg" style="padding:10px 20px">
+	   <div class="myftitle">基本信息</div>
+	   <form id="myfm" method="post" novalidate>
+	   <input type="hidden" th:value="${proIds}"  name="proIds">
+	   	   <table cellpadding="5">
+	   	   <tr>
+                <td  style="text-align: right;">工程预算价:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractBudgetPrice" data-options=""></input></td>
+                    <td style="text-align: right;">预算编制人:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractBudgetPriceUser" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">招投标时间:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="contractBiddingTime"data-options=""></input></td>
+                    <td style="text-align: right;">有无合同:</td>
+                    <td>
+<select class="easyui-combobox" name="contractType" style="width: 148px;">
+	           				  	<option value="1">有</option>
+	           				  	<option value="0">无</option>
+	           					</select>
+ </td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">合同编号:</td>
+                    <td ><input class="easyui-validatebox" type="text" name="contractNumber"  data-options=""></input></td>
+                    <td style="text-align: right;">是否单独合同:</td>
+                    <td>
+<select class="easyui-combobox" name="contractAlone" style="width: 148px;">
+	           				  	<option value="1">是</option>
+	           				  	<option value="0">否</option>
+	           					</select>
+ </td>
+                </tr>
+                <tr>
+                <td  style="text-align: right;">原合同工程编号:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractProNumber" data-options=""></input></td>
+                    <td style="text-align: right;">合同归档日期:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="contractArchTime" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">合同性质:</td>
+                    <td>
+                     <select class="easyui-combobox" name="contractNatrue" style="width: 148px;" >
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'HTXZ')}"></option>
+                         </select>
+                    </td>
+                    <td style="text-align: right;">合同金额:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractMoney" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">是否招投标:</td>
+                    <td>
+                       <select class="easyui-combobox" name="contractBiddingType" style="width: 148px;">
+	           				  	<option value="1">是</option>
+	           				  	<option value="0">否</option>
+	           					</select>
+</td>
+                    <td style="text-align: right;">合同审核意见:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractAdvice" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">合同审核人:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractCheckUser" data-options=""></input></td>
+                    <td style="text-align: right;">合同审核时间:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="contractCheckTime" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">合同签订日期:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="contractSignTime" data-options=""></input></td>
+                    <td style="text-align: right;">合同盖章时间:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="contractStampTime" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">合同返回日期:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="contractBackTime" data-options=""></input></td>
+                    <td style="text-align: right;">返回经手人:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractBackUser" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">合同签订人:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractSignUser" data-options=""></input></td>
+                    <td style="text-align: right;">工期:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractDur" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">印花税金额:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractDuty" data-options=""></input></td>
+                    <td style="text-align: right;">贴税日期:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="contractDutyTime" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                    <td style="text-align: right;">合同备注:</td>
+                    <td colspan="3">
+<textarea rows="5" cols="70" name="contractRemark"></textarea>
+                   </td>
+                </tr>
+            </table>
+	   </form>
+    </div>
+    </div>
+    <div data-options="region:'south'" style="height: 40px;" border="false">
+		<hr>
+		<div style="text-align:center;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">保存</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" th:onclick="|top.framework.closeTab('${menu.menuName}')|">关闭</a>
+    	</div>
+	</div>
+	<script th:inline="javascript">
+	var parentMenuName=[[${menu.parentMenuName}]]
+	var menuName=[[${menu.menuName}]]
+	function submitForm(){
+        $('#myfm').form('submit',{
+            url: '/contracts/add.html',
+            onSubmit: function(){
+                return $(this).form('validate');
+            },
+            success: function(result){
+                if ("success"==result){
+                	Common.showMsg('提示',"添加成功");
+                	top.framework.closeAndReloadTab(menuName, parentMenuName);
+                } else {
+                	Common.showMsg('提示',"添加失败");
+                }
+            }
+        });
+	}
+	</script>
+</body>
+

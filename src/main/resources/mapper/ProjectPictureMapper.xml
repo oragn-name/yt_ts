@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ProjectPictureMapper">
+  <resultMap id="BaseResultMap" type="com.study.model.ProjectPicture">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="picture_id" jdbcType="INTEGER" property="pictureId" />
+    <result column="pro_id" jdbcType="INTEGER" property="proId" />
+    <result column="picture_nature" jdbcType="INTEGER" property="pictureNature" />
+    <result column="picture_time" jdbcType="VARCHAR" property="pictureTime" />
+    <result column="picture_type" jdbcType="INTEGER" property="pictureType" />
+    <result column="picture_type_time" jdbcType="VARCHAR" property="pictureTypeTime" />
+    <result column="picture_remark" jdbcType="VARCHAR" property="pictureRemark" />
+    <result column="picture_create_user" jdbcType="INTEGER" property="pictureCreateUser" />
+    <result column="picture_create_time" jdbcType="VARCHAR" property="pictureCreateTime" />
+  </resultMap>
+  <select id="selectPictureByAll" parameterType="com.study.model.ProjectPicture" resultType="com.study.model.ProjectPicture">
+  
+     select  picture_id as "pictureId",	pro_id as "proId",picture_nature as "pictureNature",(select dictdata_name from dictionarydata where id=picture_nature) as "pictureNatureName",
+     	     picture_time as "pictureTime",	picture_type as "pictureType",picture_type_time as "pictureTypeTime",
+     	     picture_remark as "pictureRemark",	picture_create_user as "pictureCreateUser",	picture_create_time as "pictureCreateTime" from project_picture where 1=1 and pro_id=#{proId}
+  
+  
+  </select>
+  
+  
+</mapper>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="common/head :: header">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'center'" border="false">
+	<div id="dlg" style="padding:10px 20px">
+	   <div class="myftitle">基本信息</div>
+	   <form id="myfm" method="post" novalidate>
+	   <input type="hidden" th:value="${picture.proId}"  name="proId">
+	   <input type="hidden" th:value="${picture.pictureId}"  name="pictureId">
+	   	   <table cellpadding="5">
+                <tr>
+                <td  style="text-align: right;">图纸性质:</td>
+                    <td>
+                           <select class="easyui-combobox" name="pictureNature" style="width: 148px;" >
+	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'TZXZ')}" th:selected="${#strings.contains(picture.pictureNature,dict1.id)}"></option>
+	           					</select>
+                     </td>
+                    <td style="text-align: right;">接受竣工图时间:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="pictureTime" th:value="${picture.pictureTime}" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                    <td style="text-align: right;">竣工图是否合格:</td>
+                    <td>
+<select class="easyui-combobox" name="pictureType" style="width: 148px;">
+	           				  	<option value="1"  th:selected="${#strings.contains(picture.pictureType,1)}">合格</option>
+	           				  	<option value="0" th:selected="${#strings.contains(picture.pictureType,0)}">不合格</option>
+	           					</select>
+                     </td>
+                    <td  style="text-align: right;">竣工图和格时间:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="pictureTypeTime"  th:value="${picture.pictureTypeTime}" data-options=""></input></td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">备注:</td>
+                    <td colspan="3">
+<textarea rows="5" cols="70" name="pictureRemark" th:text="${picture.pictureRemark}"></textarea>
+                   </td>
+                </tr>
+            </table>
+	   </form>
+    </div>
+    </div>
+    <div data-options="region:'south'" style="height: 40px;" border="false">
+		<hr>
+		<div style="text-align:center;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">保存</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" th:onclick="|top.framework.closeTab('${menu.menuName}')|">关闭</a>
+    	</div>
+	</div>
+	<script th:inline="javascript">
+	var parentMenuName=[[${menu.parentMenuName}]]
+	var menuName=[[${menu.menuName}]]
+	function submitForm(){
+        $('#myfm').form('submit',{
+            url: '/pictures/edit.html',
+            onSubmit: function(){
+                return $(this).form('validate');
+            },
+            success: function(result){
+                if ("success"==result){
+                	Common.showMsg('提示',"添加成功");
+                	top.framework.closeAndReloadTab(menuName, parentMenuName);
+                } else {
+                	Common.showMsg('提示',"添加失败");
+                }
+            }
+        });
+	}
+	</script>
+</body>
+

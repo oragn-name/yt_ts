@@ -9,6 +9,12 @@ public class ProjectProduce {
     private Integer id;
 
     /**
+     * 合同编号
+     */
+    @Column(name = "pro_contract_number")
+    private String proContractNumber;
+    
+    /**
      * 测量定线 1 是，0否
      */
     @Column(name = "pro_gauge")
@@ -787,6 +793,14 @@ public class ProjectProduce {
 
     public void setProNumberName(String proNumberName) {
       this.proNumberName = proNumberName;
+    }
+
+    public String getProContractNumber() {
+      return proContractNumber;
+    }
+
+    public void setProContractNumber(String proContractNumber) {
+      this.proContractNumber = proContractNumber;
     }
     
     

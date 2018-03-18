@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ProjectAccountsMapper">
+  <resultMap id="BaseResultMap" type="com.study.model.ProjectAccounts">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="accounts_id" jdbcType="INTEGER" property="accountsId" />
+    <result column="accounts_money" jdbcType="DOUBLE" property="accountsMoney" />
+    <result column="pro_id" jdbcType="INTEGER" property="proId" />
+    <result column="accounts_time" jdbcType="VARCHAR" property="accountsTime" />
+    <result column="accounts_create_user" jdbcType="INTEGER" property="accountsCreateUser" />
+    <result column="accounts_create_time" jdbcType="VARCHAR" property="accountsCreateTime" />
+    <result column="accounts_remark" jdbcType="VARCHAR" property="accountsRemark" />
+  </resultMap>
+  
+  <select id="selectAccountsByAll" resultType="com.study.model.ProjectAccounts" parameterType="com.study.model.ProjectAccounts">
+  
+    select a.accounts_id as "accountsId",a.accounts_money as "accountsMoney",a.pro_id as "proId",
+           a.accounts_time as "accountsTime",a.accounts_create_user as "accountsCreateUser",
+           a.accounts_create_time as "accountsCreateTime",a.accounts_remark as "accountsRemark",
+           pro.pro_Number as "proNumber",(select name from dept where id=pro.pro_dept) as "proDeptName",
+           pro.pro_const as "proConstName",rw.prw_budget as "prwBudget",rw.prw_road_name as "prwRoadName" 
+    from project_accounts a inner join project_produce pro on pro.id=a.pro_id inner join project_road_work rw on pro.id=rw.pro_id  and a.pro_id=#{proId}
+  </select>
+  
+</mapper>

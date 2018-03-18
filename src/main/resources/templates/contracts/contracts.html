@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="common/head :: header">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body class="easyui-layout">
+<table id="tb2" class="easyui-datagrid" title="" style="width:1260px;height:255px;"  border="0"
+           data-options="rownumbers:true,pagination:true,url:'/produces/getData.do',singleSelect:false,method:'get',toolbar:'#toolbar2'">
+        <thead>
+            <tr>
+            	<th data-options="field:'ck',checkbox:true"></th>
+            	<th data-options="field:'id',width:100,align:'center',sortable:'true',hidden:'true'">id</th>
+            	<th data-options="field:'proGauge',width:80,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }">测量定线</th>
+	            <th data-options="field:'proNumber',width:100,align:'center',sortable:'true'">工号</th>
+            	<th data-options="field:'proSnapNumber',width:100,align:'center',sortable:'true'">临时工号</th>
+            	<th data-options="field:'proSerialNumber',width:100,align:'center',sortable:'true'">序号</th>
+            	<th data-options="field:'proNumberName',width:80,align:'center',sortable:'true'">编号性质</th>
+            	<th data-options="field:'proName',width:100,align:'center',sortable:'true'">工程名称</th>
+            	<th data-options="field:'proContractNumber',width:100,align:'center',sortable:'true'">合同编号</th>
+            	<th data-options="field:'proJobTypeName',width:100,align:'center',sortable:'true'">工号类别</th>
+            	<th data-options="field:'proEngineTypeName',width:100,align:'center',sortable:'true'">工程类别</th>
+            	<th data-options="field:'proNatureName',width:100,align:'center',sortable:'true'">工程性质</th>
+            	<th data-options="field:'proSourceName',width:100,align:'center',sortable:'true'">工程来源</th>
+            	<th data-options="field:'proUser',width:100,align:'center',sortable:'true'">联系人</th>
+            	<th data-options="field:'proUserPhone',width:100,align:'center',sortable:'true'">电话</th>
+            	<th data-options="field:'proLssuedTime',width:150,align:'center',sortable:'true'">任务下达时间</th>
+            	<th data-options="field:'proAreaName',width:100,align:'center',sortable:'true'">工程地址</th>
+            	<!-- <th data-options="field:'proRoadsTime',width:150,align:'center',sortable:'true'">路政报批时间</th>
+            	<th data-options="field:'proTrafficTime',width:150,align:'center',sortable:'true'">交通报批时间</th> -->
+            	<th data-options="field:'proPeriodName',width:100,align:'center',sortable:'true'">期次</th>
+            	<th data-options="field:'proConst',width:100,align:'center',sortable:'true'">施工单位</th>
+            	<th data-options="field:'proDeptName',width:100,align:'center',sortable:'true'">转入单位</th>
+            	<th data-options="field:'proDesignLength',width:100,align:'center',sortable:'true'">设计长度</th>
+            	<th data-options="field:'proPipeLength',width:100,align:'center',sortable:'true'">管径</th>
+            	<th data-options="field:'proSnapLength',width:100,align:'center',sortable:'true'">临时线长度</th>
+            	
+            	<th data-options="field:'proPipe',width:100,align:'center',sortable:'true'">管阀口径</th>
+            	<th data-options="field:'proPipeLengths',width:100,align:'center',sortable:'true'">管阀长度</th>
+            	<th data-options="field:'proWater',width:100,align:'center',sortable:'true'">水表口径</th>
+            	<th data-options="field:'proWaterNumber',width:100,align:'center',sortable:'true'">水表数量</th>
+            	<th data-options="field:'proDesign',width:100,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }">是否需设计交底</th>
+            	<th data-options="field:'proBilling',width:100,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }">是否需计费协议</th>
+            	<th data-options="field:'proWaterBegintime',width:100,align:'center',sortable:'true'">临水开始时间</th>
+            	<th data-options="field:'proWaterEndtime',width:100,align:'center',sortable:'true'">临水结束时间</th>
+            	<th data-options="field:'proRemark',width:100,align:'center',sortable:'true'">备注</th>
+            	
+            	
+            	
+            	
+            	
+            	
+            	<th data-options="field:'createUser',width:100,align:'center',sortable:'true'">创建人</th>
+            	<th data-options="field:'createTime',width:150,align:'center',sortable:'true'">创建时间</th>
+            	
+            </tr>
+        </thead>
+   	</table>
+    <div id="toolbar2" class="easyui-layout" style="height:40px;margin:3px;">
+        <div data-options="region:'north',border:true" style="height:40px;">
+            <form id="fm" method="post" novalidate>
+            <table cellpadding="5">
+              <tr>
+                   <td>项目名称:</td>
+                   <td><input class="easyui-validatebox textbox" type="text" name="pname" id="pname"></input></td>
+                   <td>合同编号:</td>
+                   <td><input class="easyui-validatebox textbox" type="text" name="proContractNumber" id="proContractNumber"></input></td>
+                   <td><a href="javascript:searchProp()" class="easyui-linkbutton" iconCls="icon-search">查找</a></td>
+               </tr>
+           </table>
+           </form>
+        </div>
+        
+    </div>
+	<table id="tb1" class="easyui-datagrid" title="" style="width:1260px;height:255px;"  border="0"
+           data-options="rownumbers:true,pagination:true,url:'/contracts/getData.do',singleSelect:false,method:'get',toolbar:'#toolbar1'">
+        <thead>
+            <tr>
+            	<th data-options="field:'ck',checkbox:true"></th>
+            	<th data-options="field:'contractId',width:100,align:'center',sortable:'true',hidden:'true'">contractId</th>
+            	<th data-options="field:'contractBudgetPrice',width:150,align:'center',sortable:'true'">工程预算价</th>
+            	<th data-options="field:'contractBudgetPriceUser',width:150,align:'center',sortable:'true'">预算编制人</th>
+            	<th data-options="field:'contractType',width:100,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '有';
+	                                    return '无';
+	                		  }">有无合同</th>
+            	<th data-options="field:'contractBiddingTime',width:100,align:'center',sortable:'true'">招投标时间</th>
+          		  <th data-options="field:'contractNumber',width:100,align:'center',sortable:'true'">合同编号</th>
+          		  <th data-options="field:'contractAlone',width:100,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }">是否单独合同</th>
+          		  <th data-options="field:'contractProNumber',width:100,align:'center',sortable:'true'">原合同工程号</th>
+          		  <th data-options="field:'contractArchTime',width:100,align:'center',sortable:'true'">合同归档日期</th>
+          		  <th data-options="field:'contractRemark',width:100,align:'center',sortable:'true'">合同备注</th>
+          		  <th data-options="field:'contractNatrueName',width:100,align:'center',sortable:'true'">合同性质</th>
+          		  <th data-options="field:'contractMoney',width:100,align:'center',sortable:'true'">合同金额</th>
+          		  <th data-options="field:'contractBiddingType',width:100,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }">是否招投标</th>
+          		  <th data-options="field:'contractAdvice',width:100,align:'center',sortable:'true'">合同审核意见</th>
+          		  <th data-options="field:'contractCheckUser',width:100,align:'center',sortable:'true'">合同审核人</th>
+          		  <th data-options="field:'contractCheckTime',width:100,align:'center',sortable:'true'">合同审核时间</th>
+          		  <th data-options="field:'contractSignTime',width:100,align:'center',sortable:'true'">合同签订日期</th>
+          		  <th data-options="field:'contractStampTime',width:100,align:'center',sortable:'true'">合同盖章日期</th>
+          		  <th data-options="field:'contractBackTime',width:100,align:'center',sortable:'true'">合同返回日期</th>
+          		  <th data-options="field:'contractBackUser',width:100,align:'center',sortable:'true'">合同经手人</th>
+          		  <th data-options="field:'contractSignUser',width:100,align:'center',sortable:'true'">合同签订人</th>
+          		  <th data-options="field:'contractDur',width:100,align:'center',sortable:'true'">工期</th>
+          		  <th data-options="field:'contractDuty',width:100,align:'center',sortable:'true'">印花税金额</th>
+          		  <th data-options="field:'contractDutyTime',width:100,align:'center',sortable:'true'">贴税日期</th>
+          		  <th data-options="field:'contractCreateUser',width:100,align:'center',sortable:'true'">创建人</th>
+          		  <th data-options="field:'contractCreateTime',width:100,align:'center',sortable:'true'">创建时间</th>
+            </tr>
+        </thead>
+   	</table>
+    <div id="toolbar1" class="easyui-layout" style="height:60px;margin:3px;">
+        <div data-options="region:'center',border:false">
+        <a th:each="but : ${buttons}" th:shiro:hasPermission="${but.resurl}" th: class="easyui-linkbutton" th:icon="${but.iconCls}" plain="true" th:href="|javascript:${but.butFun};|" th:text="${but.name}"></a>
+        </div>
+        <div data-options="region:'north',border:true" style="height:40px;">
+            <form id="fm" method="post" novalidate>
+            <table cellpadding="5">
+              <tr>
+                   <td>合同编号:</td>
+                   <td><input class="easyui-validatebox textbox" type="text" name="contractNumber" id="contractNumber"></input></td>
+                   <td><a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查找</a></td>
+               </tr>
+           </table>
+           </form>
+        </div> 
+        
+    </div> 
+    <script th:inline="javascript">
+    var menuName=[[${menuName}]]
+    
+    
+    function add(){
+    	var selecteds = $('#tb2').datagrid('getSelections');
+        if (selecteds == null || selecteds.length == 0) { 
+        	Common.showMsg('提示','请选一条数据');
+        	return;
+        }
+        var ids = '';
+        $(selecteds).each(function (index) {
+            ids = ids + selecteds[index].id + ",";
+        });
+        ids = ids.substring(0, ids.length - 1);
+		top.framework.openTab('新增数据', '/contracts/add?menuName=新增数据&parentMenuName='+menuName+'&proIds='+ids);
+	}
+    function edit(){
+		var selecteds = $('#tb1').datagrid('getSelections');
+		var selecteds2 = $('#tb2').datagrid('getSelections');
+        if (selecteds == null || selecteds.length == 0) { 
+        	Common.showMsg('修改数据','请选择操作项！');
+        	return;
+        }
+        if (selecteds.length>1) {
+        	Common.showMsg('修改数据','不支持多个操作！');
+        	return; 
+        }
+		top.framework.openTab('修改数据', '/contracts/add.do?menuName=修改数据&contractId='+selecteds[0].contractId+'&parentMenuName='+menuName);
+	}
+    
+    function remove(){
+		var selecteds = $('#tb1').datagrid('getSelections');
+        if (selecteds == null || selecteds.length == 0) { 
+        	Common.showMsg('提示','请选择操作项！');
+        	return;
+        }
+        $.messager.confirm('提示','确定删除吗?', 
+        function(r){
+            if (r){
+            	var ids = '';
+                $(selecteds).each(function (index) {
+                    ids = ids + selecteds[index].contractId + ",";
+                });
+                ids = ids.substring(0, ids.length - 1);
+        		$.ajax( {
+    				url : '/contracts/delete.do?ids='+ids,
+    				dataType:'text',
+    				type: 'delete',
+    				success : function(result) {
+    					if ("success"==result){
+    						Common.showMsg('提示',"删除成功");
+        				    search();
+    					}else{
+    						Common.showMsg('提示',"删除失败");
+    					}
+    					
+    				}
+    			});
+            }
+        });
+        
+	}
+    function search(){
+    	var names = $("#contractNumber").val();
+		$('#tb1').datagrid({
+            url:"/contracts/getData.do",
+            queryParams:{
+            	contractNumber:names
+            }
+        });
+	}
+    function searchProp(){
+    	var names = $("#pname").val();
+    	var proContractNumber = $("#proContractNumber").val();
+		$('#tb2').datagrid({
+            url:"/produces/getData.do",
+            queryParams:{
+            	proName:names,
+            	proContractNumber:proContractNumber
+            }
+        });
+	}
+    </script>
+</body>
+

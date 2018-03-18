@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ProjectContractMapper">
+  <resultMap id="BaseResultMap" type="com.study.model.ProjectContract">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="contract_id" jdbcType="INTEGER" property="contractId" />
+    <result column="contract_budget_price" jdbcType="DOUBLE" property="contractBudgetPrice" />
+    <result column="contract_budget_price_user" jdbcType="VARCHAR" property="contractBudgetPriceUser" />
+    <result column="contract_bidding_time" jdbcType="VARCHAR" property="contractBiddingTime" />
+    <result column="contract_type" jdbcType="INTEGER" property="contractType" />
+    <result column="contract_number" jdbcType="VARCHAR" property="contractNumber" />
+    <result column="contract_alone" jdbcType="INTEGER" property="contractAlone" />
+    <result column="contract_pro_number" jdbcType="VARCHAR" property="contractProNumber" />
+    <result column="contract_arch_time" jdbcType="VARCHAR" property="contractArchTime" />
+    <result column="contract_remark" jdbcType="VARCHAR" property="contractRemark" />
+    <result column="contract_natrue" jdbcType="INTEGER" property="contractNatrue" />
+    <result column="contract_money" jdbcType="DOUBLE" property="contractMoney" />
+    <result column="contract_bidding_type" jdbcType="INTEGER" property="contractBiddingType" />
+    <result column="contract_advice" jdbcType="VARCHAR" property="contractAdvice" />
+    <result column="contract_check_user" jdbcType="VARCHAR" property="contractCheckUser" />
+    <result column="contract_check_time" jdbcType="VARCHAR" property="contractCheckTime" />
+    <result column="contract_sign_time" jdbcType="VARCHAR" property="contractSignTime" />
+    <result column="contract_stamp_time" jdbcType="VARCHAR" property="contractStampTime" />
+    <result column="contract_back_time" jdbcType="VARCHAR" property="contractBackTime" />
+    <result column="contract_back_user" jdbcType="VARCHAR" property="contractBackUser" />
+    <result column="contract_sign_user" jdbcType="VARCHAR" property="contractSignUser" />
+    <result column="contract_dur" jdbcType="VARCHAR" property="contractDur" />
+    <result column="contract_duty" jdbcType="DOUBLE" property="contractDuty" />
+    <result column="contract_duty_time" jdbcType="VARCHAR" property="contractDutyTime" />
+     <result column="contract_create_user" jdbcType="INTEGER" property="contractCreateUser" />
+      <result column="contract_create_time" jdbcType="VARCHAR" property="contractCreateTime" />
+  </resultMap>
+  
+  <select id="selectContractByAll" parameterType="com.study.model.ProjectContract" resultType="com.study.model.ProjectContract">
+  select contract_id as "contractId",contract_budget_price as "contractBudgetPrice",contract_budget_price_user as "contractBudgetPriceUser",
+  	     contract_bidding_time as "contractBiddingTime",contract_type as "contractType",contract_number as "contractNumber",
+  	     contract_alone as "contractAlone",contract_pro_number as "contractProNumber",contract_arch_time as "contractArchTime",
+  	     contract_remark as "contractRemark",contract_natrue as "contractNatrue",(select dictdata_name from dictionarydata where id=contract_natrue) as "contractNatrueName",contract_money as "contractMoney",contract_bidding_type as "contractBiddingType",
+  	     contract_advice as "contractAdvice",contract_check_user as "contractCheckUser",contract_check_time as "contract_check_time",
+  	     contract_sign_time as "contractSignTime",contract_stamp_time as "contractStampTime",contract_back_time as "contractBackTime",contract_back_user as "contractBackUser",
+  	     contract_sign_user as "contractSignUser",contract_dur as "contractDur",contract_duty as "contractDuty",contract_duty_time as "contractDutyTime",
+  	     contract_create_user as "contractCreateUser",contract_create_time as "contractCreateTime" from project_contract  where 1=1
+  	     <if test="contractNumber!=null and contractNumber!=''">
+  	     and contract_number like CONCAT(CONCAT('%', #{contractNumber}), '%')
+  	     </if>
+  </select>
+</mapper>

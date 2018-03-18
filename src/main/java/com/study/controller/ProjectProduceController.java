@@ -38,9 +38,10 @@ public class ProjectProduceController {
   
   @ApiOperation(value="获取生产科的所有数据",notes="获取所有的生产科数据，返回grid")
   @RequestMapping(value="/produces/getData",method={RequestMethod.GET})
-  public DataGridResultInfo getData(@ModelAttribute PageBean bean,@RequestParam(value="proName",required=false)String proName){
+  public DataGridResultInfo getData(@ModelAttribute PageBean bean,@RequestParam(value="proName",required=false)String proName,String proContractNumber){
     ProjectProduce produce=new ProjectProduce();
     produce.setProName(proName);
+    produce.setProContractNumber(proContractNumber);
     List<ProjectProduce> projectProduceAll = projectProduceService.getProjectProduceAll(produce, bean);
     for (ProjectProduce projectProduce : projectProduceAll) {
       String proConsts="";

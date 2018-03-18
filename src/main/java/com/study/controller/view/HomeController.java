@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 
 
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -45,9 +46,12 @@ public class HomeController {
     private ResourcesService resourcesService;
     
     @ApiOperation(value="跳转登录页面",notes="跳转登录页面")
-    @RequestMapping(value = "/login", method ={RequestMethod.GET})
+    @RequestMapping(value = "/passChange", method ={RequestMethod.GET})
     public String login_view(HttpServletRequest request) {
-      request.setAttribute("aa", "111");
+        return "passChange";
+    }
+    @RequestMapping(value = "/login", method ={RequestMethod.GET})
+    public String login_view1(HttpServletRequest request) {
         return "login";
     }
     @ApiOperation(value="登录验证",notes="登录验证")
