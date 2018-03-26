@@ -1,6 +1,9 @@
 package com.study.controller.base;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -21,6 +24,7 @@ import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
 
 import com.study.model.Resources;
+import com.study.model.User;
 import com.study.service.ResourcesService;
 
 @Api(value="BaseController",description="所有菜单首页页面")
@@ -42,7 +46,24 @@ public class BaseController {
     createCriteria.andEqualTo("type", 2);
     createCriteria.andEqualTo("parentid", id);
     List<Resources> buttons = resourcesService.selectByExample(example);
-    request.setAttribute("buttons", buttons);
+    User user = (User)request.getSession().getAttribute("userSession");
+    Map<String, Object> map=new HashMap<String, Object>();
+    map.put("userid", user.getId());
+    map.put("type", 2);
+    List<Resources> loadUserResources = resourcesService.loadUserResources(map);
+    List<Resources> list=new ArrayList<Resources>();    
+    if(loadUserResources!=null&&loadUserResources.size()>0&&buttons!=null&&buttons.size()>0){
+        for (Resources resources1 : buttons) {
+          oht:
+          for (Resources resources : loadUserResources) {
+          if(resources.getId()==resources1.getId()){
+            list.add(resources1);
+            break oht;
+          }
+        }
+      }
+    }
+    request.setAttribute("buttons", list);
     request.setAttribute("menuName", menuName);
     return path+"/"+path;
   }

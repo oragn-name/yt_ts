@@ -9,50 +9,197 @@
 	<div id="dlg" style="padding:10px 20px">
 	   <div class="myftitle">基本信息</div>
 	   <form id="myfm" method="post" novalidate>
-	       <input type="hidden" name="id" th:value="${daily.id}"/>
+	      <input type="hidden" name="id" th:value="${daily.id}"/>
 	       <input type="hidden" name="createUser" th:value="${daily.createUser}"/>
 	       <input type="hidden" name="createTime" th:value="${daily.createTime}"/>
 	       <input type="hidden" th:value="${daily.proId}"  name="proId">
 	       <input type="hidden" th:value="${daily.pcId}"  name="pcId">
+	       <table>
+	          <tr>
+	             <td>工号：</td>
+	             <td><input class="easyui-validatebox" type="text" name="" th:value="${pro.proNumber}"></input></td>
+	             <td>临时工号：</td>
+	             <td><input class="easyui-validatebox" type="text" name="" th:value="${pro.proSnapNumber}"></input></td>
+	             <td>序号：</td>
+	             <td><input class="easyui-validatebox" type="text" name="" th:value="${pro.proSerialNumber}"></input></td>
+	          </tr>
+	           <tr>
+	             <td>起点：</td>
+	             <td><input class="easyui-validatebox" type="text" name="" th:value="${work.prwOrigin}"></input></td>
+	             <td>止点：</td>
+	             <td><input class="easyui-validatebox" type="text" name="" th:value="${work.prwStop}"></input></td>
+	          </tr>
+	       </table>
+	       <fieldset style="width:310px; border-width: 1px; float: left; margin-top: 10px;">
+	       <legend>其他</legend>
+	       <table cellpadding="5">
+	         <tr>
+	            <td colspan="2">当天实际完成工作量</td>
+		   	    <td colspan="2">下日计划完成工作量</td>
+	         </tr>
+	         <tr>
+	            <td>穿管:</td>
+	            <td><input class="easyui-validatebox" type="text" name="prTube" th:value="${daily.prTube}" style="width: 70px;" ></input></td>
+	            <td>穿管:</td>
+	            <td><input class="easyui-validatebox" type="text" name="prTubeNext" th:value="${daily.prTubeNext}" style="width: 70px;" ></input></td>
+	         </tr>
+	         <tr>
+	            <td>内衬:</td>
+	            <td><input class="easyui-validatebox" type="text" name="prLining"  th:value="${daily.prLining}"  style="width: 70px;"></input></td>
+	            <td>内衬:</td>
+	            <td><input class="easyui-validatebox" type="text" name="prLiningNext" th:value="${daily.prLiningNext}" style="width: 70px;"></input></td>
+	         </tr>
+	         <tr>
+	            <td>包封:</td>
+	            <td><input class="easyui-validatebox" type="text" name="prEnca" th:value="${daily.prEnca}" style="width: 70px;"></input></td>
+	            <td>包封:</td>
+	            <td><input class="easyui-validatebox" type="text" name="prEncaNext" th:value="${daily.prEncaNext}"  style="width: 70px;"></input></td>
+	         </tr>
+	         <tr>
+	            <td>勾头:</td>
+	            <td colspan="3"><input class="easyui-validatebox" type="text" name="prHead" th:value="${daily.prHead}" style="width: 150px;"></input></td>
+	         </tr>
+	       <tr>
+	            <td>冲洗:</td>
+	            <td colspan="3"><input class="easyui-validatebox" type="text" name="prRinse" th:value="${daily.prRinse}" style="width: 150px;"></input></td>
+	         </tr>
+	         <tr>
+	         <td>砌井:</td>
+	            <td colspan="3"><input class="easyui-validatebox" type="text" name="prConstru" th:value="${daily.prConstru}" style="width: 150px;"></input></td>
+	         </tr>
+	       
+	       </table>
+	       </fieldset>
+	       <fieldset style="width:300px; border-width: 1px; float: left;margin-top: 10px;">
+	        <legend>倒流防止器口径</legend>
+	        
 	   	   <table cellpadding="5">
+		   	   <tr>
+		   	     <td colspan="2">当天实际完成工作量</td>
+		   	     <td colspan="2">下日计划完成工作量</td>
+		   	   </tr>
                 <tr>
                     <td>DN15:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdOne" th:value="${daily.prwdOne}" data-options="validType:'intOrFloat'"></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdOne" th:value="${daily.prwdOne}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN15:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdOneNext" th:value="${daily.prwdOneNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
                 </tr>
                 <tr>
                     <td>DN20:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdTwo" th:value="${daily.prwdTwo}" data-options="validType:'intOrFloat'"></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdTwo" th:value="${daily.prwdTwo}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN20:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdTwoNext" th:value="${daily.prwdTwoNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
                 </tr>
                 <tr>
                     <td>DN25:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdThree" th:value="${daily.prwdThree}" data-options="validType:'intOrFloat'"></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdThree"  th:value="${daily.prwdThree}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN25:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdThreeNext" th:value="${daily.prwdThreeNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
                 </tr>
                 <tr>
                     <td>DN40:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdFour" th:value="${daily.prwdFour}" data-options="validType:'intOrFloat'"></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdFour" th:value="${daily.prwdFour}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN40:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdFourNext" th:value="${daily.prwdFourNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
                 </tr>
                 <tr>
                     <td>DN50:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdFive" th:value="${daily.prwdFive}" data-options="validType:'intOrFloat'"></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdFive" th:value="${daily.prwdFive}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN50:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdFiveNext" th:value="${daily.prwdFiveNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
                 </tr>
                 <tr>
                     <td>DN75:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdSix" th:value="${daily.prwdSix}" data-options="validType:'intOrFloat'"></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdSix" th:value="${daily.prwdSix}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN75:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdSixNext" th:value="${daily.prwdSixNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
                 </tr>
                 <tr>
                     <td>DN100:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdSeven" th:value="${daily.prwdSeven}" data-options="validType:'intOrFloat'"></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdSeven" th:value="${daily.prwdSeven}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN100:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdSevenNext" th:value="${daily.prwdSevenNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
                 </tr>
                 <tr>
                     <td>DN150:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdEight" th:value="${daily.prwdEight}" data-options="validType:'intOrFloat'"></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdEight" th:value="${daily.prwdEight}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN150:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdEightNext" th:value="${daily.prwdEightNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
                 </tr>
                 <tr>
                     <td>DN200:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdNine" th:value="${daily.prwdNine}" data-options=""></input></td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdNine" th:value="${daily.prwdNine}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN200:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwdNineNext" th:value="${daily.prwdNineNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
                 </tr>
 
             </table>
+            </fieldset>
+            
+            <fieldset style="width:300px; border-width: 1px;float: left; margin-top: 10px;">
+	        <legend>DMA口径</legend>
+	   	   <table cellpadding="5">
+	   	        <tr>
+	   	           <td colspan="2">当天实际完成工作量</td>
+	   	           <td colspan="2">下日计划完成工作量</td>
+	   	        </tr>
+                <tr>
+                    <td>DN15:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaOne" th:value="${daily.prDmaOne}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN15:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaOneNext" th:value="${daily.prDmaOneNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN20:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaTwo" th:value="${daily.prDmaTwo}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN20:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaTwoNext" th:value="${daily.prDmaTwoNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN25:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaThree" th:value="${daily.prDmaThree}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN25:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaThreeNext" th:value="${daily.prDmaThreeNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN40:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaFour" th:value="${daily.prDmaFour}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN40:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaFourNext" th:value="${daily.prDmaFourNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN50:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaFive"  th:value="${daily.prDmaFive}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN50:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaFiveNext" th:value="${daily.prDmaFiveNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN75:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaSix" th:value="${daily.prDmaSix}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN75:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaSixNext" th:value="${daily.prDmaSixNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN100:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaSeven" th:value="${daily.prDmaSeven}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN100:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaSevenNext" th:value="${daily.prDmaSevenNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN150:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaEight" th:value="${daily.prDmaEight}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN150:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaEightNext" th:value="${daily.prDmaEightNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN200:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaNine"  th:value="${daily.prDmaNine}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN200:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prDmaNineNext" th:value="${daily.prDmaNineNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+
+            </table>
+            </fieldset>
 	   </form>
     </div>
     </div>

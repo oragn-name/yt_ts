@@ -20,6 +20,49 @@
     <result column="prwd_eight" jdbcType="DOUBLE" property="prwdEight" />
     <result column="prwd_nine" jdbcType="DOUBLE" property="prwdNine" />
     <result column="prwd_subtotal" jdbcType="DOUBLE" property="prwdSubtotal" />
+    <result column="pr_dma_one" jdbcType="DOUBLE" property="prDmaOne" />
+    <result column="pr_dma_two" jdbcType="DOUBLE" property="prDmaTwo" />
+    <result column="pr_dma_three" jdbcType="DOUBLE" property="prDmaThree" />
+    <result column="pr_dma_four" jdbcType="DOUBLE" property="prDmaFour" />
+    <result column="pr_dma_five" jdbcType="DOUBLE" property="prDmaFive" />
+    <result column="pr_dma_six" jdbcType="DOUBLE" property="prDmaSix" />
+    <result column="pr_dma_seven" jdbcType="DOUBLE" property="prDmaSeven" />
+    <result column="pr_dma_eight" jdbcType="DOUBLE" property="prDmaEight" />
+    <result column="pr_dma_nine" jdbcType="DOUBLE" property="prDmaNine" />
+    <result column="pr_dma_subtotal" jdbcType="DOUBLE" property="prDmaSubtotal" />
+    
+    
+    <result column="prwd_one_next" jdbcType="DOUBLE" property="prwdOneNext" />
+    <result column="prwd_two_next" jdbcType="DOUBLE" property="prwdTwoNext" />
+    <result column="prwd_three_next" jdbcType="DOUBLE" property="prwdThreeNext" />
+    <result column="prwd_four_next" jdbcType="DOUBLE" property="prwdFourNext" />
+    <result column="prwd_five_next" jdbcType="DOUBLE" property="prwdFiveNext" />
+    <result column="prwd_six_next" jdbcType="DOUBLE" property="prwdSixNext" />
+    <result column="prwd_seven_next" jdbcType="DOUBLE" property="prwdSevenNext" />
+    <result column="prwd_eight_next" jdbcType="DOUBLE" property="prwdEightNext" />
+    <result column="prwd_nine_next" jdbcType="DOUBLE" property="prwdNineNext" />
+    <result column="prwd_subtotal_next" jdbcType="DOUBLE" property="prwdSubtotalNext" />
+    <result column="pr_dma_one_next" jdbcType="DOUBLE" property="prDmaOneNext" />
+    <result column="pr_dma_two_next" jdbcType="DOUBLE" property="prDmaTwoNext" />
+    <result column="pr_dma_three_next" jdbcType="DOUBLE" property="prDmaThreeNext" />
+    <result column="pr_dma_four_next" jdbcType="DOUBLE" property="prDmaFourNext" />
+    <result column="pr_dma_five_next" jdbcType="DOUBLE" property="prDmaFiveNext" />
+    <result column="pr_dma_six_next" jdbcType="DOUBLE" property="prDmaSixNext" />
+    <result column="pr_dma_seven_next" jdbcType="DOUBLE" property="prDmaSevenNext" />
+    <result column="pr_dma_eight_next" jdbcType="DOUBLE" property="prDmaEightNext" />
+    <result column="pr_dma_nine_next" jdbcType="DOUBLE" property="prDmaNineNext" />
+    <result column="pr_dma_subtotal_next" jdbcType="DOUBLE" property="prDmaSubtotalNext" />
+    
+    <result column="pr_tube" jdbcType="DOUBLE" property="prTube" />
+    <result column="pr_tube_next" jdbcType="DOUBLE" property="prTubeNext" />
+    <result column="pr_lining" jdbcType="DOUBLE" property="prLining" />
+    <result column="pr_lining_next" jdbcType="DOUBLE" property="prLiningNext" />
+    <result column="pr_enca" jdbcType="DOUBLE" property="prEnca" />
+    <result column="pr_enca_next" jdbcType="DOUBLE" property="prEncaNext" />
+    
+    <result column="pr_head" jdbcType="VARCHAR" property="prHead" />
+    <result column="pr_rinse" jdbcType="VARCHAR" property="prRinse" />
+    <result column="pr_constru" jdbcType="VARCHAR" property="prConstru" />
   </resultMap>
   
   <select id="selectProjectItemConstruction" parameterType="com.study.model.vo.ProjectItemConstruction" resultType="com.study.model.vo.ProjectItemConstruction">
@@ -34,8 +77,16 @@
   <select id="selectRoadWorkDaily" parameterType="com.study.model.ProjectRoadWorkDaily" resultType="com.study.model.ProjectRoadWorkDaily">
    select id,pro_id as "proId",pc_id as "pcId",create_user as "createUser",create_time as "createTime",
     prwd_one as "prwdOne",prwd_two as "prwdTwo",prwd_three as "prwdThree",prwd_four as "prwdFour",
-      prwd_five as "prwdFive",prwd_six as "prwdSix",prwd_seven as "prwdSeven",prwd_eight as "prwdEight",
-       prwd_nine as "prwdNine" ,(ifnull(prwd_one,0) + ifnull(prwd_two,0) + ifnull(prwd_three,0) + ifnull(prwd_four,0) + ifnull(prwd_five,0) + ifnull(prwd_six,0) + ifnull(prwd_seven,0) + ifnull(prwd_eight,0) + ifnull(prwd_nine,0)) as "prwdSubtotal"   from project_road_work_daily where 1=1
+      prwd_five as "prwdFive",prwd_six as "prwdSix",prwd_seven as "prwdSeven",prwd_eight as "prwdEight",prwd_nine as "prwdNine",
+      prwd_one_next as "prwdOneNext",prwd_two_next as "prwdTwoNext",prwd_three_next as "prwdThreeNext",prwd_four_next as "prwdFourNext",
+      prwd_five_next as "prwdFiveNext",prwd_six_next as "prwdSixNext",prwd_seven_next as "prwdSevenNext",prwd_eight_next as "prwdEightNext",prwd_nine_next as "prwdNineNext",prwd_subtotal_next as "prwdSubtotalNext",
+      pr_dma_one as "prDmaOne",pr_dma_two as "prDmaTwo",pr_dma_three as "prDmaThree",pr_dma_four as "prDmaFour",pr_dma_five as "prDmaFive",
+      pr_dma_six as "prDmaSix",pr_dma_seven as "prDmaSeven",pr_dma_eight as "prDmaEight",pr_dma_nine as "prDmaNine",pr_dma_subtotal as "prDmaSubtotal",
+      pr_dma_one_next as "prDmaOneNext",pr_dma_two_next as "prDmaTwoNext",pr_dma_three_next as "prDmaThreeNext",pr_dma_four_next as "prDmaFourNext",pr_dma_five_next as "prDmaFiveNext",
+      pr_dma_six_next as "prDmaSixNext",pr_dma_seven_next as "prDmaSevenNext",pr_dma_eight_next as "prDmaEightNext",pr_dma_nine_next as "prDmaNineNext",pr_dma_subtotal_next as "prDmaSubtotalNext",
+      pr_tube as "prTube",pr_tube_next as "prTubeNext",pr_lining as "prLining",pr_lining_next as "prLiningNext",pr_enca as "prEnca",pr_enca_next as "prEncaNext",pr_head as "prHead",
+      pr_rinse as "prRinse",pr_constru as "prConstru",
+        (ifnull(prwd_one,0) + ifnull(prwd_two,0) + ifnull(prwd_three,0) + ifnull(prwd_four,0) + ifnull(prwd_five,0) + ifnull(prwd_six,0) + ifnull(prwd_seven,0) + ifnull(prwd_eight,0) + ifnull(prwd_nine,0)) as "prwdSubtotal"   from project_road_work_daily where 1=1
        <if test="pcId!=null and pcId!=''">
         and pc_id=#{pcId}
        </if>

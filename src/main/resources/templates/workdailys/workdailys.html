@@ -19,9 +19,9 @@
             	<th data-options="field:'pcDeptName',width:100,align:'center',sortable:'true'">施工单位</th>
             	<th data-options="field:'pcWorkers',width:100,align:'center',sortable:'true'">施工人员</th>
             	<th data-options="field:'pcPhone',width:100,align:'center',sortable:'true'">电话</th>
-            	<th data-options="field:'pcWeekPlan',width:100,align:'center',sortable:'true'">周计划</th>
-            	<th data-options="field:'pcMonthPlan',width:100,align:'center',sortable:'true'">月计划</th>
-            	<th data-options="field:'pcRemark',width:100,align:'center',sortable:'true'">备注</th>
+            	<!-- <th data-options="field:'pcWeekPlan',width:100,align:'center',sortable:'true'">周计划</th>
+            	<th data-options="field:'pcMonthPlan',width:100,align:'center',sortable:'true'">月计划</th> -->
+            	<th data-options="field:'pcRemark',width:300,align:'center',sortable:'true'">备注</th>
             	<th data-options="field:'createUser',width:100,align:'center',sortable:'true'">创建人</th>
             	<th data-options="field:'createTime',width:100,align:'center',sortable:'true'">创建时间</th>
             	<!-- <th data-options="field:'id',width:100,align:'center',sortable:'true',hidden:'true'">id</th>
@@ -74,18 +74,65 @@
             	<th data-options="field:'ck',checkbox:true"></th>
             	<th data-options="field:'id',width:100,align:'center',sortable:'true',hidden:'true'">id</th>
             	<th data-options="field:'proId',width:100,align:'center',sortable:'true',hidden:'true'">proId</th>
-            	<th data-options="field:'prwdOne',width:100,align:'center',sortable:'true'">DN15</th>
-            	<th data-options="field:'prwdTwo',width:100,align:'center',sortable:'true'">DN20</th>
-            	<th data-options="field:'prwdThree',width:100,align:'center',sortable:'true'">DN25</th>
-            	<th data-options="field:'prwdFour',width:100,align:'center',sortable:'true'">DN40</th>
-            	<th data-options="field:'prwdFive',width:100,align:'center',sortable:'true'">DN50</th>
-            	<th data-options="field:'prwdSix',width:100,align:'center',sortable:'true'">DN75</th>
-            	<th data-options="field:'prwdSeven',width:100,align:'center',sortable:'true'">DN100</th>
-            	<th data-options="field:'prwdEight',width:100,align:'center',sortable:'true'">DN150</th>
-            	<th data-options="field:'prwdNine',width:100,align:'center',sortable:'true'">DN200</th>
-            	<th data-options="field:'prwdSubtotal',width:100,align:'center',sortable:'true'">小计</th>
+            	
+            	<th data-options="field:'prHead',width:100,align:'center',sortable:'true'">勾头</th>
+            	<th data-options="field:'prRinse',width:100,align:'center',sortable:'true'">冲洗</th>
+            	<th data-options="field:'prConstru',width:100,align:'center',sortable:'true'">砌井</th>
+            	<th data-options="field:'prTube',width:100,align:'center',sortable:'true'">穿管</th>
+            	<th data-options="field:'prTubeNext',width:100,align:'center',sortable:'true'">穿管(下)</th>
+            	<th data-options="field:'prLining',width:100,align:'center',sortable:'true'">内衬</th>
+            	<th data-options="field:'prLiningNext',width:100,align:'center',sortable:'true'">内衬(下)</th>
+            	<th data-options="field:'prEnca',width:100,align:'center',sortable:'true'">包封</th>
+            	<th data-options="field:'prEncaNext',width:100,align:'center',sortable:'true'">包封(下)</th>
+            	
+            	
+            	
+            	
+            	
+            	<th data-options="field:'prwdOne',width:100,align:'center',sortable:'true'">DN15(防止器)</th>
+            	<th data-options="field:'prwdTwo',width:100,align:'center',sortable:'true'">DN20(防止器)</th>
+            	<th data-options="field:'prwdThree',width:100,align:'center',sortable:'true'">DN25(防止器)</th>
+            	<th data-options="field:'prwdFour',width:100,align:'center',sortable:'true'">DN40(防止器)</th>
+            	<th data-options="field:'prwdFive',width:100,align:'center',sortable:'true'">DN50(防止器)</th>
+            	<th data-options="field:'prwdSix',width:100,align:'center',sortable:'true'">DN75(防止器)</th>
+            	<th data-options="field:'prwdSeven',width:100,align:'center',sortable:'true'">DN100(防止器)</th>
+            	<th data-options="field:'prwdEight',width:100,align:'center',sortable:'true'">DN150(防止器)</th>
+            	<th data-options="field:'prwdNine',width:100,align:'center',sortable:'true'">DN200(防止器)</th>
+            	<th data-options="field:'prwdSubtotal',width:100,align:'center',sortable:'true'">小计(防止器)</th>
             	<!-- <th data-options="field:'createUser',width:100,align:'center',sortable:'true'">创建人</th> -->
             	<th data-options="field:'createTime',width:150,align:'center',sortable:'true'">创建时间</th>
+            	<th data-options="field:'prDmaOne',width:100,align:'center',sortable:'true'">DN15(DMA)</th>
+            	<th data-options="field:'prDmaTwo',width:100,align:'center',sortable:'true'">DN20(DMA)</th>
+            	<th data-options="field:'prDmaThree',width:100,align:'center',sortable:'true'">DN25(DMA)</th>
+            	<th data-options="field:'prDmaFour',width:100,align:'center',sortable:'true'">DN40(DMA)</th>
+            	<th data-options="field:'prDmaFive',width:100,align:'center',sortable:'true'">DN50(DMA)</th>
+            	<th data-options="field:'prDmaSix',width:100,align:'center',sortable:'true'">DN75(DMA)</th>
+            	<th data-options="field:'prDmaSeven',width:100,align:'center',sortable:'true'">DN100(DMA)</th>
+            	<th data-options="field:'prDmaEight',width:100,align:'center',sortable:'true'">DN150(DMA)</th>
+            	<th data-options="field:'prDmaNine',width:100,align:'center',sortable:'true'">DN200(DMA)</th>
+            	<th data-options="field:'prDmaSubtotal',width:100,align:'center',sortable:'true'">小计(DMA)</th>
+            	
+            	<th data-options="field:'prwdOneNext',width:100,align:'center',sortable:'true'">DN15(下)(防止器)</th>
+            	<th data-options="field:'prwdTwoNext',width:100,align:'center',sortable:'true'">DN20(下)(防止器)</th>
+            	<th data-options="field:'prwdThreeNext',width:100,align:'center',sortable:'true'">DN25(下)(防止器)</th>
+            	<th data-options="field:'prwdFourNext',width:100,align:'center',sortable:'true'">DN40(下)(防止器)</th>
+            	<th data-options="field:'prwdFiveNext',width:100,align:'center',sortable:'true'">DN50(下)(防止器)</th>
+            	<th data-options="field:'prwdSixNext',width:100,align:'center',sortable:'true'">DN75(下)(防止器)</th>
+            	<th data-options="field:'prwdSevenNext',width:100,align:'center',sortable:'true'">DN100(下)(防止器)</th>
+            	<th data-options="field:'prwdEightNext',width:100,align:'center',sortable:'true'">DN150(下)(防止器)</th>
+            	<th data-options="field:'prwdNineNext',width:100,align:'center',sortable:'true'">DN200(下)(防止器)</th>
+            	<th data-options="field:'prwdSubtotalNext',width:100,align:'center',sortable:'true'">小计(下)(防止器)</th>
+            	
+            	<th data-options="field:'prDmaOneNext',width:100,align:'center',sortable:'true'">DN15(下)(DMA)</th>
+            	<th data-options="field:'prDmaTwoNext',width:100,align:'center',sortable:'true'">DN20(下)(DMA)</th>
+            	<th data-options="field:'prDmaThreeNext',width:100,align:'center',sortable:'true'">DN25(下)(DMA)</th>
+            	<th data-options="field:'prDmaFourNext',width:100,align:'center',sortable:'true'">DN40(下)(DMA)</th>
+            	<th data-options="field:'prDmaFiveNext',width:100,align:'center',sortable:'true'">DN50(下)(DMA)</th>
+            	<th data-options="field:'prDmaSixNext',width:100,align:'center',sortable:'true'">DN75(下)(DMA)</th>
+            	<th data-options="field:'prDmaSevenNext',width:100,align:'center',sortable:'true'">DN100(下)(DMA)</th>
+            	<th data-options="field:'prDmaEightNext',width:100,align:'center',sortable:'true'">DN150(下)(DMA)</th>
+            	<th data-options="field:'prDmaNineNext',width:100,align:'center',sortable:'true'">DN200(下)(DMA)</th>
+            	<th data-options="field:'prDmaSubtotalNext',width:100,align:'center',sortable:'true'">小计(下)(DMA)</th>
             </tr>
         </thead>
    	</table>

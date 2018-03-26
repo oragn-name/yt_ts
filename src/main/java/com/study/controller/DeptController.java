@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
 import com.study.model.Dept;
-import com.study.service.DeptService;
 import com.study.service.impl.DeptServiceImpl;
 import com.study.util.ResultUtil;
 import com.study.util.bean.DataGridResultInfo;
@@ -31,7 +30,6 @@ public class DeptController {
 
   @Autowired
   private DeptServiceImpl deptService;
-  
   @ApiOperation(value="获取所有部门",notes="获取所有部门API")
   @RequestMapping(value="/getData",method={RequestMethod.GET})
   public DataGridResultInfo getData(HttpServletRequest request,@ModelAttribute PageBean bean,@ModelAttribute Dept dept){

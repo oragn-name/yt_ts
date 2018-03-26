@@ -54,6 +54,9 @@
 	<if test="proContractNumber!=null and proContractNumber!=''">
 	 and proContractNumber like CONCAT(CONCAT('%', #{proContractNumber}), '%')
 	</if>
+	<if test="id!=null and id!=''">
+	 and id=#{id}
+	</if>
     
   </select>
 </mapper>
