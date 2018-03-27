@@ -46,7 +46,7 @@ public class SummaryViewController {
     request.setAttribute("proSerialNumber",proSerialNumber);
     request.setAttribute("beginTime", beginTime);
     request.setAttribute("endTime", endTime);
-    return "/day/day";
+    return "day/day";
   }
   @RequestMapping("/type/{menuName}/{id}")
   public String type(HttpServletRequest request,HttpServletResponse response,String type,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,String proEngineType,String proPeriod){
@@ -70,7 +70,7 @@ public class SummaryViewController {
     request.setAttribute("endTime", endTime);*/
     request.setAttribute("proEngineType",proEngineType);
     request.setAttribute("proPeriod",proPeriod);
-    return "/day/type";
+    return "day/type";
   }
   
   
@@ -88,21 +88,22 @@ public class SummaryViewController {
     map.put("endTime", endTime==null?"":endTime.trim());*/
     map.put("proEngineType", proEngineType==null?"":proEngineType.trim());
     map.put("proPeriod", proPeriod==null?"":proPeriod.trim());
-    List<Map<String, List<ProjectDetailType>>> mapData=new ArrayList<Map<String,List<ProjectDetailType>>>();
+    Map<String, List<ProjectDetailType>> mapData=new HashMap<String,List<ProjectDetailType>>();
     if(ids!=null){
-      HashMap<String, List<ProjectDetailType>> hashMap = new HashMap<String, List<ProjectDetailType>>();
       map.put("deptId",ids);
       List<ProjectDetailType> selectProjectDetail = roadWorkDailyService.selectProjectByTypeDetail(map);
-      hashMap.put(deptName, selectProjectDetail);
-      mapData.add(hashMap);
+      if(selectProjectDetail!=null&&selectProjectDetail.size()>0){
+        mapData.put(deptName, selectProjectDetail);
+      }
     }else{
       if(dept!=null){
         for (DeptVo deptVo : dept) {
-          HashMap<String, List<ProjectDetailType>> hashMap = new HashMap<String, List<ProjectDetailType>>();
-          map.put("deptId",ids);
+          map.put("deptId",deptVo.getId());
           List<ProjectDetailType> selectProjectDetail = roadWorkDailyService.selectProjectByTypeDetail(map);
-          hashMap.put(deptVo.getName(), selectProjectDetail);
-          mapData.add(hashMap);
+          if(selectProjectDetail!=null&&selectProjectDetail.size()>0){
+            mapData.put(deptVo.getName(), selectProjectDetail);
+          }
+          
         }
       }
     }
@@ -117,6 +118,6 @@ public class SummaryViewController {
     request.setAttribute("proEngineType",proEngineType);
     request.setAttribute("proPeriod",proPeriod);
     request.setAttribute("ids",ids);
-    return "/day/detail";
+    return "day/detail";
   }
 }
