@@ -27,7 +27,8 @@
 	             <td><input class="easyui-validatebox" type="text" name="" th:value="${work.prwStop}"></input></td>
 	          </tr>
 	       </table>
-	       <fieldset style="width:310px; border-width: 1px; float: left; margin-top: 10px;">
+	       <div>
+	       <fieldset style="width:310px; border-width: 1px; float: left; margin-top: 10px; margin-left: 50px;">
 	       <legend>其他</legend>
 	       <table cellpadding="5">
 	         <tr>
@@ -67,8 +68,76 @@
 	       
 	       </table>
 	       </fieldset>
-	       <fieldset style="width:300px; border-width: 1px; float: left;margin-top: 10px;">
-	        <legend>倒流防止器口径</legend>
+	       <fieldset style="width:300px; border-width: 1px; float: left;margin-top: 10px; margin-left: 50px;">
+	        <legend>工作量(长度)</legend>
+	        
+	   	   <table cellpadding="5">
+		   	   <tr>
+		   	     <td colspan="2">当天实际完成工作量</td>
+		   	     <td colspan="2">下日计划完成工作量</td>
+		   	   </tr>
+                <tr>
+                    <td>DN15:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwOne" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN15:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwOneNext" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN20:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwTwo" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN20:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwTwoNext" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN25:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwThree" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN25:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwThreeNext" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN40:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwFour" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN40:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwFourNext" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN50:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwFive" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN50:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwFiveNext" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN75:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwSix" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN75:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwSixNext" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN100:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwSeven" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN100:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwSevenNext" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN150:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwEight" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN150:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwEightNext" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+                <tr>
+                    <td>DN200:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwNine" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                    <td>DN200:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwNineNext" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
+                </tr>
+
+            </table>
+            </fieldset>
+	       </div>
+	       <div style="clear: both;"></div>
+	       <div>
+	       <fieldset style="width:300px; border-width: 1px; float: left;margin-top: 10px; margin-left: 50px;">
+	        <legend>倒流防止器口径(个数)</legend>
 	        
 	   	   <table cellpadding="5">
 		   	   <tr>
@@ -133,8 +202,8 @@
             </table>
             </fieldset>
             
-            <fieldset style="width:300px; border-width: 1px;float: left; margin-top: 10px;">
-	        <legend>DMA口径</legend>
+            <fieldset style="width:300px; border-width: 1px;float: left; margin-top: 10px; margin-left: 50px;">
+	        <legend>DMA口径(个数)</legend>
 	   	   <table cellpadding="5">
 	   	        <tr>
 	   	           <td colspan="2">当天实际完成工作量</td>
@@ -197,6 +266,7 @@
 
             </table>
             </fieldset>
+            </div>
 	   </form>
     </div>
     </div>

@@ -225,6 +225,120 @@ public class ProjectRoadWorkDaily {
     private String prConstru;
     
     
+    @Column(name = "prw_one")
+    private Double prwOne;
+    
+    @Column(name = "prw_two")
+    private Double prwTwo;
+
+    /**
+     * DN25
+     */
+    @Column(name = "prw_three")
+    private Double prwThree;
+
+    /**
+     * DN40
+     */
+    @Column(name = "prw_four")
+    private Double prwFour;
+
+    /**
+     * DN50
+     */
+    @Column(name = "prw_five")
+    private Double prwFive;
+
+    /**
+     * DN75
+     */
+    @Column(name = "prw_six")
+    private Double prwSix;
+
+    /**
+     * DN100
+     */
+    @Column(name = "prw_seven")
+    private Double prwSeven;
+
+    /**
+     * DN150
+     */
+    @Column(name = "prw_eight")
+    private Double prwEight;
+
+    /**
+     * DN200
+     */
+    @Column(name = "prw_nine")
+    private Double prwNine;
+
+    /**
+     * 小计
+     */
+    @Column(name = "prw_subtotal")
+    private Double prwSubtotal;
+    
+    /**
+     * DN15
+     */
+    @Column(name = "prw_one_next")
+    private Double prwOneNext;
+
+    /**
+     * DN20
+     */
+    @Column(name = "prw_two_next")
+    private Double prwTwoNext;
+
+    /**
+     * DN25
+     */
+    @Column(name = "prw_three_next")
+    private Double prwThreeNext;
+
+    /**
+     * DN40
+     */
+    @Column(name = "prw_four_next")
+    private Double prwFourNext;
+
+    /**
+     * DN50
+     */
+    @Column(name = "prw_five_next")
+    private Double prwFiveNext;
+
+    /**
+     * DN75
+     */
+    @Column(name = "prw_six_next")
+    private Double prwSixNext;
+
+    /**
+     * DN100
+     */
+    @Column(name = "prw_seven_next")
+    private Double prwSevenNext;
+
+    /**
+     * DN150
+     */
+    @Column(name = "prw_eight_next")
+    private Double prwEightNext;
+
+    /**
+     * DN200
+     */
+    @Column(name = "prw_nine_next")
+    private Double prwNineNext;
+
+    /**
+     * 小计
+     */
+    @Column(name = "prw_subtotal_next")
+    private Double prwSubtotalNext;
+    
 
     /**
      * 获取主键
@@ -767,6 +881,166 @@ public class ProjectRoadWorkDaily {
 
     public void setPrConstru(String prConstru) {
       this.prConstru = prConstru;
+    }
+
+    public Double getPrwTwo() {
+      return prwTwo;
+    }
+
+    public void setPrwTwo(Double prwTwo) {
+      this.prwTwo = prwTwo;
+    }
+
+    public Double getPrwThree() {
+      return prwThree;
+    }
+
+    public void setPrwThree(Double prwThree) {
+      this.prwThree = prwThree;
+    }
+
+    public Double getPrwFour() {
+      return prwFour;
+    }
+
+    public void setPrwFour(Double prwFour) {
+      this.prwFour = prwFour;
+    }
+
+    public Double getPrwFive() {
+      return prwFive;
+    }
+
+    public void setPrwFive(Double prwFive) {
+      this.prwFive = prwFive;
+    }
+
+    public Double getPrwSix() {
+      return prwSix;
+    }
+
+    public void setPrwSix(Double prwSix) {
+      this.prwSix = prwSix;
+    }
+
+    public Double getPrwSeven() {
+      return prwSeven;
+    }
+
+    public void setPrwSeven(Double prwSeven) {
+      this.prwSeven = prwSeven;
+    }
+
+    public Double getPrwEight() {
+      return prwEight;
+    }
+
+    public void setPrwEight(Double prwEight) {
+      this.prwEight = prwEight;
+    }
+
+    public Double getPrwNine() {
+      return prwNine;
+    }
+
+    public void setPrwNine(Double prwNine) {
+      this.prwNine = prwNine;
+    }
+
+    public Double getPrwSubtotal() {
+      return prwSubtotal;
+    }
+
+    public void setPrwSubtotal(Double prwSubtotal) {
+      this.prwSubtotal = prwSubtotal;
+    }
+
+    public Double getPrwOneNext() {
+      return prwOneNext;
+    }
+
+    public void setPrwOneNext(Double prwOneNext) {
+      this.prwOneNext = prwOneNext;
+    }
+
+    public Double getPrwTwoNext() {
+      return prwTwoNext;
+    }
+
+    public void setPrwTwoNext(Double prwTwoNext) {
+      this.prwTwoNext = prwTwoNext;
+    }
+
+    public Double getPrwThreeNext() {
+      return prwThreeNext;
+    }
+
+    public void setPrwThreeNext(Double prwThreeNext) {
+      this.prwThreeNext = prwThreeNext;
+    }
+
+    public Double getPrwFourNext() {
+      return prwFourNext;
+    }
+
+    public void setPrwFourNext(Double prwFourNext) {
+      this.prwFourNext = prwFourNext;
+    }
+
+    public Double getPrwFiveNext() {
+      return prwFiveNext;
+    }
+
+    public void setPrwFiveNext(Double prwFiveNext) {
+      this.prwFiveNext = prwFiveNext;
+    }
+
+    public Double getPrwSixNext() {
+      return prwSixNext;
+    }
+
+    public void setPrwSixNext(Double prwSixNext) {
+      this.prwSixNext = prwSixNext;
+    }
+
+    public Double getPrwSevenNext() {
+      return prwSevenNext;
+    }
+
+    public void setPrwSevenNext(Double prwSevenNext) {
+      this.prwSevenNext = prwSevenNext;
+    }
+
+    public Double getPrwEightNext() {
+      return prwEightNext;
+    }
+
+    public void setPrwEightNext(Double prwEightNext) {
+      this.prwEightNext = prwEightNext;
+    }
+
+    public Double getPrwNineNext() {
+      return prwNineNext;
+    }
+
+    public void setPrwNineNext(Double prwNineNext) {
+      this.prwNineNext = prwNineNext;
+    }
+
+    public Double getPrwSubtotalNext() {
+      return prwSubtotalNext;
+    }
+
+    public void setPrwSubtotalNext(Double prwSubtotalNext) {
+      this.prwSubtotalNext = prwSubtotalNext;
+    }
+
+    public Double getPrwOne() {
+      return prwOne;
+    }
+
+    public void setPrwOne(Double prwOne) {
+      this.prwOne = prwOne;
     }
     
 }

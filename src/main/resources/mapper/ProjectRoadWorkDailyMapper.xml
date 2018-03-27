@@ -63,6 +63,28 @@
     <result column="pr_head" jdbcType="VARCHAR" property="prHead" />
     <result column="pr_rinse" jdbcType="VARCHAR" property="prRinse" />
     <result column="pr_constru" jdbcType="VARCHAR" property="prConstru" />
+    
+    <result column="prw_one" jdbcType="DOUBLE" property="prwOne" />
+    <result column="prw_two" jdbcType="DOUBLE" property="prwTwo" />
+    <result column="prw_three" jdbcType="DOUBLE" property="prwThree" />
+    <result column="prw_four" jdbcType="DOUBLE" property="prwFour" />
+    <result column="prw_five" jdbcType="DOUBLE" property="prwFive" />
+    <result column="prw_six" jdbcType="DOUBLE" property="prwSix" />
+    <result column="prw_seven" jdbcType="DOUBLE" property="prwSeven" />
+    <result column="prw_eight" jdbcType="DOUBLE" property="prwEight" />
+    <result column="prw_nine" jdbcType="DOUBLE" property="prwNine" />
+    <result column="prw_subtotal" jdbcType="DOUBLE" property="prwSubtotal" />
+    
+    <result column="prw_one_next" jdbcType="DOUBLE" property="prwOneNext" />
+    <result column="prw_two_next" jdbcType="DOUBLE" property="prwTwoNext" />
+    <result column="prw_three_next" jdbcType="DOUBLE" property="prwThreeNext" />
+    <result column="prw_four_next" jdbcType="DOUBLE" property="prwFourNext" />
+    <result column="prw_five_next" jdbcType="DOUBLE" property="prwFiveNext" />
+    <result column="prw_six_next" jdbcType="DOUBLE" property="prwSixNext" />
+    <result column="prw_seven_next" jdbcType="DOUBLE" property="prwSevenNext" />
+    <result column="prw_eight_next" jdbcType="DOUBLE" property="prwEightNext" />
+    <result column="prw_nine_next" jdbcType="DOUBLE" property="prwNineNext" />
+    <result column="prw_subtotal_next" jdbcType="DOUBLE" property="prwSubtotalNext" />
   </resultMap>
   
   <select id="selectProjectItemConstruction" parameterType="com.study.model.vo.ProjectItemConstruction" resultType="com.study.model.vo.ProjectItemConstruction">
@@ -80,6 +102,11 @@
       prwd_five as "prwdFive",prwd_six as "prwdSix",prwd_seven as "prwdSeven",prwd_eight as "prwdEight",prwd_nine as "prwdNine",
       prwd_one_next as "prwdOneNext",prwd_two_next as "prwdTwoNext",prwd_three_next as "prwdThreeNext",prwd_four_next as "prwdFourNext",
       prwd_five_next as "prwdFiveNext",prwd_six_next as "prwdSixNext",prwd_seven_next as "prwdSevenNext",prwd_eight_next as "prwdEightNext",prwd_nine_next as "prwdNineNext",prwd_subtotal_next as "prwdSubtotalNext",
+      prw_one as "prwOne",prw_two as "prwTwo",prw_three as "prwThree",prw_four as "prwFour",
+      prw_five as "prwFive",prw_six as "prwSix",prw_seven as "prwSeven",prw_eight as "prwEight",prw_nine as "prwNine",
+      prw_one_next as "prwOneNext",prw_two_next as "prwTwoNext",prw_three_next as "prwThreeNext",prw_four_next as "prwFourNext",
+      prw_five_next as "prwFiveNext",prw_six_next as "prwSixNext",prw_seven_next as "prwSevenNext",prw_eight_next as "prwEightNext",prw_nine_next as "prwNineNext",prw_subtotal_next as "prwSubtotalNext",
+      prw_subtotal as "prwSubtotal",
       pr_dma_one as "prDmaOne",pr_dma_two as "prDmaTwo",pr_dma_three as "prDmaThree",pr_dma_four as "prDmaFour",pr_dma_five as "prDmaFive",
       pr_dma_six as "prDmaSix",pr_dma_seven as "prDmaSeven",pr_dma_eight as "prDmaEight",pr_dma_nine as "prDmaNine",pr_dma_subtotal as "prDmaSubtotal",
       pr_dma_one_next as "prDmaOneNext",pr_dma_two_next as "prDmaTwoNext",pr_dma_three_next as "prDmaThreeNext",pr_dma_four_next as "prDmaFourNext",pr_dma_five_next as "prDmaFiveNext",
@@ -91,5 +118,311 @@
         and pc_id=#{pcId}
        </if>
     
+  </select>
+  
+  <select id="selectProjectDetail" parameterType="java.util.Map" resultType="com.study.model.vo.ProjectDetail">
+  
+  SELECT
+	p.pro_number AS "proNumber",
+	p.pro_snap_number AS "proSnapNumber",
+	p.pro_serial_number AS "proSerialNumber",
+	p.pro_design_length as "proDesignLength",
+	(select dictdata_name from dictionarydata where id=p.pro_engine_type) as "proEngineTypeName",
+	(select dictdata_name from dictionarydata where id=p.pro_nature) as "proNatureName",
+	 p.pro_name AS "proName",
+	(select dictdata_name from dictionarydata where id=p.pro_source) as "proSourceName",
+	(select dictdata_name from dictionarydata where id=p.pro_period) as "proPeriodName",
+	r.prw_ast AS "prwAst",
+	r.prw_aet AS "prwAet",
+	r.prw_budget as "prwBudget",
+	(select dictdata_name from dictionarydata where id=c.pc_dept)  as "pcDeptName",
+	d.create_time AS "dateTime",
+	d.prwd_one AS "prwdOne",
+	d.prwd_two AS "prwdTwo",
+	d.prwd_three AS "prwdThree",
+	d.prwd_four AS "prwdFour",
+	d.prwd_five AS "prwdFive",
+	d.prwd_six AS "prwdSix",
+	d.prwd_seven AS "prwdSeven",
+	d.prwd_eight AS "prwdEight",
+	d.prwd_nine AS "prwdNine",
+	(ifnull(d.prwd_one, 0) + ifnull(d.prwd_two, 0) + ifnull(d.prwd_three, 0) + ifnull(d.prwd_four, 0) + ifnull(d.prwd_five, 0) + ifnull(d.prwd_six, 0) + ifnull(d.prwd_seven, 0) + ifnull(d.prwd_eight, 0) + ifnull(d.prwd_nine, 0)) as "prwdSubtotal",
+	d.prwd_one_next AS "prwdOneNext",
+	d.prwd_two_next AS "prwdTwoNext",
+	d.prwd_three_next AS "prwdThreeNext",
+	d.prwd_four_next AS "prwdFourNext",
+	d.prwd_five_next AS "prwdFiveNext",
+	d.prwd_six_next AS "prwdSixNext",
+	d.prwd_seven_next AS "prwdSevenNext",
+	d.prwd_eight_next AS "prwdEightNext",
+	d.prwd_nine_next AS "prwdNineNext",
+	(ifnull(d.prwd_one_next, 0) + ifnull(d.prwd_two_next, 0) + ifnull(d.prwd_three_next, 0) + ifnull(d.prwd_four_next, 0) + ifnull(d.prwd_five_next, 0) + ifnull(d.prwd_six_next, 0) + ifnull(d.prwd_seven_next, 0) + ifnull(d.prwd_eight_next, 0) + ifnull(d.prwd_nine_next, 0)) as "prwdSubtotalNext",
+	d.pr_dma_one AS "prDmaOne",
+	d.pr_dma_two AS "prDmaTwo",
+	d.pr_dma_three AS "prDmaThree",
+	d.pr_dma_four AS "prDmaFour",
+	d.pr_dma_five AS "prDmaFive",
+	d.pr_dma_six AS "prDmaSix",
+	d.pr_dma_seven AS "prDmaSeven",
+	d.pr_dma_eight AS "prDmaEight",
+	d.pr_dma_nine AS "prDmaNine",
+	(ifnull(d.pr_dma_one, 0) + ifnull(d.pr_dma_two, 0) + ifnull(d.pr_dma_three, 0) + ifnull(d.pr_dma_four, 0) + ifnull(d.pr_dma_five, 0) + ifnull(d.pr_dma_six, 0) + ifnull(d.pr_dma_seven, 0) + ifnull(d.pr_dma_eight, 0) + ifnull(d.pr_dma_nine, 0)) as "prDmaSubtotal",
+	d.pr_dma_one_next AS "prDmaOneNext",
+	d.pr_dma_two_next AS "prDmaTwoNext",
+	d.pr_dma_three_next AS "prDmaThreeNext",
+	d.pr_dma_four_next AS "prDmaFourNext",
+	d.pr_dma_five_next AS "prDmaFiveNext",
+	d.pr_dma_six_next AS "prDmaSixNext",
+	d.pr_dma_seven_next AS "prDmaSevenNext",
+	d.pr_dma_eight_next AS "prDmaEightNext",
+	d.pr_dma_nine_next AS "prDmaNineNext",
+	(ifnull(d.pr_dma_one_next, 0) + ifnull(d.pr_dma_two_next, 0) + ifnull(d.pr_dma_three_next, 0) + ifnull(d.pr_dma_four_next, 0) + ifnull(d.pr_dma_five_next, 0) + ifnull(d.pr_dma_six_next, 0) + ifnull(d.pr_dma_seven_next, 0) + ifnull(d.pr_dma_eight_next, 0) + ifnull(d.pr_dma_nine_next, 0)) as "prDmaSubtotalNext",
+	
+	  d.prw_one as "prwOne",
+	  d.prw_two as "prwTwo",
+	  d.prw_three as "prwThree",
+	  d.prw_four as "prwFour",
+      d.prw_five as "prwFive",
+      d.prw_six as "prwSix",
+      d.prw_seven as "prwSeven",
+      d.prw_eight as "prwEight",
+      d.prw_nine as "prwNine",
+      (ifnull(d.prw_one, 0) + ifnull(d.prw_two, 0) + ifnull(d.prw_three, 0) + ifnull(d.prw_four, 0) + ifnull(d.prw_five, 0) + ifnull(d.prw_six, 0) + ifnull(d.prw_seven, 0) + ifnull(d.prw_eight, 0) + ifnull(d.prw_nine, 0)) as "prwSubtotal",
+      d.prw_one_next as "prwOneNext",
+      d.prw_two_next as "prwTwoNext",
+      d.prw_three_next as "prwThreeNext",
+      d.prw_four_next as "prwFourNext",
+      d.prw_five_next as "prwFiveNext",
+      d.prw_six_next as "prwSixNext",
+      d.prw_seven_next as "prwSevenNext",
+      d.prw_eight_next as "prwEightNext",
+      d.prw_nine_next as "prwNineNext",
+      (ifnull(d.prw_one_next, 0) + ifnull(d.prw_two_next, 0) + ifnull(d.prw_three_next, 0) + ifnull(d.prw_four_next, 0) + ifnull(d.prw_five_next, 0) + ifnull(d.prw_six_next, 0) + ifnull(d.prw_seven_next, 0) + ifnull(d.prw_eight_next, 0) + ifnull(d.prw_nine_next, 0)) as "prwSubtotalNext",
+	d.pr_tube AS "prTube",
+	d.pr_tube_next AS "prTubeNext",
+	d.pr_lining AS "prLining",
+	d.pr_lining_next AS "prLiningNext",
+	d.pr_enca AS "prEnca",
+	d.pr_enca_next AS "prEncaNext",
+	d.pr_head AS "prHead",
+	d.pr_rinse AS "prRinse",
+	d.pr_constru AS "prConstru",
+	d.prwd_subtotal AS "prwdSubtotal"
+FROM
+	project_produce p
+INNER JOIN project_road_work r ON p.id = r.pro_id
+INNER JOIN project_construction c ON c.proId = p.id
+INNER JOIN project_road_work_daily d ON d.pc_id = c.id
+<if test="proName!=null and proName!=''">
+  and p.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
+</if>
+<if test="proNumber!=null and proNumber!=''">
+and p.pro_number like CONCAT(CONCAT('%', #{proNumber}), '%')
+</if>
+<if test="proSerialNumber!=null and proSerialNumber!=''">
+and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
+</if>
+<if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and d.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   d.create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and d.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+
+  </select>
+  
+  <select id="selectProjectByType" parameterType="java.util.Map" resultType="com.study.model.vo.ProjectType">
+  SELECT
+	e.dictdata_name as "proEngineTypeName",
+	ta.dictdata_name as "proPeriodName",
+	sum(
+		ifnull(w.pr_dma_one, 0) + ifnull(w.pr_dma_two, 0) + ifnull(w.pr_dma_three, 0) + ifnull(w.pr_dma_four, 0) + ifnull(w.pr_dma_five, 0) + ifnull(w.pr_dma_six, 0) + ifnull(w.pr_dma_seven, 0) + ifnull(w.pr_dma_eight, 0) + ifnull(w.pr_dma_nine, 0)
+	) AS "prDmaTotal",
+	sum(
+		ifnull(w.pr_dma_one_next, 0) + ifnull(w.pr_dma_two_next, 0) + ifnull(w.pr_dma_three_next, 0) + ifnull(w.pr_dma_four_next, 0) + ifnull(w.pr_dma_five_next, 0) + ifnull(w.pr_dma_six_next, 0) + ifnull(w.pr_dma_seven_next, 0) + ifnull(w.pr_dma_eight_next, 0) + ifnull(w.pr_dma_nine_next, 0)
+	) AS "prDmaNextTotal",
+	sum(
+		ifnull(w.prwd_one, 0) + ifnull(w.prwd_two, 0) + ifnull(w.prwd_three, 0) + ifnull(w.prwd_four, 0) + ifnull(w.prwd_five, 0) + ifnull(w.prwd_six, 0) + ifnull(w.prwd_seven, 0) + ifnull(w.prwd_eight, 0) + ifnull(w.prwd_nine, 0)
+	) AS "prwdTotal",
+	sum(
+		ifnull(w.prwd_one_next, 0) + ifnull(w.prwd_two_next, 0) + ifnull(w.prwd_three_next, 0) + ifnull(w.prwd_four_next, 0) + ifnull(w.prwd_five_next, 0) + ifnull(w.prwd_six_next, 0) + ifnull(w.prwd_seven_next, 0) + ifnull(w.prwd_eight_next, 0) + ifnull(w.prwd_nine_next, 0)
+	) AS "prwdNextTotal",
+	sum(
+		ifnull(w.prw_one, 0) + ifnull(w.prw_two, 0) + ifnull(w.prw_three, 0) + ifnull(w.prw_four, 0) + ifnull(w.prw_five, 0) + ifnull(w.prw_six, 0) + ifnull(w.prw_seven, 0) + ifnull(w.prw_eight, 0) + ifnull(w.prw_nine, 0)
+	) AS "prwTotal",
+	sum(
+		ifnull(w.prw_one_next, 0) + ifnull(w.prw_two_next, 0) + ifnull(w.prw_three_next, 0) + ifnull(w.prw_four_next, 0) + ifnull(w.prw_five_next, 0) + ifnull(w.prw_six_next, 0) + ifnull(w.prw_seven_next, 0) + ifnull(w.prw_eight_next, 0) + ifnull(w.prw_nine_next, 0)
+	) AS "prwNextTotal"
+FROM
+	dictionary d
+INNER JOIN dictionarydata e ON d.id = e.dict_id
+INNER JOIN project_produce p ON p.pro_engine_type = e.id
+INNER JOIN project_road_work_daily w ON w.pro_id = p.id
+inner join dictionarydata ta on ta.id=p.pro_period
+AND d.dict_code = 'GCLB'
+<if test="proName!=null and proName!=''">
+  and p.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
+</if>
+<if test="proNumber!=null and proNumber!=''">
+and p.pro_number like CONCAT(CONCAT('%', #{proNumber}), '%')
+</if>
+<if test="proSerialNumber!=null and proSerialNumber!=''">
+and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
+</if>
+<if test="proEngineType!=null and proEngineType!=''">
+and p.pro_engine_type=#{proEngineType}
+</if>
+<if test="proPeriod!=null and proPeriod!=''">
+and p.pro_period=#{proPeriod}
+</if>
+<if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and w.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   w.create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and w.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+GROUP BY
+	e.dictdata_name,
+	p.pro_period
+  </select>
+  
+  <select id="selectProjectByTypeDetail" parameterType="java.util.Map" resultType="com.study.model.vo.ProjectDetailType">
+  SELECT
+	e.dictdata_name AS "proEngineTypeName",
+	ta.dictdata_name AS "proPeriodName",
+	sum(ifnull(w.pr_dma_one, 0)) as "prDmaOne",
+	sum(ifnull(w.pr_dma_two, 0)) as "prDmaTwo",
+	sum(ifnull(w.pr_dma_three, 0)) as "prDmaThree",
+	sum(ifnull(w.pr_dma_four, 0)) as "prDmaFour",
+	sum(ifnull(w.pr_dma_five, 0)) as "prDmaFive",
+	sum(ifnull(w.pr_dma_six, 0)) as "prDmaSix",
+	sum(ifnull(w.pr_dma_seven, 0)) as "prDmaSeven",
+	sum(ifnull(w.pr_dma_eight, 0)) as "prDmaEight",
+	sum(ifnull(w.pr_dma_nine, 0)) as "prDmaNine",
+	sum(ifnull(w.pr_dma_one_next, 0)) as "prDmaOneNext",
+	sum(ifnull(w.pr_dma_two_next, 0)) as "prDmaTwoNext",
+	sum(ifnull(w.pr_dma_three_next, 0)) as "prDmaThreeNext",
+	sum(ifnull(w.pr_dma_four_next, 0)) as "prDmaFourNext",
+	sum(ifnull(w.pr_dma_five_next, 0)) as "prDmaFiveNext",
+	sum(ifnull(w.pr_dma_six_next, 0)) as "prDmaSixNext",
+	sum(ifnull(w.pr_dma_seven_next, 0)) as "prDmaSevenNext",
+	sum(ifnull(w.pr_dma_eight_next, 0)) as "prDmaEightNext",
+	sum(ifnull(w.pr_dma_nine_next, 0)) as "prDmaNineNext",
+	sum(ifnull(w.prwd_one, 0)) as "prwdOne",
+	sum(ifnull(w.prwd_two, 0)) as "prwdTwo",
+	sum(ifnull(w.prwd_three, 0)) as "prwdThree",
+	sum(ifnull(w.prwd_four, 0)) as "prwdFour",
+	sum(ifnull(w.prwd_five, 0)) as "prwdFive",
+	sum(ifnull(w.prwd_six, 0)) as "prwdSix",
+	sum(ifnull(w.prwd_seven, 0)) as "prwdSeven",
+	sum(ifnull(w.prwd_eight, 0)) as "prwdEight",
+	sum(ifnull(w.prwd_nine, 0)) as "prwdNine",
+	sum(ifnull(w.prwd_one_next, 0)) as "prwdOneNext",
+	sum(ifnull(w.prwd_two_next, 0)) as "prwdTwoNext",
+	sum(ifnull(w.prwd_three_next, 0)) as "prwdThreeNext",
+	sum(ifnull(w.prwd_four_next, 0)) as "prwdFourNext",
+	sum(ifnull(w.prwd_five_next, 0)) as "prwdFiveNext",
+	sum(ifnull(w.prwd_six_next, 0)) as "prwdSixNext",
+	sum(ifnull(w.prwd_seven_next, 0)) as "prwdSevenNext",
+	sum(ifnull(w.prwd_eight_next, 0)) as "prwdEightNext",
+	sum(ifnull(w.prwd_nine_next, 0)) as "prwdNineNext",
+	
+	sum(ifnull(w.prw_one, 0)) as "prwOne",
+	sum(ifnull(w.prw_two, 0)) as "prwTwo",
+	sum(ifnull(w.prw_three, 0)) as "prwThree",
+	sum(ifnull(w.prw_four, 0)) as "prwFour",
+	sum(ifnull(w.prw_five, 0)) as "prwFive",
+	sum(ifnull(w.prw_six, 0)) as "prwSix",
+	sum(ifnull(w.prw_seven, 0)) as "prwSeven",
+	sum(ifnull(w.prw_eight, 0)) as "prwEight",
+	sum(ifnull(w.prw_nine, 0)) as "prwNine",
+	sum(ifnull(w.prw_one_next, 0)) as "prwOneNext",
+	sum(ifnull(w.prw_two_next, 0)) as "prwTwoNext",
+	sum(ifnull(w.prw_three_next, 0)) as "prwThreeNext",
+	sum(ifnull(w.prw_four_next, 0)) as "prwFourNext",
+	sum(ifnull(w.prw_five_next, 0)) as "prwFiveNext",
+	sum(ifnull(w.prw_six_next, 0)) as "prwSixNext",
+	sum(ifnull(w.prw_seven_next, 0)) as "prwSevenNext",
+	sum(ifnull(w.prw_eight_next, 0)) as "prwEightNext",
+	sum(ifnull(w.prw_nine_next, 0)) as "prwNineNext"
+FROM
+	dictionary d
+INNER JOIN dictionarydata e ON d.id = e.dict_id
+INNER JOIN project_produce p ON p.pro_engine_type = e.id
+INNER JOIN project_road_work_daily w ON w.pro_id = p.id
+INNER JOIN dictionarydata ta ON ta.id = p.pro_period
+AND d.dict_code = 'GCLB'
+<if test="proName!=null and proName!=''">
+  and p.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
+</if>
+<if test="proNumber!=null and proNumber!=''">
+and p.pro_number like CONCAT(CONCAT('%', #{proNumber}), '%')
+</if>
+<if test="proSerialNumber!=null and proSerialNumber!=''">
+and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
+</if>
+<if test="proEngineType!=null and proEngineType!=''">
+and p.pro_engine_type=#{proEngineType}
+</if>
+<if test="proPeriod!=null and proPeriod!=''">
+and p.pro_period=#{proPeriod}
+</if>
+<if test="deptId!=null and deptId!=''">
+and p.pro_dept=#{deptId}
+</if>
+<if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and w.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   w.create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and w.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+GROUP BY
+	e.dictdata_name,
+	p.pro_period
+  
+  
+  </select>
+  
+  <select id="getDept" parameterType="java.util.Map" resultType="com.study.model.vo.DeptVo">
+  
+    select p.pro_dept as "id",d.name as "name" from project_produce p inner join dept d on p.pro_dept=d.id and p.pro_dept is not null
+    <if test="id!=null and id!=''">
+       and p.pro_dept=#{id}
+    </if>
+     group by p.pro_dept
+  
   </select>
 </mapper>
