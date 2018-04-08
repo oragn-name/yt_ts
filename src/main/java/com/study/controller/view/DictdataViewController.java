@@ -36,15 +36,17 @@ public class DictdataViewController {
   @ApiOperation(value="跳转添加、修改",notes="跳转添加、修改")
   @ApiImplicitParams({
     @ApiImplicitParam(name="id",value="字典数据id",required=false,dataType="int",paramType="query"),
+    @ApiImplicitParam(name="code",value="字典数据code",required=false,dataType="string",paramType="query"),
     @ApiImplicitParam(name="dictId",value="字典类别id",required=true,dataType="int",paramType="query"),
     @ApiImplicitParam(name="menuName",value="当前tab名称",required=false,dataType="string",paramType="query"),
     @ApiImplicitParam(name="parentMenuName",value="父页面tab名称",required=false,dataType="string",paramType="query")
   })
   @RequestMapping(value="/dictdata/add")
-  public String add(HttpServletRequest request,@RequestParam(value="id",required=false)Integer id,@RequestParam(value="dictId",required=true)Integer dictId,@ModelAttribute MenuBean bean){
+  public String add(HttpServletRequest request,@RequestParam(value="id",required=false)Integer id,@RequestParam(value="dictId",required=true)Integer dictId,@ModelAttribute MenuBean bean,@RequestParam(value="code",required=false)String code){
     List<Dictionary> dicts = dictionaryService.selectDictAll(null, null);
     request.setAttribute("dicts", dicts);
     request.setAttribute("menu", bean);
+    request.setAttribute("code", code);
     if(dictId!=null&&dictId==2){
       Example example=new Example(Dictionarydata.class);
       Criteria createCriteria = example.createCriteria();

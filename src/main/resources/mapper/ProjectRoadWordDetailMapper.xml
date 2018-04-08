@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ProjectRoadWordDetailMapper">
+  <resultMap id="BaseResultMap" type="com.study.model.ProjectRoadWordDetail">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pc_id" jdbcType="INTEGER" property="pcId" />
+    <result column="pro_id" jdbcType="INTEGER" property="proId" />
+    <result column="detail_day" jdbcType="DOUBLE" property="detailDay" />
+    <result column="detail_next_day" jdbcType="DOUBLE" property="detailNextDay" />
+    <result column="detail_dma" jdbcType="DOUBLE" property="detailDma" />
+    <result column="detail_next_dma" jdbcType="DOUBLE" property="detailNextDma" />
+    <result column="detail_anti" jdbcType="DOUBLE" property="detailAnti" />
+    <result column="detail_next_anti" jdbcType="DOUBLE" property="detailNextAnti" />
+    <result column="create_time" jdbcType="VARCHAR" property="createTime" />
+    <result column="create_user" jdbcType="INTEGER" property="createUser" />
+    <result column="dn_id" jdbcType="INTEGER" property="dnId" />
+    <result column="detail_remark" jdbcType="VARCHAR" property="detailRemark" />
+  </resultMap>
+  
+  
+  <select id="getDetailByAll" parameterType="com.study.model.ProjectRoadWordDetail" resultType="com.study.model.ProjectRoadWordDetail">
+      select id,pc_id as "pcId",pro_id as "proId",detail_day as "detailDay",detail_next_day as "detailNextDay",
+          detail_dma as "detailDma",detail_next_dma as "detailNextDma",detail_anti as "detailAnti",
+          detail_next_anti as "detailNextAnti",create_time as "createTime",create_user as "createUser",(select name from user where id=create_user) as "userName" ,detail_remark as "detailRemark",
+          (select dictdata_name from dictionarydata where id=dn_Id) as "dnIdName",dn_id as "dnId" from project_road_word_detail where 1=1
+          <if test="pcId!=null and pcId!=''">
+            and pc_id=#{pcId}
+          </if>
+          <if test="proId!=null and proId!=''">
+            and pro_id=#{proId}
+          </if>
+          <if test="createTime!=null and createTime!=''">
+            and create_time like CONCAT(CONCAT('%', #{createTime}), '%')
+          </if>
+          <if test="dnId!=null and dnId!=''">
+            and dn_id =#{dnId}
+          </if>
+  </select>
+  
+  <select id="getDetailByCreateTime" parameterType="com.study.model.ProjectRoadWordDetail" resultType="com.study.model.ProjectRoadWordDetail">
+     select substring(create_time,1,10) as "createTime" from project_road_word_detail where 1=1  
+     <if test="pcId!=null and pcId!=''">
+            and pc_id=#{pcId}
+          </if>
+          <if test="proId!=null and proId!=''">
+            and pro_id=#{proId}
+          </if>
+         <if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+      GROUP BY substring(create_time,1,10)   order by substring(create_time,1,10)
+  </select>
+  
+</mapper>

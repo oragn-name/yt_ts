@@ -26,6 +26,7 @@
      <if test="parentId!=null and parentId!=''">
       and parentId =#{parentId} 
      </if>
+     order by id asc
   </select>
   
 </mapper>

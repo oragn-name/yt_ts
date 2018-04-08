@@ -11,13 +11,15 @@
 	   <form id="myfm" method="post" novalidate>
 	       <input type="hidden" name="proid" th:value="${pc.proid}">
 	       <input type="hidden" name="prwid" th:value="${pc.prwid}">
+	       <input type="hidden" name="createUser" th:value="${pc.createUser}">
+	       <input type="hidden" name="createTime" th:value="${pc.createTime}">
 	       <input type="hidden" name="id" th:value="${pc.id}">
 	   	   <table cellpadding="5">
                 <tr>
                     <td>施工单位:</td>
                     <td>
                     <select class="easyui-combobox" name="pcDept" style="width: 148px;" >
-	           				  	    <option th:each="dict1 : ${dtd}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" ></option>
+	           				  	    <option th:each="dict1 : ${dtd}" th:value="${dict1.id}" th:text="${dict1.name}"  th:selected="${#strings.contains(dict1.id,pc.pcDept)}"></option>
 	           					</select>
                     </td>
                 </tr>
@@ -30,6 +32,14 @@
                 <tr>
                     <td>电话:</td>
                     <td><input class="easyui-validatebox" type="text" name="pcPhone" th:value="${pc.pcPhone}"></input></td>
+                </tr>
+                <tr>
+                    <td>起点:</td>
+                    <td><input class="easyui-validatebox" type="text" name="pcBegin" th:value="${pc.pcBegin}"></input></td>
+                </tr>
+                <tr>
+                    <td>止点:</td>
+                    <td><input class="easyui-validatebox" type="text" name="pcEnd" th:value="${pc.pcEnd}"></input></td>
                 </tr>
                 <!-- <tr>
                     <td>下周计划:</td>

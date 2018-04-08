@@ -16,13 +16,15 @@
     <result column="create_time" jdbcType="VARCHAR" property="createTime" />
     <result column="pc_dept" jdbcType="INTEGER" property="pcDept" />
     <result column="pc_remark" jdbcType="VARCHAR" property="pcRemark" />
+    <result column="pc_begin" jdbcType="VARCHAR" property="pcBegin" />
+    <result column="pc_end" jdbcType="VARCHAR" property="pcEnd" />
     
   </resultMap>
   
   <select id="selectByAll" parameterType="com.study.model.ProjectConstruction" resultType="com.study.model.ProjectConstruction">
      select id, proId as "proid",prwId as "prwid",pc_workers as "pcWorkers", pc_phone as "pcPhone",
      pc_week_plan as "pcWeekPlan" ,pc_month_plan as "pcMonthPlan",create_user as "createUser",create_time as "createTime",
-     pc_remark as "pcRemark",(select dictdata_name from dictionarydata where id=pc_dept)  as "pcDeptName" from project_construction where 1=1
+     pc_remark as "pcRemark",(select name from dept where id=pc_dept)  as "pcDeptName",pc_begin as "pcBegin",pc_end as "pcEnd" from project_construction where 1=1
        <if test="proid!=null">
           and proId=#{proid}
        </if>

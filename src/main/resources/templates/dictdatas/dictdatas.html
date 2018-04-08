@@ -45,6 +45,7 @@
 	<script th:inline="javascript">
 	var menuName=[[${menuName}]]
 	var menuId=1;
+	var code="";
 	$(function(){
 		$("#jsontree").tree({
             url: '/dict/getDataTree.do',
@@ -70,12 +71,13 @@
             },
             onSelect: function (node) {
             		menuId=node.id;
+            		code=node.dictCode;
             		search();
             }
         });
 	})
 	function add(){
-		top.framework.openTab('新增数据', '/dictdata/add?menuName=新增数据&parentMenuName='+menuName+'&dictId='+menuId);
+		top.framework.openTab('新增数据', '/dictdata/add?menuName=新增数据&parentMenuName='+menuName+'&dictId='+menuId+"&code="+code);
 	}
 	function edit(){
 		var selecteds = $('#tb1').datagrid('getSelections');
@@ -87,7 +89,7 @@
         	Common.showMsg('修改数据','不支持多个操作！');
         	return; 
         }
-		top.framework.openTab('修改数据', '/dictdata/add.do?menuName=修改数据&parentMenuName='+menuName+'&id='+selecteds[0].id+'&dictId='+menuId);
+		top.framework.openTab('修改数据', '/dictdata/add.do?menuName=修改数据&parentMenuName='+menuName+'&id='+selecteds[0].id+'&dictId='+menuId+"&code="+code);
 	}
 	 function remove(){
 			var selecteds = $('#tb1').datagrid('getSelections');
@@ -131,6 +133,11 @@
             	dictdataName:name,
             }
         });
+		if(code!="QC"){
+			$("#tb1").datagrid("hideColumn", "parentdataName"); // 设置隐藏列   
+		}else{
+			$("#tb1").datagrid("showColumn", "parentdataName"); // 设置显示列   
+		}
 	}
 	</script>
 </body>

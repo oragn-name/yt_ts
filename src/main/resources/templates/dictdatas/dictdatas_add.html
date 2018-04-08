@@ -20,21 +20,21 @@
                     <td><input class="easyui-validatebox" type="text" name="dictdataName" data-options="required:true,validType:'length[2,32]'"></input></td>
                 </tr>
                 
-                <!-- <tr  >
+                <tr  th:if="${code=='QC'}">
                     <td>上级单位:</td>
                     <td>
-                    <select id="cc"  name="parentId" style="width:200px;" ></select>  
+                    <select id="cc"  name="parentId" style="width:148px;" ></select>  
                     </td>
                 </tr>
                 <script type="text/javascript">
                 $('#cc').combotree({
-                    url: '/dictdata/getDataTree',
+                    url: '/dictdata/getDataTree?dictCode=GCLB',
                     method: 'get',
                     parentField:"parentId",
                     textFiled:"dictdataName",
                     idFiled:"id"
                 })
-                </script> -->
+                </script> 
                 <tr>
                     <td>类别:</td>
                     <td>

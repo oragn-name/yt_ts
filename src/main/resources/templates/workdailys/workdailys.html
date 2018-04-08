@@ -22,7 +22,7 @@
             	<!-- <th data-options="field:'pcWeekPlan',width:100,align:'center',sortable:'true'">周计划</th>
             	<th data-options="field:'pcMonthPlan',width:100,align:'center',sortable:'true'">月计划</th> -->
             	<th data-options="field:'pcRemark',width:300,align:'center',sortable:'true'">备注</th>
-            	<th data-options="field:'createUser',width:100,align:'center',sortable:'true'">创建人</th>
+            	<th data-options="field:'userName',width:100,align:'center',sortable:'true'">创建人</th>
             	<th data-options="field:'createTime',width:100,align:'center',sortable:'true'">创建时间</th>
             	<!-- <th data-options="field:'id',width:100,align:'center',sortable:'true',hidden:'true'">id</th>
             	<th data-options="field:'proGauge',width:80,align:'center',sortable:'true',formatter:function(value,row){
@@ -70,93 +70,29 @@
 	<table id="tb1" class="easyui-datagrid" title="" style="width:1260px;height:255px;"  border="0"
            data-options="rownumbers:true,pagination:true,url:'',singleSelect:false,method:'get',toolbar:'#toolbar1'">
         <thead>
-            <tr>
-            	<th data-options="field:'ck',checkbox:true"></th>
-            	<th data-options="field:'id',width:100,align:'center',sortable:'true',hidden:'true'">id</th>
-            	<th data-options="field:'proId',width:100,align:'center',sortable:'true',hidden:'true'">proId</th>
-            	
-            	<th data-options="field:'prHead',width:100,align:'center',sortable:'true'">勾头</th>
-            	<th data-options="field:'prRinse',width:100,align:'center',sortable:'true'">冲洗</th>
-            	<th data-options="field:'prConstru',width:100,align:'center',sortable:'true'">砌井</th>
-            	<th data-options="field:'prTube',width:100,align:'center',sortable:'true'">穿管</th>
-            	<th data-options="field:'prTubeNext',width:100,align:'center',sortable:'true'">穿管(下)</th>
-            	<th data-options="field:'prLining',width:100,align:'center',sortable:'true'">内衬</th>
-            	<th data-options="field:'prLiningNext',width:100,align:'center',sortable:'true'">内衬(下)</th>
-            	<th data-options="field:'prEnca',width:100,align:'center',sortable:'true'">包封</th>
-            	<th data-options="field:'prEncaNext',width:100,align:'center',sortable:'true'">包封(下)</th>
-            	
-            	
-            	
-            	
-            	
-            	<th data-options="field:'prwdOne',width:100,align:'center',sortable:'true'">DN15(防止器)</th>
-            	<th data-options="field:'prwdTwo',width:100,align:'center',sortable:'true'">DN20(防止器)</th>
-            	<th data-options="field:'prwdThree',width:100,align:'center',sortable:'true'">DN25(防止器)</th>
-            	<th data-options="field:'prwdFour',width:100,align:'center',sortable:'true'">DN40(防止器)</th>
-            	<th data-options="field:'prwdFive',width:100,align:'center',sortable:'true'">DN50(防止器)</th>
-            	<th data-options="field:'prwdSix',width:100,align:'center',sortable:'true'">DN75(防止器)</th>
-            	<th data-options="field:'prwdSeven',width:100,align:'center',sortable:'true'">DN100(防止器)</th>
-            	<th data-options="field:'prwdEight',width:100,align:'center',sortable:'true'">DN150(防止器)</th>
-            	<th data-options="field:'prwdNine',width:100,align:'center',sortable:'true'">DN200(防止器)</th>
-            	<th data-options="field:'prwdSubtotal',width:100,align:'center',sortable:'true'">小计(防止器)</th>
-            	<!-- <th data-options="field:'createUser',width:100,align:'center',sortable:'true'">创建人</th> -->
-            	<th data-options="field:'createTime',width:150,align:'center',sortable:'true'">创建时间</th>
-            	<th data-options="field:'prDmaOne',width:100,align:'center',sortable:'true'">DN15(DMA)</th>
-            	<th data-options="field:'prDmaTwo',width:100,align:'center',sortable:'true'">DN20(DMA)</th>
-            	<th data-options="field:'prDmaThree',width:100,align:'center',sortable:'true'">DN25(DMA)</th>
-            	<th data-options="field:'prDmaFour',width:100,align:'center',sortable:'true'">DN40(DMA)</th>
-            	<th data-options="field:'prDmaFive',width:100,align:'center',sortable:'true'">DN50(DMA)</th>
-            	<th data-options="field:'prDmaSix',width:100,align:'center',sortable:'true'">DN75(DMA)</th>
-            	<th data-options="field:'prDmaSeven',width:100,align:'center',sortable:'true'">DN100(DMA)</th>
-            	<th data-options="field:'prDmaEight',width:100,align:'center',sortable:'true'">DN150(DMA)</th>
-            	<th data-options="field:'prDmaNine',width:100,align:'center',sortable:'true'">DN200(DMA)</th>
-            	<th data-options="field:'prDmaSubtotal',width:100,align:'center',sortable:'true'">小计(DMA)</th>
-            	
-            	<th data-options="field:'prwdOneNext',width:100,align:'center',sortable:'true'">DN15(次)(防止器)</th>
-            	<th data-options="field:'prwdTwoNext',width:100,align:'center',sortable:'true'">DN20(次)(防止器)</th>
-            	<th data-options="field:'prwdThreeNext',width:100,align:'center',sortable:'true'">DN25(次)(防止器)</th>
-            	<th data-options="field:'prwdFourNext',width:100,align:'center',sortable:'true'">DN40(次)(防止器)</th>
-            	<th data-options="field:'prwdFiveNext',width:100,align:'center',sortable:'true'">DN50(次)(防止器)</th>
-            	<th data-options="field:'prwdSixNext',width:100,align:'center',sortable:'true'">DN75(次)(防止器)</th>
-            	<th data-options="field:'prwdSevenNext',width:100,align:'center',sortable:'true'">DN100(次)(防止器)</th>
-            	<th data-options="field:'prwdEightNext',width:100,align:'center',sortable:'true'">DN150(次)(防止器)</th>
-            	<th data-options="field:'prwdNineNext',width:100,align:'center',sortable:'true'">DN200(次)(防止器)</th>
-            	<th data-options="field:'prwdSubtotalNext',width:100,align:'center',sortable:'true'">小计(次)(防止器)</th>
-            	
-            	<th data-options="field:'prDmaOneNext',width:100,align:'center',sortable:'true'">DN15(次)(DMA)</th>
-            	<th data-options="field:'prDmaTwoNext',width:100,align:'center',sortable:'true'">DN20(次)(DMA)</th>
-            	<th data-options="field:'prDmaThreeNext',width:100,align:'center',sortable:'true'">DN25(次)(DMA)</th>
-            	<th data-options="field:'prDmaFourNext',width:100,align:'center',sortable:'true'">DN40(次)(DMA)</th>
-            	<th data-options="field:'prDmaFiveNext',width:100,align:'center',sortable:'true'">DN50(次)(DMA)</th>
-            	<th data-options="field:'prDmaSixNext',width:100,align:'center',sortable:'true'">DN75(次)(DMA)</th>
-            	<th data-options="field:'prDmaSevenNext',width:100,align:'center',sortable:'true'">DN100(次)(DMA)</th>
-            	<th data-options="field:'prDmaEightNext',width:100,align:'center',sortable:'true'">DN150(次)(DMA)</th>
-            	<th data-options="field:'prDmaNineNext',width:100,align:'center',sortable:'true'">DN200(次)(DMA)</th>
-            	<th data-options="field:'prDmaSubtotalNext',width:100,align:'center',sortable:'true'">小计(次)(DMA)</th>
-            	
-            	
-            	<th data-options="field:'prwOne',width:100,align:'center',sortable:'true'">DN15(长度)</th>
-            	<th data-options="field:'prwTwo',width:100,align:'center',sortable:'true'">DN20(长度)</th>
-            	<th data-options="field:'prwThree',width:100,align:'center',sortable:'true'">DN25(长度)</th>
-            	<th data-options="field:'prwFour',width:100,align:'center',sortable:'true'">DN40(长度)</th>
-            	<th data-options="field:'prwFive',width:100,align:'center',sortable:'true'">DN50(长度)</th>
-            	<th data-options="field:'prwSix',width:100,align:'center',sortable:'true'">DN75(长度)</th>
-            	<th data-options="field:'prwSeven',width:100,align:'center',sortable:'true'">DN100(长度)</th>
-            	<th data-options="field:'prwEight',width:100,align:'center',sortable:'true'">DN150(长度)</th>
-            	<th data-options="field:'prwNine',width:100,align:'center',sortable:'true'">DN200(长度)</th>
-            	<th data-options="field:'prwSubtotal',width:100,align:'center',sortable:'true'">小计(长度)</th>
-            	
-            	<th data-options="field:'prwOneNext',width:100,align:'center',sortable:'true'">DN15(次)(长度)</th>
-            	<th data-options="field:'prwTwoNext',width:100,align:'center',sortable:'true'">DN20(次)(长度)</th>
-            	<th data-options="field:'prwThreeNext',width:100,align:'center',sortable:'true'">DN25(次)(长度)</th>
-            	<th data-options="field:'prwFourNext',width:100,align:'center',sortable:'true'">DN40(次)(长度)</th>
-            	<th data-options="field:'prwFiveNext',width:100,align:'center',sortable:'true'">DN50(次)(长度)</th>
-            	<th data-options="field:'prwSixNext',width:100,align:'center',sortable:'true'">DN75(次)(长度)</th>
-            	<th data-options="field:'prwSevenNext',width:100,align:'center',sortable:'true'">DN100(次)(长度)</th>
-            	<th data-options="field:'prwEightNext',width:100,align:'center',sortable:'true'">DN150(次)(长度)</th>
-            	<th data-options="field:'prwNineNext',width:100,align:'center',sortable:'true'">DN200(次)(长度)</th>
-            	<th data-options="field:'prwSubtotalNext',width:100,align:'center',sortable:'true'">小计(次)(长度)</th>
-            </tr>
+        
+        <tr>
+							<th data-options="field:'ck',checkbox:true" rowspan="2"></th>
+							<th data-options="field:'pcId',hidden:true,align:'center',sortable:'true'" rowspan="2">pcId</th>
+							<th data-options="field:'proId',hidden:true,align:'center',sortable:'true'" rowspan="2">proId</th>
+							<th data-options="field:'dnIdName',width:120,align:'center',sortable:'true'" rowspan="2">DN</th>
+						<th  align="center"  colspan="2" width="300">工作量长度(长度)</th>  
+						<th  align="center"  colspan="2" width="300">倒流防止器口径(个数)</th>
+						<th  align="center"  colspan="2" width="300">DMA(个数)</th>
+						<th rowspan="2" data-options="field:'createTime',width:150,align:'center',sortable:'true'" >创建时间</th>
+						<th rowspan="2" data-options="field:'userName',width:150,align:'center',sortable:'true'" >创建人</th>
+						<th rowspan="2" data-options="field:'detailRemark',width:150,align:'center',sortable:'true'" >备注</th>
+						</tr>
+						<tr>
+						   <th data-options="field:'detailDay',width:150,align:'center',sortable:'true'" >当天实际完成工作量</th>
+						   <th data-options="field:'detailNextDay',width:150,align:'center',sortable:'true'" >次日计划完成工作量</th>
+						   <th data-options="field:'detailAnti',width:150,align:'center',sortable:'true'" >倒流防止器口径</th>
+						   <th data-options="field:'detailNextAnti',width:150,align:'center',sortable:'true'" >次日倒流防止器口径</th>
+						   <th data-options="field:'detailDma',width:150,align:'center',sortable:'true'" >DMA口径</th>
+						   <th data-options="field:'detailNextDma',width:150,align:'center',sortable:'true'" >次日DMA口径</th>
+						
+						</tr>
+        
         </thead>
    	</table>
     <div id="toolbar1" class="easyui-layout" style="height:30px;margin:3px;">
@@ -209,7 +145,7 @@
         	Common.showMsg('修改数据','不支持多个操作！');
         	return; 
         }
-		top.framework.openTab('修改数据', '/workdailys/add.do?menuName=修改数据&id='+selecteds[0].id+'&parentMenuName='+menuName);
+		top.framework.openTab('修改数据', '/workdailys/add.do?menuName=修改数据&pcId='+selecteds[0].pcId+'&id='+selecteds[0].id+'&proId='+selecteds[0].proId+'&parentMenuName='+menuName+"&createTime="+selecteds[0].createTime);
 	}
     
     function remove(){

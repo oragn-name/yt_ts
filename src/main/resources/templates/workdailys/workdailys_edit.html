@@ -9,11 +9,8 @@
 	<div id="dlg" style="padding:10px 20px">
 	   <div class="myftitle">基本信息</div>
 	   <form id="myfm" method="post" novalidate>
-	      <input type="hidden" name="id" th:value="${daily.id}"/>
-	       <input type="hidden" name="createUser" th:value="${daily.createUser}"/>
-	       <input type="hidden" name="createTime" th:value="${daily.createTime}"/>
-	       <input type="hidden" th:value="${daily.proId}"  name="proId">
-	       <input type="hidden" th:value="${daily.pcId}"  name="pcId">
+	     <input type="hidden" name="detail" id="detail" value="" />
+	   </form>
 	       <table>
 	          <tr>
 	             <td>工号：</td>
@@ -31,246 +28,59 @@
 	          </tr>
 	       </table>
 	        <div>
-	       <fieldset style="width:310px; border-width: 1px; float: left; margin-top: 10px; margin-left: 50px;">
-	       <legend>其他</legend>
-	       <table cellpadding="5">
-	         <tr>
-	            <td colspan="2">当天实际完成工作量</td>
-		   	    <td colspan="2">下日计划完成工作量</td>
-	         </tr>
-	         <tr>
-	            <td>穿管:</td>
-	            <td><input class="easyui-validatebox" type="text" name="prTube" th:value="${daily.prTube}" style="width: 70px;" ></input></td>
-	            <td>穿管:</td>
-	            <td><input class="easyui-validatebox" type="text" name="prTubeNext" th:value="${daily.prTubeNext}" style="width: 70px;" ></input></td>
-	         </tr>
-	         <tr>
-	            <td>内衬:</td>
-	            <td><input class="easyui-validatebox" type="text" name="prLining"  th:value="${daily.prLining}"  style="width: 70px;"></input></td>
-	            <td>内衬:</td>
-	            <td><input class="easyui-validatebox" type="text" name="prLiningNext" th:value="${daily.prLiningNext}" style="width: 70px;"></input></td>
-	         </tr>
-	         <tr>
-	            <td>包封:</td>
-	            <td><input class="easyui-validatebox" type="text" name="prEnca" th:value="${daily.prEnca}" style="width: 70px;"></input></td>
-	            <td>包封:</td>
-	            <td><input class="easyui-validatebox" type="text" name="prEncaNext" th:value="${daily.prEncaNext}"  style="width: 70px;"></input></td>
-	         </tr>
-	         <tr>
-	            <td>勾头:</td>
-	            <td colspan="3"><input class="easyui-validatebox" type="text" name="prHead" th:value="${daily.prHead}" style="width: 150px;"></input></td>
-	         </tr>
-	       <tr>
-	            <td>冲洗:</td>
-	            <td colspan="3"><input class="easyui-validatebox" type="text" name="prRinse" th:value="${daily.prRinse}" style="width: 150px;"></input></td>
-	         </tr>
-	         <tr>
-	         <td>砌井:</td>
-	            <td colspan="3"><input class="easyui-validatebox" type="text" name="prConstru" th:value="${daily.prConstru}" style="width: 150px;"></input></td>
-	         </tr>
 	       
-	       </table>
-	       </fieldset>
-	       <fieldset style="width:300px; border-width: 1px; float: left;margin-top: 10px; margin-left: 50px;">
-	        <legend>工作量(长度)</legend>
-	        
-	   	   <table cellpadding="5">
-		   	   <tr>
-		   	     <td colspan="2">当天实际完成工作量</td>
-		   	     <td colspan="2">下日计划完成工作量</td>
-		   	   </tr>
-                <tr>
-                    <td>DN15:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwOne" th:value="${daily.prwOne}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN15:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwOneNext" th:value="${daily.prwOneNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN20:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwTwo" th:value="${daily.prwTwo}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN20:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwTwoNext" th:value="${daily.prwTwoNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN25:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwThree"  th:value="${daily.prwThree}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN25:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwThreeNext" th:value="${daily.prwThreeNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN40:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwFour" th:value="${daily.prwFour}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN40:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwFourNext" th:value="${daily.prwFourNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN50:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwFive" th:value="${daily.prwFive}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN50:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwFiveNext" th:value="${daily.prwFiveNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN75:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwSix" th:value="${daily.prwSix}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN75:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwSixNext" th:value="${daily.prwSixNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN100:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwSeven" th:value="${daily.prwSeven}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN100:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwSevenNext" th:value="${daily.prwSevenNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN150:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwEight" th:value="${daily.prwEight}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN150:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwEightNext" th:value="${daily.prwEightNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN200:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwNine" th:value="${daily.prwNine}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN200:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwNineNext" th:value="${daily.prwNineNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-
-            </table>
-            </fieldset>
-	       </div>
-	       <div style="clear: both;"></div>
-	       <div>
-	       <fieldset style="width:300px; border-width: 1px; float: left;margin-top: 10px; margin-left: 50px;">
-	        <legend>倒流防止器口径（个数）</legend>
-	        
-	   	   <table cellpadding="5">
-		   	   <tr>
-		   	     <td colspan="2">当天实际完成工作量</td>
-		   	     <td colspan="2">下日计划完成工作量</td>
-		   	   </tr>
-                <tr>
-                    <td>DN15:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdOne" th:value="${daily.prwdOne}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN15:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdOneNext" th:value="${daily.prwdOneNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN20:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdTwo" th:value="${daily.prwdTwo}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN20:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdTwoNext" th:value="${daily.prwdTwoNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN25:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdThree"  th:value="${daily.prwdThree}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN25:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdThreeNext" th:value="${daily.prwdThreeNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN40:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdFour" th:value="${daily.prwdFour}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN40:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdFourNext" th:value="${daily.prwdFourNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN50:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdFive" th:value="${daily.prwdFive}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN50:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdFiveNext" th:value="${daily.prwdFiveNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN75:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdSix" th:value="${daily.prwdSix}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN75:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdSixNext" th:value="${daily.prwdSixNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN100:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdSeven" th:value="${daily.prwdSeven}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN100:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdSevenNext" th:value="${daily.prwdSevenNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN150:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdEight" th:value="${daily.prwdEight}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN150:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdEightNext" th:value="${daily.prwdEightNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN200:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdNine" th:value="${daily.prwdNine}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN200:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwdNineNext" th:value="${daily.prwdNineNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-
-            </table>
-            </fieldset>
-            
-            <fieldset style="width:300px; border-width: 1px;float: left; margin-top: 10px;margin-left: 50px;">
-	        <legend>DMA口径（个数）</legend>
-	   	   <table cellpadding="5">
-	   	        <tr>
-	   	           <td colspan="2">当天实际完成工作量</td>
-	   	           <td colspan="2">下日计划完成工作量</td>
-	   	        </tr>
-                <tr>
-                    <td>DN15:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaOne" th:value="${daily.prDmaOne}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN15:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaOneNext" th:value="${daily.prDmaOneNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN20:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaTwo" th:value="${daily.prDmaTwo}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN20:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaTwoNext" th:value="${daily.prDmaTwoNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN25:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaThree" th:value="${daily.prDmaThree}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN25:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaThreeNext" th:value="${daily.prDmaThreeNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN40:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaFour" th:value="${daily.prDmaFour}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN40:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaFourNext" th:value="${daily.prDmaFourNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN50:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaFive"  th:value="${daily.prDmaFive}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN50:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaFiveNext" th:value="${daily.prDmaFiveNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN75:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaSix" th:value="${daily.prDmaSix}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN75:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaSixNext" th:value="${daily.prDmaSixNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN100:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaSeven" th:value="${daily.prDmaSeven}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN100:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaSevenNext" th:value="${daily.prDmaSevenNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN150:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaEight" th:value="${daily.prDmaEight}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN150:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaEightNext" th:value="${daily.prDmaEightNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-                <tr>
-                    <td>DN200:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaNine"  th:value="${daily.prDmaNine}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                    <td>DN200:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prDmaNineNext" th:value="${daily.prDmaNineNext}" data-options="validType:'intOrFloat'" style="width: 70px;"></input></td>
-                </tr>
-
-            </table>
-            </fieldset>
+	       <fieldset style="height: 300px; border-width: 1px; margin-top: 20px;">
+				<table id="tb1" class="easyui-datagrid" title="" width="100%"
+					height="100%" fit="true" border="0"
+					data-options="iconCls: 'icon-edit',rownumbers:true,url:'',singleSelect:false,method:'get',toolbar:'#toolbar1',sortName:'sequence',sortOrder:'asc',onClickRow: onClickRow">
+					<thead>
+						<tr>
+							<th data-options="field:'ck',checkbox:true" rowspan="2"></th>
+							<th data-options="field:'id',hidden:true,align:'center',sortable:'true'" rowspan="2">id</th>
+							<th data-options="field:'pcId',hidden:true,align:'center',sortable:'true'" rowspan="2">pcId</th>
+							<th data-options="field:'proId',hidden:true,align:'center',sortable:'true'" rowspan="2">proId</th>
+							<th
+								data-options="field:'dnId',width:120,align:'center',sortable:'true',formatter:function(value,row){
+							return row.dnIdName;
+						},editor:{
+							type:'combobox',
+							options:{
+								valueField:'id',
+								textField:'dictdataName',
+								method:'get',
+								url:'/dictdata/getDataTree?dictCode=GZL',
+								width:98
+							}
+						}" rowspan="2">DN</th>
+						
+						<th  align="center"  colspan="2" width="300">工作量长度(长度)</th>  
+						<th  align="center"  colspan="2" width="300">倒流防止器口径(个数)</th>
+						<th  align="center"  colspan="2" width="300">DMA(个数)</th>
+						<th rowspan="2" data-options="field:'detailRemark',width:150,align:'center',sortable:'true',editor:'validatebox'" >备注</th>
+						</tr>
+						<tr>
+						   <th data-options="field:'detailDay',width:150,align:'center',sortable:'true',editor:'validatebox'" >当天实际完成工作量</th>
+						   <th data-options="field:'detailNextDay',width:150,align:'center',sortable:'true',editor:'validatebox'" >次日计划完成工作量</th>
+						   <th data-options="field:'detailAnti',width:150,align:'center',sortable:'true',editor:'validatebox'" >倒流防止器口径</th>
+						   <th data-options="field:'detailNextAnti',width:150,align:'center',sortable:'true',editor:'validatebox'" >次日倒流防止器口径</th>
+						   <th data-options="field:'detailDma',width:150,align:'center',sortable:'true',editor:'validatebox'" >DMA口径</th>
+						   <th data-options="field:'detailNextDma',width:150,align:'center',sortable:'true',editor:'validatebox'" >次日DMA口径</th>
+						
+						</tr>
+					</thead>
+				</table>
+				<div id="toolbar1" class="easyui-layout"
+					style="height: 35px; margin: 3px;">
+					<div data-options="region:'center',border:false">
+						<a class="easyui-linkbutton" icon="icon-add-new" plain="true"
+							href="javascript:append()">新增</a> <a class="easyui-linkbutton"
+							icon="icon-remove-new" plain="true" href="javascript:remove()">删除</a>
+					</div>
+				</div>
+			</fieldset>
+	       
+	       
             </div>
-	   </form>
     </div>
     </div>
     <div data-options="region:'south'" style="height: 40px;" border="false">
@@ -283,7 +93,21 @@
 	<script th:inline="javascript">
 	var parentMenuName=[[${menu.parentMenuName}]]
 	var menuName=[[${menu.menuName}]]
+	var pcId=[[${pcId}]]
+	var proId=[[${pro.id}]]
+	var createTime=[[${createTime}]]
+	$(function(){
+		$('#tb1').datagrid({
+			url: '/workdailys/getDataTree?pcId='+pcId+"&createTime="+createTime
+		})
+		
+	})
+	
+	
 	function submitForm(){
+		$('#tb1').datagrid('acceptChanges');
+		var data=$('#tb1').datagrid("getData");
+		$("#detail").val(JSON.stringify(data.rows));
         $('#myfm').form('submit',{
             url: '/workdailys/edit.html',
             onSubmit: function(){
@@ -298,6 +122,52 @@
                 }
             }
         });
+	}
+	
+	var editIndex = undefined;
+	function append(){
+	    editIndex = $('#tb1').datagrid('getRows').length;
+	    if(!editIndex){
+	    	editIndex=0;
+	    }
+			$('#tb1').datagrid('appendRow',{pcId:pcId,proId:proId});
+			$('#tb1').datagrid('selectRow', editIndex)
+					.datagrid('beginEdit', editIndex);
+			
+	}
+	function onClickRow(index){
+		if (editIndex != index){
+				$('#tb1').datagrid('selectRow', index)
+						.datagrid('beginEdit', index);
+				editIndex = index;
+		}
+	}
+	
+	function remove(){
+		var selRow = $('#tb1').datagrid('getSelections');
+		if (selRow == null || selRow.length == 0) { 
+        	return false;
+        }else{
+        	var rowIndex=$('#tb1').datagrid('getRowIndex',$('#tb1').datagrid('getSelected'));  
+        	var rows = $('#tb1').datagrid('getRows');
+        	var row = rows[rowIndex];
+        	if(row.id!=null&&row.id!=''&&row.id!=undefined){
+        		$.ajax( {
+    				url : '/workdailys/delete?ids='+row.id,
+    				dataType:'text',
+    				type: 'delete',
+    				success : function(result) {
+    					if ("success"==result){
+    					}else{
+    					}
+    					
+    				}
+    			});
+        		
+        	}
+        	$('#tb1').datagrid('deleteRow',rowIndex);
+        	 remove();
+        }
 	}
 	</script>
 </body>

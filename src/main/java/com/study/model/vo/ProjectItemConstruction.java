@@ -32,6 +32,8 @@ public class ProjectItemConstruction {
   private String createTime;
   
   private String pcRemark;
+  
+  private String userName;
 
   public String getProName() {
     return proName;
@@ -143,6 +145,14 @@ public class ProjectItemConstruction {
 
   public void setPcRemark(String pcRemark) {
     this.pcRemark = pcRemark;
+  }
+
+  public String getUserName() {
+    return userName;
+  }
+
+  public void setUserName(String userName) {
+    this.userName = userName;
   }
   
   

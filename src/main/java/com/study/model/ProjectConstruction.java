@@ -69,6 +69,18 @@ public class ProjectConstruction {
     @Column(name = "pc_remark")
     private String pcRemark;
     
+    /**
+     * 起点
+     */
+    @Column(name = "pc_begin")
+    private String pcBegin;
+    
+    /**
+     * 止点
+     */
+    @Column(name = "pc_end")
+    private String pcEnd;
+    
     @Transient
     private String pcDeptName;
     
@@ -256,4 +268,22 @@ public class ProjectConstruction {
     public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
+
+    public String getPcBegin() {
+      return pcBegin;
+    }
+
+    public void setPcBegin(String pcBegin) {
+      this.pcBegin = pcBegin;
+    }
+
+    public String getPcEnd() {
+      return pcEnd;
+    }
+
+    public void setPcEnd(String pcEnd) {
+      this.pcEnd = pcEnd;
+    }
+    
+    
 }

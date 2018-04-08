@@ -15,7 +15,7 @@
                     <td>施工单位:</td>
                     <td>
                     <select class="easyui-combobox" name="pcDept" style="width: 148px;" >
-	           				  	    <option th:each="dict1 : ${dtd}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" ></option>
+	           				  	    <option th:each="dict1 : ${dtd}" th:value="${dict1.id}" th:text="${dict1.name}" ></option>
 	           					</select>
                     </td>
                 </tr>
@@ -28,6 +28,14 @@
                 <tr>
                     <td>电话:</td>
                     <td><input class="easyui-validatebox" type="text" name="pcPhone" ></input></td>
+                </tr>
+                <tr>
+                    <td>起点:</td>
+                    <td><input class="easyui-validatebox" type="text" name="pcBegin" th:value="${proWork.prwOrigin}" ></input></td>
+                </tr>
+                <tr>
+                    <td>止点:</td>
+                    <td><input class="easyui-validatebox" type="text" name="pcEnd" th:value="${proWork.prwStop}"></input></td>
                 </tr>
                 <!-- <tr>
                     <td>下周计划:</td>
