@@ -138,7 +138,28 @@
                 		<td  style="text-align: right;">累计投入机械台班:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwRoadWork" data-options="validType:'number'"></input></td>
                     <td  style="text-align: right;">劳务分包队伍:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwTeam" ></input></td>
+                    <td><!-- <input class="easyui-validatebox" type="text" name="prwTeam" ></input> -->
+                    <input id="prwTeam" name="prwTeam"   style="width: 150px;"  class="easyui-combobox" >
+                    <script th:inline="javascript">
+		                $('#prwTeam').combobox({  
+		                    url:'/dictdata/getDataTree?dictCode=NWDW', //后台获取下拉框数据的url  
+		                    method:'get',  
+		                    panelHeight:200,//设置为固定高度，combobox出现竖直滚动条  
+		                    valueField:'id',  
+		                    textField:'dictdataName',  
+		                    multiple:true,  
+		                    formatter: function (row) { //formatter方法就是实现了在每个下拉选项前面增加checkbox框的方法  
+		                        var opts = $(this).combobox('options');  
+		                        return  row[opts.textField]  
+		                    }
+		                });
+		               /*  $(function(){
+		                	$('#xsry').combobox('setValues','1,2,3'.split(','))
+		                }) */
+		                </script>
+                    
+                    
+                    </td>
                 </tr>
                 
                 <tr>

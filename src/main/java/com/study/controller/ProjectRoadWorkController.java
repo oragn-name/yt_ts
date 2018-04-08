@@ -16,9 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
+import com.study.model.Dept;
+import com.study.model.Dictionarydata;
 import com.study.model.ProjectProduce;
 import com.study.model.ProjectRoadWork;
 import com.study.model.User;
+import com.study.service.DictdataService;
 import com.study.service.ProjectProduceService;
 import com.study.service.ProjectRoadWorkService;
 import com.study.util.ResultUtil;
@@ -33,12 +36,31 @@ public class ProjectRoadWorkController {
   private ProjectProduceService projectProduceService;
 	@Autowired
 	private ProjectRoadWorkService roadWorkService;
+	@Autowired
+  private DictdataService dictdataService;
 	
 	@RequestMapping(value="/roadworks/getData",method={RequestMethod.GET})
 	public DataGridResultInfo getData(@ModelAttribute PageBean bean,@RequestParam(value="proId",required=true)Integer proId){
 	  ProjectRoadWork projectRoadWork=new ProjectRoadWork();
 	  projectRoadWork.setProId(proId);
 	  List<ProjectRoadWork> projectRoadWorkAll = roadWorkService.getProjectRoadWorkAll(projectRoadWork, bean);
+	  for (ProjectRoadWork work : projectRoadWorkAll) {
+      String proConsts="";
+      if(work.getPrwTeam()!=null&&!"".equals(work.getPrwTeam())){
+        String[] proConst=work.getPrwTeam().split(",");
+        for (String string : proConst) {
+          Dictionarydata selectByKey = dictdataService.selectByKey(Integer.parseInt(string));
+          if(selectByKey!=null){
+            proConsts+=selectByKey.getDictdataName()+",";
+          }
+        }
+      }
+      if(proConsts.length()>0){
+        proConsts=proConsts.substring(0, proConsts.length()-1);
+      }
+      work.setPrwTeam(proConsts);
+    }
+	  
 		PageInfo<ProjectRoadWork> info=new PageInfo<ProjectRoadWork>(projectRoadWorkAll);
 		return ResultUtil.createDataGridResult(info.getTotal(), info.getList());
 	}
