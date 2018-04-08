@@ -466,19 +466,35 @@ and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
   </select>
   
   <select id="getOrderType" parameterType="java.util.Map" resultType="com.study.model.vo.ProjectType">
-    SELECT
+   select proEngineTypeName,proPeriodName,sum(prDmaTotal) as "prDmaTotal",sum(prDmaNextTotal) as "prDmaNextTotal",
+           sum(prwdTotal) as "prwdTotal",sum(prwdNextTotal) as "prwdNextTotal",sum(prwTotal) as "prwTotal",sum(prwNextTotal) as "prwNextTotal" from (
+   
+   SELECT
 	e.dictdata_name as "proEngineTypeName",
 	ta.dictdata_name as "proPeriodName",
   (select sum(detail_dma) from project_road_word_detail where pro_id=p.id) as "prDmaTotal",
-
+(select sum(detail_next_dma) from project_road_word_detail where pro_id=p.id) as "prDmaNextTotal",
+(select sum(detail_anti) from project_road_word_detail where pro_id=p.id) as "prwdTotal",
+(select sum(detail_next_anti) from project_road_word_detail where pro_id=p.id) as "prwdNextTotal",
+(select sum(detail_day) from project_road_word_detail where pro_id=p.id) as "prwTotal",
+(select sum(detail_next_day) from project_road_word_detail where pro_id=p.id) as "prwNextTotal"
 FROM
 	dictionary d
 INNER JOIN dictionarydata e ON d.id = e.dict_id
 INNER JOIN project_produce p ON p.pro_engine_type = e.id
 inner join dictionarydata ta on ta.id=p.pro_period
-AND d.dict_code = 'GCLB' GROUP BY
-	e.dictdata_name,
-	p.pro_period
+AND d.dict_code = 'GCLB'
+<if test="proEngineType!=null and proEngineType!=''">
+and p.pro_engine_type=#{proEngineType}
+</if>
+<if test="proPeriod!=null and proPeriod!=''">
+and p.pro_period=#{proPeriod}
+</if>
+) t
+
+ GROUP BY
+	proEngineTypeName,
+	proPeriodName
   </select>
   
 </mapper>

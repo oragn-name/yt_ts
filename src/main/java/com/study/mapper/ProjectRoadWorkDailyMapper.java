@@ -31,4 +31,7 @@ public interface ProjectRoadWorkDailyMapper extends MyMapper<ProjectRoadWorkDail
   
   public  List<ProjectDetail> getOrderDay(Map<String, Object> map);
   
+  
+  public List<ProjectType> getOrderType(Map<String, Object> map);
+  
 }

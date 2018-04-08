@@ -67,5 +67,9 @@ public class ProjectRoadWorkDailyServiceImpl extends BaseService<ProjectRoadWork
   public List<ProjectDetail> getOrderDay(Map<String, Object> map) {
     return roadWorkDailyMapper.getOrderDay(map);
   }
+  @Override
+  public List<ProjectType> getOrderType(Map<String, Object> map) {
+    return roadWorkDailyMapper.getOrderType(map);
+  }
 
 }

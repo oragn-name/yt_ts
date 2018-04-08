@@ -1,5 +1,6 @@
 package com.study.controller.view;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -61,26 +62,29 @@ public class SummaryViewController {
     buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>施工单位</td>");
     buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>设计长度</td>");
     buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>时间</td>");
-    buffer.append("<td class=\"th\" colspan=\""+dicts.size()*2+"\"  nowrap>DMA口径(个数)</td>");
-    buffer.append("<td class=\"th\" colspan=\""+dicts.size()*2+"\"  nowrap>倒流防止器口径(个数)</td>");
-    buffer.append("<td class=\"th\" colspan=\""+dicts.size()*2+"\"  nowrap>工作量(长度)</td>");
+    buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(dicts.size()*2+2)+"\"  nowrap>DMA口径(个数)</td>");
+    buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(dicts.size()*2+2)+"\"  nowrap>倒流防止器口径(个数)</td>");
+    buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(dicts.size()*2+2)+"\"  nowrap>工作量(长度)</td>");
     buffer.append("</tr>");
     
     
     buffer.append("<tr>");//第二行
-    buffer.append("<td class=\"th\"  nowrap colspan=\""+dicts.size()+"\" align=\"center\">当前实际完成</td>");
-    buffer.append("<td class=\"th\"  nowrap colspan=\""+dicts.size()+"\" align=\"center\">次日计划完成</td>");
-    buffer.append("<td class=\"th\"  nowrap colspan=\""+dicts.size()+"\" align=\"center\">当前实际完成</td>");
-    buffer.append("<td class=\"th\"  nowrap colspan=\""+dicts.size()+"\" align=\"center\">次日计划完成</td>");
-    buffer.append("<td class=\"th\"  nowrap colspan=\""+dicts.size()+"\" align=\"center\">当前实际完成</td>");
-    buffer.append("<td class=\"th\"  nowrap colspan=\""+dicts.size()+"\" align=\"center\">次日计划完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(dicts.size()+1)+"\" align=\"center\">当前实际完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(dicts.size()+1)+"\" align=\"center\">次日计划完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(dicts.size()+1)+"\" align=\"center\">当前实际完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(dicts.size()+1)+"\" align=\"center\">次日计划完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(dicts.size()+1)+"\" align=\"center\">当前实际完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(dicts.size()+1)+"\" align=\"center\">次日计划完成</td>");
     buffer.append("</tr>");
     
     
     buffer.append("<tr>");//第三行
      for (int i = 0; i < 6; i++) {
-       for (Dictionarydata dic : dicts) {
-         buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+dic.getDictdataName()+"</td>");
+       for (int ii=0;ii<dicts.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+dicts.get(ii).getDictdataName()+"</td>");
+         if(ii==dicts.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\">小计</td>");
+         }
        } 
      }
     buffer.append("</tr>");
@@ -115,19 +119,28 @@ public class SummaryViewController {
          if(prwd==null||prwd.size()<=0){
            buffer.append("<td class=\"td\"></td>");
            for (int i = 0; i < 6; i++) {
-             for (Dictionarydata dic : dicts) {
+             for (int ii=0;ii<dicts.size();ii++) {
                buffer.append("<td class=\"td\" ></td>");
+               if(ii==dicts.size()-1){
+                 buffer.append("<td class=\"td\"></td>");
+               }
              }
            }
          }
          if(prwd!=null&&prwd.size()>=1){
            buffer.append("<td class=\"td\" >"+prwd.get(0).getCreateTime()+"</td>");
            for (int i = 0; i < 6; i++) {
-             for (Dictionarydata dic : dicts) {
+             BigDecimal one=new BigDecimal("0");
+             BigDecimal one1=new BigDecimal("0");
+             BigDecimal two=new BigDecimal("0");
+             BigDecimal two1=new BigDecimal("0");
+             BigDecimal three=new BigDecimal("0");
+             BigDecimal three1=new BigDecimal("0");
+             for (int ii=0;ii<dicts.size();ii++) {
                ProjectRoadWordDetail det=new ProjectRoadWordDetail();
                det.setProId(projectDetail.getProId());
                det.setPcId(projectDetail.getPcId());
-               det.setDnId(dic.getId());
+               det.setDnId(dicts.get(ii).getId());
                det.setCreateTime(prwd.get(0).getCreateTime());
                List<ProjectRoadWordDetail> prwds = projectRoadWordDetailService.getDetailByAll(det, null);
                ProjectRoadWordDetail wd=null;
@@ -138,6 +151,7 @@ public class SummaryViewController {
                  if(i==0){
                     if(wd!=null){
                       buffer.append("<td class=\"td\" >"+wd.getDetailDma()+"</td>");
+                      one=one.add(new BigDecimal(wd.getDetailDma()==null?"0":wd.getDetailDma().toString()));
                     }else{
                       buffer.append("<td class=\"td\" ></td>");
                     }
@@ -146,6 +160,7 @@ public class SummaryViewController {
                  if(i==2){
                    if(wd!=null){
                      buffer.append("<td class=\"td\" >"+wd.getDetailAnti()+"</td>");
+                     two=two.add(new BigDecimal(wd.getDetailAnti()==null?"0":wd.getDetailAnti().toString()));
                    }else{
                      buffer.append("<td class=\"td\" ></td>");
                    }
@@ -153,6 +168,7 @@ public class SummaryViewController {
                  if(i==4){
                    if(wd!=null){
                      buffer.append("<td class=\"td\" >"+wd.getDetailDay()+"</td>");
+                     three=three.add(new BigDecimal(wd.getDetailDay()==null?"0":wd.getDetailDay().toString()));
                    }else{
                      buffer.append("<td class=\"td\" ></td>");
                    }
@@ -161,6 +177,7 @@ public class SummaryViewController {
                  if(i==1){
                    if(wd!=null){
                      buffer.append("<td class=\"td\" >"+wd.getDetailNextDma()+"</td>");
+                     one1=one1.add(new BigDecimal(wd.getDetailNextDma()==null?"0":wd.getDetailNextDma().toString()));
                    }else{
                      buffer.append("<td class=\"td\" ></td>");
                    }
@@ -168,6 +185,7 @@ public class SummaryViewController {
                  if(i==3){
                    if(wd!=null){
                      buffer.append("<td class=\"td\" >"+wd.getDetailNextAnti()+"</td>");
+                     two1=two1.add(new BigDecimal(wd.getDetailNextAnti()==null?"0":wd.getDetailNextAnti().toString()));
                    }else{
                      buffer.append("<td class=\"td\" ></td>");
                    }
@@ -175,10 +193,32 @@ public class SummaryViewController {
                 if(i==5){
                   if(wd!=null){
                     buffer.append("<td class=\"td\" >"+wd.getDetailNextDay()+"</td>");
+                    three1=three1.add(new BigDecimal(wd.getDetailNextDay()==null?"0":wd.getDetailNextDay().toString()));
                   }else{
                     buffer.append("<td class=\"td\" ></td>");
                   }
                 }
+               }
+               if(ii==dicts.size()-1){
+                 if(i==0){
+                   buffer.append("<td class=\"td\" >"+one.doubleValue()+"</td>");
+                 }
+                 if(i==1){
+                   buffer.append("<td class=\"td\" >"+one1.doubleValue()+"</td>");
+                 }
+                 if(i==2){
+                   buffer.append("<td class=\"td\" >"+two.doubleValue()+"</td>");
+                 }
+                 if(i==3){
+                   buffer.append("<td class=\"td\" >"+two1.doubleValue()+"</td>");
+                 }
+                 if(i==4){
+                   buffer.append("<td class=\"td\" >"+three.doubleValue()+"</td>");
+                 }
+                 if(i==5){
+                   buffer.append("<td class=\"td\" >"+three1.doubleValue()+"</td>");
+                 }
+                 
                }
              }
            }
@@ -189,11 +229,17 @@ public class SummaryViewController {
              buffer.append("<tr>");
              buffer.append("<td class=\"td\" >"+prwd.get(k).getCreateTime()+"</td>");
              for (int i = 0; i < 6; i++) {
-               for (Dictionarydata dic : dicts) {
+               BigDecimal one=new BigDecimal("0");
+               BigDecimal one1=new BigDecimal("0");
+               BigDecimal two=new BigDecimal("0");
+               BigDecimal two1=new BigDecimal("0");
+               BigDecimal three=new BigDecimal("0");
+               BigDecimal three1=new BigDecimal("0");
+               for (int ii=0;ii<dicts.size();ii++) {
                  ProjectRoadWordDetail det=new ProjectRoadWordDetail();
                  det.setProId(projectDetail.getProId());
                  det.setPcId(projectDetail.getPcId());
-                 det.setDnId(dic.getId());
+                 det.setDnId(dicts.get(ii).getId());
                  det.setCreateTime(prwd.get(k).getCreateTime());
                  List<ProjectRoadWordDetail> prwds = projectRoadWordDetailService.getDetailByAll(det, null);
                  ProjectRoadWordDetail wd=null;
@@ -204,6 +250,7 @@ public class SummaryViewController {
                    if(i==0){
                       if(wd!=null){
                         buffer.append("<td class=\"td\" >"+wd.getDetailDma()+"</td>");
+                        one=one.add(new BigDecimal(wd.getDetailDma()==null?"0":wd.getDetailDma().toString()));
                       }else{
                         buffer.append("<td class=\"td\" ></td>");
                       }
@@ -212,6 +259,7 @@ public class SummaryViewController {
                    if(i==2){
                      if(wd!=null){
                        buffer.append("<td class=\"td\" >"+wd.getDetailAnti()+"</td>");
+                       two=two.add(new BigDecimal(wd.getDetailAnti()==null?"0":wd.getDetailAnti().toString()));
                      }else{
                        buffer.append("<td class=\"td\" ></td>");
                      }
@@ -219,6 +267,7 @@ public class SummaryViewController {
                    if(i==4){
                      if(wd!=null){
                        buffer.append("<td class=\"td\" >"+wd.getDetailDay()+"</td>");
+                       three=three.add(new BigDecimal(wd.getDetailDay()==null?"0":wd.getDetailDay().toString()));
                      }else{
                        buffer.append("<td class=\"td\" ></td>");
                      }
@@ -227,6 +276,7 @@ public class SummaryViewController {
                    if(i==1){
                      if(wd!=null){
                        buffer.append("<td class=\"td\" >"+wd.getDetailNextDma()+"</td>");
+                       one1=one1.add(new BigDecimal(wd.getDetailNextDma()==null?"0":wd.getDetailNextDma().toString()));
                      }else{
                        buffer.append("<td class=\"td\" ></td>");
                      }
@@ -234,6 +284,7 @@ public class SummaryViewController {
                    if(i==3){
                      if(wd!=null){
                        buffer.append("<td class=\"td\" >"+wd.getDetailNextAnti()+"</td>");
+                       two1=two1.add(new BigDecimal(wd.getDetailNextAnti()==null?"0":wd.getDetailNextAnti().toString()));
                      }else{
                        buffer.append("<td class=\"td\" ></td>");
                      }
@@ -241,10 +292,32 @@ public class SummaryViewController {
                   if(i==5){
                     if(wd!=null){
                       buffer.append("<td class=\"td\" >"+wd.getDetailNextDay()+"</td>");
+                      three1=three1.add(new BigDecimal(wd.getDetailNextDay()==null?"0":wd.getDetailNextDay().toString()));
                     }else{
                       buffer.append("<td class=\"td\" ></td>");
                     }
                   }
+                 }
+                 if(ii==dicts.size()-1){
+                   if(i==0){
+                     buffer.append("<td class=\"td\" >"+one.doubleValue()+"</td>");
+                   }
+                   if(i==1){
+                     buffer.append("<td class=\"td\" >"+one1.doubleValue()+"</td>");
+                   }
+                   if(i==2){
+                     buffer.append("<td class=\"td\" >"+two.doubleValue()+"</td>");
+                   }
+                   if(i==3){
+                     buffer.append("<td class=\"td\" >"+two1.doubleValue()+"</td>");
+                   }
+                   if(i==4){
+                     buffer.append("<td class=\"td\" >"+three.doubleValue()+"</td>");
+                   }
+                   if(i==5){
+                     buffer.append("<td class=\"td\" >"+three1.doubleValue()+"</td>");
+                   }
+                   
                  }
                }
              }
@@ -259,7 +332,7 @@ public class SummaryViewController {
     
     buffer.append("</table>");
     
-    request.setAttribute("html", buffer.toString());
+    request.setAttribute("html", buffer.toString().replaceAll("null", ""));
     request.setAttribute("proName", proName);
     request.setAttribute("proNumber", proNumber);
     request.setAttribute("proSerialNumber",proSerialNumber);
@@ -280,7 +353,7 @@ public class SummaryViewController {
     map.put("endTime", endTime==null?"":endTime.trim());*/
     map.put("proEngineType", proEngineType==null?"":proEngineType.trim());
     map.put("proPeriod", proPeriod==null?"":proPeriod.trim());
-    List<ProjectType> selectProjectDetail = roadWorkDailyService.selectProjectByType(map);
+    List<ProjectType> selectProjectDetail = roadWorkDailyService.getOrderType(map);
     request.setAttribute("proDetailType", selectProjectDetail);
     /*request.setAttribute("proName", proName);
     request.setAttribute("proNumber", proNumber);

@@ -161,4 +161,24 @@ public class UserController {
     }
       
     }
+    @RequestMapping(value = "/pass",method={RequestMethod.POST})
+    public String pass( String newPass,String oldPass,HttpServletRequest request) {
+      
+      User user = (User)request.getSession().getAttribute("userSession");
+      User user2=new User();
+      user2.setUsername(user.getUsername());
+      user2.setPassword(oldPass);
+      if(PasswordHelper.password(user2).equals(user.getPassword())){
+        User selectByKey = userService.selectByKey(user.getId());
+        User user3=new User();
+        user3.setUsername(user.getUsername());
+        user3.setPassword(newPass);
+        String password = PasswordHelper.password(user3);
+        selectByKey.setPassword(password);
+        userService.updateAll(selectByKey);
+        return "1";
+      }else{
+        return "2";
+      }
+    }
 }

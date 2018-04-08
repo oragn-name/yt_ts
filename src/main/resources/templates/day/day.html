@@ -377,4 +377,39 @@
 	
 	
 </body>
+<script type="text/javascript">
+/* function MergeCell(tableId, startRow, endRow, col) {  
+    var tb = document.getElementById(tableId); 
+    if (col >= 3) {  
+        return false;  
+    }  
+    //当检查第0列时检查所有行  
+    if (col == 0 || endRow == 0) {  
+        endRow = tb.rows.length - 1;  
+    }  
+    for (var i = startRow; i < endRow; i++) {  
+        //程序是自左向右合并  
+        if (tb.rows[startRow].cells[col].innerHTML == tb.rows[i + 1].cells[col].innerHTML) {  
+            //如果相同则删除下一行的第0列单元格  
+            tb.rows[i + 1].cells[col].style.display='none';  
+            //更新rowSpan属性  
+            tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan | 0) + 1;  
+            //当循环到终止行前一行并且起始行和终止行不相同时递归(因为上面的代码已经检查了i+1行，所以此处只到endRow-1)  
+            if (i == endRow - 1 && startRow != endRow) {  
+                MergeCell(tableId, startRow, endRow, col + 1);  
+            }  
+        } else {  
+            //起始行，终止行不变，检查下一列  
+            MergeCell(tableId, startRow, i, col + 1);  
+            //增加起始行  
+            startRow = i + 1;  
+        }  
+    }  
+}  
 
+$(function(){
+	MergeCell('tbHaederText', 0, 0, 0); 
+}) */
+
+
+</script>
