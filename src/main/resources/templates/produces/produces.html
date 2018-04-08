@@ -20,7 +20,7 @@
             	<th data-options="field:'proSerialNumber',width:100,align:'center',sortable:'true'">序号</th>
             	<th data-options="field:'proNumberName',width:80,align:'center',sortable:'true'">编号性质</th>
             	<th data-options="field:'proName',width:100,align:'center',sortable:'true'">工程名称</th>
-            	<th data-options="field:'proJobTypeName',width:100,align:'center',sortable:'true'">工号类别</th>
+            	<!-- <th data-options="field:'proJobTypeName',width:100,align:'center',sortable:'true'">工号类别</th> -->
             	<th data-options="field:'proEngineTypeName',width:100,align:'center',sortable:'true'">工程类别</th>
             	<th data-options="field:'proNatureName',width:100,align:'center',sortable:'true'">工程性质</th>
             	<th data-options="field:'proSourceName',width:100,align:'center',sortable:'true'">工程来源</th>
@@ -37,8 +37,8 @@
             	<th data-options="field:'proPipeLength',width:100,align:'center',sortable:'true'">管径</th>
             	<th data-options="field:'proSnapLength',width:100,align:'center',sortable:'true'">临时线长度</th>
             	
-            	<th data-options="field:'proPipe',width:100,align:'center',sortable:'true'">管阀口径</th>
-            	<th data-options="field:'proPipeLengths',width:100,align:'center',sortable:'true'">管阀长度</th>
+            	<!-- <th data-options="field:'proPipe',width:100,align:'center',sortable:'true'">管阀口径</th>
+            	<th data-options="field:'proPipeLengths',width:100,align:'center',sortable:'true'">管阀长度</th> -->
             	<th data-options="field:'proWater',width:100,align:'center',sortable:'true'">水表口径</th>
             	<th data-options="field:'proWaterNumber',width:100,align:'center',sortable:'true'">水表数量</th>
             	<th data-options="field:'proDesign',width:100,align:'center',sortable:'true',formatter:function(value,row){
@@ -60,7 +60,15 @@
             	
             	<th data-options="field:'createUser',width:100,align:'center',sortable:'true'">创建人</th>
             	<th data-options="field:'createTime',width:150,align:'center',sortable:'true'">创建时间</th>
-            	
+            	<th data-options="field:'proStatus',width:150,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '在施';
+            							if (value == 2) return '待施';
+	                                    return '已完工';
+	                		  }">状态</th>
+            	<th data-options="field:'proType',width:150,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }">是否打开</th>
             </tr>
         </thead>
    	</table>
@@ -98,7 +106,37 @@
         }
 		top.framework.openTab('修改项目', '/produces/add.do?menuName=修改项目&id='+selecteds[0].id+'&parentMenuName='+menuName);
 	}
-    
+    function on(){
+		enable(1);
+	}
+	function off(){
+		enable(2);
+	}
+	function enable(types){
+		var selecteds = $('#tb1').datagrid('getSelections');
+        if (selecteds == null || selecteds.length == 0) { 
+        	Common.showMsg('请选择操作项！');
+        	return;
+        }
+        if (selecteds.length>1) {
+        	Common.showMsg('不支持多个操作！');
+        	return; 
+        }
+		$.ajax( {
+			url : '/produces/enable.do?id='+selecteds[0].id+'&enable='+types,
+			dataType:'text',
+			type: 'get',
+			success : function(result) {
+				if ("success"==result){
+					Common.showMsg('提示',"操作成功");
+				    search();
+				}else{
+					Common.showMsg('提示',"操作失败");
+				}
+				
+			}
+		});
+	}
     function remove(){
 		var selecteds = $('#tb1').datagrid('getSelections');
         if (selecteds == null || selecteds.length == 0) { 

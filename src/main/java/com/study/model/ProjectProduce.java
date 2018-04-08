@@ -211,6 +211,18 @@ public class ProjectProduce {
     @Column(name = "pro_water_endtime")
     private String  proWaterEndtime;
     
+    /**
+     * 1、在施，有已开工无完工日期的项目查询；2、待施，无实际开工日；3、已完工，有转图日期的查询
+     */
+    @Column(name = "pro_status")
+    private Integer  proStatus;
+    
+    /**
+     * 1打开，2关闭
+     */
+    @Column(name = "pro_type")
+    private Integer  proType;
+    
 
     
     
@@ -801,6 +813,22 @@ public class ProjectProduce {
 
     public void setProContractNumber(String proContractNumber) {
       this.proContractNumber = proContractNumber;
+    }
+
+    public Integer getProStatus() {
+      return proStatus;
+    }
+
+    public void setProStatus(Integer proStatus) {
+      this.proStatus = proStatus;
+    }
+
+    public Integer getProType() {
+      return proType;
+    }
+
+    public void setProType(Integer proType) {
+      this.proType = proType;
     }
     
     

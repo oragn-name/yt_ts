@@ -1,0 +1,22 @@
+update dictionarydata set parent_id=0;
+INSERT INTO `shiro_t`.`resources` (`id`, `name`, `resUrl`, `type`, `parentId`, `sort`, `iconCls`, `but_fun`) VALUES ('117', '´ò¿ª', '/produces/on', '2', '76', '13', 'icon-on-new', 'on()');
+INSERT INTO `shiro_t`.`resources` (`id`, `name`, `resUrl`, `type`, `parentId`, `sort`, `iconCls`, `but_fun`) VALUES ('118', '¹Ø±Õ', '/produces/off', '2', '76', '14', 'icon-off-new', 'off()');
+alter table project_produce add pro_status int(1);
+alter table project_produce add pro_type int(1);
+
+
+alter table project_construction add pc_begin varchar(255);
+alter table project_construction add pc_end varchar(255);
+
+
+
+
+
+
+
+
+
+
+
+
+

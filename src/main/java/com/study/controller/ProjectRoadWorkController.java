@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
+import com.study.model.ProjectProduce;
 import com.study.model.ProjectRoadWork;
 import com.study.model.User;
+import com.study.service.ProjectProduceService;
 import com.study.service.ProjectRoadWorkService;
 import com.study.util.ResultUtil;
 import com.study.util.bean.DataGridResultInfo;
@@ -27,6 +29,8 @@ import com.study.util.bean.PageBean;
 @RestController
 public class ProjectRoadWorkController {
 
+  @Autowired
+  private ProjectProduceService projectProduceService;
 	@Autowired
 	private ProjectRoadWorkService roadWorkService;
 	
@@ -48,6 +52,22 @@ public class ProjectRoadWorkController {
       roadWork.setPrwCreator(user.getId());
       roadWork.setPrwCreateAt(sdf.format(new Date()));
 			roadWorkService.save(roadWork);
+			
+			if(roadWork.getPrwAst()!=null&&!"".equals(roadWork.getPrwAst())){//实际开工日期
+			   if(roadWork.getPrwAet()==null||"".equals(roadWork.getPrwAet())){
+			     ProjectProduce selectByKey = projectProduceService.selectByKey(roadWork.getProId());
+			     selectByKey.setProStatus(1);
+			     projectProduceService.updateNotNull(selectByKey);
+			   }
+			}
+			
+			if(roadWork.getPrwFigureDate()!=null&&!"".equals(roadWork.getPrwFigureDate())){
+			  ProjectProduce selectByKey = projectProduceService.selectByKey(roadWork.getProId());
+        selectByKey.setProStatus(3);
+        projectProduceService.updateNotNull(selectByKey);
+			}
+			
+			
 			return "success";
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,6 +78,19 @@ public class ProjectRoadWorkController {
 	@RequestMapping(value = "/roadworks/edit",method={RequestMethod.POST})
     public String edit(@ModelAttribute ProjectRoadWork roadWork) {
 		try {
+		  if(roadWork.getPrwAst()!=null&&!"".equals(roadWork.getPrwAst())){//实际开工日期
+        if(roadWork.getPrwAet()==null||"".equals(roadWork.getPrwAet())){
+          ProjectProduce selectByKey = projectProduceService.selectByKey(roadWork.getProId());
+          selectByKey.setProStatus(1);
+          projectProduceService.updateNotNull(selectByKey);
+        }
+     }
+     
+     if(roadWork.getPrwFigureDate()!=null&&!"".equals(roadWork.getPrwFigureDate())){
+       ProjectProduce selectByKey = projectProduceService.selectByKey(roadWork.getProId());
+       selectByKey.setProStatus(3);
+       projectProduceService.updateNotNull(selectByKey);
+     }
 			roadWorkService.updateAll(roadWork);
 			return "success";
 		} catch (Exception e) {

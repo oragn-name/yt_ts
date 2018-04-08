@@ -6,7 +6,7 @@
 </head>
 <body class="easyui-layout">
 <table id="tb2" class="easyui-datagrid" title="" style="width:1260px;height:255px;"  border="0"
-           data-options="rownumbers:true,pagination:true,url:'/produces/getData.do',singleSelect:false,method:'get',toolbar:'#toolbar2'">
+           data-options="rownumbers:true,pagination:true,url:'/produces/getDataOther.do',singleSelect:false,method:'get',toolbar:'#toolbar2'">
         <thead>
             <tr>
             	<th data-options="field:'ck',checkbox:true"></th>
@@ -21,7 +21,7 @@
             	<th data-options="field:'proNumberName',width:80,align:'center',sortable:'true'">编号性质</th>
             	<th data-options="field:'proName',width:100,align:'center',sortable:'true'">工程名称</th>
             	<th data-options="field:'proContractNumber',width:100,align:'center',sortable:'true'">合同编号</th>
-            	<th data-options="field:'proJobTypeName',width:100,align:'center',sortable:'true'">工号类别</th>
+            	<!-- <th data-options="field:'proJobTypeName',width:100,align:'center',sortable:'true'">工号类别</th> -->
             	<th data-options="field:'proEngineTypeName',width:100,align:'center',sortable:'true'">工程类别</th>
             	<th data-options="field:'proNatureName',width:100,align:'center',sortable:'true'">工程性质</th>
             	<th data-options="field:'proSourceName',width:100,align:'center',sortable:'true'">工程来源</th>
@@ -38,8 +38,8 @@
             	<th data-options="field:'proPipeLength',width:100,align:'center',sortable:'true'">管径</th>
             	<th data-options="field:'proSnapLength',width:100,align:'center',sortable:'true'">临时线长度</th>
             	
-            	<th data-options="field:'proPipe',width:100,align:'center',sortable:'true'">管阀口径</th>
-            	<th data-options="field:'proPipeLengths',width:100,align:'center',sortable:'true'">管阀长度</th>
+            	<!-- <th data-options="field:'proPipe',width:100,align:'center',sortable:'true'">管阀口径</th>
+            	<th data-options="field:'proPipeLengths',width:100,align:'center',sortable:'true'">管阀长度</th> -->
             	<th data-options="field:'proWater',width:100,align:'center',sortable:'true'">水表口径</th>
             	<th data-options="field:'proWaterNumber',width:100,align:'center',sortable:'true'">水表数量</th>
             	<th data-options="field:'proDesign',width:100,align:'center',sortable:'true',formatter:function(value,row){
@@ -217,7 +217,7 @@
     	var names = $("#pname").val();
     	var proContractNumber = $("#proContractNumber").val();
 		$('#tb2').datagrid({
-            url:"/produces/getData.do",
+            url:"/produces/getDataOther.do",
             queryParams:{
             	proName:names,
             	proContractNumber:proContractNumber

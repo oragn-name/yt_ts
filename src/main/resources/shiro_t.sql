@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50713
 File Encoding         : 65001
 
-Date: 2018-03-27 19:13:18
+Date: 2018-04-08 19:13:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,7 +48,7 @@ CREATE TABLE `dictionary` (
   `dict_code` varchar(100) DEFAULT NULL,
   `dict_mark` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dictionary
@@ -65,6 +65,7 @@ INSERT INTO `dictionary` VALUES ('12', '施工单位', 'SGDW', '施工单位');
 INSERT INTO `dictionary` VALUES ('14', '编号性质', 'BHXZ', '编号性质');
 INSERT INTO `dictionary` VALUES ('15', '图纸性质', 'TZXZ', '图纸性质');
 INSERT INTO `dictionary` VALUES ('16', '合同性质', 'HTXZ', '合同性质');
+INSERT INTO `dictionary` VALUES ('17', '工作量', 'GZL', '工作量');
 
 -- ----------------------------
 -- Table structure for dictionarydata
@@ -78,7 +79,7 @@ CREATE TABLE `dictionarydata` (
   `dict_id` int(11) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dictionarydata
@@ -98,27 +99,37 @@ INSERT INTO `dictionarydata` VALUES ('14', '单独区属路', 'DDQSL', '单独�
 INSERT INTO `dictionarydata` VALUES ('15', '单独市属路', 'DDSSL', '单独市属路', '8', '0');
 INSERT INTO `dictionarydata` VALUES ('16', '部分区属路', 'BFQSL', '部分区属路', '8', '0');
 INSERT INTO `dictionarydata` VALUES ('17', '部分市属路', 'BFSSL', '部分市属路', '8', '0');
-INSERT INTO `dictionarydata` VALUES ('18', '基建', 'JJ', '基建', '2', '1');
-INSERT INTO `dictionarydata` VALUES ('19', '管网', 'GW', '管网', '2', '1');
-INSERT INTO `dictionarydata` VALUES ('21', '集团', 'JT', '集团', '2', '1');
-INSERT INTO `dictionarydata` VALUES ('22', '大干线', 'DGX', '大干线', '3', '22');
-INSERT INTO `dictionarydata` VALUES ('23', '东城', 'DC', '东城', '9', '0');
-INSERT INTO `dictionarydata` VALUES ('24', '西城', 'XC', '西城', '9', '0');
+INSERT INTO `dictionarydata` VALUES ('18', '基建', 'JJ', '基建', '2', '0');
+INSERT INTO `dictionarydata` VALUES ('19', '管网', 'GW', '管网', '2', '0');
+INSERT INTO `dictionarydata` VALUES ('21', '集团', 'JT', '集团', '2', '0');
+INSERT INTO `dictionarydata` VALUES ('22', '大干线', 'DGX', '大干线', '3', '0');
+INSERT INTO `dictionarydata` VALUES ('23', '东城', 'DC', '东城', '9', '22');
+INSERT INTO `dictionarydata` VALUES ('24', '西城', 'XC', '西城', '9', '33');
 INSERT INTO `dictionarydata` VALUES ('25', '原路由原管径2', 'YLUYGJ', '原路由原管径', '11', '0');
 INSERT INTO `dictionarydata` VALUES ('26', '原路由新管径', 'YLYXGJ', '原路由新管径', '11', '0');
-INSERT INTO `dictionarydata` VALUES ('27', '自寻', 'ZX', '自寻', '2', '1');
-INSERT INTO `dictionarydata` VALUES ('28', '小口径', 'xkj', '小口径', '3', '21');
-INSERT INTO `dictionarydata` VALUES ('29', '大口径', 'dkj', '大口径', '3', '19');
+INSERT INTO `dictionarydata` VALUES ('27', '自寻', 'ZX', '自寻', '2', '0');
+INSERT INTO `dictionarydata` VALUES ('28', '小口径', 'xkj', '小口径', '3', '0');
+INSERT INTO `dictionarydata` VALUES ('29', '大口径', 'dkj', '大口径', '3', '0');
 INSERT INTO `dictionarydata` VALUES ('31', '施工单位1', 'sgdw01', '施工单位1', '12', '0');
 INSERT INTO `dictionarydata` VALUES ('32', '施工单位2', 'sgdw02', '施工单位2', '12', '0');
-INSERT INTO `dictionarydata` VALUES ('33', '安装工程', 'azgc', '安装工程', '3', '18');
-INSERT INTO `dictionarydata` VALUES ('34', '消隐', 'XY', '消隐', '2', '2');
+INSERT INTO `dictionarydata` VALUES ('33', '安装工程', 'azgc', '安装工程', '3', '0');
+INSERT INTO `dictionarydata` VALUES ('34', '消隐', 'XY', '消隐', '2', '0');
 INSERT INTO `dictionarydata` VALUES ('36', '补号', 'BH', '补号', '14', '0');
 INSERT INTO `dictionarydata` VALUES ('37', '原号', 'YH', '原号', '14', '0');
 INSERT INTO `dictionarydata` VALUES ('39', '简图', 'JT', '简图', '15', '0');
 INSERT INTO `dictionarydata` VALUES ('40', '全图', 'QT', '全图', '15', '0');
 INSERT INTO `dictionarydata` VALUES ('41', '合同性质1', 'HTXZ1', '合同性质1', '16', '0');
 INSERT INTO `dictionarydata` VALUES ('42', '合同性质2', 'HTXZ2', '合同性质2', '16', '0');
+INSERT INTO `dictionarydata` VALUES ('43', 'DN15', 'DN15', 'DN15', '17', '0');
+INSERT INTO `dictionarydata` VALUES ('44', 'DN20', 'DN20', 'DN20', '17', '0');
+INSERT INTO `dictionarydata` VALUES ('45', 'DN25', 'DN25', 'DN25', '17', '0');
+INSERT INTO `dictionarydata` VALUES ('46', 'DN40', 'DN40', 'DN40', '17', '0');
+INSERT INTO `dictionarydata` VALUES ('47', 'DN50', 'DN50', 'DN50', '17', '0');
+INSERT INTO `dictionarydata` VALUES ('48', 'DN75', 'DN75', 'DN75', '17', '0');
+INSERT INTO `dictionarydata` VALUES ('49', 'DN100', 'DN100', 'DN100', '17', '0');
+INSERT INTO `dictionarydata` VALUES ('50', 'DN150', 'DN150', 'DN150', '17', '0');
+INSERT INTO `dictionarydata` VALUES ('51', 'DN200', 'DN200', 'DN200', '17', '0');
+INSERT INTO `dictionarydata` VALUES ('52', '北城', 'BC', '北城', '9', '33');
 
 -- ----------------------------
 -- Table structure for project_accounts
@@ -138,7 +149,6 @@ CREATE TABLE `project_accounts` (
 -- ----------------------------
 -- Records of project_accounts
 -- ----------------------------
-INSERT INTO `project_accounts` VALUES ('1', '1011111', '5', '2018-03-18 14:29:14', '1', '2018-03-18 02:28:49', '131213123131233333333333333');
 
 -- ----------------------------
 -- Table structure for project_construction
@@ -156,21 +166,19 @@ CREATE TABLE `project_construction` (
   `create_time` varchar(30) DEFAULT NULL COMMENT '创建时间',
   `pc_dept` int(11) DEFAULT NULL COMMENT '施工单位',
   `pc_remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  `pc_begin` varchar(255) DEFAULT NULL COMMENT '起点',
+  `pc_end` varchar(255) DEFAULT NULL COMMENT '止点',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of project_construction
 -- ----------------------------
-INSERT INTO `project_construction` VALUES ('4', '5', null, '67555', '333', '333', '213223', '1', '2018-03-07 10:00:58', '31', '3232');
-INSERT INTO `project_construction` VALUES ('5', '6', null, '11', '123', '', '', '1', '2018-03-26 11:50:56', '31', '123');
-INSERT INTO `project_construction` VALUES ('6', '6', null, '321', '123', '', '', '1', '2018-03-26 11:51:03', '32', '123');
-INSERT INTO `project_construction` VALUES ('7', '7', null, '李四', '155123123123', '', '', '1', '2018-03-26 03:33:55', '31', '');
-INSERT INTO `project_construction` VALUES ('8', '7', null, '张三', '112313123123', '', '', '1', '2018-03-26 03:34:07', '32', '');
-INSERT INTO `project_construction` VALUES ('9', '8', null, '李四', '11111', null, null, '1', '2018-03-27 02:00:08', '31', '');
-INSERT INTO `project_construction` VALUES ('10', '8', null, '张三', '111', null, null, '1', '2018-03-27 02:00:17', '32', '111');
-INSERT INTO `project_construction` VALUES ('11', '9', null, '123', '', null, null, '1', '2018-03-27 02:16:03', '31', '123');
-INSERT INTO `project_construction` VALUES ('12', '9', null, '312', '', null, null, '1', '2018-03-27 02:16:08', '32', '123');
+INSERT INTO `project_construction` VALUES ('18', '10', null, '13213', '123', null, null, '30', '2018-04-08 01:50:55', '11', '111', '起点111', '止点11');
+INSERT INTO `project_construction` VALUES ('19', '10', null, '123123', '123123', null, null, '30', '2018-04-08 01:51:08', '10', '123123', '起点', '止点');
+INSERT INTO `project_construction` VALUES ('20', '11', null, '124234', '234234', null, null, '31', '2018-04-08 06:52:35', '10', '234234', '23423', '234');
+INSERT INTO `project_construction` VALUES ('21', '12', null, '4234', '23', null, null, '31', '2018-04-08 06:55:59', '11', '23423', '234', '234');
+INSERT INTO `project_construction` VALUES ('22', '12', null, '4234', '234', null, null, '31', '2018-04-08 06:56:06', '10', '234', '234', '234');
 
 -- ----------------------------
 -- Table structure for project_contract
@@ -209,7 +217,6 @@ CREATE TABLE `project_contract` (
 -- ----------------------------
 -- Records of project_contract
 -- ----------------------------
-INSERT INTO `project_contract` VALUES ('3', '12312', '312312', '2018-03-18 21:30:31', '1', '111111', '1', '11123', '2018-03-18 21:30:33', '3123123', '41', '1232', '1', '123123', '123', '2018-03-18 21:30:19', '2018-03-29 21:30:24', '2018-03-18 21:30:21', '2018-03-18 21:30:23', '13', '123', '213', '123', '2018-03-18 21:30:29', '1', '2018-03-18 09:04:49');
 
 -- ----------------------------
 -- Table structure for project_picture
@@ -231,7 +238,6 @@ CREATE TABLE `project_picture` (
 -- ----------------------------
 -- Records of project_picture
 -- ----------------------------
-INSERT INTO `project_picture` VALUES ('4', '5', '40', '2018-03-18 17:38:56', '0', '2018-03-18 17:38:57', '2132131313爱上我大所大所', '1', '2018-03-18 05:38:59');
 
 -- ----------------------------
 -- Table structure for project_produce
@@ -273,17 +279,17 @@ CREATE TABLE `project_produce` (
   `pro_water_begintime` varchar(30) DEFAULT NULL COMMENT '临时水开始日期',
   `pro_water_endtime` varchar(30) DEFAULT NULL COMMENT '临时水结束日期',
   `pro_contract_number` varchar(50) DEFAULT NULL COMMENT '合同编号',
+  `pro_status` int(1) DEFAULT NULL COMMENT '1 再施，2待施，3已完工',
+  `pro_type` int(1) DEFAULT NULL COMMENT '1打开，2关闭',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of project_produce
 -- ----------------------------
-INSERT INTO `project_produce` VALUES ('5', '1', '1', '22', '6', '东直门', '18', '36', '20100999999', '20100999999', '20100999999', '2018-03-07 09:50:21', '9', null, null, '23', '31', '7', '2332', '23', '33', '1', '2018-03-07 09:52:09', '刘', '15812067343', '43443431111111111111111111111111', '23', '3', '12', '2', '1', '1', '', '', null);
-INSERT INTO `project_produce` VALUES ('6', '1', '1', '22', '6', '123', '18', '36', '1321', '3123', '123', '', '9', null, null, '23', '31,32', null, null, null, null, '1', '2018-03-18 08:59:15', '3213', '123', '', null, null, null, null, '1', '1', '', '', null);
-INSERT INTO `project_produce` VALUES ('7', '1', '1', '22', '6', '铁路工程', '18', '36', '20180326001', '20180326001', '20180326001', '2018-03-26 15:30:55', '9', null, null, '23', '31,32', '10', null, null, null, '1', '2018-03-26 03:32:06', '张三', '15254566709', '', null, null, null, null, '1', '1', '', '', null);
-INSERT INTO `project_produce` VALUES ('8', '1', '1', '28', '6', '测试工程', '18', '36', '0001', '0001', '0001', '', '9', null, null, '24', '31,32', '8', null, '123', '213', '1', '2018-03-27 01:58:50', '', '123123', '', null, null, null, null, '1', '1', '', '', null);
-INSERT INTO `project_produce` VALUES ('9', '1', '1', '22', '6', '3123', '18', '36', '13', '123123', '12312', '', '9', null, null, '24', '31,32', null, null, null, null, '1', '2018-03-27 02:11:10', '', '', '', null, null, null, null, '1', '1', '', '', null);
+INSERT INTO `project_produce` VALUES ('10', '1', null, '33', '6', '测试工程001', '19', '36', '00001', '00001', '00001', '2018-04-08 11:05:31', '9', null, null, '24', '11,10', '7', '12', '12', '12', '1', '2018-04-08 11:05:55', '张三', '15254566709', '111111111111', null, null, '12', '12', '1', '1', '', '', null, '1', '1');
+INSERT INTO `project_produce` VALUES ('11', '1', null, '22', '6', '24', '18', '36', '11', '11', '11', '', '9', null, null, '23', '10', '8', null, null, null, '1', '2018-04-08 11:57:47', '234234', '23423234', '', null, null, null, null, '1', '1', '', '', null, '1', '1');
+INSERT INTO `project_produce` VALUES ('12', '1', null, '33', '6', '234', '18', '36', '234234', '24234', '4234', '', '9', null, null, '52', '11,10', '8', '21', '234', '324', '31', '2018-04-08 06:55:07', '234', '24234', '4234', null, null, '234', '234', '1', '1', '', '', null, '1', '1');
 
 -- ----------------------------
 -- Table structure for project_receipts
@@ -305,10 +311,43 @@ CREATE TABLE `project_receipts` (
 -- ----------------------------
 -- Records of project_receipts
 -- ----------------------------
-INSERT INTO `project_receipts` VALUES ('1', '123', '123', '312', null, null, null, null, null);
-INSERT INTO `project_receipts` VALUES ('2', '32', '13', null, null, null, null, null, null);
-INSERT INTO `project_receipts` VALUES ('4', '5', '10001', '2018-03-18 13:23:34', '科技公司1', '李四1', '1', '2018-03-18 01:23:43', '0');
-INSERT INTO `project_receipts` VALUES ('5', '5', null, null, null, null, '1', '2018-03-18 05:29:33', null);
+
+-- ----------------------------
+-- Table structure for project_road_word_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `project_road_word_detail`;
+CREATE TABLE `project_road_word_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `pc_id` int(11) DEFAULT NULL COMMENT '施工单位id',
+  `pro_id` int(11) DEFAULT NULL COMMENT '项目id',
+  `detail_day` double DEFAULT NULL COMMENT '当日工作量长度',
+  `detail_next_day` double DEFAULT NULL COMMENT '下一日工作量长度',
+  `detail_dma` double DEFAULT NULL COMMENT '当日dma个数',
+  `detail_next_dma` double DEFAULT NULL COMMENT '下一日dma个数',
+  `detail_anti` double DEFAULT NULL COMMENT '倒流防止器口径个数',
+  `detail_next_anti` double DEFAULT NULL COMMENT '下一日倒流防止器口径个数',
+  `create_time` varchar(30) DEFAULT NULL COMMENT '创建时间',
+  `create_user` int(11) DEFAULT NULL COMMENT '创建人',
+  `dn_id` int(11) DEFAULT NULL,
+  `detail_remark` varchar(255) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of project_road_word_detail
+-- ----------------------------
+INSERT INTO `project_road_word_detail` VALUES ('1', '18', '10', '2', '2', '2', '2', '2', '2', '2018-04-08 03:19:47', '30', '45', '2222');
+INSERT INTO `project_road_word_detail` VALUES ('5', '18', '10', '1', '1', '1', '1', '1', '1', '2018-04-08 04:21:34', '30', '46', '1');
+INSERT INTO `project_road_word_detail` VALUES ('6', '19', '10', '2', '2', '2', '2', '2', '2', '2018-04-08 04:21:58', '30', '43', '2');
+INSERT INTO `project_road_word_detail` VALUES ('7', '19', '10', '1', '1', '1', '1', '1', '1', '2018-04-08 04:21:58', '30', '44', '1');
+INSERT INTO `project_road_word_detail` VALUES ('8', '18', '10', '3', '3', '3', '3', '3', '3', '2018-04-09 04:21:58', '30', '45', '23432');
+INSERT INTO `project_road_word_detail` VALUES ('9', '20', '11', '2', '2', '2', '2', '2', '2', '2018-04-08 18:53:08', '31', '44', '222');
+INSERT INTO `project_road_word_detail` VALUES ('10', '20', '11', '2', '2', '2', '2', '2', '2', '2018-04-08 18:53:08', '31', '45', '2');
+INSERT INTO `project_road_word_detail` VALUES ('11', '20', '11', '3', '3', '3', '3', '3', '3', '2018-04-08 18:53:08', '31', '46', '3');
+INSERT INTO `project_road_word_detail` VALUES ('12', '21', '12', '2', '2', '2', '2', '2', '2', '2018-04-08 18:56:35', '31', '48', '2');
+INSERT INTO `project_road_word_detail` VALUES ('13', '21', '12', '4', '4', '4', '4', '4', '4', '2018-04-08 18:56:35', '31', '49', '4');
+INSERT INTO `project_road_word_detail` VALUES ('14', '21', '12', '5', '5', '5', '5', '5', '5', '2018-04-08 18:56:35', '31', '50', '5');
+INSERT INTO `project_road_word_detail` VALUES ('15', '18', '10', '6', '6', null, null, '6', '6', '2018-04-08 18:56:35', '31', '47', '6');
 
 -- ----------------------------
 -- Table structure for project_road_work
@@ -365,16 +404,14 @@ CREATE TABLE `project_road_work` (
   `prw_billing_time` varchar(30) DEFAULT NULL COMMENT '计费协议签订时间',
   `prw_quality` varchar(50) DEFAULT NULL COMMENT '质检员',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of project_road_work
 -- ----------------------------
-INSERT INTO `project_road_work` VALUES ('15', null, null, null, null, null, null, '', '', null, '', '', '', '', '', '', '', '', '1000', null, null, null, '333', '北京五道口', '起点', '22', '13', '1', '1', '', null, null, '25', '1', '2018-03-07 09:58:11', '5', '', '', '', '', '', '', '', '', null, '', '', '', '');
-INSERT INTO `project_road_work` VALUES ('16', null, null, null, null, null, null, '2018-03-26 15:32:47', '2018-03-31 15:32:49', '7', '', '', '', '', '', '', '', '', null, null, null, null, '长安街办事处', '长安街办事处', '长安街起点', '长安街终点', '13', '1', '1', '', null, null, '25', '1', '2018-03-26 03:33:07', '7', '', '', '', '', '', '', '', '', null, '', '', '', '');
-INSERT INTO `project_road_work` VALUES ('17', null, null, null, null, null, null, '2018-03-27 13:59:28', '2018-03-29 13:59:30', '5', '2018-03-27 13:59:39', '2018-03-30 13:59:41', '', '', '', '', '', '', null, null, null, null, '312', '3123', '123', '13213', '13', '1', '1', '', null, null, '25', '1', '2018-03-27 01:59:51', '8', '', '', '', '', '', '', '', '', null, '', '', '', '');
-INSERT INTO `project_road_work` VALUES ('18', null, null, null, null, null, null, '2018-03-27 14:15:08', '2018-03-27 14:15:06', '3', '2018-03-27 14:15:01', '2018-03-27 14:15:04', '', '', '', '', '', '', null, null, null, null, '312', '3123', '13', '123321', '13', '1', '1', '', null, null, '25', '1', '2018-03-27 02:15:17', '9', '', '', '', '', '', '', '', '', null, '', '', '', '');
-INSERT INTO `project_road_work` VALUES ('19', null, null, null, null, null, null, '2018-03-27 15:48:32', '2018-03-27 15:48:28', null, '2018-03-27 15:48:22', '2018-03-27 15:48:26', '', '', '', '', '', '', '2000', null, null, null, '1312', '3123', '123', '', '13', '1', '1', '', null, null, '25', '1', '2018-03-27 03:48:37', '6', '', '', '', '', '', '', '', '', null, '', '', '', '');
+INSERT INTO `project_road_work` VALUES ('20', '100', '200', '100', '200', null, null, '2018-04-08 13:29:42', '2018-04-20 13:29:45', '20', '2018-04-08 13:29:49', '', '', '', '', '', '', '', '500', null, null, null, '测试接到办事处', '测试道路名称', '起点', '止点', '13', '1', '1', '20', null, null, '25', '30', '2018-04-08 01:30:08', '10', '2018-04-08 13:29:24', '2018-04-08 13:29:27', '', '你猜猜', '2018-04-08 13:29:41', '', '', '', null, '', '', '', '');
+INSERT INTO `project_road_work` VALUES ('21', null, '234', '234', '234', null, null, '2018-04-08 18:52:12', '2018-04-08 18:52:19', '4234', '2018-04-08 18:52:13', '', '', '', '', '', '', '', '234', '234', null, null, '4234', '234', '23423', '234', '13', '1', '1', '4324', null, null, '25', '31', '2018-04-08 06:52:27', '11', '', '', '', '24', '2018-04-08 18:52:17', '', '', '', null, '', '', '', '');
+INSERT INTO `project_road_work` VALUES ('22', '234', '234', '4234', '423', null, null, '2018-04-08 18:55:37', '2018-04-08 18:55:45', '4234', '2018-04-08 18:55:39', '', '', '', '', '324', '423', '234', '24', '234', null, null, '4234', '234', '234', '234', '13', '1', '1', '234', null, null, '25', '31', '2018-04-08 06:55:52', '12', '', '', '', '234234', '2018-04-08 18:55:35', '', '', '', null, '', '', '', '');
 
 -- ----------------------------
 -- Table structure for project_road_work_daily
@@ -456,17 +493,12 @@ CREATE TABLE `project_road_work_daily` (
   `prw_nine_next` double DEFAULT NULL,
   `prw_subtotal_next` double DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of project_road_work_daily
 -- ----------------------------
-INSERT INTO `project_road_work_daily` VALUES ('8', '111', '11', null, null, '12', null, null, '23', null, null, '4', '5', '1', '2018-03-07 10:05:38', '1', '1', null, '23', null, null, null, '123', null, null, null, null, null, null, '12', null, null, null, null, null, '1', '1', null, '23', null, null, null, null, null, null, '123', '艾尔', '啊', null, '123', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `project_road_work_daily` VALUES ('9', '1', '1', '1', '1', '1', '1', '1', '1', '1', null, '8', '7', '1', '2018-03-26 03:36:34', '1', '1', '1', '1', '1', '1', '1', '1', '1', null, '2', '2', '2', '2', '2', '2', '2', '2', '2', null, '2', '2', '2', '2', '2', '2', '2', '2', '2', null, '213安慰', '232 王企鹅群', '驱蚊器翁', '1', '1', '1', '1', '1', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `project_road_work_daily` VALUES ('10', '1', '1', '1', '1', '1', '1', '1', '1', '1', null, '9', '8', '1', '2018-03-27 02:00:58', '1', '1', '1', '1', '1', '1', '1', '1', '1', null, '1', '1', '1', '1', '1', '1', '1', '1', '1', null, '1', '1', '1', '1', '1', '1', '1', '1', '1', null, '1231请问', '驱蚊器', '恶趣味', '1', '1', '1', '1', '1', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `project_road_work_daily` VALUES ('11', '2', '2', '22', '2', '2', '2', '2', '2', '2', null, '10', '8', '1', '2018-03-27 02:01:29', '2', '2', '22', '2', '2', '2', '2', '2', '2', null, '2', '2', '2', '2', '2', '2', '2', '2', '2', null, '2', '2', '2', '2', '2', '2', '2', '2', '2', null, '12321', '123', '213', '2', '2', '2', '2', '2', '2', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `project_road_work_daily` VALUES ('12', '1', '1', null, '1', '1', null, '1', '1', '1', null, '6', '6', '1', '2018-03-27 02:12:43', '1', '1', '1', '1', '1', '1', '1', '1', '1', null, '1', '1', '1', '1', '1', '1', '1', '1', null, null, null, '1', null, null, '1', '1', '1', '1', '1', null, '1', '11', '1', '1', '1', '1', '1', '1', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `project_road_work_daily` VALUES ('13', '1', '1', null, '1', '1', '1', '1', '1', '1', null, '11', '9', '1', '2018-03-27 02:16:24', '1', '1', '1', '1', '1', '1', '1', '1', null, null, null, null, null, '1', '1', '1', '1', '1', '1', null, '1', '1', '1', '1', '1', '1', '1', '1', null, null, '1', '1', '1', '1', '1', '1', '1', '1', '1', '12', '123', '1', '2', '12', '1', '23', '23', '12', null, '32', '13', '1', '13', '2', '12', '123', '23', '23', null);
+INSERT INTO `project_road_work_daily` VALUES ('14', null, null, null, null, null, null, null, null, null, null, '19', '10', '30', '2018-04-08 01:53:14', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, '', '', '', '2', '2', null, null, null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for project_satety
@@ -488,12 +520,11 @@ CREATE TABLE `project_satety` (
   `safety_user_time` varchar(30) DEFAULT NULL COMMENT '创建时间',
   `pro_id` int(11) NOT NULL COMMENT '项目id',
   PRIMARY KEY (`safety_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of project_satety
 -- ----------------------------
-INSERT INTO `project_satety` VALUES ('1', '2018-03-18 12:30:18', '李四', '3', '张三', '王五', '1525456672', '0', '1', '1', '0', '1', '2018-03-18 12:30:24', '5');
 
 -- ----------------------------
 -- Table structure for resources
@@ -509,7 +540,7 @@ CREATE TABLE `resources` (
   `iconCls` varchar(100) DEFAULT NULL,
   `but_fun` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of resources
@@ -589,6 +620,8 @@ INSERT INTO `resources` VALUES ('113', '工作量汇总统计', null, '1', '0', 
 INSERT INTO `resources` VALUES ('114', '工作量汇总', '/day', '1', '113', '1', null, null);
 INSERT INTO `resources` VALUES ('115', '工程类别汇总统计', '/type', '1', '113', '2', null, null);
 INSERT INTO `resources` VALUES ('116', '工程类别汇总', '/typeDetail', '1', '113', '3', null, null);
+INSERT INTO `resources` VALUES ('117', '打开', '/produces/on', '2', '76', '13', 'icon-on-new', 'on()');
+INSERT INTO `resources` VALUES ('118', '关闭', '/produces/off', '2', '76', '14', 'icon-off-new', 'off()');
 
 -- ----------------------------
 -- Table structure for role
@@ -699,6 +732,8 @@ INSERT INTO `role_resources` VALUES ('1', '113');
 INSERT INTO `role_resources` VALUES ('1', '114');
 INSERT INTO `role_resources` VALUES ('1', '115');
 INSERT INTO `role_resources` VALUES ('1', '116');
+INSERT INTO `role_resources` VALUES ('1', '117');
+INSERT INTO `role_resources` VALUES ('1', '118');
 INSERT INTO `role_resources` VALUES ('2', '77');
 INSERT INTO `role_resources` VALUES ('2', '78');
 INSERT INTO `role_resources` VALUES ('2', '79');
@@ -768,7 +803,7 @@ CREATE TABLE `user` (
   `dept_id` int(11) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
@@ -782,6 +817,8 @@ INSERT INTO `user` VALUES ('26', 'lwb1', '56d7d4c0ec5c9defdac4b2c13ee6d3d4', '1'
 INSERT INTO `user` VALUES ('27', 'lwb2', '207457aac2d42075f777e5e9f41e4651', '1', 'lwb2', '', '', '7', '15810267343');
 INSERT INTO `user` VALUES ('28', 'lwb3', '950c6a12c370851bc5725d2b816dfe50', '1', 'lwb3', '', '', '8', '15810267343');
 INSERT INTO `user` VALUES ('29', 'admini', 'a3c1fd626ed9bb594a2d987d8b8a33b8', '1', 'admini', '', '', '5', '15810267343');
+INSERT INTO `user` VALUES ('30', 'lwl1', 'b0ca47c204208d6b02e54f292b7e622f', '1', '123', '123', '123', '7', '1231111');
+INSERT INTO `user` VALUES ('31', 'lwl2', '77a692f688af6b50bf92e8c74953bc43', '1', '112312', '13123', '3123', '8', '12321313');
 
 -- ----------------------------
 -- Table structure for user_role
@@ -806,6 +843,8 @@ INSERT INTO `user_role` VALUES ('26', '8');
 INSERT INTO `user_role` VALUES ('27', '9');
 INSERT INTO `user_role` VALUES ('28', '9');
 INSERT INTO `user_role` VALUES ('29', '1');
+INSERT INTO `user_role` VALUES ('31', '1');
+INSERT INTO `user_role` VALUES ('30', '1');
 
 -- ----------------------------
 -- Function structure for fun_a_dept

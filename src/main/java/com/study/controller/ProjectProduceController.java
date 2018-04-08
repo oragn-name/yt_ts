@@ -19,11 +19,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
+import com.study.model.Dept;
 import com.study.model.Dictionarydata;
 import com.study.model.ProjectProduce;
 import com.study.model.User;
 import com.study.service.DictdataService;
 import com.study.service.ProjectProduceService;
+import com.study.service.impl.DeptServiceImpl;
 import com.study.util.ResultUtil;
 import com.study.util.bean.DataGridResultInfo;
 import com.study.util.bean.PageBean;
@@ -35,6 +37,8 @@ public class ProjectProduceController {
   private DictdataService dictdataService;
   @Autowired
   private ProjectProduceService projectProduceService;
+  @Autowired
+  private DeptServiceImpl deptService;
   
   @ApiOperation(value="获取生产科的所有数据",notes="获取所有的生产科数据，返回grid")
   @RequestMapping(value="/produces/getData",method={RequestMethod.GET})
@@ -48,9 +52,10 @@ public class ProjectProduceController {
       if(projectProduce.getProConst()!=null&&!"".equals(projectProduce.getProConst())){
         String[] proConst=projectProduce.getProConst().split(",");
         for (String string : proConst) {
-          Dictionarydata selectByKey = dictdataService.selectByKey(Integer.parseInt(string));
+          /*Dictionarydata selectByKey = dictdataService.selectByKey(Integer.parseInt(string));*/
+          Dept selectByKey = deptService.selectByKey(Integer.parseInt(string));
           if(selectByKey!=null){
-            proConsts+=selectByKey.getDictdataName()+",";
+            proConsts+=selectByKey.getName()+",";
           }
         }
       }
@@ -108,5 +113,49 @@ public class ProjectProduceController {
           e.printStackTrace();
           return "fail";
       }
+  }
+  
+  @RequestMapping(value="/produces/enable")
+  public String enable(Integer id,Integer enable){
+    try{
+    ProjectProduce selectByKey = projectProduceService.selectByKey(id);
+    selectByKey.setProType(enable);
+    projectProduceService.updateNotNull(selectByKey);
+    return "success";
+    }catch (Exception e){
+      e.printStackTrace();
+      return "fail";
+  }
+  }
+  
+  @ApiOperation(value="其他获取生产科的所有数据",notes="其他获取所有的生产科数据，返回grid")
+  @RequestMapping(value="/produces/getDataOther",method={RequestMethod.GET})
+  public DataGridResultInfo getDataOther(@ModelAttribute PageBean bean,@RequestParam(value="proName",required=false)String proName,String proContractNumber){
+    ProjectProduce produce=new ProjectProduce();
+    Session session = SecurityUtils.getSubject().getSession();
+    User user = (User)session.getAttribute("userSession");
+    produce.setProName(proName);
+    produce.setProContractNumber(proContractNumber);
+    produce.setProDept(user.getDeptId());
+    List<ProjectProduce> projectProduceAll = projectProduceService.getProjectProduceAll(produce, bean);
+    for (ProjectProduce projectProduce : projectProduceAll) {
+      String proConsts="";
+      if(projectProduce.getProConst()!=null&&!"".equals(projectProduce.getProConst())){
+        String[] proConst=projectProduce.getProConst().split(",");
+        for (String string : proConst) {
+          /*Dictionarydata selectByKey = dictdataService.selectByKey(Integer.parseInt(string));*/
+          Dept selectByKey = deptService.selectByKey(Integer.parseInt(string));
+          if(selectByKey!=null){
+            proConsts+=selectByKey.getName()+",";
+          }
+        }
+      }
+      if(proConsts.length()>0){
+        proConsts=proConsts.substring(0, proConsts.length()-1);
+      }
+      projectProduce.setProConst(proConsts);
+    }
+    PageInfo<ProjectProduce> info=new PageInfo<ProjectProduce>(projectProduceAll);
+    return ResultUtil.createDataGridResult(info.getTotal(), info.getList());
   }
 }

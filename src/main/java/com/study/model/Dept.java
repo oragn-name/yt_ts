@@ -16,6 +16,8 @@ public class Dept {
     
     @Transient
     private String parentName;
+    @Transient
+    private String parentCode;
     
 
     public String getParentName() {
@@ -104,4 +106,14 @@ public class Dept {
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
+
+    public String getParentCode() {
+      return parentCode;
+    }
+
+    public void setParentCode(String parentCode) {
+      this.parentCode = parentCode;
+    }
+    
+    
 }

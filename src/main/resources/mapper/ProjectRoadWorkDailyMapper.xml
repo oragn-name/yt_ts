@@ -88,8 +88,8 @@
   </resultMap>
   
   <select id="selectProjectItemConstruction" parameterType="com.study.model.vo.ProjectItemConstruction" resultType="com.study.model.vo.ProjectItemConstruction">
-     select pp.pro_name as "proName",pp.pro_number as "proNumber",pp.pro_snap_number as "proSnapNumber",pp.pro_serial_number as "proSerialNumber",pp.id as "proId",pc.id as "pcId",(select dictdata_name from dictionarydata where id=pc.pc_dept)  as "pcDeptName",
-     pc.pc_workers as "pcWorkers",pc.pc_phone as "pcPhone",pc.pc_month_plan as "pcMonthPlan",pc.pc_week_plan as "pcWeekPlan",pc.create_user as "createUser",pc.create_time as "createTime",pc.pc_remark as "pcRemark" 
+     select pp.pro_name as "proName",pp.pro_number as "proNumber",pp.pro_snap_number as "proSnapNumber",pp.pro_serial_number as "proSerialNumber",pp.id as "proId",pc.id as "pcId",(select name from dept where id=pc.pc_dept)  as "pcDeptName",
+     pc.pc_workers as "pcWorkers",pc.pc_phone as "pcPhone",pc.pc_month_plan as "pcMonthPlan",pc.pc_week_plan as "pcWeekPlan",pc.create_user as "createUser",(select name from user where id=pc.create_user) as "userName" ,pc.create_time as "createTime",pc.pc_remark as "pcRemark" 
      from project_produce pp INNER join project_construction pc on pp.id=pc.proId where 1=1
      <if test="proName!=null and proName!=''">
     and pp.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
@@ -119,6 +119,10 @@
        </if>
     
   </select>
+  
+  
+  
+  
   
   <select id="selectProjectDetail" parameterType="java.util.Map" resultType="com.study.model.vo.ProjectDetail">
   
@@ -425,4 +429,56 @@ GROUP BY
      group by p.pro_dept
   
   </select>
+  
+  
+  <select id="getOrderDay" parameterType="java.util.Map" resultType="com.study.model.vo.ProjectDetail">
+  
+  SELECT
+	p.pro_number AS "proNumber",
+	p.pro_snap_number AS "proSnapNumber",
+	p.pro_serial_number AS "proSerialNumber",
+	p.pro_design_length as "proDesignLength",
+	(select dictdata_name from dictionarydata where id=p.pro_engine_type) as "proEngineTypeName",
+	(select dictdata_name from dictionarydata where id=p.pro_nature) as "proNatureName",
+	 p.pro_name AS "proName",
+	(select dictdata_name from dictionarydata where id=p.pro_source) as "proSourceName",
+	(select dictdata_name from dictionarydata where id=p.pro_period) as "proPeriodName",
+	r.prw_ast AS "prwAst",
+	r.prw_aet AS "prwAet",
+	r.prw_budget as "prwBudget",
+	(select name from dept where id=c.pc_dept)  as "pcDeptName",
+	p.id as "proId",
+	c.id as "pcId"
+FROM
+	project_produce p
+INNER JOIN project_road_work r ON p.id = r.pro_id
+INNER JOIN project_construction c ON c.proId = p.id where 1=1 and p.pro_type=1 
+  <if test="proName!=null and proName!=''">
+  and p.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
+</if>
+<if test="proNumber!=null and proNumber!=''">
+and p.pro_number like CONCAT(CONCAT('%', #{proNumber}), '%')
+</if>
+<if test="proSerialNumber!=null and proSerialNumber!=''">
+and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
+</if>
+  
+  </select>
+  
+  <select id="getOrderType" parameterType="java.util.Map" resultType="com.study.model.vo.ProjectType">
+    SELECT
+	e.dictdata_name as "proEngineTypeName",
+	ta.dictdata_name as "proPeriodName",
+  (select sum(detail_dma) from project_road_word_detail where pro_id=p.id) as "prDmaTotal",
+
+FROM
+	dictionary d
+INNER JOIN dictionarydata e ON d.id = e.dict_id
+INNER JOIN project_produce p ON p.pro_engine_type = e.id
+inner join dictionarydata ta on ta.id=p.pro_period
+AND d.dict_code = 'GCLB' GROUP BY
+	e.dictdata_name,
+	p.pro_period
+  </select>
+  
 </mapper>

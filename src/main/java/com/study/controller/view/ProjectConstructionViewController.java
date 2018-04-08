@@ -15,12 +15,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.study.model.Dept;
 import com.study.model.Dictionarydata;
 import com.study.model.ProjectConstruction;
 import com.study.model.ProjectProduce;
+import com.study.model.ProjectRoadWork;
 import com.study.service.DictdataService;
 import com.study.service.ProjectConstructionService;
 import com.study.service.ProjectProduceService;
+import com.study.service.ProjectRoadWorkService;
+import com.study.service.impl.DeptServiceImpl;
 import com.study.util.bean.MenuBean;
 
 
@@ -34,29 +38,41 @@ public class ProjectConstructionViewController {
   private ProjectProduceService projectProduceService;
   @Autowired
   private DictdataService dictdataService;
+  @Autowired
+  private DeptServiceImpl deptService;
+  @Autowired
+  private ProjectRoadWorkService roadWorkService;
   
   
   @RequestMapping(value="constructions/add",method={RequestMethod.GET})
   public String add(HttpServletRequest request,@RequestParam(value="id",required=false) Integer id, @ModelAttribute MenuBean bean,@RequestParam(value="proId",required=false)Integer proId){
      request.setAttribute("menu", bean);
      ProjectProduce pro = projectProduceService.selectByKey(proId);
-     List<Dictionarydata> dictionarydatas=new ArrayList<Dictionarydata>();
+     List<Dept> deptList=new ArrayList<Dept>();
      String proConst = pro.getProConst();//施工单位
      if(proConst!=null&&!"".equals(proConst)){
        String[] str=proConst.split(",");
        for (String string : str) {
-         Dictionarydata dtd = dictdataService.selectByKey(Integer.parseInt(string));
-         if(dtd!=null){
-           dictionarydatas.add(dtd);
+         Dept dept = deptService.selectByKey(Integer.parseInt(string));
+         if(dept!=null){
+           deptList.add(dept);
          }
       }
      }
-     request.setAttribute("dtd", dictionarydatas);
+     request.setAttribute("dtd", deptList);
     if (id != null) {
       ProjectConstruction selectByKey = projectConstructionService.selectByKey(id);
       request.setAttribute("pc", selectByKey);
       return "constructions/constructions_edit";
     } else {
+      
+      ProjectRoadWork projectRoadWork=new ProjectRoadWork(); 
+      projectRoadWork.setProId(proId);
+      List<ProjectRoadWork> projectRoadWorkAll = roadWorkService.getProjectRoadWorkAll(projectRoadWork, null);
+      if(projectRoadWorkAll!=null&&projectRoadWorkAll.size()>0){
+        projectRoadWork=projectRoadWorkAll.get(0);
+      }
+      request.setAttribute("proWork", projectRoadWork);
       request.setAttribute("proId", proId);
       return "constructions/constructions_add";
     }
