@@ -173,14 +173,25 @@
                     
                     <td  th:if="${#strings.contains(pro.proBilling,'1')}" style="text-align: right;">计费协议签订时间:</td>
                     <td th:if="${#strings.contains(pro.proBilling,'1')}"><input class="easyui-datetimebox" type="text" name="prwBillingTime" ></input></td>
-                    <td  style="text-align: right;">工程进展问题 :</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwProgressReport" data-options=""></input></td>
                 </tr>
                 <tr>
-                    <td  style="text-align: right;">未开工原因:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwReason" data-options=""></input></td>
+                 <td  style="text-align: right;">工程进展问题 :</td>
+                    <td colspan="3">
+                      <input class="easyui-validatebox" type="text" style="width: 450px;" name="prwProgressReport" ></input>
+                    </td>
+                
+                </tr>
+                <tr>
+                <td  style="text-align: right;">未开工原因:</td>
+                    <td colspan="3">
+                    <input class="easyui-validatebox"  style="width: 450px;" type="text" name="prwReason" ></input>
+                    </td>
+                </tr>
+                <tr>
                     <td  style="text-align: right;">未完工说明 :</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwExplain" data-options=""></input></td>
+                    <td colspan="3">
+                    <input class="easyui-validatebox"  style="width: 450px;" type="text" name="prwExplain" ></input>
+                    </td>
                 </tr>
             </table>
 	   </form>
