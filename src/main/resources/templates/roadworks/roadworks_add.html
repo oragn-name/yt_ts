@@ -93,14 +93,14 @@
                 		<td  style="text-align: right;">下月计划:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwMonthPlan" data-options="validType:'intOrFloat'"></input></td> -->
                     <td  style="text-align: right;">计划开工时间:</td>
-                    <td><input class="easyui-datetimebox" type="text" name="prwPst" data-options=""></input></td>
+                    <td><input class="easyui-datetimebox" type="text" id="prwPst" name="prwPst" data-options="onChange:onSelectT"></input></td>
                     
                 </tr>
                 <tr>
                 <td  style="text-align: right;">计划完工时间:</td>
-                    <td><input class="easyui-datetimebox" type="text" name="prwPet" data-options=""></input></td>
+                    <td><input class="easyui-datetimebox" type="text" id="prwPet" name="prwPet" data-options="onChange:onSelectT"></input></td>
                 		<td  style="text-align: right;">计划总工期 :</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwTotalDuration" data-options="validType:'number'"></input></td>
+                    <td><input class="easyui-validatebox" type="text" id="prwTotalDuration" name="prwTotalDuration" readonly="readonly" data-options="validType:'number'"></input></td>
                     <td  style="text-align: right;">实际开工时间:</td>
                     <td><input class="easyui-datetimebox" type="text" name="prwAst" data-options=""></input></td>
                     
@@ -117,55 +117,42 @@
                 <tr>
                   <td  style="text-align: right;">转图日期:</td>
                     <td><input class="easyui-datetimebox" type="text" name="prwFigureDate" data-options=""></input></td>
-                		<td  style="text-align: right;">工程进展问题 :</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwProgressReport" data-options=""></input></td>
-                    <td  style="text-align: right;">未开工原因:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwReason" data-options=""></input></td>
-                   
-                </tr>
-                <tr>
-                 <td  style="text-align: right;">未完工说明 :</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwExplain" data-options=""></input></td>
                 		<td  style="text-align: right;">预算价:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwBudget" data-options="validType:'intOrFloat'"></input></td>
                     <td  style="text-align: right;">结算价:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwSettlement" data-options="validType:'intOrFloat'"></input></td>
-                    
                 </tr>
                 <tr>
-                    <td  style="text-align: right;">累计投入人力 :</td>
+                 <td  style="text-align: right;">累计投入人力 :</td>
                     <td><input class="easyui-validatebox" type="text" name="prwManpower" data-options="validType:'number'"></input></td>
-                		<td  style="text-align: right;">累计投入机械台班:</td>
-                    <td><input class="easyui-validatebox" type="text" name="prwRoadWork" data-options="validType:'number'"></input></td>
+                    <td  style="text-align: right;">累计投入机械台班:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwRoadWork" data-options="validType:'intOrFloat'"></input></td>
                     <td  style="text-align: right;">劳务分包队伍:</td>
                     <td><!-- <input class="easyui-validatebox" type="text" name="prwTeam" ></input> -->
                     <input id="prwTeam" name="prwTeam"   style="width: 150px;"  class="easyui-combobox" >
                     <script th:inline="javascript">
-		                $('#prwTeam').combobox({  
-		                    url:'/dictdata/getDataTree?dictCode=NWDW', //后台获取下拉框数据的url  
-		                    method:'get',  
-		                    panelHeight:200,//设置为固定高度，combobox出现竖直滚动条  
-		                    valueField:'id',  
-		                    textField:'dictdataName',  
-		                    multiple:true,  
-		                    formatter: function (row) { //formatter方法就是实现了在每个下拉选项前面增加checkbox框的方法  
-		                        var opts = $(this).combobox('options');  
-		                        return  row[opts.textField]  
-		                    }
-		                });
-		               /*  $(function(){
-		                	$('#xsry').combobox('setValues','1,2,3'.split(','))
-		                }) */
-		                </script>
-                    
-                    
+                    $('#prwTeam').combobox({  
+                        url:'/dictdata/getDataTree?dictCode=NWDW', //后台获取下拉框数据的url  
+                        method:'get',  
+                        panelHeight:200,//设置为固定高度，combobox出现竖直滚动条  
+                        valueField:'id',  
+                        textField:'dictdataName',  
+                        multiple:true,  
+                        formatter: function (row) { //formatter方法就是实现了在每个下拉选项前面增加checkbox框的方法  
+                            var opts = $(this).combobox('options');  
+                            return  row[opts.textField]  
+                        }
+                    });
+                   /*  $(function(){
+                      $('#xsry').combobox('setValues','1,2,3'.split(','))
+                    }) */
+                    </script>
                     </td>
                 </tr>
-                
                 <tr>
                     <td  style="text-align: right;">合同签订日期 :</td>
                     <td><input class="easyui-datetimebox" type="text" name="prwContractTime" ></input></td>
-                		<td  style="text-align: right;">标办审核存档日期:</td>
+                    <td  style="text-align: right;">标办审核存档日期:</td>
                     <td><input class="easyui-datetimebox" type="text" name="prwArchiveTime" ></input></td>
                     <td  style="text-align: right;">合同号:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwContractNumber" ></input></td>
@@ -174,20 +161,26 @@
                 <tr>
                     <td  style="text-align: right;">合同金额 :</td>
                     <td><input class="easyui-validatebox" type="text" name="prwContractPrice" data-options="validType:'intOrFloat'" ></input></td>
-                		<td  style="text-align: right;">施组审核日期:</td>
+                    <td  style="text-align: right;">施组审核日期:</td>
                     <td><input class="easyui-datetimebox" type="text" name="prwGroupTime" ></input></td>
                     <td  style="text-align: right;">质检员:</td>
                     <td><input class="easyui-validatebox" type="text" name="prwQuality" ></input></td>
-                    
                 </tr>
+                
                 <tr>
-                    
                     <td  th:if="${#strings.contains(pro.proDesign,'1')}" style="text-align: right;">设计交底时间:</td>
                     <td th:if="${#strings.contains(pro.proDesign,'1')}"><input class="easyui-datetimebox" type="text" name="prwDesignTime" ></input></td>
                     
                     <td  th:if="${#strings.contains(pro.proBilling,'1')}" style="text-align: right;">计费协议签订时间:</td>
                     <td th:if="${#strings.contains(pro.proBilling,'1')}"><input class="easyui-datetimebox" type="text" name="prwBillingTime" ></input></td>
-                		
+                    <td  style="text-align: right;">工程进展问题 :</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwProgressReport" data-options=""></input></td>
+                </tr>
+                <tr>
+                    <td  style="text-align: right;">未开工原因:</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwReason" data-options=""></input></td>
+                    <td  style="text-align: right;">未完工说明 :</td>
+                    <td><input class="easyui-validatebox" type="text" name="prwExplain" data-options=""></input></td>
                 </tr>
             </table>
 	   </form>
@@ -219,6 +212,30 @@
             }
         });
 	}
+	
+	
+	/* $('#prwPet').datetimebox({
+    onChange: function() {
+       var v = $('#prwPet').datetimebox('getValue');
+       alert(v);
+    }
+  }); */
+  
+  var day = 0;
+  function onSelectT(d) { 
+    var sd = $('#prwPst').datebox('getValue').replace(/-/g, '/'), ed = $('#prwPet').datebox('getValue').replace(/-/g, '/'); 
+    if (sd != '' && ed != '') { 
+      if (sd > ed) { 
+        $.messager.alert('警告','结束时间要 大于 开始时间','warning'); 
+      } else { 
+        var totalMS = new Date(ed).getTime() - new Date(sd).getTime();//得到相差的毫秒数 
+        day = Math.ceil(totalMS / 1000 / 24 / 60 / 60);//得到相差天数，不满一天不算一天将Math.ceil改为Math.floor 
+        $("#prwTotalDuration").val(day);
+      } 
+    } 
+  }
+  
+	
 	</script>
 </body>
 
