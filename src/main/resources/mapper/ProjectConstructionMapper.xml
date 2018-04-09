@@ -24,9 +24,12 @@
   <select id="selectByAll" parameterType="com.study.model.ProjectConstruction" resultType="com.study.model.ProjectConstruction">
      select id, proId as "proid",prwId as "prwid",pc_workers as "pcWorkers", pc_phone as "pcPhone",
      pc_week_plan as "pcWeekPlan" ,pc_month_plan as "pcMonthPlan",create_user as "createUser",create_time as "createTime",
-     pc_remark as "pcRemark",(select name from dept where id=pc_dept)  as "pcDeptName",pc_begin as "pcBegin",pc_end as "pcEnd" from project_construction where 1=1
-       <if test="proid!=null">
+     pc_remark as "pcRemark",(select name from dept where id=pc_dept)  as "pcDeptName",pc_dept as "pcDept",pc_begin as "pcBegin",pc_end as "pcEnd" from project_construction where 1=1
+       <if test="proid!=null and proid!=''">
           and proId=#{proid}
+       </if>
+       <if test="pcDept!=null and pcDept!=''">
+          and pc_dept=#{pcDept}
        </if>
        order by id
       

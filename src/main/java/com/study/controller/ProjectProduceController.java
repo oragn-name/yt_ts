@@ -136,7 +136,10 @@ public class ProjectProduceController {
     User user = (User)session.getAttribute("userSession");
     produce.setProName(proName);
     produce.setProContractNumber(proContractNumber);
-    produce.setProDept(user.getDeptId());
+    Dept dep = deptService.selectByKey(user.getDeptId());
+    if(dep.getParentId()!=0&&!dep.getCode().toUpperCase().equals("SCK")){
+      produce.setProDept(user.getDeptId());
+    }
     List<ProjectProduce> projectProduceAll = projectProduceService.getProjectProduceAll(produce, bean);
     for (ProjectProduce projectProduce : projectProduceAll) {
       String proConsts="";

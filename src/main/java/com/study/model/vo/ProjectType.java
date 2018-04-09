@@ -18,6 +18,10 @@ public class ProjectType {
 private Double prwTotal;// 工作量 当天总计
   
   private Double prwNextTotal;// 工作量 下一天总计
+  
+  private String beginTime;
+  
+  private String endTime;
 
   public String getProEngineTypeName() {
     return proEngineTypeName;
@@ -97,6 +101,22 @@ private Double prwTotal;// 工作量 当天总计
 
   public void setPrwdNextTotal(Double prwdNextTotal) {
     this.prwdNextTotal = prwdNextTotal;
+  }
+
+  public String getBeginTime() {
+    return beginTime;
+  }
+
+  public void setBeginTime(String beginTime) {
+    this.beginTime = beginTime;
+  }
+
+  public String getEndTime() {
+    return endTime;
+  }
+
+  public void setEndTime(String endTime) {
+    this.endTime = endTime;
   }
   
 }

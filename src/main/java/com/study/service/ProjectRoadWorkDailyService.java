@@ -27,5 +27,6 @@ public interface ProjectRoadWorkDailyService extends IService<ProjectRoadWorkDai
   
   public  List<ProjectDetail> getOrderDay(Map<String, Object> map);
   public List<ProjectType> getOrderType(Map<String, Object> map);
+  public List<ProjectDetailType>  getOrderDetail(Map<String, Object> map);
   
 }

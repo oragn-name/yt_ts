@@ -18,13 +18,16 @@
       and dictId=#{dictId}
      </if>
      <if test="dictdataName!=null and dictdataName!=''">
-      and dictdata_name like CONCAT(CONCAT('%', #{dictdataName}), '%') 
+      and dictdataName like CONCAT(CONCAT('%', #{dictdataName}), '%') 
      </if>
      <if test="dictCode!=null and dictCode!=''">
       and dictCode =#{dictCode} 
      </if>
      <if test="parentId!=null and parentId!=''">
       and parentId =#{parentId} 
+     </if>
+     <if test="id!=null and id!=''">
+      and id =#{id} 
      </if>
      order by id asc
   </select>

@@ -121,9 +121,11 @@
         	var proSerialNumber=$("#proSerialNumber").val();
         	var beginTime=$("#beginTime").val();
         	var endTime=$("#endTime").val(); */
+        	var beginTime=$("#beginTime").val();
+        	var endTime=$("#endTime").val();
         	var proEngineType=$("#proEngineType").val();
         	var proPeriod=$("#proPeriod").val();
-        	location.href="/type/工程类别汇总/115?proEngineType="+proEngineType+"&proPeriod="+proPeriod;
+        	location.href="/type/工程类别汇总/115?proEngineType="+proEngineType+"&proPeriod="+proPeriod+"&beginTime="+beginTime+"&endTime="+endTime;
         }
     </script>
 </head>
@@ -146,7 +148,8 @@
                          <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'QC')}" th:selected="${proPeriod!=null and #strings.contains(proPeriod,dict1.id)}"></option>
                          </select>
                     
-        
+        开始时间:<input type="text"  id="beginTime" th:value="${beginTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
+        至<input type="text"  id="endTime" th:value="${endTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
         <input type="button" class="rbtn23" value="查询" onclick="search()" />
         <input id="Button1" type="button" value="导出EXCEL" class="rbtn23" onclick="javascript:HtmlExportToExcel('PanelExcel')" />
         <a id="dlink" style="display: none;"></a>

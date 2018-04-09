@@ -466,18 +466,126 @@ and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
   </select>
   
   <select id="getOrderType" parameterType="java.util.Map" resultType="com.study.model.vo.ProjectType">
-   select proEngineTypeName,proPeriodName,sum(prDmaTotal) as "prDmaTotal",sum(prDmaNextTotal) as "prDmaNextTotal",
-           sum(prwdTotal) as "prwdTotal",sum(prwdNextTotal) as "prwdNextTotal",sum(prwTotal) as "prwTotal",sum(prwNextTotal) as "prwNextTotal" from (
+   select proEngineTypeName,proPeriodName,ifnull(sum(prDmaTotal),0) as "prDmaTotal",ifnull(sum(prDmaNextTotal),0) as "prDmaNextTotal",
+           ifnull(sum(prwdTotal),0) as "prwdTotal",ifnull(sum(prwdNextTotal),0) as "prwdNextTotal",ifnull(sum(prwTotal),0) as "prwTotal",ifnull(sum(prwNextTotal),0) as "prwNextTotal" from (
    
    SELECT
 	e.dictdata_name as "proEngineTypeName",
 	ta.dictdata_name as "proPeriodName",
-  (select sum(detail_dma) from project_road_word_detail where pro_id=p.id) as "prDmaTotal",
-(select sum(detail_next_dma) from project_road_word_detail where pro_id=p.id) as "prDmaNextTotal",
-(select sum(detail_anti) from project_road_word_detail where pro_id=p.id) as "prwdTotal",
-(select sum(detail_next_anti) from project_road_word_detail where pro_id=p.id) as "prwdNextTotal",
-(select sum(detail_day) from project_road_word_detail where pro_id=p.id) as "prwTotal",
-(select sum(detail_next_day) from project_road_word_detail where pro_id=p.id) as "prwNextTotal"
+  (select sum(detail_dma) from project_road_word_detail where pro_id=p.id
+  <if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+  ) as "prDmaTotal",
+(select sum(detail_next_dma) from project_road_word_detail where pro_id=p.id
+<if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+) as "prDmaNextTotal",
+(select sum(detail_anti) from project_road_word_detail where pro_id=p.id
+<if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+) as "prwdTotal",
+(select sum(detail_next_anti) from project_road_word_detail where pro_id=p.id
+<if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+) as "prwdNextTotal",
+(select sum(detail_day) from project_road_word_detail where pro_id=p.id
+<if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+) as "prwTotal",
+(select sum(detail_next_day) from project_road_word_detail where pro_id=p.id
+<if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+) as "prwNextTotal"
 FROM
 	dictionary d
 INNER JOIN dictionarydata e ON d.id = e.dict_id
@@ -497,4 +605,41 @@ and p.pro_period=#{proPeriod}
 	proPeriodName
   </select>
   
+  
+  <select id="getOrderDetail" parameterType="java.util.Map" resultType="com.study.model.vo.ProjectDetailType">
+  
+  select ifnull(sum(d.detail_dma),0) as "dmaTotal",ifnull(sum(d.detail_anti),0) as "antiTotal",ifnull(sum(d.detail_day),0) as "dayTotal" 
+  from 
+  project_produce p 
+  inner join 
+  project_construction c 
+  on p.id=c.proId 
+  inner join 
+  project_road_word_detail d 
+  on d.pc_id=c.id  
+  where 1=1
+	<if test="proEngineType!=null and proEngineType!=''">
+	and p.pro_engine_type=#{proEngineType}
+	</if>
+ <if test="pcDept!=null and pcDept!=''">
+	and c.pc_dept=#{pcDept}
+	</if>
+	<if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and d.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   d.create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and d.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+  </select>
 </mapper>

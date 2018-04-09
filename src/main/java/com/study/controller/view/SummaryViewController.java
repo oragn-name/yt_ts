@@ -17,14 +17,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.study.model.Dept;
 import com.study.model.Dictionarydata;
+import com.study.model.ProjectConstruction;
+import com.study.model.ProjectProduce;
 import com.study.model.ProjectRoadWordDetail;
 import com.study.model.vo.DeptVo;
 import com.study.model.vo.ProjectDetail;
 import com.study.model.vo.ProjectDetailType;
 import com.study.model.vo.ProjectType;
 import com.study.service.DictdataService;
+import com.study.service.ProjectConstructionService;
+import com.study.service.ProjectProduceService;
 import com.study.service.ProjectRoadWordDetailService;
 import com.study.service.ProjectRoadWorkDailyService;
+import com.study.service.impl.DeptServiceImpl;
 
 @Api(value="SummaryViewController",description="汇总统计")
 @Controller
@@ -34,7 +39,13 @@ public class SummaryViewController {
   @Autowired
   private DictdataService dictdataService;
   @Autowired
+  private DeptServiceImpl deptService;
+  @Autowired
   private ProjectRoadWordDetailService projectRoadWordDetailService;
+  @Autowired
+  private ProjectProduceService projectProduceService;
+  @Autowired
+  private ProjectConstructionService projectConstructionService;
   
   @RequestMapping("/day/{menuName}/{id}")
   public String day(HttpServletRequest request,HttpServletResponse response,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime){
@@ -156,16 +167,14 @@ public class SummaryViewController {
                       buffer.append("<td class=\"td\" ></td>");
                     }
                    
-                 }
-                 if(i==2){
+                 }else if(i==2){
                    if(wd!=null){
                      buffer.append("<td class=\"td\" >"+wd.getDetailAnti()+"</td>");
                      two=two.add(new BigDecimal(wd.getDetailAnti()==null?"0":wd.getDetailAnti().toString()));
                    }else{
                      buffer.append("<td class=\"td\" ></td>");
                    }
-                 }
-                 if(i==4){
+                 }else if(i==4){
                    if(wd!=null){
                      buffer.append("<td class=\"td\" >"+wd.getDetailDay()+"</td>");
                      three=three.add(new BigDecimal(wd.getDetailDay()==null?"0":wd.getDetailDay().toString()));
@@ -181,16 +190,14 @@ public class SummaryViewController {
                    }else{
                      buffer.append("<td class=\"td\" ></td>");
                    }
-                 }
-                 if(i==3){
+                 }else if(i==3){
                    if(wd!=null){
                      buffer.append("<td class=\"td\" >"+wd.getDetailNextAnti()+"</td>");
                      two1=two1.add(new BigDecimal(wd.getDetailNextAnti()==null?"0":wd.getDetailNextAnti().toString()));
                    }else{
                      buffer.append("<td class=\"td\" ></td>");
                    }
-                 }
-                if(i==5){
+                 }else if(i==5){
                   if(wd!=null){
                     buffer.append("<td class=\"td\" >"+wd.getDetailNextDay()+"</td>");
                     three1=three1.add(new BigDecimal(wd.getDetailNextDay()==null?"0":wd.getDetailNextDay().toString()));
@@ -202,20 +209,15 @@ public class SummaryViewController {
                if(ii==dicts.size()-1){
                  if(i==0){
                    buffer.append("<td class=\"td\" >"+one.doubleValue()+"</td>");
-                 }
-                 if(i==1){
+                 }else if(i==1){
                    buffer.append("<td class=\"td\" >"+one1.doubleValue()+"</td>");
-                 }
-                 if(i==2){
+                 }else if(i==2){
                    buffer.append("<td class=\"td\" >"+two.doubleValue()+"</td>");
-                 }
-                 if(i==3){
+                 }else if(i==3){
                    buffer.append("<td class=\"td\" >"+two1.doubleValue()+"</td>");
-                 }
-                 if(i==4){
+                 }else if(i==4){
                    buffer.append("<td class=\"td\" >"+three.doubleValue()+"</td>");
-                 }
-                 if(i==5){
+                 }else if(i==5){
                    buffer.append("<td class=\"td\" >"+three1.doubleValue()+"</td>");
                  }
                  
@@ -255,16 +257,14 @@ public class SummaryViewController {
                         buffer.append("<td class=\"td\" ></td>");
                       }
                      
-                   }
-                   if(i==2){
+                   }else if(i==2){
                      if(wd!=null){
                        buffer.append("<td class=\"td\" >"+wd.getDetailAnti()+"</td>");
                        two=two.add(new BigDecimal(wd.getDetailAnti()==null?"0":wd.getDetailAnti().toString()));
                      }else{
                        buffer.append("<td class=\"td\" ></td>");
                      }
-                   }
-                   if(i==4){
+                   }else if(i==4){
                      if(wd!=null){
                        buffer.append("<td class=\"td\" >"+wd.getDetailDay()+"</td>");
                        three=three.add(new BigDecimal(wd.getDetailDay()==null?"0":wd.getDetailDay().toString()));
@@ -280,16 +280,14 @@ public class SummaryViewController {
                      }else{
                        buffer.append("<td class=\"td\" ></td>");
                      }
-                   }
-                   if(i==3){
+                   }else if(i==3){
                      if(wd!=null){
                        buffer.append("<td class=\"td\" >"+wd.getDetailNextAnti()+"</td>");
                        two1=two1.add(new BigDecimal(wd.getDetailNextAnti()==null?"0":wd.getDetailNextAnti().toString()));
                      }else{
                        buffer.append("<td class=\"td\" ></td>");
                      }
-                   }
-                  if(i==5){
+                   }else if(i==5){
                     if(wd!=null){
                       buffer.append("<td class=\"td\" >"+wd.getDetailNextDay()+"</td>");
                       three1=three1.add(new BigDecimal(wd.getDetailNextDay()==null?"0":wd.getDetailNextDay().toString()));
@@ -301,20 +299,15 @@ public class SummaryViewController {
                  if(ii==dicts.size()-1){
                    if(i==0){
                      buffer.append("<td class=\"td\" >"+one.doubleValue()+"</td>");
-                   }
-                   if(i==1){
+                   }else if(i==1){
                      buffer.append("<td class=\"td\" >"+one1.doubleValue()+"</td>");
-                   }
-                   if(i==2){
+                   }else if(i==2){
                      buffer.append("<td class=\"td\" >"+two.doubleValue()+"</td>");
-                   }
-                   if(i==3){
+                   }else if(i==3){
                      buffer.append("<td class=\"td\" >"+two1.doubleValue()+"</td>");
-                   }
-                   if(i==4){
+                   }else if(i==4){
                      buffer.append("<td class=\"td\" >"+three.doubleValue()+"</td>");
-                   }
-                   if(i==5){
+                   }else if(i==5){
                      buffer.append("<td class=\"td\" >"+three1.doubleValue()+"</td>");
                    }
                    
@@ -353,6 +346,8 @@ public class SummaryViewController {
     map.put("endTime", endTime==null?"":endTime.trim());*/
     map.put("proEngineType", proEngineType==null?"":proEngineType.trim());
     map.put("proPeriod", proPeriod==null?"":proPeriod.trim());
+    map.put("beginTime", beginTime==null?"":beginTime.trim());
+    map.put("endTime", endTime==null?"":endTime.trim());
     List<ProjectType> selectProjectDetail = roadWorkDailyService.getOrderType(map);
     request.setAttribute("proDetailType", selectProjectDetail);
     /*request.setAttribute("proName", proName);
@@ -360,6 +355,8 @@ public class SummaryViewController {
     request.setAttribute("proSerialNumber",proSerialNumber);
     request.setAttribute("beginTime", beginTime);
     request.setAttribute("endTime", endTime);*/
+    request.setAttribute("beginTime", beginTime);
+    request.setAttribute("endTime", endTime);
     request.setAttribute("proEngineType",proEngineType);
     request.setAttribute("proPeriod",proPeriod);
     return "day/type";
@@ -370,45 +367,69 @@ public class SummaryViewController {
   public String typeDetail(HttpServletRequest request,HttpServletResponse response,String type,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,String proEngineType,String proPeriod,Integer ids,String deptName){
     List<Dictionarydata> dicts = dictdataService.selectDictdataByParentId(null, null);
     request.setAttribute("dicts", dicts);
-    List<DeptVo> dept = roadWorkDailyService.getDept(null);
-    request.setAttribute("dept", dept);
-    Map<String,Object> map=new HashMap<String, Object>();
-    /*map.put("proName", proName==null?"":proName.trim());
-    map.put("proNumber", proNumber==null?"":proNumber.trim());
-    map.put("proSerialNumber", proSerialNumber==null?"":proSerialNumber.trim());
-    map.put("beginTime", beginTime==null?"":beginTime.trim());
-    map.put("endTime", endTime==null?"":endTime.trim());*/
-    map.put("proEngineType", proEngineType==null?"":proEngineType.trim());
-    map.put("proPeriod", proPeriod==null?"":proPeriod.trim());
-    Map<String, List<ProjectDetailType>> mapData=new HashMap<String,List<ProjectDetailType>>();
-    if(ids!=null){
-      map.put("deptId",ids);
-      List<ProjectDetailType> selectProjectDetail = roadWorkDailyService.selectProjectByTypeDetail(map);
-      if(selectProjectDetail!=null&&selectProjectDetail.size()>0){
-        mapData.put(deptName, selectProjectDetail);
-      }
-    }else{
-      if(dept!=null){
-        for (DeptVo deptVo : dept) {
-          map.put("deptId",deptVo.getId());
-          List<ProjectDetailType> selectProjectDetail = roadWorkDailyService.selectProjectByTypeDetail(map);
-          if(selectProjectDetail!=null&&selectProjectDetail.size()>0){
-            mapData.put(deptVo.getName(), selectProjectDetail);
+    Dept dptt=new Dept(); 
+    dptt.setParentCode("sgdw");
+    List<Dept> dpt = deptService.selectAllDept(dptt, null);
+    request.setAttribute("dept", dpt);
+    Dept d=new Dept(); 
+    d.setParentCode("sgdw");
+    d.setId(ids);
+    List<Dept> selectAllDept = deptService.selectAllDept(d, null);
+    StringBuffer buffer=new StringBuffer();
+    buffer.append("<table id=\"tbHaederText\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" style=\"border-collapse: collapse; word-break: keep-all; border-color: Black;width: 100%;\">");
+    buffer.append("<tr>");//第一行
+    buffer.append("<td class=\"th\" rowspan=\"2\"   nowrap align=\"center\">工程类别</td>");
+      
+    for (int i=0;i<selectAllDept.size();i++) {
+      buffer.append("<td class=\"th\" colspan=\"3\"   nowrap align=\"center\">"+selectAllDept.get(i).getName()+"</td>");
+    }
+    buffer.append("</tr>");
+    
+    buffer.append("<tr>");//第二行
+    for (int i=0;i<selectAllDept.size();i++) {
+      buffer.append("<td class=\"th\"   nowrap align=\"center\">DMA口径（个数）</td>");
+      buffer.append("<td class=\"th\"   nowrap align=\"center\">倒流防止器口径(个数)</td>");
+      buffer.append("<td class=\"th\"   nowrap align=\"center\">工作量(长度)</td>");
+    }
+    buffer.append("</tr>");
+    
+    
+    Map<String, Object> mapDict=new HashMap<String, Object>();
+    mapDict.put("dictCode", "GCLB");
+    mapDict.put("id", proEngineType==null?"":proEngineType.trim());
+    List<Dictionarydata> dd = dictdataService.selectDictdataByParentId(mapDict, null);//获取所有的工程类型
+    for (int i = 0; i < dd.size(); i++) {
+      buffer.append("<tr>");
+      buffer.append("<td class=\"td\" >"+dd.get(i).getDictdataName()+"</td>");
+      for (int j=0;j<selectAllDept.size();j++) {
+        Map<String, Object> map2=new HashMap<String, Object>();
+        map2.put("proEngineType", dd.get(i).getId());
+        map2.put("pcDept", selectAllDept.get(j).getId());
+        map2.put("beginTime", beginTime==null?"":beginTime.trim());
+        map2.put("endTime", endTime==null?"":endTime.trim());
+        List<ProjectDetailType> orderDetail = roadWorkDailyService.getOrderDetail(map2);
+        if(orderDetail!=null&&orderDetail.size()>0){
+          for (int k = 0; k < orderDetail.size(); k++) {
+            buffer.append("<td class=\"td\" >"+orderDetail.get(k).getDmaTotal()+"</td>");
+            buffer.append("<td class=\"td\" >"+orderDetail.get(k).getAntiTotal()+"</td>");
+            buffer.append("<td class=\"td\" >"+orderDetail.get(k).getDayTotal()+"</td>");
           }
-          
+        }else{
+          buffer.append("<td class=\"td\" ></td>");
+          buffer.append("<td class=\"td\" ></td>");
+          buffer.append("<td class=\"td\" ></td>");
         }
       }
+      buffer.append("</tr>");
     }
-   
     
-    request.setAttribute("mapData", mapData);
-   /* request.setAttribute("proName", proName);
-    request.setAttribute("proNumber", proNumber);
-    request.setAttribute("proSerialNumber",proSerialNumber);
+    buffer.append("<table>");
+    
+    request.setAttribute("html", buffer.toString().replaceAll("null", ""));
+    
     request.setAttribute("beginTime", beginTime);
-    request.setAttribute("endTime", endTime);*/
+    request.setAttribute("endTime", endTime);
     request.setAttribute("proEngineType",proEngineType);
-    request.setAttribute("proPeriod",proPeriod);
     request.setAttribute("ids",ids);
     return "day/detail";
   }

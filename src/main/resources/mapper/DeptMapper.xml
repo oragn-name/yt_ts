@@ -18,7 +18,10 @@
          <if test="parentCode!=null and parentCode!=''">
            and parentCode = #{parentCode}
          </if>
-  
+         <if test="id!=null and id!=''">
+           and id = #{id}
+         </if>
+  order by id
   </select>
   
   

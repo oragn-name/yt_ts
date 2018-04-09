@@ -121,11 +121,13 @@
         	var proSerialNumber=$("#proSerialNumber").val();
         	var beginTime=$("#beginTime").val();
         	var endTime=$("#endTime").val(); */
+        	var beginTime=$("#beginTime").val();
+        	var endTime=$("#endTime").val();
         	var proEngineType=$("#proEngineType").val();
         	var proPeriod=$("#proPeriod").val();
         	var ids=$("#ids").val();
         	var deptName=$("#ids").text();
-        	location.href="/typeDetail/工程类别汇总/116?proEngineType="+proEngineType+"&proPeriod="+proPeriod+"&ids="+ids+"&deptName="+deptName;
+        	location.href="/typeDetail/工程类别汇总/116?proEngineType="+proEngineType+"&proPeriod="+proPeriod+"&ids="+ids+"&deptName="+deptName+"&beginTime="+beginTime+"&endTime="+endTime;
         }
     </script>
 </head>
@@ -144,14 +146,16 @@
              <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'GCLB')}" th:selected="${proEngineType!=null and #strings.contains(proEngineType,dict1.id)}"></option>
           </select>
           
-          期次:<select  name="proPeriod" id="proPeriod" style="width: 148px;" >
+        <!--   期次:<select  name="proPeriod" id="proPeriod" style="width: 148px;" >
                          <option value="">--请选择--</option>
                          <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'QC')}" th:selected="${proPeriod!=null and #strings.contains(proPeriod,dict1.id)}"></option>
-                         </select>
+                         </select> -->
                          部门:<select  name="ids" id="ids" style="width: 148px;" >
                          <option value="">--请选择--</option>
                          <option th:each="dept : ${dept}" th:value="${dept.id}" th:text="${dept.name}"  th:selected="${ids!=null and #strings.contains(ids,dept.id)}"></option>
                          </select>
+                         开始时间:<input type="text"  id="beginTime" th:value="${beginTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
+        至<input type="text"  id="endTime" th:value="${endTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
         <input type="button" class="rbtn23" value="查询" onclick="search()" />
         <input id="Button1" type="button" value="导出EXCEL" class="rbtn23" onclick="javascript:HtmlExportToExcel('PanelExcel')" />
         <a id="dlink" style="display: none;"></a>
@@ -168,159 +172,9 @@
                     </tr>
                 </table>
                 <div style="width: 97%;" class="xScroll" >
-                   <div th:each="ds : ${mapData}" th:remove="tag">
-                    <table border="1" cellpadding="0" cellspacing="0" align="center"
-                        style="border-collapse: collapse; word-break: keep-all; border-color: Black;
-                        width: 100%;margin-top: 10px;">
-                        <tr align="center">
-                          <td colspan="56" th:text="${ds.key}"></td>
-                        </tr>
-                        <tr align="center">
-                            <td class="th" rowspan="3"  nowrap>工程类别</td>
-                            <td class="th"  rowspan="3" nowrap>期次</td>
-                            <td class="th" colspan="18"  nowrap>DMA(个数)</td>
-                            <td class="th" colspan="18"  nowrap>倒流防止器(个数)</td>
-                            <td class="th" colspan="18"  nowrap>工作量(长度)</td>
-                        </tr>
-                        <tr>
-                           <td class="th" colspan="9" nowrap>当前实际完成</td>
-                           <td class="th" colspan="9" nowrap>次日实际完成</td>
-                           <td class="th" colspan="9" nowrap>当前实际完成</td>
-                           <td class="th" colspan="9" nowrap>次日实际完成</td>
-                           <td class="th" colspan="9" nowrap>当前实际完成</td>
-                           <td class="th" colspan="9" nowrap>次日实际完成</td>
-                        </tr>
-                        <tr>
-                            <td class="th"  nowrap >DN15</td>
-                            <td class="th"  nowrap >DN20</td>
-                            <td class="th"  nowrap >DN25</td>
-                            <td class="th"  nowrap >DN40</td>
-                            <td class="th"  nowrap >DN50</td>
-                            <td class="th"  nowrap >DN75</td>
-                            <td class="th"  nowrap >DN100</td>
-                            <td class="th"  nowrap >DN150</td>
-                            <td class="th"  nowrap >DN200</td>
-                            
-                            
-                            <td class="th"  nowrap >DN15</td>
-                            <td class="th"  nowrap >DN20</td>
-                            <td class="th"  nowrap >DN25</td>
-                            <td class="th"  nowrap >DN40</td>
-                            <td class="th"  nowrap >DN50</td>
-                            <td class="th"  nowrap >DN75</td>
-                            <td class="th"  nowrap >DN100</td>
-                            <td class="th"  nowrap >DN150</td>
-                            <td class="th"  nowrap >DN200</td>
-                            
-                            <td class="th"  nowrap >DN15</td>
-                            <td class="th"  nowrap >DN20</td>
-                            <td class="th"  nowrap >DN25</td>
-                            <td class="th"  nowrap >DN40</td>
-                            <td class="th"  nowrap >DN50</td>
-                            <td class="th"  nowrap >DN75</td>
-                            <td class="th"  nowrap >DN100</td>
-                            <td class="th"  nowrap >DN150</td>
-                            <td class="th"  nowrap >DN200</td>
-                            
-                            
-                            <td class="th"  nowrap >DN15</td>
-                            <td class="th"  nowrap >DN20</td>
-                            <td class="th"  nowrap >DN25</td>
-                            <td class="th"  nowrap >DN40</td>
-                            <td class="th"  nowrap >DN50</td>
-                            <td class="th"  nowrap >DN75</td>
-                            <td class="th"  nowrap >DN100</td>
-                            <td class="th"  nowrap >DN150</td>
-                            <td class="th"  nowrap >DN200</td>
-                            
-                            <td class="th"  nowrap >DN15</td>
-                            <td class="th"  nowrap >DN20</td>
-                            <td class="th"  nowrap >DN25</td>
-                            <td class="th"  nowrap >DN40</td>
-                            <td class="th"  nowrap >DN50</td>
-                            <td class="th"  nowrap >DN75</td>
-                            <td class="th"  nowrap >DN100</td>
-                            <td class="th"  nowrap >DN150</td>
-                            <td class="th"  nowrap >DN200</td>
-                            
-                            
-                            <td class="th"  nowrap >DN15</td>
-                            <td class="th"  nowrap >DN20</td>
-                            <td class="th"  nowrap >DN25</td>
-                            <td class="th"  nowrap >DN40</td>
-                            <td class="th"  nowrap >DN50</td>
-                            <td class="th"  nowrap >DN75</td>
-                            <td class="th"  nowrap >DN100</td>
-                            <td class="th"  nowrap >DN150</td>
-                            <td class="th"  nowrap >DN200</td>
-                        </tr>
-                        <tr th:each="res : ${ds.value}">
-                          <td th:text="${res.proEngineTypeName}" class="td" ></td>
-                          <td th:text="${res.proPeriodName}" class="td" ></td>
-                          
-                          <td th:text="${res.prDmaOne}" class="td" ></td>
-                              <td th:text="${res.prDmaTwo}" class="td" ></td>
-                              <td th:text="${res.prDmaThree}" class="td" ></td>
-                              <td th:text="${res.prDmaFour}" class="td" ></td>
-                              <td th:text="${res.prDmaFive}" class="td" ></td>
-                              <td th:text="${res.prDmaSix}" class="td" ></td>
-                              <td th:text="${res.prDmaSeven}" class="td" ></td>
-                              <td th:text="${res.prDmaEight}" class="td" ></td>
-                              <td th:text="${res.prDmaNine}" class="td" ></td>
-                              
-                              <td th:text="${res.prDmaOneNext}" class="td" ></td>
-                              <td th:text="${res.prDmaTwoNext}" class="td" ></td>
-                              <td th:text="${res.prDmaThreeNext}" class="td" ></td>
-                              <td th:text="${res.prDmaFourNext}" class="td" ></td>
-                              <td th:text="${res.prDmaFiveNext}" class="td" ></td>
-                              <td th:text="${res.prDmaSixNext}" class="td" ></td>
-                              <td th:text="${res.prDmaSevenNext}" class="td" ></td>
-                              <td th:text="${res.prDmaEightNext}" class="td" ></td>
-                              <td th:text="${res.prDmaNineNext}" class="td" ></td>
-                              
-                              <td th:text="${res.prwdOne}" class="td" ></td>
-                              <td th:text="${res.prwdTwo}" class="td" ></td>
-                              <td th:text="${res.prwdThree}" class="td" ></td>
-                              <td th:text="${res.prwdFour}" class="td" ></td>
-                              <td th:text="${res.prwdFive}" class="td" ></td>
-                              <td th:text="${res.prwdSix}" class="td" ></td>
-                              <td th:text="${res.prwdSeven}" class="td" ></td>
-                              <td th:text="${res.prwdEight}" class="td" ></td>
-                              <td th:text="${res.prwdNine}" class="td" ></td>
-                              
-                              <td th:text="${res.prwdOneNext}" class="td" ></td>
-                              <td th:text="${res.prwdTwoNext}" class="td" ></td>
-                              <td th:text="${res.prwdThreeNext}" class="td" ></td>
-                              <td th:text="${res.prwdFourNext}" class="td" ></td>
-                              <td th:text="${res.prwdFiveNext}" class="td" ></td>
-                              <td th:text="${res.prwdSixNext}" class="td" ></td>
-                              <td th:text="${res.prwdSevenNext}" class="td" ></td>
-                              <td th:text="${res.prwdEightNext}" class="td" ></td>
-                              <td th:text="${res.prwdNineNext}" class="td" ></td>
-                              
-                              <td th:text="${res.prwOne}" class="td" ></td>
-                              <td th:text="${res.prwTwo}" class="td" ></td>
-                              <td th:text="${res.prwThree}" class="td" ></td>
-                              <td th:text="${res.prwFour}" class="td" ></td>
-                              <td th:text="${res.prwFive}" class="td" ></td>
-                              <td th:text="${res.prwSix}" class="td" ></td>
-                              <td th:text="${res.prwSeven}" class="td" ></td>
-                              <td th:text="${res.prwEight}" class="td" ></td>
-                              <td th:text="${res.prwNine}" class="td" ></td>
-                              
-                              <td th:text="${res.prwOneNext}" class="td" ></td>
-                              <td th:text="${res.prwTwoNext}" class="td" ></td>
-                              <td th:text="${res.prwThreeNext}" class="td" ></td>
-                              <td th:text="${res.prwFourNext}" class="td" ></td>
-                              <td th:text="${res.prwFiveNext}" class="td" ></td>
-                              <td th:text="${res.prwSixNext}" class="td" ></td>
-                              <td th:text="${res.prwSevenNext}" class="td" ></td>
-                              <td th:text="${res.prwEightNext}" class="td" ></td>
-                              <td th:text="${res.prwNineNext}" class="td" ></td>
-                          
-                        </tr>
-                    </table>
-                    </div>
+                
+                <p th:utext="${html}"></p>
+                
                 </div>
             </div>
         </div>
@@ -329,27 +183,3 @@
 
     </form>
 </body>
-<script type="text/javascript">
-function mc(tableId, startRow, endRow, col) { 
-var tb = document.getElementById(tableId); 
-if (col >= tb.rows[0].cells.length) { 
-return; 
-} 
-if (col == 0) { endRow = tb.rows.length-1; } 
-for (var i = startRow; i < endRow; i++) { 
-if (tb.rows[startRow].cells[col].innerHTML == tb.rows[i + 1].cells[0].innerHTML) { 
-tb.rows[i + 1].removeChild(tb.rows[i + 1].cells[0]); 
-tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan | 0) + 1; 
-if (i == endRow - 1 && startRow != endRow) { 
-mc(tableId, startRow, endRow, col + 1); 
-} 
-} else { 
-mc(tableId, startRow, i + 0, col + 1); 
-startRow = i + 1; 
-} 
-} 
-} 
-/* mc('tbHaederText',3,3,0);  */
-
-
-</script>
