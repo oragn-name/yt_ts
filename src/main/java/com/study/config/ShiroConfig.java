@@ -96,6 +96,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/loginOut", "logout");
         filterChainDefinitionMap.put("/css/**","anon");
         filterChainDefinitionMap.put("/easy_ui/**","anon");
+        filterChainDefinitionMap.put("/layui/**","anon");
         filterChainDefinitionMap.put("/js/**","anon");
         filterChainDefinitionMap.put("/img/**","anon");
         filterChainDefinitionMap.put("/excel/**","anon");

@@ -1,8 +1,11 @@
 package com.study.controller;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import io.swagger.annotations.Api;
 
@@ -13,7 +16,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.github.pagehelper.PageInfo;
 import com.study.model.Dept;
@@ -135,5 +141,31 @@ public class ProjectRoadWorkController {
 			e.printStackTrace();
             return "fail";
 		}
+    }
+	
+	@RequestMapping(value="/roadworks/multifileUpload",method={RequestMethod.POST})
+	public @ResponseBody String multifileUpload(MultipartFile file){
+        String path = "F:/test" ;
+
+        String fileName = file.getOriginalFilename();
+        int size = (int) file.getSize();
+        System.out.println(fileName + "-->" + size);
+        
+        if(file.isEmpty()){
+            return "false";
+        }else{        
+            File dest = new File(path + "/" + fileName);
+            if(!dest.getParentFile().exists()){ //判断文件父目录是否存在
+                dest.getParentFile().mkdir();
+            }
+            try {
+                file.transferTo(dest);
+            }catch (Exception e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return "false";
+            } 
+        }
+        return "true";
     }
 }

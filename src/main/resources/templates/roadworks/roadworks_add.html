@@ -1,14 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
-<head th:include="common/head :: header">
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+      <link rel="stylesheet" type="text/css" th:href="@{/easy_ui/js/jquery-easyui/themes/ui-cupertino/easyui.css}" id="skin">
+    <link rel="stylesheet" type="text/css" th:href="@{/easy_ui/js/jquery-easyui/themes/icon.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/easy_ui/js/jquery-easyui/demo/demo.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/easy_ui/css/style.css}">
+    
+    <link rel="stylesheet" type="text/css" th:href="@{/layui/css/layui.css}">
+    <script type="text/javascript" th:src="@{/easy_ui/js/jquery-1.9.1.js}"></script>
+    <script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/easy_ui/js/jquery.cookie.js}"></script>
+    <script type="text/javascript" th:src="@{/easy_ui/js/jquery.easyui.min.js}"></script>
+    
+    <script type="text/javascript" th:src="@{/easy_ui/js/easyui-lang-zh_CN.js}"></script>
+    <script type="text/javascript" th:src="@{/easy_ui/js/common.js}"></script>
+    <script type="text/javascript" th:src="@{/easy_ui/js/ztree_min.js}"></script>
+    <script type="text/javascript" th:src="@{/easy_ui/js/validator.js}"></script>
+    <script type="text/javascript" th:src="@{/easy_ui/js/base-loading.js}"></script>
 </head>
 <body class="easyui-layout">
 	<div data-options="region:'center'" border="false">
 	<div id="dlg" style="padding:10px 20px">
 	   <div class="myftitle">基本信息</div>
-	   <form id="myfm" method="post" novalidate>
+	   <form id="myfm" method="post" enctype="multipart/form-data" novalidate>
 	   <input type="hidden" th:value="${proId}"  name="proId">
 	   	   <table cellpadding="5">
                 <tr>
@@ -193,6 +209,19 @@
                     <input class="easyui-validatebox"  style="width: 450px;" type="text" name="prwExplain" ></input>
                     </td>
                 </tr>
+                <tr>
+                  <!-- <td style="text-align: right;"><button class="layui-btn test" lay-data="{url: '/a/'}"><i class="layui-icon">&#xe67c;</i>上传图片</button></td> -->
+                  <td style="text-align:right">上传图片:</td>
+                  <td colspan="3">
+                    <div class="layui-upload">
+										  <button type="button" class="layui-btn" id="test2"><i class="layui-icon">&#xe67c;</i>多图片上传</button> 
+										  <!-- <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 2px;">
+										       预览图：
+										    <div class="layui-upload-list" id="demo2"></div>
+										 </blockquote> -->
+										</div>
+									</td>
+                </tr>
             </table>
 	   </form>
     </div>
@@ -224,13 +253,6 @@
         });
 	}
 	
-	
-	/* $('#prwPet').datetimebox({
-    onChange: function() {
-       var v = $('#prwPet').datetimebox('getValue');
-       alert(v);
-    }
-  }); */
   
   var day = 0;
   function onSelectT(d) { 
@@ -245,6 +267,47 @@
       } 
     } 
   }
+  var upload;
+  layui.use('upload', function(){
+    upload = layui.upload;
+    
+    //多图片上传
+  upload.render({
+    elem: '#test2'
+    ,url: '/roadworks/multifileUpload'
+    ,multiple: true
+    ,before: function(obj){
+      //预读本地文件示例，不支持ie8
+      /* obj.preview(function(index, file, result){
+        $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
+      }); */
+    }
+    ,allDone: function(obj){ //当文件全部被提交后，才触发
+    console.log(obj.total); //得到总文件数
+    console.log(obj.successful); //请求成功的文件数
+    console.log(obj.aborted); //请求失败的文件数
+    return layer.msg('成功上传'+ obj.total + '文件');
+    }
+    ,done: function(res){
+        //如果上传失败
+        if(res.code > 0){
+          return layer.msg('上传失败');
+        }
+        //上传成功
+      }
+      /* ,error: function(){
+        //演示失败状态，并实现重传
+        var demoText = $('#test2');
+        demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
+        demoText.find('.demo-reload').on('click', function(){
+          uploadInst.upload();
+        });
+      } */
+      ,error: function(){
+        return layer.msg('上传失败');
+      }
+  });
+  });
   
 	
 	</script>
