@@ -31,6 +31,7 @@
     <result column="contract_duty_time" jdbcType="VARCHAR" property="contractDutyTime" />
      <result column="contract_create_user" jdbcType="INTEGER" property="contractCreateUser" />
       <result column="contract_create_time" jdbcType="VARCHAR" property="contractCreateTime" />
+      <result column="contract_name" jdbcType="VARCHAR" property="contractName" />
   </resultMap>
   
   <select id="selectContractByAll" parameterType="com.study.model.ProjectContract" resultType="com.study.model.ProjectContract">
@@ -41,7 +42,7 @@
   	     contract_advice as "contractAdvice",contract_check_user as "contractCheckUser",contract_check_time as "contract_check_time",
   	     contract_sign_time as "contractSignTime",contract_stamp_time as "contractStampTime",contract_back_time as "contractBackTime",contract_back_user as "contractBackUser",
   	     contract_sign_user as "contractSignUser",contract_dur as "contractDur",contract_duty as "contractDuty",contract_duty_time as "contractDutyTime",
-  	     contract_create_user as "contractCreateUser",contract_create_time as "contractCreateTime" from project_contract  where 1=1
+  	     contract_create_user as "contractCreateUser",contract_create_time as "contractCreateTime",contract_name as "contractName" from project_contract  where 1=1
   	     <if test="contractNumber!=null and contractNumber!=''">
   	     and contract_number like CONCAT(CONCAT('%', #{contractNumber}), '%')
   	     </if>

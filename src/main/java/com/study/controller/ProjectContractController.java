@@ -79,10 +79,10 @@ public class ProjectContractController {
     if (ids != null) {
       String[] id = ids.split(",");
       for (String string : id) {
-        projectContractService.delete(Integer.parseInt(string));
         ProjectContract selectByKey = projectContractService.selectByKey(Integer.parseInt(string));
         ProjectProduce produce=new ProjectProduce();
         produce.setProContractNumber(selectByKey.getContractNumber());
+        projectContractService.delete(Integer.parseInt(string));
         List<ProjectProduce> projectProduceAll = projectProduceService.getProjectProduceAll(produce, null);
         for (ProjectProduce projectProduce : projectProduceAll) {
           projectProduce.setProContractNumber(null);

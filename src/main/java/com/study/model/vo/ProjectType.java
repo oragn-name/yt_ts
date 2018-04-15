@@ -22,6 +22,7 @@ private Double prwTotal;// 工作量 当天总计
   private String beginTime;
   
   private String endTime;
+  private Integer num;
 
   public String getProEngineTypeName() {
     return proEngineTypeName;
@@ -117,6 +118,14 @@ private Double prwTotal;// 工作量 当天总计
 
   public void setEndTime(String endTime) {
     this.endTime = endTime;
+  }
+
+  public Integer getNum() {
+    return num;
+  }
+
+  public void setNum(Integer num) {
+    this.num = num;
   }
   
 }

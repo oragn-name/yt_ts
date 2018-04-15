@@ -1,5 +1,6 @@
 package com.study.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.swagger.annotations.Api;
@@ -38,7 +39,9 @@ public class DictController {
   })
   @RequestMapping(value="/dict/getData",method={RequestMethod.GET})
   public DataGridResultInfo getData(@RequestParam(value="dictName",required=false)String dictName,PageBean bean){
-    List<Dictionary> selectDictAll = dictionaryService.selectDictAll(dictName, bean);
+    Dictionary dictionary=new Dictionary();
+    dictionary.setDictName(dictName);
+    List<Dictionary> selectDictAll = dictionaryService.selectDictAll(dictionary, bean);
     PageInfo<Dictionary> info=new PageInfo<Dictionary>(selectDictAll);
     return ResultUtil.createDataGridResult(info.getTotal(), info.getList());
   }
@@ -88,8 +91,27 @@ public class DictController {
   }
   @ApiOperation(value="字典类别ztree", notes="字典类别ztree")
   @RequestMapping(value="/dict/getDataTree",method={RequestMethod.GET})
-  public List<Dictionary> getDataTree(){
-    List<Dictionary> selectDictAll = dictionaryService.selectDictAll(null, null);
-    return selectDictAll;
+  public List<Dictionary> getDataTree(String code){
+    List<Dictionary> selectAll=new ArrayList<Dictionary>();
+    if(code!=null&&!"".equals(code)){
+       String[] str=code.split(",");
+       if(str.length>1){
+         for (String string : str) {
+           Dictionary dictionary=new Dictionary();
+           dictionary.setDictCode(string);
+           List<Dictionary> selectDictAll = dictionaryService.selectDictAll(dictionary, null);
+           selectAll.addAll(selectDictAll);
+        }
+       }
+      
+    }else{
+      Dictionary dictionary=new Dictionary();
+      dictionary.setDictCode(code);
+      List<Dictionary> selectDictAll = dictionaryService.selectDictAll(dictionary, null);
+      selectAll.addAll(selectDictAll);
+    }
+   
+    
+    return selectAll;
   }
 }

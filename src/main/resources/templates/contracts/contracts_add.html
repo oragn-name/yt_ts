@@ -33,33 +33,38 @@
                 <tr>
                 <td  style="text-align: right;">合同编号:</td>
                     <td ><input class="easyui-validatebox" type="text" name="contractNumber"  data-options=""></input></td>
-                    <td style="text-align: right;">是否单独合同:</td>
+                     <td  style="text-align: right;">合同名称:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractName" data-options=""></input></td>
+                   
+                </tr>
+                <tr>
+                <td style="text-align: right;">是否单独合同:</td>
                     <td>
 <select class="easyui-combobox" name="contractAlone" style="width: 148px;">
 	           				  	<option value="1">是</option>
 	           				  	<option value="0">否</option>
 	           					</select>
  </td>
-                </tr>
-                <tr>
                 <td  style="text-align: right;">原合同工程编号:</td>
                     <td><input class="easyui-validatebox" type="text" name="contractProNumber" data-options=""></input></td>
-                    <td style="text-align: right;">合同归档日期:</td>
-                    <td><input class="easyui-datetimebox" type="text" name="contractArchTime" data-options=""></input></td>
-                    
+                   
                 </tr>
                 <tr>
+                 <td style="text-align: right;">合同归档日期:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="contractArchTime" data-options=""></input></td>
+                    
                 <td  style="text-align: right;">合同性质:</td>
                     <td>
                      <select class="easyui-combobox" name="contractNatrue" style="width: 148px;" >
                          <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'HTXZ')}"></option>
                          </select>
                     </td>
-                    <td style="text-align: right;">合同金额:</td>
-                    <td><input class="easyui-validatebox" type="text" name="contractMoney" data-options=""></input></td>
                     
                 </tr>
                 <tr>
+                <td style="text-align: right;">合同金额:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractMoney" data-options=""></input></td>
+                    
                 <td  style="text-align: right;">是否招投标:</td>
                     <td>
                        <select class="easyui-combobox" name="contractBiddingType" style="width: 148px;">
@@ -67,43 +72,51 @@
 	           				  	<option value="0">否</option>
 	           					</select>
 </td>
-                    <td style="text-align: right;">合同审核意见:</td>
+                   
+                </tr>
+                <tr>
+                 <td style="text-align: right;">合同审核意见:</td>
                     <td><input class="easyui-validatebox" type="text" name="contractAdvice" data-options=""></input></td>
                     
-                </tr>
-                <tr>
                 <td  style="text-align: right;">合同审核人:</td>
                     <td><input class="easyui-validatebox" type="text" name="contractCheckUser" data-options=""></input></td>
-                    <td style="text-align: right;">合同审核时间:</td>
+                   
+                </tr>
+                <tr>
+                 <td style="text-align: right;">合同审核时间:</td>
                     <td><input class="easyui-datetimebox" type="text" name="contractCheckTime" data-options=""></input></td>
                     
-                </tr>
-                <tr>
                 <td  style="text-align: right;">合同签订日期:</td>
                     <td><input class="easyui-datetimebox" type="text" name="contractSignTime" data-options=""></input></td>
-                    <td style="text-align: right;">合同盖章时间:</td>
+                    
+                </tr>
+                <tr>
+                <td style="text-align: right;">合同盖章时间:</td>
                     <td><input class="easyui-datetimebox" type="text" name="contractStampTime" data-options=""></input></td>
                     
-                </tr>
-                <tr>
                 <td  style="text-align: right;">合同返回日期:</td>
                     <td><input class="easyui-datetimebox" type="text" name="contractBackTime" data-options=""></input></td>
-                    <td style="text-align: right;">返回经手人:</td>
+                   
+                </tr>
+                <tr>
+                 <td style="text-align: right;">返回经手人:</td>
                     <td><input class="easyui-validatebox" type="text" name="contractBackUser" data-options=""></input></td>
                     
-                </tr>
-                <tr>
                 <td  style="text-align: right;">合同签订人:</td>
                     <td><input class="easyui-validatebox" type="text" name="contractSignUser" data-options=""></input></td>
-                    <td style="text-align: right;">工期:</td>
-                    <td><input class="easyui-validatebox" type="text" name="contractDur" data-options=""></input></td>
                     
                 </tr>
                 <tr>
+                <td style="text-align: right;">工期:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractDur" data-options=""></input></td>
+                    
                 <td  style="text-align: right;">印花税金额:</td>
                     <td><input class="easyui-validatebox" type="text" name="contractDuty" data-options=""></input></td>
-                    <td style="text-align: right;">贴税日期:</td>
-                    <td><input class="easyui-datetimebox" type="text" name="contractDutyTime" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                   <td style="text-align: right;">贴税日期:</td>
+                    <td colspan="3"><input class="easyui-datetimebox" type="text" name="contractDutyTime" data-options=""></input></td>
                     
                 </tr>
                 <tr>

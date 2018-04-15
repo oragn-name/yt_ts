@@ -40,6 +40,20 @@
 							<th data-options="field:'pcId',hidden:true,align:'center',sortable:'true'" rowspan="2">pcId</th>
 							<th data-options="field:'proId',hidden:true,align:'center',sortable:'true'" rowspan="2">proId</th>
 							<th
+								data-options="field:'detailType',width:120,align:'center',sortable:'true',formatter:function(value,row){
+							return row.detailTypeName;
+						},editor:{
+							type:'combobox',
+							options:{
+								valueField:'id',
+								textField:'dictName',
+								method:'get',
+								url:'/dict/getDataTree?code=GZL,XHS,PQF,CL,YJSBPT,YJSBGJ,EJSBPT,EJSBGJ,JJM',
+								width:98,
+								onSelect: selectDetailSeries,
+							}
+						 }" rowspan="2">类别</th>
+							<th
 								data-options="field:'dnId',width:120,align:'center',sortable:'true',formatter:function(value,row){
 							return row.dnIdName;
 						},editor:{
@@ -48,10 +62,10 @@
 								valueField:'id',
 								textField:'dictdataName',
 								method:'get',
-								url:'/dictdata/getDataTree?dictCode=GZL',
+								url:'',
 								width:98
 							}
-						}" rowspan="2">DN</th>
+						}" rowspan="2">型号</th>
 						
 						<th  align="center"  colspan="2" width="300">工作量长度(长度)</th>  
 						<th  align="center"  colspan="2" width="300">倒流防止器口径(个数)</th>
@@ -133,6 +147,21 @@
 			$('#tb1').datagrid('appendRow',{pcId:pcId,proId:proId});
 			$('#tb1').datagrid('selectRow', editIndex)
 					.datagrid('beginEdit', editIndex);
+			var detailType=$('#tb1').datagrid('getEditor', {index:editIndex,field:'detailType'});
+			var dnId=$('#tb1').datagrid('getEditor', {index:editIndex,field:'dnId'});
+			
+		
+			
+			
+			$(detailType.target).combobox({
+				onSelect: function (i,row) {
+					var id=$(detailType.target).combobox('getValue');
+					$(dnId.target).combobox({
+						url:'/dictdata/getDataTree?dictId='+id
+					});
+				}
+			})
+			
 			
 	}
 	function onClickRow(index){
@@ -140,9 +169,29 @@
 				$('#tb1').datagrid('selectRow', index)
 						.datagrid('beginEdit', index);
 				editIndex = index;
+				var detailType=$('#tb1').datagrid('getEditor', {index:editIndex,field:'detailType'});
+				var dnId=$('#tb1').datagrid('getEditor', {index:editIndex,field:'dnId'});
+				
+				var id=$(detailType.target).combobox('getValue');
+				var model=$(dnId.target).combobox('getText');
+				   $(dnId.target).combobox({
+					  url:'/dictdata/getDataTree?dictId='+id
+				   });
+				   $(dnId.target).combobox('setValue', model);
+				
 		}
 	}
-	
+	function selectDetailSeries(row){
+		var rowIndex = $(this).parents('.datagrid-row').attr('datagrid-row-index');
+		editIndex=rowIndex;
+		var detailType=$('#tb1').datagrid('getEditor', {index:editIndex,field:'detailType'});
+		var dnId=$('#tb1').datagrid('getEditor', {index:editIndex,field:'dnId'});
+		
+		var id=$(detailType.target).combobox('getValue');
+		   $(dnId.target).combobox({
+			   url:'/dictdata/getDataTree?dictId='+id
+		   });
+	}
 	function remove(){
 		var selRow = $('#tb1').datagrid('getSelections');
 		if (selRow == null || selRow.length == 0) { 

@@ -32,6 +32,15 @@ public class ProjectDetail implements Serializable {
    private Double prwBudget;//预算
    
    private Double proDesignLength;//设计长度
+   
+   private Integer proStatus;//项目状态
+   
+   private String proContractNumber; //合同编号
+   private String proDeptName; //转入单位
+   
+   private String prwProgressReport;//工程进展问题
+   
+   private String contractName;//合同名称
 
    private Integer pcId;
    
@@ -163,6 +172,46 @@ public class ProjectDetail implements Serializable {
 
   public void setProId(Integer proId) {
     this.proId = proId;
+  }
+
+  public Integer getProStatus() {
+    return proStatus;
+  }
+
+  public void setProStatus(Integer proStatus) {
+    this.proStatus = proStatus;
+  }
+
+  public String getProContractNumber() {
+    return proContractNumber;
+  }
+
+  public void setProContractNumber(String proContractNumber) {
+    this.proContractNumber = proContractNumber;
+  }
+
+  public String getProDeptName() {
+    return proDeptName;
+  }
+
+  public void setProDeptName(String proDeptName) {
+    this.proDeptName = proDeptName;
+  }
+
+  public String getPrwProgressReport() {
+    return prwProgressReport;
+  }
+
+  public void setPrwProgressReport(String prwProgressReport) {
+    this.prwProgressReport = prwProgressReport;
+  }
+
+  public String getContractName() {
+    return contractName;
+  }
+
+  public void setContractName(String contractName) {
+    this.contractName = contractName;
   }
   
    

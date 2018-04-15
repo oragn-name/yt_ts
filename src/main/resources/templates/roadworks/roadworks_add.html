@@ -209,19 +209,18 @@
                     <input class="easyui-validatebox"  style="width: 450px;" type="text" name="prwExplain" ></input>
                     </td>
                 </tr>
-                <tr>
-                  <!-- <td style="text-align: right;"><button class="layui-btn test" lay-data="{url: '/a/'}"><i class="layui-icon">&#xe67c;</i>上传图片</button></td> -->
+                <!-- <tr>
                   <td style="text-align:right">上传图片:</td>
                   <td colspan="3">
                     <div class="layui-upload">
 										  <button type="button" class="layui-btn" id="test2"><i class="layui-icon">&#xe67c;</i>多图片上传</button> 
-										  <!-- <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 2px;">
+										  <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 2px;">
 										       预览图：
 										    <div class="layui-upload-list" id="demo2"></div>
-										 </blockquote> -->
+										 </blockquote>
 										</div>
 									</td>
-                </tr>
+                </tr> -->
             </table>
 	   </form>
     </div>
@@ -267,7 +266,8 @@
       } 
     } 
   }
-  var upload;
+  
+ /*  var upload;
   layui.use('upload', function(){
     upload = layui.upload;
     
@@ -278,9 +278,9 @@
     ,multiple: true
     ,before: function(obj){
       //预读本地文件示例，不支持ie8
-      /* obj.preview(function(index, file, result){
+       obj.preview(function(index, file, result){
         $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
-      }); */
+      }); 
     }
     ,allDone: function(obj){ //当文件全部被提交后，才触发
     console.log(obj.total); //得到总文件数
@@ -295,20 +295,11 @@
         }
         //上传成功
       }
-      /* ,error: function(){
-        //演示失败状态，并实现重传
-        var demoText = $('#test2');
-        demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-mini demo-reload">重试</a>');
-        demoText.find('.demo-reload').on('click', function(){
-          uploadInst.upload();
-        });
-      } */
-      ,error: function(){
         return layer.msg('上传失败');
       }
   });
   });
-  
+   */
 	
 	</script>
 </body>

@@ -438,6 +438,10 @@ GROUP BY
 	p.pro_snap_number AS "proSnapNumber",
 	p.pro_serial_number AS "proSerialNumber",
 	p.pro_design_length as "proDesignLength",
+  p.pro_status as "proStatus",
+  p.pro_contract_number as "proContractNumber",
+  (select contract_name from project_contract where contract_number=p.pro_contract_number) as "contractName",
+  (select name from dept where id=p.pro_dept) as "proDeptName",
 	(select dictdata_name from dictionarydata where id=p.pro_engine_type) as "proEngineTypeName",
 	(select dictdata_name from dictionarydata where id=p.pro_nature) as "proNatureName",
 	 p.pro_name AS "proName",
@@ -446,33 +450,60 @@ GROUP BY
 	r.prw_ast AS "prwAst",
 	r.prw_aet AS "prwAet",
 	r.prw_budget as "prwBudget",
+  r.prw_progress_report as "prwProgressReport",
 	(select name from dept where id=c.pc_dept)  as "pcDeptName",
 	p.id as "proId",
 	c.id as "pcId"
 FROM
 	project_produce p
 INNER JOIN project_road_work r ON p.id = r.pro_id
-INNER JOIN project_construction c ON c.proId = p.id where 1=1 and p.pro_type=1 
+INNER JOIN project_construction c ON  c.proId = p.id  where 1=1 and p.pro_type=1 
   <if test="proName!=null and proName!=''">
   and p.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
 </if>
 <if test="proNumber!=null and proNumber!=''">
 and p.pro_number like CONCAT(CONCAT('%', #{proNumber}), '%')
 </if>
+<!-- Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,
+    String proEngineTypeName,
+    String proSourceName,String proNatureName,String proPeriodName -->
 <if test="proSerialNumber!=null and proSerialNumber!=''">
 and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
 </if>
-  
+  <if test="proStatus!=null and proStatus!=''">
+and p.pro_status=#{proStatus}
+</if>
+<if test="proContractNumber!=null and proContractNumber!=''">
+and p.pro_contract_number  like CONCAT(CONCAT('%', #{proContractNumber}), '%')
+</if>
+ <if test="proEngineTypeName!=null and proEngineTypeName!=''">
+and p.pro_engine_type=#{proEngineTypeName}
+</if>
+<if test="proDeptName!=null and proDeptName!=''">
+and p.pro_dept=#{proDeptName}
+</if>
+<if test="proSourceName!=null and proSourceName!=''">
+and p.pro_source=#{proSourceName}
+</if>
+<if test="proNatureName!=null and proNatureName!=''">
+and p.pro_nature=#{proNatureName}
+</if>
+<if test="proPeriodName!=null and proPeriodName!=''">
+and p.pro_period=#{proPeriodName}
+</if>
+
+
   </select>
   
   <select id="getOrderType" parameterType="java.util.Map" resultType="com.study.model.vo.ProjectType">
    select proEngineTypeName,proPeriodName,ifnull(sum(prDmaTotal),0) as "prDmaTotal",ifnull(sum(prDmaNextTotal),0) as "prDmaNextTotal",
-           ifnull(sum(prwdTotal),0) as "prwdTotal",ifnull(sum(prwdNextTotal),0) as "prwdNextTotal",ifnull(sum(prwTotal),0) as "prwTotal",ifnull(sum(prwNextTotal),0) as "prwNextTotal" from (
+           ifnull(sum(prwdTotal),0) as "prwdTotal",ifnull(sum(prwdNextTotal),0) as "prwdNextTotal",ifnull(sum(prwTotal),0) as "prwTotal",ifnull(sum(prwNextTotal),0) as "prwNextTotal",count(id) as "num" from (
    
    SELECT
+  p.id,
 	e.dictdata_name as "proEngineTypeName",
 	ta.dictdata_name as "proPeriodName",
-  (select sum(detail_dma) from project_road_word_detail where pro_id=p.id
+  (select sum(detail_dma) from project_road_word_detail e inner join dictionarydata d1 on d1.id=e.dn_id inner join dictionary d2 on d2.id=d1.dict_id where pro_id=p.id and d2.dict_code='GZL'
   <if test="beginTime!=null and beginTime!=''">
     <choose>
        <when test="endTime !=null and endTime!='' ">
@@ -491,7 +522,7 @@ and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
     </choose>
 </if>
   ) as "prDmaTotal",
-(select sum(detail_next_dma) from project_road_word_detail where pro_id=p.id
+(select sum(detail_next_dma) from project_road_word_detail e inner join dictionarydata d1 on d1.id=e.dn_id inner join dictionary d2 on d2.id=d1.dict_id where pro_id=p.id and d2.dict_code='GZL'
 <if test="beginTime!=null and beginTime!=''">
     <choose>
        <when test="endTime !=null and endTime!='' ">
@@ -510,7 +541,7 @@ and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
     </choose>
 </if>
 ) as "prDmaNextTotal",
-(select sum(detail_anti) from project_road_word_detail where pro_id=p.id
+(select sum(detail_anti) from project_road_word_detail e inner join dictionarydata d1 on d1.id=e.dn_id inner join dictionary d2 on d2.id=d1.dict_id where pro_id=p.id and d2.dict_code='GZL'
 <if test="beginTime!=null and beginTime!=''">
     <choose>
        <when test="endTime !=null and endTime!='' ">
@@ -529,7 +560,7 @@ and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
     </choose>
 </if>
 ) as "prwdTotal",
-(select sum(detail_next_anti) from project_road_word_detail where pro_id=p.id
+(select sum(detail_next_anti) from project_road_word_detail e inner join dictionarydata d1 on d1.id=e.dn_id inner join dictionary d2 on d2.id=d1.dict_id where pro_id=p.id and d2.dict_code='GZL'
 <if test="beginTime!=null and beginTime!=''">
     <choose>
        <when test="endTime !=null and endTime!='' ">
@@ -548,7 +579,7 @@ and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
     </choose>
 </if>
 ) as "prwdNextTotal",
-(select sum(detail_day) from project_road_word_detail where pro_id=p.id
+(select sum(detail_day) from project_road_word_detail e inner join dictionarydata d1 on d1.id=e.dn_id inner join dictionary d2 on d2.id=d1.dict_id where pro_id=p.id and d2.dict_code='GZL'
 <if test="beginTime!=null and beginTime!=''">
     <choose>
        <when test="endTime !=null and endTime!='' ">
@@ -567,7 +598,7 @@ and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
     </choose>
 </if>
 ) as "prwTotal",
-(select sum(detail_next_day) from project_road_word_detail where pro_id=p.id
+(select sum(detail_next_day) from project_road_word_detail e inner join dictionarydata d1 on d1.id=e.dn_id inner join dictionary d2 on d2.id=d1.dict_id  where pro_id=p.id and d2.dict_code='GZL'
 <if test="beginTime!=null and beginTime!=''">
     <choose>
        <when test="endTime !=null and endTime!='' ">
@@ -617,7 +648,9 @@ and p.pro_period=#{proPeriod}
   inner join 
   project_road_word_detail d 
   on d.pc_id=c.id  
-  where 1=1
+  left join dictionarydata d1 on d1.id=d.dn_id 
+  left join dictionary d2 on d2.id=d1.dict_id
+  where 1=1 and d2.dict_code='GZL'
 	<if test="proEngineType!=null and proEngineType!=''">
 	and p.pro_engine_type=#{proEngineType}
 	</if>

@@ -22,11 +22,14 @@ public class DictionaryServiceImpl extends BaseService<Dictionary> implements Di
   @Autowired
   private DictionaryMapper dictionaryMapper;
   @Override
-  public List<Dictionary> selectDictAll(String name, PageBean bean) {
+  public List<Dictionary> selectDictAll(Dictionary dic, PageBean bean) {
     Example example=new Example(Dictionary.class);
-    if(name!=null&&!"".equals(name)){
-      Criteria createCriteria = example.createCriteria();
-      createCriteria.andLike("dictName", "%"+name+"%");
+    Criteria createCriteria = example.createCriteria();
+    if(dic.getDictName()!=null&&!"".equals(dic.getDictName())){
+      createCriteria.andLike("dictName", "%"+dic.getDictName()+"%");
+    }
+    if(dic.getDictCode()!=null&&!"".equals(dic.getDictCode())){
+      createCriteria.andEqualTo("dictCode", dic.getDictCode());
     }
     if(PageBeanUtil.pageBeanIsNotEmpty(bean)){
       PageHelper.startPage(bean.getPage(), bean.getRows());

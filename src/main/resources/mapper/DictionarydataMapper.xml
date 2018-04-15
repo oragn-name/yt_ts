@@ -21,7 +21,7 @@
       and dictdataName like CONCAT(CONCAT('%', #{dictdataName}), '%') 
      </if>
      <if test="dictCode!=null and dictCode!=''">
-      and dictCode =#{dictCode} 
+        and dictCode=#{dictCode}
      </if>
      <if test="parentId!=null and parentId!=''">
       and parentId =#{parentId} 

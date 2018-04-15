@@ -33,33 +33,38 @@
                 <tr>
                 <td  style="text-align: right;">合同编号:</td>
                     <td ><input class="easyui-validatebox" type="text" name="contractNumber" th:value="${contract.contractNumber}"  data-options=""></input></td>
-                    <td style="text-align: right;">是否单独合同:</td>
+                     <td style="text-align: right;">合同名称:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractName" th:value="${contract.contractName}" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td style="text-align: right;">是否单独合同:</td>
                     <td>
 <select class="easyui-combobox" name="contractAlone" style="width: 148px;">
 	           				  	<option value="1" th:selected="${#strings.contains(contract.contractAlone,1)}">是</option>
 	           				  	<option value="0" th:selected="${#strings.contains(contract.contractAlone,0)}">否</option>
 	           					</select>
  </td>
-                </tr>
-                <tr>
                 <td  style="text-align: right;">原合同工程编号:</td>
                     <td><input class="easyui-validatebox" type="text" name="contractProNumber" th:value="${contract.contractProNumber}" data-options=""></input></td>
-                    <td style="text-align: right;">合同归档日期:</td>
-                    <td><input class="easyui-datetimebox" type="text" name="contractArchTime" th:value="${contract.contractArchTime}" data-options=""></input></td>
-                    
+                  
                 </tr>
                 <tr>
+                  <td style="text-align: right;">合同归档日期:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="contractArchTime" th:value="${contract.contractArchTime}" data-options=""></input></td>
+                    
                 <td  style="text-align: right;">合同性质:</td>
                     <td>
                      <select class="easyui-combobox" name="contractNatrue" style="width: 148px;" >
                          <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'HTXZ')}" th:selected="${contract.contractNatrue!=null and #strings.contains(contract.contractNatrue,dict1.id)}"></option>
                          </select>
                     </td>
-                    <td style="text-align: right;">合同金额:</td>
-                    <td><input class="easyui-validatebox" type="text" name="contractMoney" th:value="${contract.contractMoney}" data-options=""></input></td>
                     
                 </tr>
                 <tr>
+                <td style="text-align: right;">合同金额:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractMoney" th:value="${contract.contractMoney}" data-options=""></input></td>
+                    
                 <td  style="text-align: right;">是否招投标:</td>
                     <td>
                        <select class="easyui-combobox" name="contractBiddingType" style="width: 148px;">
@@ -67,43 +72,51 @@
 	           				  	<option value="0" th:selected="${#strings.contains(contract.contractBiddingType,0)}">否</option>
 	           					</select>
 </td>
-                    <td style="text-align: right;">合同审核意见:</td>
+                   
+                </tr>
+                <tr>
+                 <td style="text-align: right;">合同审核意见:</td>
                     <td><input class="easyui-validatebox" type="text" name="contractAdvice" th:value="${contract.contractAdvice}" data-options=""></input></td>
                     
-                </tr>
-                <tr>
                 <td  style="text-align: right;">合同审核人:</td>
                     <td><input class="easyui-validatebox" type="text" name="contractCheckUser" th:value="${contract.contractCheckUser}" data-options=""></input></td>
-                    <td style="text-align: right;">合同审核时间:</td>
+                   
+                </tr>
+                <tr>
+                 <td style="text-align: right;">合同审核时间:</td>
                     <td><input class="easyui-datetimebox" type="text" name="contractCheckTime" th:value="${contract.contractCheckTime}" data-options=""></input></td>
                     
-                </tr>
-                <tr>
                 <td  style="text-align: right;">合同签订日期:</td>
                     <td><input class="easyui-datetimebox" type="text" name="contractSignTime" th:value="${contract.contractSignTime}" data-options=""></input></td>
-                    <td style="text-align: right;">合同盖章时间:</td>
+                   
+                </tr>
+                <tr>
+                 <td style="text-align: right;">合同盖章时间:</td>
                     <td><input class="easyui-datetimebox" type="text" name="contractStampTime" th:value="${contract.contractStampTime}" data-options=""></input></td>
                     
-                </tr>
-                <tr>
                 <td  style="text-align: right;">合同返回日期:</td>
                     <td><input class="easyui-datetimebox" type="text" name="contractBackTime" th:value="${contract.contractBackTime}" data-options=""></input></td>
-                    <td style="text-align: right;">返回经手人:</td>
+                    
+                </tr>
+                <tr>
+                <td style="text-align: right;">返回经手人:</td>
                     <td><input class="easyui-validatebox" type="text" name="contractBackUser" th:value="${contract.contractBackUser}" data-options=""></input></td>
                     
-                </tr>
-                <tr>
                 <td  style="text-align: right;">合同签订人:</td>
                     <td><input class="easyui-validatebox" type="text" name="contractSignUser" th:value="${contract.contractSignUser}" data-options=""></input></td>
-                    <td style="text-align: right;">工期:</td>
-                    <td><input class="easyui-validatebox" type="text" name="contractDur" th:value="${contract.contractDur}" data-options=""></input></td>
-                    
+                   
                 </tr>
                 <tr>
+                 <td style="text-align: right;">工期:</td>
+                    <td><input class="easyui-validatebox" type="text" name="contractDur" th:value="${contract.contractDur}" data-options=""></input></td>
+                    
                 <td  style="text-align: right;">印花税金额:</td>
                     <td><input class="easyui-validatebox" type="text" name="contractDuty" th:value="${contract.contractDuty}" data-options=""></input></td>
-                    <td style="text-align: right;">贴税日期:</td>
-                    <td><input class="easyui-datetimebox" type="text" name="contractDutyTime" th:value="${contract.contractDutyTime}" data-options=""></input></td>
+                   
+                </tr>
+                <tr>
+                   <td style="text-align: right;">贴税日期:</td>
+                    <td colspan="3"><input class="easyui-datetimebox" type="text" name="contractDutyTime" th:value="${contract.contractDutyTime}" data-options=""></input></td>
                     
                 </tr>
                 <tr>

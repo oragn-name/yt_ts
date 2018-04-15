@@ -156,6 +156,9 @@ public class ProjectContract {
     private String contractCreateTime;
     
     
+    @Column(name = "contract_name")
+    private String contractName;
+    
     
     
     /**
@@ -608,6 +611,14 @@ public class ProjectContract {
 
     public void setContractNatrueName(String contractNatrueName) {
       this.contractNatrueName = contractNatrueName;
+    }
+
+    public String getContractName() {
+      return contractName;
+    }
+
+    public void setContractName(String contractName) {
+      this.contractName = contractName;
     }
     
     

@@ -172,6 +172,7 @@
                         <tr align="center">
                             <td class="th" rowspan="2"  nowrap>工程类别</td>
                             <td class="th"  rowspan="2" nowrap>期次</td>
+                            <td class="th"  rowspan="2" nowrap>项目数量</td>
                             <td class="th" colspan="2"  nowrap>DMA(个数)</td>
                             <td class="th" colspan="2"  nowrap>倒流防止器(个数)</td>
                             <td class="th" colspan="2"  nowrap>工作量(长度)</td>
@@ -187,6 +188,8 @@
                         <tr th:each="rs : ${proDetailType}">
                           <td th:text="${rs.proEngineTypeName}" class="td" ></td>
                           <td th:text="${rs.proPeriodName}" class="td" ></td>
+                          <td th:text="${rs.num}" class="td" ></td>
+                          
                           <td th:text="${rs.prDmaTotal}" class="td" ></td>
                           <td th:text="${rs.prDmaNextTotal}" class="td" ></td>
                           <td th:text="${rs.prwdTotal}" class="td" ></td>

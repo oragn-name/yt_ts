@@ -121,16 +121,60 @@
         	var proSerialNumber=$("#proSerialNumber").val();
         	var beginTime=$("#beginTime").val();
         	var endTime=$("#endTime").val();
-        	location.href="/day/每日工作量汇总/114?proName="+proName+"&proNumber="+proNumber+"&proSerialNumber="+proSerialNumber+"&beginTime="+beginTime+"&endTime="+endTime;
+        	
+        	var proContractNumber=$("#proContractNumber").val();
+        	var proDeptName=$("#proDeptName").val();
+        	var pcDeptName="";
+        	var proEngineTypeName=$("#proEngineTypeName").val();
+        	var proSourceName=$("#proSourceName").val();
+        	var proNatureName=$("#proNatureName").val();
+        	var proPeriodName=$("#proPeriodName").val();
+        	var proStatus=$("#proStatus").val();
+        	location.href="/day/每日工作量汇总/114?proName="+proName+"&proNumber="+proNumber+"&proSerialNumber="+proSerialNumber+"&beginTime="+beginTime+"&endTime="+endTime+"&proStatus="+proStatus+"&proPeriodName="+proPeriodName+"&proNatureName="+proNatureName+"&proSourceName="+proSourceName+"&proEngineTypeName="+proEngineTypeName+"&pcDeptName="+pcDeptName+"&proDeptName="+proDeptName+"&proContractNumber="+proContractNumber;
         }
     </script>
 </head>
 <body class="easyui-layout">
 	
 	<form name="aspnetForm" method="post" id="aspnetForm">
-    <div class="Noprint tCt inner">
+    <div class="Noprint  inner">
         项目名称:<input type="text"  id="proName" th:value="${proName}" />
-       工号:<input type="text"  id="proNumber" th:value="${proNumber}"/>
+         项目状态:
+           <select name="proStatus" id="proStatus">
+              <option value=''>全部</option>
+              <option value='1' th:selected="${proStatus!=null and #strings.contains(proStatus,1)}">在施</option>
+              <option value='2'  th:selected="${proStatus!=null and #strings.contains(proStatus,2)}">待施</option>
+              <option value='3'  th:selected="${proStatus!=null and #strings.contains(proStatus,3)}">已完工</option>
+           </select>
+     合同编号:<input type="text"  id="proContractNumber" th:value="${proContractNumber}" />
+     转入单位:
+     <select  name="proDeptName" id="proDeptName" style="width: 148px;" >
+                         <option value="">--请选择--</option>
+                         <option th:each="dept : ${dept}" th:value="${dept.id}" th:text="${dept.name}"  th:selected="${proDeptName!=null and #strings.contains(proDeptName,dept.id)}"></option>
+                         </select>
+      <!-- 施工单位:<input type="text"  id="pcDeptName" th:value="${pcDeptName}" /> -->
+      工程类别:
+      <select  name="proEngineTypeName" id="proEngineTypeName" style="width: 148px;" >
+            <option value="">--请选择--</option>
+             <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'GCLB')}" th:selected="${proEngineTypeName!=null and #strings.contains(proEngineTypeName,dict1.id)}"></option>
+          </select><br>
+      工程来源:
+      <select  name="proSourceName" id="proSourceName" style="width: 148px;" >
+                         <option value="">--请选择--</option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'GCLY')}" th:selected="${proSourceName!=null and #strings.contains(proSourceName,dict1.id)}"></option>
+                         </select>
+      工程性质:
+      <select  name="proNatureName" id="proNatureName" style="width: 148px;" >
+                         <option value="">--请选择--</option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'GCXZ')}" th:selected="${proNatureName!=null and #strings.contains(proNatureName,dict1.id)}"></option>
+                         </select>
+       期次:
+       <select  name="proPeriodName" id="proPeriodName" style="width: 148px;" >
+                         <option value="">--请选择--</option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'QC')}" th:selected="${proPeriodName!=null and #strings.contains(proPeriodName,dict1.id)}"></option>
+                         </select>
+ 
+       工号:<input type="text"  id="proNumber" th:value="${proNumber}"/><br>
        序号:<input type="text"  id="proSerialNumber" th:value="${proSerialNumber}"/>
        开始时间:<input type="text"  id="beginTime" th:value="${beginTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
         至<input type="text"  id="endTime" th:value="${endTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />

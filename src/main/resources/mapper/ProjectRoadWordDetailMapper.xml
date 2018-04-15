@@ -18,11 +18,12 @@
     <result column="create_user" jdbcType="INTEGER" property="createUser" />
     <result column="dn_id" jdbcType="INTEGER" property="dnId" />
     <result column="detail_remark" jdbcType="VARCHAR" property="detailRemark" />
+    <result column="detail_type" jdbcType="INTEGER" property="detailType" />
   </resultMap>
   
   
   <select id="getDetailByAll" parameterType="com.study.model.ProjectRoadWordDetail" resultType="com.study.model.ProjectRoadWordDetail">
-      select id,pc_id as "pcId",pro_id as "proId",detail_day as "detailDay",detail_next_day as "detailNextDay",
+      select id,detail_type as "detailType",(select dict_name from dictionary where id=detail_type) as "detailTypeName" ,pc_id as "pcId",pro_id as "proId",detail_day as "detailDay",detail_next_day as "detailNextDay",
           detail_dma as "detailDma",detail_next_dma as "detailNextDma",detail_anti as "detailAnti",
           detail_next_anti as "detailNextAnti",create_time as "createTime",create_user as "createUser",(select name from user where id=create_user) as "userName" ,detail_remark as "detailRemark",
           (select dictdata_name from dictionarydata where id=dn_Id) as "dnIdName",dn_id as "dnId" from project_road_word_detail where 1=1

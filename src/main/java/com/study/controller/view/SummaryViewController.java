@@ -48,14 +48,60 @@ public class SummaryViewController {
   private ProjectConstructionService projectConstructionService;
   
   @RequestMapping("/day/{menuName}/{id}")
-  public String day(HttpServletRequest request,HttpServletResponse response,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime){
+  public String day(HttpServletRequest request,HttpServletResponse response,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,String proEngineTypeName,String proSourceName,String proNatureName,String proPeriodName){
     Map<String,Object> map=new HashMap<String, Object>();
     map.put("proName", proName==null?"":proName.trim());
     map.put("proNumber", proNumber==null?"":proNumber.trim());
+    /*Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,
+    String proEngineTypeName,
+    String proSourceName,String proNatureName,String proPeriodName*/
     map.put("proSerialNumber", proSerialNumber==null?"":proSerialNumber.trim());
+    map.put("proStatus", proStatus);
+    map.put("proContractNumber", proContractNumber==null?"":proContractNumber.trim());
+    map.put("proDeptName", proDeptName==null?"":proDeptName.trim());
+    map.put("pcDeptName", pcDeptName==null?"":pcDeptName.trim());
+    map.put("proEngineTypeName", proEngineTypeName==null?"":proEngineTypeName.trim());
+    map.put("proSourceName", proSourceName==null?"":proSourceName.trim());
+    map.put("proNatureName", proNatureName==null?"":proNatureName.trim());
+    map.put("proPeriodName", proPeriodName==null?"":proPeriodName.trim());
+    
+    
+    request.setAttribute("proStatus", proStatus);
+    request.setAttribute("proContractNumber", proContractNumber);
+    request.setAttribute("proDeptName", proDeptName);
+    request.setAttribute("pcDeptName", pcDeptName);
+    request.setAttribute("proEngineTypeName", proEngineTypeName);
+    request.setAttribute("proSourceName", proSourceName);
+    request.setAttribute("proNatureName", proNatureName);
+    request.setAttribute("proPeriodName", proPeriodName);
+    
     Map<String, Object> mapDic=new HashMap<String, Object>();
     mapDic.put("dictCode", "GZL");
     List<Dictionarydata> dicts = dictdataService.selectDictdataByParentId(mapDic, null);
+    mapDic=new HashMap<String, Object>();
+    mapDic.put("dictCode", "XHS");
+    List<Dictionarydata> XHS = dictdataService.selectDictdataByParentId(mapDic, null);
+    mapDic=new HashMap<String, Object>();
+    mapDic.put("dictCode", "PQF");
+    List<Dictionarydata> PQF = dictdataService.selectDictdataByParentId(mapDic, null);
+    mapDic=new HashMap<String, Object>();
+    mapDic.put("dictCode", "CL");
+    List<Dictionarydata> CL = dictdataService.selectDictdataByParentId(mapDic, null);
+    mapDic=new HashMap<String, Object>();
+    mapDic.put("dictCode", "YJSBPT");
+    List<Dictionarydata> YJSBPT = dictdataService.selectDictdataByParentId(mapDic, null);
+    mapDic=new HashMap<String, Object>();
+    mapDic.put("dictCode", "YJSBGJ");
+    List<Dictionarydata> YJSBGJ = dictdataService.selectDictdataByParentId(mapDic, null);
+    mapDic=new HashMap<String, Object>();
+    mapDic.put("dictCode", "EJSBPT");
+    List<Dictionarydata> EJSBPT = dictdataService.selectDictdataByParentId(mapDic, null);
+    mapDic=new HashMap<String, Object>();
+    mapDic.put("dictCode", "EJSBGJ");
+    List<Dictionarydata> EJSBGJ = dictdataService.selectDictdataByParentId(mapDic, null);
+    mapDic=new HashMap<String, Object>();
+    mapDic.put("dictCode", "JJM");
+    List<Dictionarydata> JJM = dictdataService.selectDictdataByParentId(mapDic, null);
    /* List<ProjectDetail> selectProjectDetail = roadWorkDailyService.selectProjectDetail(map);
     request.setAttribute("proDetail", selectProjectDetail);*/
     StringBuffer buffer=new StringBuffer();
@@ -68,6 +114,14 @@ public class SummaryViewController {
     buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap align=\"center\">工程性质</td>");
     buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap align=\"center\">工程类别</td>");
     buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>期次</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>合同编号</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>合同名称</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>工程进展问题</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>转入单位</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>项目状态</td>");
+    
+    
+    
     buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>实际开工时间</td>");
     buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>实际竣工时间</td>");
     buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>施工单位</td>");
@@ -76,6 +130,15 @@ public class SummaryViewController {
     buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(dicts.size()*2+2)+"\"  nowrap>DMA口径(个数)</td>");
     buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(dicts.size()*2+2)+"\"  nowrap>倒流防止器口径(个数)</td>");
     buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(dicts.size()*2+2)+"\"  nowrap>工作量(长度)</td>");
+    
+    buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(XHS.size()*2+2)+"\"  nowrap>消火栓</td>");
+    buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(PQF.size()*2+2)+"\"  nowrap>排气阀</td>");
+    buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(CL.size()*2+2)+"\"  nowrap>测流</td>");
+    buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(YJSBPT.size()*2+2)+"\"  nowrap>一级水表(普通)</td>");
+    buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(YJSBGJ.size()*2+2)+"\"  nowrap>一级水表（高精)</td>");
+    buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(EJSBPT.size()*2+2)+"\"  nowrap>二级水表(普通)</td>");
+    buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(EJSBGJ.size()*2+2)+"\"  nowrap>二级水表（高精)</td>");
+    buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(JJM.size()*2+2)+"\"  nowrap>闸/截门</td>");
     buffer.append("</tr>");
     
     
@@ -86,6 +149,23 @@ public class SummaryViewController {
     buffer.append("<td class=\"th\"  nowrap colspan=\""+(dicts.size()+1)+"\" align=\"center\">次日计划完成</td>");
     buffer.append("<td class=\"th\"  nowrap colspan=\""+(dicts.size()+1)+"\" align=\"center\">当前实际完成</td>");
     buffer.append("<td class=\"th\"  nowrap colspan=\""+(dicts.size()+1)+"\" align=\"center\">次日计划完成</td>");
+    
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(XHS.size()+1)+"\" align=\"center\">当前实际完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(XHS.size()+1)+"\" align=\"center\">次日计划完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(PQF.size()+1)+"\" align=\"center\">当前实际完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(PQF.size()+1)+"\" align=\"center\">次日计划完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(CL.size()+1)+"\" align=\"center\">当前实际完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(CL.size()+1)+"\" align=\"center\">次日计划完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(YJSBPT.size()+1)+"\" align=\"center\">当前实际完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(YJSBPT.size()+1)+"\" align=\"center\">次日计划完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(YJSBGJ.size()+1)+"\" align=\"center\">当前实际完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(YJSBGJ.size()+1)+"\" align=\"center\">次日计划完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(EJSBPT.size()+1)+"\" align=\"center\">当前实际完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(EJSBPT.size()+1)+"\" align=\"center\">次日计划完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(EJSBGJ.size()+1)+"\" align=\"center\">当前实际完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(EJSBGJ.size()+1)+"\" align=\"center\">次日计划完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(JJM.size()+1)+"\" align=\"center\">当前实际完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(JJM.size()+1)+"\" align=\"center\">次日计划完成</td>");
     buffer.append("</tr>");
     
     
@@ -98,6 +178,7 @@ public class SummaryViewController {
          }
        } 
      }
+    isNotNull(XHS, PQF, CL, YJSBPT, YJSBGJ, EJSBPT, EJSBGJ, JJM, buffer);
     buffer.append("</tr>");
     //=================表头end====================
     
@@ -123,6 +204,12 @@ public class SummaryViewController {
          buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProNatureName()+"</td>");
          buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProEngineTypeName()+"</td>");
          buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProPeriodName()+"</td>");
+         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProContractNumber()+"</td>");
+         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getContractName()+"</td>");
+         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getPrwProgressReport()+"</td>");
+         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProDeptName()+"</td>");
+         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+(projectDetail.getProStatus()==null?"":projectDetail.getProStatus()==1?"在施":projectDetail.getProStatus()==2?"待施":"已完工")+"</td>");
+
          buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getPrwAst()+"</td>");
          buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getPrwAet()+"</td>");
          buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getPcDeptName()+"</td>");
@@ -137,6 +224,7 @@ public class SummaryViewController {
                }
              }
            }
+           isNull(XHS, PQF, CL, YJSBPT, YJSBGJ, EJSBPT, EJSBGJ, JJM, buffer);
          }
          if(prwd!=null&&prwd.size()>=1){
            buffer.append("<td class=\"td\" >"+prwd.get(0).getCreateTime()+"</td>");
@@ -224,6 +312,48 @@ public class SummaryViewController {
                }
              }
            }
+         //XHS, PQF, CL, YJSBPT, YJSBGJ, EJSBPT, EJSBGJ, JJM
+           for (int j = 0; j <2; j++) {
+             BigDecimal xhs=new BigDecimal("0");
+             BigDecimal xhs1=new BigDecimal("0");
+             GZL(XHS, buffer, projectDetail, prwd, j, xhs, xhs1);
+           }
+           for (int j = 0; j <2; j++) {
+             BigDecimal xhs=new BigDecimal("0");
+             BigDecimal xhs1=new BigDecimal("0");
+             GZL(PQF, buffer, projectDetail, prwd, j, xhs, xhs1);
+          }
+           for (int j = 0; j <2; j++) {
+             BigDecimal xhs=new BigDecimal("0");
+             BigDecimal xhs1=new BigDecimal("0");
+             GZL(CL, buffer, projectDetail, prwd, j, xhs, xhs1);
+           }
+           for (int j = 0; j <2; j++) {
+             BigDecimal xhs=new BigDecimal("0");
+             BigDecimal xhs1=new BigDecimal("0");
+             GZL(YJSBPT, buffer, projectDetail, prwd, j, xhs, xhs1);
+           }
+           for (int j = 0; j <2; j++) {
+             BigDecimal xhs=new BigDecimal("0");
+             BigDecimal xhs1=new BigDecimal("0");
+             GZL(YJSBGJ, buffer, projectDetail, prwd, j, xhs, xhs1);
+           }
+           for (int j = 0; j <2; j++) {
+             BigDecimal xhs=new BigDecimal("0");
+             BigDecimal xhs1=new BigDecimal("0");
+             GZL(EJSBPT, buffer, projectDetail, prwd, j, xhs, xhs1);
+           }
+           for (int j = 0; j <2; j++) {
+             BigDecimal xhs=new BigDecimal("0");
+             BigDecimal xhs1=new BigDecimal("0");
+             GZL(EJSBGJ, buffer, projectDetail, prwd, j, xhs, xhs1);
+           }
+           for (int j = 0; j <2; j++) {
+             BigDecimal xhs=new BigDecimal("0");
+             BigDecimal xhs1=new BigDecimal("0");
+             GZL(JJM, buffer, projectDetail, prwd, j, xhs, xhs1);
+           }
+           
          }
          buffer.append("</tr>");
          if(prwd!=null&&prwd.size()>1){
@@ -314,6 +444,46 @@ public class SummaryViewController {
                  }
                }
              }
+             for (int j = 0; j <2; j++) {
+               BigDecimal xhs=new BigDecimal("0");
+               BigDecimal xhs1=new BigDecimal("0");
+               GZL(XHS, buffer, projectDetail, prwd, j, xhs, xhs1);
+             }
+             for (int j = 0; j <2; j++) {
+               BigDecimal xhs=new BigDecimal("0");
+               BigDecimal xhs1=new BigDecimal("0");
+               GZL(PQF, buffer, projectDetail, prwd, j, xhs, xhs1);
+            }
+             for (int j = 0; j <2; j++) {
+               BigDecimal xhs=new BigDecimal("0");
+               BigDecimal xhs1=new BigDecimal("0");
+               GZL(CL, buffer, projectDetail, prwd, j, xhs, xhs1);
+             }
+             for (int j = 0; j <2; j++) {
+               BigDecimal xhs=new BigDecimal("0");
+               BigDecimal xhs1=new BigDecimal("0");
+               GZL(YJSBPT, buffer, projectDetail, prwd, j, xhs, xhs1);
+             }
+             for (int j = 0; j <2; j++) {
+               BigDecimal xhs=new BigDecimal("0");
+               BigDecimal xhs1=new BigDecimal("0");
+               GZL(YJSBGJ, buffer, projectDetail, prwd, j, xhs, xhs1);
+             }
+             for (int j = 0; j <2; j++) {
+               BigDecimal xhs=new BigDecimal("0");
+               BigDecimal xhs1=new BigDecimal("0");
+               GZL(EJSBPT, buffer, projectDetail, prwd, j, xhs, xhs1);
+             }
+             for (int j = 0; j <2; j++) {
+               BigDecimal xhs=new BigDecimal("0");
+               BigDecimal xhs1=new BigDecimal("0");
+               GZL(EJSBGJ, buffer, projectDetail, prwd, j, xhs, xhs1);
+             }
+             for (int j = 0; j <2; j++) {
+               BigDecimal xhs=new BigDecimal("0");
+               BigDecimal xhs1=new BigDecimal("0");
+               GZL(JJM, buffer, projectDetail, prwd, j, xhs, xhs1);
+             }
              
              buffer.append("</tr>");
           }
@@ -324,7 +494,12 @@ public class SummaryViewController {
     
     
     buffer.append("</table>");
-    
+    List<Dictionarydata>  dd= dictdataService.selectDictdataByParentId(null, null);
+    request.setAttribute("dicts", dd);
+    Dept dptt=new Dept(); 
+    dptt.setParentCode("sgdw");
+    List<Dept> dpt = deptService.selectAllDept(dptt, null);
+    request.setAttribute("dept", dpt);
     request.setAttribute("html", buffer.toString().replaceAll("null", ""));
     request.setAttribute("proName", proName);
     request.setAttribute("proNumber", proNumber);
@@ -332,6 +507,179 @@ public class SummaryViewController {
     request.setAttribute("beginTime", beginTime);
     request.setAttribute("endTime", endTime);
     return "day/day";
+  }
+  private void GZL(List<Dictionarydata> XHS, StringBuffer buffer, ProjectDetail projectDetail,
+      List<ProjectRoadWordDetail> prwd, int j, BigDecimal xhs, BigDecimal xhs1) {
+    for (int ii=0;ii<XHS.size();ii++) {
+       ProjectRoadWordDetail det=new ProjectRoadWordDetail();
+       det.setProId(projectDetail.getProId());
+       det.setPcId(projectDetail.getPcId());
+       det.setDnId(XHS.get(ii).getId());
+       det.setCreateTime(prwd.get(0).getCreateTime());
+       List<ProjectRoadWordDetail> prwds = projectRoadWordDetailService.getDetailByAll(det, null);
+       ProjectRoadWordDetail wd=null;
+       if(prwds!=null&&prwds.size()>0){
+         wd=prwds.get(0);
+       }
+       if(j==0){
+         if(wd!=null){
+           buffer.append("<td class=\"td\" >"+wd.getDetailDay()+"</td>");
+           xhs=xhs.add(new BigDecimal(wd.getDetailDay()==null?"0":wd.getDetailDay().toString()));
+         }else{
+           buffer.append("<td class=\"td\" ></td>");
+         }
+       }else if(j==1){
+         if(wd!=null){
+           buffer.append("<td class=\"td\" >"+wd.getDetailNextDay()+"</td>");
+           xhs1=xhs1.add(new BigDecimal(wd.getDetailNextDay()==null?"0":wd.getDetailNextDay().toString()));
+         }else{
+           buffer.append("<td class=\"td\" ></td>");
+         }
+       }
+       if(ii==XHS.size()-1){
+         if(j==0){
+           buffer.append("<td class=\"td\" >"+xhs.doubleValue()+"</td>");
+         }else if(j==1){
+           buffer.append("<td class=\"td\" >"+xhs1.doubleValue()+"</td>");
+         }
+       }
+     }
+  }
+  private void isNotNull(List<Dictionarydata> XHS, List<Dictionarydata> PQF, List<Dictionarydata> CL,
+      List<Dictionarydata> YJSBPT, List<Dictionarydata> YJSBGJ, List<Dictionarydata> EJSBPT,
+      List<Dictionarydata> EJSBGJ, List<Dictionarydata> JJM, StringBuffer buffer) {
+    for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<XHS.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+XHS.get(ii).getDictdataName()+"</td>");
+         if(ii==XHS.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\">小计</td>");
+         }
+       } 
+     }
+     for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<PQF.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+PQF.get(ii).getDictdataName()+"</td>");
+         if(ii==PQF.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\">小计</td>");
+         }
+       } 
+     }
+     for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<CL.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+CL.get(ii).getDictdataName()+"</td>");
+         if(ii==CL.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\">小计</td>");
+         }
+       } 
+     }
+     for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<YJSBPT.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+YJSBPT.get(ii).getDictdataName()+"</td>");
+         if(ii==YJSBPT.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\">小计</td>");
+         }
+       } 
+     }
+     for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<YJSBGJ.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+YJSBGJ.get(ii).getDictdataName()+"</td>");
+         if(ii==YJSBGJ.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\">小计</td>");
+         }
+       } 
+     }
+     for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<EJSBPT.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+EJSBPT.get(ii).getDictdataName()+"</td>");
+         if(ii==EJSBPT.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\">小计</td>");
+         }
+       } 
+     }
+     for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<EJSBGJ.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+EJSBGJ.get(ii).getDictdataName()+"</td>");
+         if(ii==EJSBGJ.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\">小计</td>");
+         }
+       } 
+     }
+     for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<JJM.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+JJM.get(ii).getDictdataName()+"</td>");
+         if(ii==JJM.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\">小计</td>");
+         }
+       } 
+    }
+  }
+  private void isNull(List<Dictionarydata> XHS, List<Dictionarydata> PQF, List<Dictionarydata> CL,
+      List<Dictionarydata> YJSBPT, List<Dictionarydata> YJSBGJ, List<Dictionarydata> EJSBPT,
+      List<Dictionarydata> EJSBGJ, List<Dictionarydata> JJM, StringBuffer buffer) {
+    for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<XHS.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         if(ii==XHS.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         }
+       } 
+     }
+     for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<PQF.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         if(ii==PQF.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         }
+       } 
+     }
+     for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<CL.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         if(ii==CL.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         }
+       } 
+     }
+     for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<YJSBPT.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         if(ii==YJSBPT.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         }
+       } 
+     }
+     for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<YJSBGJ.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         if(ii==YJSBGJ.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         }
+       } 
+     }
+     for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<EJSBPT.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         if(ii==EJSBPT.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         }
+       } 
+     }
+     for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<EJSBGJ.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         if(ii==EJSBGJ.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         }
+       } 
+     }
+     for (int i = 0; i < 2; i++) {
+       for (int ii=0;ii<JJM.size();ii++) {
+         buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         if(ii==JJM.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+         }
+       } 
+    }
   }
   @RequestMapping("/type/{menuName}/{id}")
   public String type(HttpServletRequest request,HttpServletResponse response,String type,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,String proEngineType,String proPeriod){

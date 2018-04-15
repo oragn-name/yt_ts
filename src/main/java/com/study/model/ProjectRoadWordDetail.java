@@ -75,6 +75,11 @@ public class ProjectRoadWordDetail {
      @Column(name = "detail_remark")
      private Integer detailRemark;
      
+     @Column(name = "detail_type")
+     private Integer detailType;
+     
+     @Transient
+     private String detailTypeName;
      @Transient
      private String dnIdName;
      @Transient
@@ -325,6 +330,22 @@ public class ProjectRoadWordDetail {
 
     public void setEndTime(String endTime) {
       this.endTime = endTime;
+    }
+
+    public Integer getDetailType() {
+      return detailType;
+    }
+
+    public void setDetailType(Integer detailType) {
+      this.detailType = detailType;
+    }
+
+    public String getDetailTypeName() {
+      return detailTypeName;
+    }
+
+    public void setDetailTypeName(String detailTypeName) {
+      this.detailTypeName = detailTypeName;
     }
     
     
