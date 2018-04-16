@@ -25,11 +25,13 @@ public class DictionaryServiceImpl extends BaseService<Dictionary> implements Di
   public List<Dictionary> selectDictAll(Dictionary dic, PageBean bean) {
     Example example=new Example(Dictionary.class);
     Criteria createCriteria = example.createCriteria();
-    if(dic.getDictName()!=null&&!"".equals(dic.getDictName())){
-      createCriteria.andLike("dictName", "%"+dic.getDictName()+"%");
-    }
-    if(dic.getDictCode()!=null&&!"".equals(dic.getDictCode())){
-      createCriteria.andEqualTo("dictCode", dic.getDictCode());
+    if(dic!=null){
+      if(dic.getDictName()!=null&&!"".equals(dic.getDictName())){
+        createCriteria.andLike("dictName", "%"+dic.getDictName()+"%");
+      }
+      if(dic.getDictCode()!=null&&!"".equals(dic.getDictCode())){
+        createCriteria.andEqualTo("dictCode", dic.getDictCode());
+      }
     }
     if(PageBeanUtil.pageBeanIsNotEmpty(bean)){
       PageHelper.startPage(bean.getPage(), bean.getRows());
