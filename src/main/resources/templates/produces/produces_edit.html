@@ -34,7 +34,7 @@
                     <td style="width: 90px;text-align: right;">编号性质:</td>
                     <td>
                       <select class="easyui-combobox" name="proNumberType" style="width: 148px;" >
-                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'BHXZ')}" th:selected="${#strings.contains(prop.proNumberType,dict1.id)}"></option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'BHXZ')}" th:selected="${#strings.equals(prop.proNumberType,dict1.id)}"></option>
                          </select>
                     </td>
                    
@@ -48,8 +48,8 @@
                     <td style="width: 90px; text-align: right;">测量定线:</td>
                     <td>
                         <select class="easyui-combobox" name="proGauge" style="width: 148px;" >
-                           <option value="1" th:selected="${#strings.contains(prop.proGauge,1)}">是</option>
-                           <option value="0" th:selected="${#strings.contains(prop.proGauge,0)}">否</option>
+                           <option value="1" th:selected="${#strings.equals(prop.proGauge,1)}">是</option>
+                           <option value="0" th:selected="${#strings.equals(prop.proGauge,0)}">否</option>
                          </select>
                     </td>
                     
@@ -86,7 +86,7 @@
                 <td style="width: 90px;text-align: right;">工程来源:</td>
                     <td>
                     <select class="easyui-combobox" name="proSource" style="width: 148px;" >
-                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'GCLY')}" th:selected="${#strings.contains(prop.proSource,dict1.id)}"></option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'GCLY')}" th:selected="${#strings.equals(prop.proSource,dict1.id)}"></option>
                          </select>
                           <!-- <input id="proSource" name="proSource" th:value="${prop.proSource}"  class="easyui-combobox"  style="width:148px" 
 							data-options="{url:'',valueField:'id',textField:'dictdataName',method:'get',onSelect:function(region){$('#proEngineType').combobox('clear'); $('#proEngineType').combobox('reload','/dictdata/getDataTree?parentId='+region.id);},onLoadSuccess:function(data){ 
@@ -127,7 +127,7 @@
                 <td style="width: 90px;text-align: right;">工程性质:</td>
                     <td>
                          <select class="easyui-combobox" name="proNature" id="proNature" style="width: 148px;" >
-                             <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'GCXZ')}" th:selected="${#strings.contains(prop.proNature,dict1.id)}"></option>
+                             <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'GCXZ')}" th:selected="${#strings.equals(prop.proNature,dict1.id)}"></option>
                          </select>
                      </td>
                     <td style="width: 90px;text-align: right;">任务下达时间:</td>
@@ -142,7 +142,7 @@
                     <td style="width: 90px;text-align: right;">工程所在地区:</td>
                     <td>
                       <select class="easyui-combobox" name="proArea" style="width: 148px;" >
-                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'GCDQ')}" th:selected="${#strings.contains(prop.proArea,dict1.id)}"></option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'GCDQ')}" th:selected="${#strings.equals(prop.proArea,dict1.id)}"></option>
                          </select>
                     </td>
                    <td style="width: 90px;text-align: right;">期次:</td>
@@ -274,8 +274,8 @@
                     <td style="width: 90px;text-align: right;">是否设计交底:</td>
                     <td>
                      <select class="easyui-combobox" name="proDesign" style="width: 148px;" >
-                           <option value="1" th:selected="${#strings.contains(prop.proDesign,1)}">是</option>
-                           <option value="0" th:selected="${#strings.contains(prop.proDesign,0)}">否</option>
+                           <option value="1" th:selected="${#strings.equals(prop.proDesign,1)}">是</option>
+                           <option value="0" th:selected="${#strings.equals(prop.proDesign,0)}">否</option>
                          </select>
                      </td>
                 </tr>
@@ -285,12 +285,12 @@
                     <td style="width: 90px;text-align: right;">是否计费协议:</td>
                     <td colspan="3">
                      <select class="easyui-combobox" name="proBilling" style="width: 148px;" >
-                           <option value="1" th:selected="${#strings.contains(prop.proBilling,1)}">是</option>
-                           <option value="0" th:selected="${#strings.contains(prop.proBilling,0)}">否</option>
+                           <option value="1" th:selected="${#strings.equals(prop.proBilling,1)}">是</option>
+                           <option value="0" th:selected="${#strings.equals(prop.proBilling,0)}">否</option>
                          </select>
                     </td>
                 </tr>
-                <tr id="LS"  th:style="${#strings.contains(prop.proNature,'8')}?'':'display: none'" >
+                <tr id="LS"  th:style="${#strings.equals(prop.proNature,'8')}?'':'display: none'" >
                 <td style="width: 90px;text-align: right;">临水开始时间:</td>
                     <td>
                     <input class="easyui-datetimebox" type="text" name="proWaterBegintime" id="proWaterBegintime" th:value="${prop.proWaterBegintime}"  data-options=""></input>

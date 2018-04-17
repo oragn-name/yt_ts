@@ -52,7 +52,7 @@
 		 and  name like CONCAT(CONCAT('%', #{name}), '%') 
 		</if>
 		<if test="parentid!=null and parentid!=''">
-		 and  parentid like CONCAT(CONCAT('%', #{parentid}), '%') 
+		 and  parentid =#{parentid}
 		</if>
 		order by sort
   </select>

@@ -23,9 +23,9 @@
                     <td>父菜单名称:</td>
                     <td>
                         <select class="easyui-combobox" name="parentid" style="width: 148px;" >
-	           				  <option value="0"  th:selected="${#strings.contains(resources.parentid,0)}" >--请选择--</option>
+	           				  <option value="0"  th:selected="${#strings.equals(resources.parentid,0)}" >--请选择--</option>
 	           				  <span th:each="res : ${resourcesList}" th:remove="tag">
-		           				<option th:value="${res.id}" th:selected="${#strings.contains(resources.parentid,res.id)}"  th:text="${res.name}"></option>
+		           				<option th:value="${res.id}" th:selected="${#strings.equals(resources.parentid,res.id)}"  th:text="${res.name}"></option>
 	           				  </span>
 	           			</select>
 

@@ -56,7 +56,7 @@ function createFrame(url) {
 function Wraper(){}
 Wraper.prototype = {
 		openTab : function(text, url) {
-			addTab(text,url);
+			addTab(text,encodeURI(url));
 		},
 		closeTab : function(text) {
 			var tabs = $("#tabs");

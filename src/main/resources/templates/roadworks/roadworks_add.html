@@ -41,13 +41,13 @@
                     <td  style="text-align: right;">道路权属:</td>
                     <td>
                       <select class="easyui-combobox" name="prwOwnership" style="width: 148px;" >
-	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'DLQS')}"></option>
+	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'DLQS')}"></option>
 	           					</select>
                     </td>
                     <td  style="text-align: right;">管路情况:</td>
                     <td>
                       <select class="easyui-combobox" name="prwCondition" style="width: 148px;" >
-	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'LGQK')}"></option>
+	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'LGQK')}"></option>
 	           					</select>
                     </td>
                     
@@ -184,11 +184,11 @@
                 </tr>
                 
                 <tr>
-                    <td  th:if="${#strings.contains(pro.proDesign,'1')}" style="text-align: right;">设计交底时间:</td>
-                    <td th:if="${#strings.contains(pro.proDesign,'1')}"><input class="easyui-datetimebox" type="text" name="prwDesignTime" ></input></td>
+                    <td  th:if="${#strings.equals(pro.proDesign,'1')}" style="text-align: right;">设计交底时间:</td>
+                    <td th:if="${#strings.equals(pro.proDesign,'1')}"><input class="easyui-datetimebox" type="text" name="prwDesignTime" ></input></td>
                     
-                    <td  th:if="${#strings.contains(pro.proBilling,'1')}" style="text-align: right;">计费协议签订时间:</td>
-                    <td th:if="${#strings.contains(pro.proBilling,'1')}"><input class="easyui-datetimebox" type="text" name="prwBillingTime" ></input></td>
+                    <td  th:if="${#strings.equals(pro.proBilling,'1')}" style="text-align: right;">计费协议签订时间:</td>
+                    <td th:if="${#strings.equals(pro.proBilling,'1')}"><input class="easyui-datetimebox" type="text" name="prwBillingTime" ></input></td>
                 </tr>
                 <tr>
                  <td  style="text-align: right;">工程进展问题 :</td>

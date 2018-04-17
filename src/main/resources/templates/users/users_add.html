@@ -36,7 +36,7 @@
                     <td>
                         <select class="easyui-combobox" name="deptId"  style="width: 148px;" >
 	           				  <span th:each="dt : ${depts}" th:remove="tag">
-		           				<option th:value="${dt.id}" th:text="${dt.name}" th:selected="${#strings.contains(deptId,dt.id)}"></option>
+		           				<option th:value="${dt.id}" th:text="${dt.name}" th:selected="${#strings.equals(deptId,dt.id)}"></option>
 	           				  </span>
 	           			</select>
 

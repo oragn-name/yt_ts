@@ -34,15 +34,15 @@
                 <td  style="text-align: right;">安全交底:</td>
                     <td>
                       <select class="easyui-combobox" name="safetySafe" style="width: 148px;">
-	           				  	<option value="1" th:selected="${#strings.contains(satety.safetySafe,'1')}">是</option>
-	           				  	<option value="0" th:selected="${#strings.contains(satety.safetySafe,'0')}">否</option>
+	           				  	<option value="1" th:selected="${#strings.equals(satety.safetySafe,'1')}">是</option>
+	           				  	<option value="0" th:selected="${#strings.equals(satety.safetySafe,'0')}">否</option>
 	           					</select>
                     </td>
                     <td  style="text-align: right;">施工方案:</td>
                     <td>
                      <select class="easyui-combobox" name="safetyPro" style="width: 148px;" >
-	           				  	<option value="1" th:selected="${#strings.contains(satety.safetyPro,'1')}">是</option>
-	           				  	<option value="0" th:selected="${#strings.contains(satety.safetyPro,'0')}">否</option>
+	           				  	<option value="1" th:selected="${#strings.equals(satety.safetyPro,'1')}">是</option>
+	           				  	<option value="0" th:selected="${#strings.equals(satety.safetyPro,'0')}">否</option>
 	           					</select>
                       
                     </td>
@@ -52,15 +52,15 @@
                 <td  style="text-align: right;">治安消防:</td>
                     <td>
                       <select class="easyui-combobox" name="safetyFire" style="width: 148px;">
-	           				  	<option value="1" th:selected="${#strings.contains(satety.safetyFire,'1')}">是</option>
-	           				  	<option value="0" th:selected="${#strings.contains(satety.safetyFire,'0')}">否</option>
+	           				  	<option value="1" th:selected="${#strings.equals(satety.safetyFire,'1')}">是</option>
+	           				  	<option value="0" th:selected="${#strings.equals(satety.safetyFire,'0')}">否</option>
 	           					</select>
                     </td>
                     <td  style="text-align: right;">安全措施:</td>
                     <td>
                      <select class="easyui-combobox" name="safetyStep" style="width: 148px;" >
-	           				  	<option value="1" th:selected="${#strings.contains(satety.safetyStep,'1')}">是</option>
-	           				  	<option value="0" th:selected="${#strings.contains(satety.safetyStep,'0')}">否</option>
+	           				  	<option value="1" th:selected="${#strings.equals(satety.safetyStep,'1')}">是</option>
+	           				  	<option value="0" th:selected="${#strings.equals(satety.safetyStep,'0')}">否</option>
 	           					</select>
                       
                     </td>

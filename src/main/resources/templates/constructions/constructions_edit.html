@@ -19,7 +19,7 @@
                     <td>施工单位:</td>
                     <td>
                     <select class="easyui-combobox" name="pcDept" style="width: 148px;" >
-	           				  	    <option th:each="dict1 : ${dtd}" th:value="${dict1.id}" th:text="${dict1.name}"  th:selected="${#strings.contains(dict1.id,pc.pcDept)}"></option>
+	           				  	    <option th:each="dict1 : ${dtd}" th:value="${dict1.id}" th:text="${dict1.name}"  th:selected="${#strings.equals(dict1.id,pc.pcDept)}"></option>
 	           					</select>
                     </td>
                 </tr>

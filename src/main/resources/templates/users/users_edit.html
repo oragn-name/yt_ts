@@ -32,7 +32,7 @@
                     <td>
                         <select class="easyui-combobox" name="deptId"  style="width: 148px;" >
 	           				  <span th:each="dt : ${depts}" th:remove="tag">
-		           				<option th:value="${dt.id}" th:text="${dt.name}" th:selected="${#strings.contains(user.deptId,dt.id)}"></option>
+		           				<option th:value="${dt.id}" th:text="${dt.name}" th:selected="${#strings.equals(user.deptId,dt.id)}"></option>
 	           				  </span>
 	           			</select>
 
@@ -41,8 +41,8 @@
                 <tr>
                     <td>是否启用:</td>
                     <td>
-                            <input type="radio" name="enable" value="1" th:checked="${#strings.contains(user.enable,1)}"  />启用
-                            <input type="radio" name="enable" value="0" th:checked="${#strings.contains(user.enable,0)}"/>不启用
+                            <input type="radio" name="enable" value="1" th:checked="${#strings.equals(user.enable,1)}"  />启用
+                            <input type="radio" name="enable" value="0" th:checked="${#strings.equals(user.enable,0)}"/>不启用
                     </td>
                 </tr>
                 <tr>

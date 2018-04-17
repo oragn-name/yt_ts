@@ -32,7 +32,7 @@
                     <td>
                         <select class="easyui-combobox" name="parentid" disabled="disabled" style="width: 148px;" >
 	           				  <span th:each="res : ${resList}" th:remove="tag">
-		           				<option th:value="${res.id}" th:text="${res.name}" th:selected=${#strings.contains(res.id,parentid)}></option>
+		           				<option th:value="${res.id}" th:text="${res.name}" th:selected=${#strings.equals(res.id,parentid)}></option>
 	           				  </span>
 	           			</select>
 

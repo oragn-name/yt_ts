@@ -29,8 +29,8 @@
                 <td  style="text-align: right;">工程来源:</td>
                     <td>
                       <select class="easyui-combobox" name="receiptsSource" style="width: 148px;">
-	           				  	<option value="1" th:selected="${#strings.contains(receipts.receiptsSource,1)}">集团内</option>
-	           				  	<option value="0" th:selected="${#strings.contains(receipts.receiptsSource,0)}">集团外</option>
+	           				  	<option value="1" th:selected="${#strings.equals(receipts.receiptsSource,1)}">集团内</option>
+	           				  	<option value="0" th:selected="${#strings.equals(receipts.receiptsSource,0)}">集团外</option>
 	           					</select>
                     </td>
                 </tr>

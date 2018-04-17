@@ -49,13 +49,13 @@
                     <td style="text-align: right;">道路权属:</td>
                     <td>
                       <select class="easyui-combobox" name="prwOwnership" style="width: 148px;" >
-	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'DLQS')}" th:selected="${#strings.contains(roadWork.prwOwnership,dict1.id)}"></option>
+	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'DLQS')}" th:selected="${#strings.equals(roadWork.prwOwnership,dict1.id)}"></option>
 	           					</select>
                     </td>
                     <td  style="text-align: right;">管路情况:</td>
                     <td>
                       <select class="easyui-combobox" name="prwCondition" style="width: 148px;" >
-	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'LGQK')}" th:selected="${#strings.contains(roadWork.prwCondition,dict1.id)}"></option>
+	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'LGQK')}" th:selected="${#strings.equals(roadWork.prwCondition,dict1.id)}"></option>
 	           					</select>
                     </td>
                     
@@ -64,15 +64,15 @@
                 <td style="text-align: right;">是否随大修路:</td>
                     <td>
                       <select class="easyui-combobox" name="prwRepair" style="width: 148px;" >
-         				  	<option value="1" th:selected="${#strings.contains(roadWork.prwRepair,1)}">是</option>
-         				  	<option value="2" th:selected="${#strings.contains(roadWork.prwRepair,2)}">否</option>
+         				  	<option value="1" th:selected="${#strings.equals(roadWork.prwRepair,1)}">是</option>
+         				  	<option value="2" th:selected="${#strings.equals(roadWork.prwRepair,2)}">否</option>
          					</select>
                     </td>
                     <td style="text-align: right;">是否非开挖:</td>
                     <td>
                       <select class="easyui-combobox" name="prwExcavation" style="width: 148px;" >
-	           				  	<option value="1" th:selected="${#strings.contains(roadWork.prwExcavation,1)}">是</option>
-	           				  	<option value="2" th:selected="${#strings.contains(roadWork.prwExcavation,2)}">否</option>
+	           				  	<option value="1" th:selected="${#strings.equals(roadWork.prwExcavation,1)}">是</option>
+	           				  	<option value="2" th:selected="${#strings.equals(roadWork.prwExcavation,2)}">否</option>
 	           					</select>
                     </td>
                     <td style="text-align: right;">预判施工工时:</td>
@@ -199,10 +199,10 @@
                 </tr>
                 
                 <tr>
-                   <td th:if="${#strings.contains(pro.proDesign,'1')}" style="text-align: right;">设计交底时间:</td>
-                    <td th:if="${#strings.contains(pro.proDesign,'1')}"><input class="easyui-datetimebox" type="text" name="prwDesignTime" th:value="${roadWork.prwDesignTime}"></input></td>
-                    <td th:if="${#strings.contains(pro.proBilling,'1')}" style="text-align: right;">计费协议签订时间:</td>
-                    <td th:if="${#strings.contains(pro.proBilling,'1')}"><input class="easyui-datetimebox" type="text" name="prwBillingTime" th:value="${roadWork.prwBillingTime}"></input></td>
+                   <td th:if="${#strings.equals(pro.proDesign,'1')}" style="text-align: right;">设计交底时间:</td>
+                    <td th:if="${#strings.equals(pro.proDesign,'1')}"><input class="easyui-datetimebox" type="text" name="prwDesignTime" th:value="${roadWork.prwDesignTime}"></input></td>
+                    <td th:if="${#strings.equals(pro.proBilling,'1')}" style="text-align: right;">计费协议签订时间:</td>
+                    <td th:if="${#strings.equals(pro.proBilling,'1')}"><input class="easyui-datetimebox" type="text" name="prwBillingTime" th:value="${roadWork.prwBillingTime}"></input></td>
                 </tr>
                 
                 <tr>

@@ -21,7 +21,7 @@
    	</table>
     <div id="toolbar1" class="easyui-layout" style="height:65px;margin:3px;">
         <div data-options="region:'center',border:false">
-          <a th:each="but : ${buttons}" th:shiro:hasPermission="${but.resurl}" th: class="easyui-linkbutton" th:icon="${but.iconCls}" plain="true" th:href="|javascript:${but.butFun};|" th:text="${but.name}" th:if="${not #strings.contains(but.id,13)}"></a>
+          <a th:each="but : ${buttons}" th:shiro:hasPermission="${but.resurl}" th: class="easyui-linkbutton" th:icon="${but.iconCls}" plain="true" th:href="|javascript:${but.butFun};|" th:text="${but.name}" th:if="${not #strings.equals(but.id,13)}"></a>
         </div>
         <div data-options="region:'north',border:true" style="height:40px;">
             <form id="fm" method="post" novalidate>

@@ -40,7 +40,7 @@
                     <td>
                          <select class="easyui-combobox" name="dictId" disabled="disabled"  style="width: 148px;" >
 	           				  <span th:each="dic : ${dicts}" th:remove="tag">
-		           				<option th:value="${dic.id}" th:text="${dic.dictName}" th:selected="${#strings.contains(dictId,dic.id)}"></option>
+		           				<option th:value="${dic.id}" th:text="${dic.dictName}" th:selected="${#strings.equals(dictId,dic.id)}"></option>
 	           				  </span>
 	           			</select>
 

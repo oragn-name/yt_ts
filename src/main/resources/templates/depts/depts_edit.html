@@ -23,9 +23,9 @@
                     <td>上级部门:</td>
                     <td>
                         <select class="easyui-combobox" name="parentId" style="width: 148px;" >
-	           				  <option value="0" th:selected="${#strings.contains(dept.parentId,0)}">--请选择--</option>
+	           				  <option value="0" th:selected="${#strings.equals(dept.parentId,0)}">--请选择--</option>
 	           				  <span th:each="dt : ${depts}" th:remove="tag">
-		           				<option th:value="${dt.id}" th:text="${dt.name}"  th:selected="${#strings.contains(dept.parentId,dt.id)}"></option>
+		           				<option th:value="${dt.id}" th:text="${dt.name}"  th:selected="${#strings.equals(dept.parentId,dt.id)}"></option>
 	           				  </span>
 	           			</select>
 

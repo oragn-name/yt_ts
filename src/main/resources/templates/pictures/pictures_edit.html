@@ -16,7 +16,7 @@
                 <td  style="text-align: right;">图纸性质:</td>
                     <td>
                            <select class="easyui-combobox" name="pictureNature" style="width: 148px;" >
-	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'TZXZ')}" th:selected="${#strings.contains(picture.pictureNature,dict1.id)}"></option>
+	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'TZXZ')}" th:selected="${#strings.equals(picture.pictureNature,dict1.id)}"></option>
 	           					</select>
                      </td>
                     <td style="text-align: right;">接受竣工图时间:</td>
@@ -27,8 +27,8 @@
                     <td style="text-align: right;">竣工图是否合格:</td>
                     <td>
 <select class="easyui-combobox" name="pictureType" style="width: 148px;">
-	           				  	<option value="1"  th:selected="${#strings.contains(picture.pictureType,1)}">合格</option>
-	           				  	<option value="0" th:selected="${#strings.contains(picture.pictureType,0)}">不合格</option>
+	           				  	<option value="1"  th:selected="${#strings.equals(picture.pictureType,1)}">合格</option>
+	           				  	<option value="0" th:selected="${#strings.equals(picture.pictureType,0)}">不合格</option>
 	           					</select>
                      </td>
                     <td  style="text-align: right;">竣工图和格时间:</td>

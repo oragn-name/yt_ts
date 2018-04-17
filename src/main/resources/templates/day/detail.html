@@ -127,7 +127,7 @@
         	var proPeriod=$("#proPeriod").val();
         	var ids=$("#ids").val();
         	var deptName=$("#ids").text();
-        	location.href="/typeDetail/工程类别汇总/116?proEngineType="+proEngineType+"&proPeriod="+proPeriod+"&ids="+ids+"&deptName="+deptName+"&beginTime="+beginTime+"&endTime="+endTime;
+        	location.href=encodeURI("/typeDetail/工程类别汇总/116?proEngineType="+proEngineType+"&proPeriod="+proPeriod+"&ids="+ids+"&deptName="+deptName+"&beginTime="+beginTime+"&endTime="+endTime);
         }
     </script>
 </head>
@@ -143,16 +143,16 @@
         
          工程类别:<select  name="proEngineType" id="proEngineType" style="width: 148px;" >
             <option value="">--请选择--</option>
-             <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'GCLB')}" th:selected="${proEngineType!=null and #strings.contains(proEngineType,dict1.id)}"></option>
+             <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'GCLB')}" th:selected="${proEngineType!=null and #strings.equals(proEngineType,dict1.id)}"></option>
           </select>
           
         <!--   期次:<select  name="proPeriod" id="proPeriod" style="width: 148px;" >
                          <option value="">--请选择--</option>
-                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'QC')}" th:selected="${proPeriod!=null and #strings.contains(proPeriod,dict1.id)}"></option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'QC')}" th:selected="${proPeriod!=null and #strings.equals(proPeriod,dict1.id)}"></option>
                          </select> -->
                          部门:<select  name="ids" id="ids" style="width: 148px;" >
                          <option value="">--请选择--</option>
-                         <option th:each="dept : ${dept}" th:value="${dept.id}" th:text="${dept.name}"  th:selected="${ids!=null and #strings.contains(ids,dept.id)}"></option>
+                         <option th:each="dept : ${dept}" th:value="${dept.id}" th:text="${dept.name}"  th:selected="${ids!=null and #strings.equals(ids,dept.id)}"></option>
                          </select>
                          开始时间:<input type="text"  id="beginTime" th:value="${beginTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
         至<input type="text"  id="endTime" th:value="${endTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />

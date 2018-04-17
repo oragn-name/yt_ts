@@ -125,7 +125,7 @@
         	var endTime=$("#endTime").val();
         	var proEngineType=$("#proEngineType").val();
         	var proPeriod=$("#proPeriod").val();
-        	location.href="/type/工程类别汇总/115?proEngineType="+proEngineType+"&proPeriod="+proPeriod+"&beginTime="+beginTime+"&endTime="+endTime;
+        	location.href=encodeURI("/type/工程类别汇总/115?proEngineType="+proEngineType+"&proPeriod="+proPeriod+"&beginTime="+beginTime+"&endTime="+endTime);
         }
     </script>
 </head>
@@ -140,12 +140,12 @@
         至<input type="text"  id="endTime" th:value="${endTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" /> -->
         工程类别:<select  name="proEngineType" id="proEngineType" style="width: 148px;" >
             <option value="">--请选择--</option>
-             <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'GCLB')}" th:selected="${proEngineType!=null and #strings.contains(proEngineType,dict1.id)}"></option>
+             <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'GCLB')}" th:selected="${proEngineType!=null and #strings.equals(proEngineType,dict1.id)}"></option>
           </select>
           
           期次:<select  name="proPeriod" id="proPeriod" style="width: 148px;" >
                          <option value="">--请选择--</option>
-                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'QC')}" th:selected="${proPeriod!=null and #strings.contains(proPeriod,dict1.id)}"></option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'QC')}" th:selected="${proPeriod!=null and #strings.equals(proPeriod,dict1.id)}"></option>
                          </select>
                     
         开始时间:<input type="text"  id="beginTime" th:value="${beginTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>

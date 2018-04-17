@@ -56,7 +56,7 @@
                 <td  style="text-align: right;">合同性质:</td>
                     <td>
                      <select class="easyui-combobox" name="contractNatrue" style="width: 148px;" >
-                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.contains(dict1.dictCode,'HTXZ')}"></option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'HTXZ')}"></option>
                          </select>
                     </td>
                     
