@@ -18,13 +18,14 @@
     <result column="pc_remark" jdbcType="VARCHAR" property="pcRemark" />
     <result column="pc_begin" jdbcType="VARCHAR" property="pcBegin" />
     <result column="pc_end" jdbcType="VARCHAR" property="pcEnd" />
+     <result column="pc_address" jdbcType="VARCHAR" property="pcAddress" />
     
   </resultMap>
   
   <select id="selectByAll" parameterType="com.study.model.ProjectConstruction" resultType="com.study.model.ProjectConstruction">
      select id, proId as "proid",prwId as "prwid",pc_workers as "pcWorkers", pc_phone as "pcPhone",
      pc_week_plan as "pcWeekPlan" ,pc_month_plan as "pcMonthPlan",create_user as "createUser",create_time as "createTime",
-     pc_remark as "pcRemark",(select name from dept where id=pc_dept)  as "pcDeptName",pc_dept as "pcDept",pc_begin as "pcBegin",pc_end as "pcEnd" from project_construction where 1=1
+     pc_remark as "pcRemark",pc_address as "pcAddress", (select name from dept where id=pc_dept)  as "pcDeptName",pc_dept as "pcDept",pc_begin as "pcBegin",pc_end as "pcEnd" from project_construction where 1=1
        <if test="proid!=null and proid!=''">
           and proId=#{proid}
        </if>

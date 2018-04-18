@@ -62,7 +62,11 @@ public class ProjectConstruction {
     @Column(name = "pc_dept")
     private Integer pcDept;
     
-    
+    /**
+     * 施工单位
+     */
+    @Column(name = "pc_address")
+    private String pcAddress;
     /**
      * 备注
      */
@@ -283,6 +287,14 @@ public class ProjectConstruction {
 
     public void setPcEnd(String pcEnd) {
       this.pcEnd = pcEnd;
+    }
+
+    public String getPcAddress() {
+      return pcAddress;
+    }
+
+    public void setPcAddress(String pcAddress) {
+      this.pcAddress = pcAddress;
     }
     
     

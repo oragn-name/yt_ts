@@ -727,6 +727,10 @@ public class SummaryViewController {
     buffer.append("<table id=\"tbHaederText\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" style=\"border-collapse: collapse; word-break: keep-all; border-color: Black;width: 100%;\">");
     buffer.append("<tr>");//第一行
     buffer.append("<td class=\"th\" rowspan=\"2\"   nowrap align=\"center\">工程类别</td>");
+    
+    buffer.append("<td class=\"th\" rowspan=\"2\"   nowrap align=\"center\">DMA口径（个数）小计</td>");
+    buffer.append("<td class=\"th\" rowspan=\"2\"   nowrap align=\"center\">倒流防止器口径(个数)小计</td>");
+    buffer.append("<td class=\"th\" rowspan=\"2\"   nowrap align=\"center\">工作量(长度)小计</td>");
       
     for (int i=0;i<selectAllDept.size();i++) {
       buffer.append("<td class=\"th\" colspan=\"3\"   nowrap align=\"center\">"+selectAllDept.get(i).getName()+"</td>");
@@ -746,9 +750,43 @@ public class SummaryViewController {
     mapDict.put("dictCode", "GCLB");
     mapDict.put("id", proEngineType==null?"":proEngineType.trim());
     List<Dictionarydata> dd = dictdataService.selectDictdataByParentId(mapDict, null);//获取所有的工程类型
+    BigDecimal one1=new BigDecimal("0");
+    BigDecimal one2=new BigDecimal("0");
+    BigDecimal one3=new BigDecimal("0");
+    
+    Double[][] list1=new Double[dd.size()][selectAllDept.size()];
+    Double[][] list2=new Double[dd.size()][selectAllDept.size()];
+    Double[][] list3=new Double[dd.size()][selectAllDept.size()];
     for (int i = 0; i < dd.size(); i++) {
+      BigDecimal one=new BigDecimal("0");
+      BigDecimal two=new BigDecimal("0");
+      BigDecimal three=new BigDecimal("0");
+      for (int j=0;j<selectAllDept.size();j++) {
+        Map<String, Object> map2=new HashMap<String, Object>();
+        map2.put("proEngineType", dd.get(i).getId());
+        map2.put("pcDept", selectAllDept.get(j).getId());
+        map2.put("beginTime", beginTime==null?"":beginTime.trim());
+        map2.put("endTime", endTime==null?"":endTime.trim());
+        List<ProjectDetailType> orderDetail = roadWorkDailyService.getOrderDetail(map2);
+        if(orderDetail!=null&&orderDetail.size()>0){
+          for (int k = 0; k < orderDetail.size(); k++) {
+            list1[i][j]=orderDetail.get(k).getDmaTotal();
+            list2[i][j]=orderDetail.get(k).getAntiTotal();
+            list3[i][j]=orderDetail.get(k).getDayTotal();
+            one=one.add(new BigDecimal(orderDetail.get(k).getDmaTotal()+""));
+            two=two.add(new BigDecimal(orderDetail.get(k).getAntiTotal()+""));
+            three=three.add(new BigDecimal(orderDetail.get(k).getDayTotal()+""));
+          }
+        }
+      }
+      one1=one1.add(one);
+      one2=one2.add(two);
+      one3=one3.add(three);
       buffer.append("<tr>");
       buffer.append("<td class=\"td\" >"+dd.get(i).getDictdataName()+"</td>");
+      buffer.append("<td class=\"td\" >"+one.doubleValue()+"</td>");
+      buffer.append("<td class=\"td\" >"+two.doubleValue()+"</td>");
+      buffer.append("<td class=\"td\" >"+three.doubleValue()+"</td>");
       for (int j=0;j<selectAllDept.size();j++) {
         Map<String, Object> map2=new HashMap<String, Object>();
         map2.put("proEngineType", dd.get(i).getId());
@@ -770,6 +808,40 @@ public class SummaryViewController {
       }
       buffer.append("</tr>");
     }
+    buffer.append("<tr>");//合计
+    buffer.append("<td class=\"td\" >合计</td>");
+    buffer.append("<td class=\"td\" >"+one1.doubleValue()+"</td>");
+    buffer.append("<td class=\"td\" >"+one2.doubleValue()+"</td>");
+    buffer.append("<td class=\"td\" >"+one3.doubleValue()+"</td>");
+   System.out.println(list1.toString());
+   Double[] doubles1=new Double[selectAllDept.size()];
+   Double[] doubles2=new Double[selectAllDept.size()];
+   Double[] doubles3=new Double[selectAllDept.size()];
+   for (int j = 0; j < list1.length; j++) {
+    for (int k = 0; k < list1[j].length; k++) {
+      if(j!=0){
+        doubles1[k]=(new BigDecimal(doubles1[k]+"").add(new BigDecimal(list1[j][k]+"")).doubleValue());
+        doubles2[k]=(new BigDecimal(doubles2[k]+"").add(new BigDecimal(list2[j][k]+"")).doubleValue());
+        doubles3[k]=(new BigDecimal(doubles3[k]+"").add(new BigDecimal(list3[j][k]+"")).doubleValue());
+      }else{
+        doubles1[k]=list1[j][k];
+        doubles2[k]=list2[j][k];
+        doubles3[k]=list3[j][k];
+      }
+      
+    }
+  }
+   
+    for (int i=0;i<doubles1.length;i++) {
+      buffer.append("<td class=\"td\" >"+doubles1[i]+"</td>");
+      buffer.append("<td class=\"td\" >"+doubles2[i]+"</td>");
+      buffer.append("<td class=\"td\" >"+doubles3[i]+"</td>");
+    }
+    
+    
+    
+    buffer.append("</tr>");
+    
     
     buffer.append("<table>");
     
