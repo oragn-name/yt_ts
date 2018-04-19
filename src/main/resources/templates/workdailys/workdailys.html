@@ -80,6 +80,18 @@
 						<th  align="center"  colspan="2" width="300">工作量长度(长度)</th>  
 						<th  align="center"  colspan="2" width="300">倒流防止器口径(个数)</th>
 						<th  align="center"  colspan="2" width="300">DMA(个数)</th>
+						<th rowspan="2" data-options="field:'detailStopWater',width:150,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }" >计划停水</th>
+						<th rowspan="2" data-options="field:'detailRinse',width:150,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }" >计划冲洗</th>
+						<th rowspan="2" data-options="field:'detailGas',width:150,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }" >计划燃气</th>
 						<th rowspan="2" data-options="field:'createTime',width:150,align:'center',sortable:'true'" >创建时间</th>
 						<th rowspan="2" data-options="field:'userName',width:150,align:'center',sortable:'true'" >创建人</th>
 						<th rowspan="2" data-options="field:'detailRemark',width:150,align:'center',sortable:'true'" >备注</th>

@@ -191,42 +191,42 @@ public class SummaryViewController {
          detail.setBeginTime( beginTime==null?"":beginTime.trim());
          detail.setEndTime( endTime==null?"":endTime.trim());
          List<ProjectRoadWordDetail> prwd = projectRoadWordDetailService.getDetailByCreateTime(detail);
-         int row=1;
-         if(prwd!=null&&prwd.size()>0){
-           row=prwd.size();
-         }
-         
-         buffer.append("<tr>");
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\" >"+projectDetail.getProNumber()+"</td>");
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProSnapNumber()+"</td>");
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProSerialNumber()+"</td>");
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProSourceName()+"</td>");
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProNatureName()+"</td>");
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProEngineTypeName()+"</td>");
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProPeriodName()+"</td>");
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProContractNumber()+"</td>");
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getContractName()+"</td>");
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getPrwProgressReport()+"</td>");
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProDeptName()+"</td>");
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+(projectDetail.getProStatus()==null?"":projectDetail.getProStatus()==1?"在施":projectDetail.getProStatus()==2?"待施":"已完工")+"</td>");
+         if(prwd!=null&&prwd.size()>=1){
+           int row=1;
+           if(prwd!=null&&prwd.size()>0){
+             row=prwd.size();
+           }
+           
+           buffer.append("<tr>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\" >"+projectDetail.getProNumber()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProSnapNumber()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProSerialNumber()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProSourceName()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProNatureName()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProEngineTypeName()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProPeriodName()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProContractNumber()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getContractName()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getPrwProgressReport()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProDeptName()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+(projectDetail.getProStatus()==null?"":projectDetail.getProStatus()==1?"在施":projectDetail.getProStatus()==2?"待施":"已完工")+"</td>");
 
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getPrwAst()+"</td>");
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getPrwAet()+"</td>");
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getPcDeptName()+"</td>");
-         buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProDesignLength()+"</td>");
-         if(prwd==null||prwd.size()<=0){
-           buffer.append("<td class=\"td\"></td>");
-           for (int i = 0; i < 6; i++) {
-             for (int ii=0;ii<dicts.size();ii++) {
-               buffer.append("<td class=\"td\" ></td>");
-               if(ii==dicts.size()-1){
-                 buffer.append("<td class=\"td\"></td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getPrwAst()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getPrwAet()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getPcDeptName()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProDesignLength()+"</td>");
+           if(prwd==null||prwd.size()<=0){
+             buffer.append("<td class=\"td\"></td>");
+             for (int i = 0; i < 6; i++) {
+               for (int ii=0;ii<dicts.size();ii++) {
+                 buffer.append("<td class=\"td\" ></td>");
+                 if(ii==dicts.size()-1){
+                   buffer.append("<td class=\"td\"></td>");
+                 }
                }
              }
+             isNull(XHS, PQF, CL, YJSBPT, YJSBGJ, EJSBPT, EJSBGJ, JJM, buffer);
            }
-           isNull(XHS, PQF, CL, YJSBPT, YJSBGJ, EJSBPT, EJSBGJ, JJM, buffer);
-         }
-         if(prwd!=null&&prwd.size()>=1){
            buffer.append("<td class=\"td\" >"+prwd.get(0).getCreateTime()+"</td>");
            for (int i = 0; i < 6; i++) {
              BigDecimal one=new BigDecimal("0");
@@ -853,4 +853,151 @@ public class SummaryViewController {
     request.setAttribute("ids",ids);
     return "day/detail";
   }
+  @RequestMapping("/water/{menuName}/{id}")
+  public String water(HttpServletRequest request,HttpServletResponse response,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,String proEngineTypeName,String proSourceName,String proNatureName,String proPeriodName,Integer dnId){
+    Map<String,Object> map=new HashMap<String, Object>();
+    map.put("proName", proName==null?"":proName.trim());
+    map.put("proNumber", proNumber==null?"":proNumber.trim());
+    /*Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,
+    String proEngineTypeName,
+    String proSourceName,String proNatureName,String proPeriodName*/
+    map.put("proSerialNumber", proSerialNumber==null?"":proSerialNumber.trim());
+    map.put("proStatus", proStatus);
+    map.put("proContractNumber", proContractNumber==null?"":proContractNumber.trim());
+    map.put("proDeptName", proDeptName==null?"":proDeptName.trim());
+    map.put("pcDeptName", pcDeptName==null?"":pcDeptName.trim());
+    map.put("proEngineTypeName", proEngineTypeName==null?"":proEngineTypeName.trim());
+    map.put("proSourceName", proSourceName==null?"":proSourceName.trim());
+    map.put("proNatureName", proNatureName==null?"":proNatureName.trim());
+    map.put("proPeriodName", proPeriodName==null?"":proPeriodName.trim());
+    
+    
+    request.setAttribute("proStatus", proStatus);
+    request.setAttribute("proContractNumber", proContractNumber);
+    request.setAttribute("proDeptName", proDeptName);
+    request.setAttribute("pcDeptName", pcDeptName);
+    request.setAttribute("proEngineTypeName", proEngineTypeName);
+    request.setAttribute("proSourceName", proSourceName);
+    request.setAttribute("proNatureName", proNatureName);
+    request.setAttribute("proPeriodName", proPeriodName);
+    request.setAttribute("dnId", dnId);
+    
+    StringBuffer buffer=new StringBuffer();
+    buffer.append("<table id=\"tbHaederText\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" style=\"border-collapse: collapse; word-break: keep-all; border-color: Black;width: 100%;\">");
+    buffer.append("<tr>");//第一行
+    buffer.append("<td class=\"th\"  nowrap align=\"center\">工号</td>");
+    buffer.append("<td class=\"th\"   nowrap align=\"center\">临时工号</td>");
+    buffer.append("<td class=\"th\"   nowrap align=\"center\">序号</td>");
+    buffer.append("<td class=\"th\"   nowrap align=\"center\">工程名称</td>");
+    buffer.append("<td class=\"th\"   nowrap align=\"center\">工程来源</td>");
+    buffer.append("<td class=\"th\"  nowrap align=\"center\">工程性质</td>");
+    buffer.append("<td class=\"th\"  nowrap align=\"center\">工程类别</td>");
+    buffer.append("<td class=\"th\"  nowrap align=\"center\">期次</td>");
+    buffer.append("<td class=\"th\"   nowrap align=\"center\">转入单位</td>");
+    buffer.append("<td class=\"th\"   nowrap align=\"center\">项目状态</td>");
+    buffer.append("<td class=\"th\"   nowrap align=\"center\">施工单位</td>");
+    buffer.append("<td class=\"th\"   nowrap align=\"center\">施工地点</td>");
+    buffer.append("<td class=\"th\"   nowrap align=\"center\">时间</td>");
+    buffer.append("<td class=\"th\"   nowrap align=\"center\">工作量</td>");
+    buffer.append("<td class=\"th\"   nowrap align=\"center\">计划停水</td>");
+    buffer.append("<td class=\"th\"   nowrap align=\"center\">计划冲水</td>");
+    buffer.append("<td class=\"th\"   nowrap align=\"center\">计划过燃气</td>");
+     buffer.append("</tr>");
+     List<ProjectDetail> orderDay = roadWorkDailyService.getOrderDay(map);
+     
+     if(orderDay!=null&&orderDay.size()>0){
+       for (ProjectDetail projectDetail : orderDay) {
+         ProjectRoadWordDetail detail=new ProjectRoadWordDetail();
+         detail.setProId(projectDetail.getProId());
+         detail.setPcId(projectDetail.getPcId());
+         detail.setBeginTime( beginTime==null?"":beginTime.trim());
+         detail.setEndTime( endTime==null?"":endTime.trim());
+         detail.setDnId(dnId);
+         List<ProjectRoadWordDetail> prwd = projectRoadWordDetailService.getDetailByCreateTimeByWater(detail);
+         if(prwd!=null&&prwd.size()>0){
+           int row=1;
+           if(prwd!=null&&prwd.size()>0){
+             row=prwd.size();
+           }
+           buffer.append("<tr>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\" >"+projectDetail.getProNumber()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProSnapNumber()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProSerialNumber()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProName()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProSourceName()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProNatureName()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProEngineTypeName()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProPeriodName()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getProDeptName()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+(projectDetail.getProStatus()==null?"":projectDetail.getProStatus()==1?"在施":projectDetail.getProStatus()==2?"待施":"已完工")+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getPcDeptName()+"</td>");
+           buffer.append("<td class=\"td\" rowspan=\""+row+"\">"+projectDetail.getPcAddress()+"</td>");
+           if(prwd==null||prwd.size()<=0){
+             buffer.append("<td class=\"td\" ></td>");
+             buffer.append("<td class=\"td\" ></td>");
+             buffer.append("<td class=\"td\" ></td>");
+             buffer.append("<td class=\"td\" ></td>");
+             buffer.append("<td class=\"td\" ></td>");
+           }
+           if(prwd!=null&&prwd.size()>=1){
+             ProjectRoadWordDetail selectByKey = projectRoadWordDetailService.selectByKey(prwd.get(0).getId());
+             Dictionarydata selectByKey2 = dictdataService.selectByKey(selectByKey.getDnId());
+             String red="";
+             if(selectByKey2.getDictdataName()!=null){
+               if(Integer.parseInt(selectByKey2.getDictdataName().substring(2, selectByKey2.getDictdataName().length()))>=300){
+                 red="style=\"background-color:red;\"";
+               }
+             }
+             buffer.append("<td class=\"td\" "+red+">"+prwd.get(0).getCreateTime()+"</td>");
+             buffer.append("<td class=\"td\" "+red+" >"+selectByKey2.getDictdataName()+"</td>");
+             buffer.append("<td class=\"td\" "+red+">"+(selectByKey.getDetailStopWater()==1?"是":"否")+"</td>");
+             buffer.append("<td class=\"td\" "+red+">"+(selectByKey.getDetailRinse()==1?"是":"否")+"</td>");
+             buffer.append("<td class=\"td\" "+red+">"+(selectByKey.getDetailGas()==1?"是":"否")+"</td>");
+           }
+           buffer.append("</tr>");
+           
+           for (int k=1; k<prwd.size(); k++) {
+             ProjectRoadWordDetail selectByKey = projectRoadWordDetailService.selectByKey(prwd.get(k).getId());
+             Dictionarydata selectByKey2 = dictdataService.selectByKey(selectByKey.getDnId());
+             String red="";
+             if(selectByKey2.getDictdataName()!=null){
+               if(Integer.parseInt(selectByKey2.getDictdataName().substring(2, selectByKey2.getDictdataName().length()))>=300){
+                 red="style=\"background-color:red;\"";
+               }
+             }
+             buffer.append("<tr "+red+">");
+             buffer.append("<td class=\"td\" >"+prwd.get(k).getCreateTime()+"</td>");
+             buffer.append("<td class=\"td\"  >"+selectByKey2.getDictdataName()+"</td>");
+             buffer.append("<td class=\"td\" >"+(selectByKey.getDetailStopWater()==1?"是":"否")+"</td>");
+             buffer.append("<td class=\"td\" >"+(selectByKey.getDetailRinse()==1?"是":"否")+"</td>");
+             buffer.append("<td class=\"td\" >"+(selectByKey.getDetailGas()==1?"是":"否")+"</td>");
+             buffer.append("</tr>");
+          }
+           
+           
+         }
+       }
+       
+       
+      
+    }
+     
+     
+    buffer.append("<table>");
+    
+    List<Dictionarydata>  dd= dictdataService.selectDictdataByParentId(null, null);
+    request.setAttribute("dicts", dd);
+    Dept dptt=new Dept(); 
+    dptt.setParentCode("sgdw");
+    List<Dept> dpt = deptService.selectAllDept(dptt, null);
+    request.setAttribute("dept", dpt);
+    request.setAttribute("html", buffer.toString().replaceAll("null", ""));
+    request.setAttribute("proName", proName);
+    request.setAttribute("proNumber", proNumber);
+    request.setAttribute("proSerialNumber",proSerialNumber);
+    request.setAttribute("beginTime", beginTime);
+    request.setAttribute("endTime", endTime);
+    return "day/water";
+  }
+  
 }

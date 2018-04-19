@@ -41,6 +41,8 @@ public class ProjectDetail implements Serializable {
    private String prwProgressReport;//工程进展问题
    
    private String contractName;//合同名称
+   
+   private String pcAddress;
 
    private Integer pcId;
    
@@ -212,6 +214,14 @@ public class ProjectDetail implements Serializable {
 
   public void setContractName(String contractName) {
     this.contractName = contractName;
+  }
+
+  public String getPcAddress() {
+    return pcAddress;
+  }
+
+  public void setPcAddress(String pcAddress) {
+    this.pcAddress = pcAddress;
   }
   
    

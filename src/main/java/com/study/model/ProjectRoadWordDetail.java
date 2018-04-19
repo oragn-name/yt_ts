@@ -75,6 +75,15 @@ public class ProjectRoadWordDetail {
      @Column(name = "detail_remark")
      private Integer detailRemark;
      
+     @Column(name = "detail_stop_water")
+     private Integer detailStopWater;//计划停水 1 是 2否
+     
+     @Column(name = "detail_gas")
+     private Integer detailGas;//计划燃气1 是 2否
+     
+     @Column(name = "detail_rinse")
+     private Integer detailRinse;//计划冲洗 1 是 2否
+     
      @Column(name = "detail_type")
      private Integer detailType;
      
@@ -346,6 +355,30 @@ public class ProjectRoadWordDetail {
 
     public void setDetailTypeName(String detailTypeName) {
       this.detailTypeName = detailTypeName;
+    }
+
+    public Integer getDetailStopWater() {
+      return detailStopWater;
+    }
+
+    public void setDetailStopWater(Integer detailStopWater) {
+      this.detailStopWater = detailStopWater;
+    }
+
+    public Integer getDetailGas() {
+      return detailGas;
+    }
+
+    public void setDetailGas(Integer detailGas) {
+      this.detailGas = detailGas;
+    }
+
+    public Integer getDetailRinse() {
+      return detailRinse;
+    }
+
+    public void setDetailRinse(Integer detailRinse) {
+      this.detailRinse = detailRinse;
     }
     
     

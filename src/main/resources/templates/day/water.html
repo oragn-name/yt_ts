@@ -122,7 +122,7 @@
         	var beginTime=$("#beginTime").val();
         	var endTime=$("#endTime").val();
         	
-        	var proContractNumber=$("#proContractNumber").val();
+        	var proContractNumber="";
         	var proDeptName=$("#proDeptName").val();
         	var pcDeptName=$("#pcDeptName").val();
         	var proEngineTypeName=$("#proEngineTypeName").val();
@@ -130,7 +130,8 @@
         	var proNatureName=$("#proNatureName").val();
         	var proPeriodName=$("#proPeriodName").val();
         	var proStatus=$("#proStatus").val();
-        	location.href=encodeURI("/day/每日工作量汇总/114?proName="+proName+"&proNumber="+proNumber+"&proSerialNumber="+proSerialNumber+"&beginTime="+beginTime+"&endTime="+endTime+"&proStatus="+proStatus+"&proPeriodName="+proPeriodName+"&proNatureName="+proNatureName+"&proSourceName="+proSourceName+"&proEngineTypeName="+proEngineTypeName+"&pcDeptName="+pcDeptName+"&proDeptName="+proDeptName+"&proContractNumber="+proContractNumber);
+        	var dnId=$("#dnId").val();
+        	location.href=encodeURI("/water/每日工作量汇总/114?proName="+proName+"&proNumber="+proNumber+"&proSerialNumber="+proSerialNumber+"&beginTime="+beginTime+"&endTime="+endTime+"&proStatus="+proStatus+"&proPeriodName="+proPeriodName+"&proNatureName="+proNatureName+"&proSourceName="+proSourceName+"&proEngineTypeName="+proEngineTypeName+"&pcDeptName="+pcDeptName+"&proDeptName="+proDeptName+"&proContractNumber="+proContractNumber+"&dnId="+dnId);
         }
     </script>
 </head>
@@ -146,7 +147,7 @@
               <option value='2'  th:selected="${proStatus!=null and #strings.equals(proStatus,2)}">待施</option>
               <option value='3'  th:selected="${proStatus!=null and #strings.equals(proStatus,3)}">已完工</option>
            </select>
-     合同编号:<input type="text"  id="proContractNumber" th:value="${proContractNumber}" />
+    <!--  合同编号:<input type="text"  id="proContractNumber" th:value="${proContractNumber}" /> -->
      转入单位:
      <select  name="proDeptName" id="proDeptName" style="width: 148px;" >
                          <option value="">--请选择--</option>
@@ -182,6 +183,12 @@
        序号:<input type="text"  id="proSerialNumber" th:value="${proSerialNumber}"/>
        开始时间:<input type="text"  id="beginTime" th:value="${beginTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
         至<input type="text"  id="endTime" th:value="${endTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+        工作量:
+      <select  name="dnId" id="dnId" style="width: 148px;" >
+            <option value="">--请选择--</option>
+             <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'GZL')}" th:selected="${dnId!=null and #strings.equals(dnId,dict1.id)}"></option>
+          </select>
+        
         <input type="button" class="rbtn23" value="查询" onclick="search()" />
         <input id="Button1" type="button" value="导出EXCEL" class="rbtn23" onclick="javascript:HtmlExportToExcel('PanelExcel')" />
         <a id="dlink" style="display: none;"></a>

@@ -10,4 +10,5 @@ public interface ProjectRoadWordDetailService extends IService<ProjectRoadWordDe
    
    
    public List<ProjectRoadWordDetail> getDetailByCreateTime(ProjectRoadWordDetail detail);
+   public List<ProjectRoadWordDetail> getDetailByCreateTimeByWater(ProjectRoadWordDetail detail);
 }

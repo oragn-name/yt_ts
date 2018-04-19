@@ -453,7 +453,8 @@ GROUP BY
   r.prw_progress_report as "prwProgressReport",
 	(select name from dept where id=c.pc_dept)  as "pcDeptName",
 	p.id as "proId",
-	c.id as "pcId"
+	c.id as "pcId",
+	c.pc_address as "pcAddress"
 FROM
 	project_produce p
 INNER JOIN project_road_work r ON p.id = r.pro_id
@@ -491,7 +492,9 @@ and p.pro_nature=#{proNatureName}
 <if test="proPeriodName!=null and proPeriodName!=''">
 and p.pro_period=#{proPeriodName}
 </if>
-
+<if test="pcDeptName!=null and pcDeptName!=''">
+and c.pc_dept=#{pcDeptName}
+</if>
 
   </select>
   
