@@ -212,7 +212,7 @@ public class ProjectProduce {
     private String  proWaterEndtime;
     
     /**
-     * 1、在施，有已开工无完工日期的项目查询；2、待施，无实际开工日；3、已完工，有转图日期的查询
+     * 1、在施，有已开工无转闸日期；2、待施，无实际开工日；3、已完工，有转图日期的查询,4、待转图，有转闸但日期无转图日期
      */
     @Column(name = "pro_status")
     private Integer  proStatus;

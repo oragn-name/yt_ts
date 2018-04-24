@@ -35,6 +35,28 @@ public class ProjectItemConstruction {
   
   private String userName;
 
+  private Integer proStatus;
+  
+  private Integer pcDept;
+  
+  
+  
+  public Integer getPcDept() {
+    return pcDept;
+  }
+
+  public void setPcDept(Integer pcDept) {
+    this.pcDept = pcDept;
+  }
+
+  public Integer getProStatus() {
+    return proStatus;
+  }
+
+  public void setProStatus(Integer proStatus) {
+    this.proStatus = proStatus;
+  }
+
   public String getProName() {
     return proName;
   }

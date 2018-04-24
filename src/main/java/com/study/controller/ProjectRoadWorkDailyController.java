@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
+import com.study.model.Dept;
 import com.study.model.ProjectRoadWordDetail;
 import com.study.model.ProjectRoadWorkDaily;
 import com.study.model.User;
 import com.study.model.vo.ProjectItemConstruction;
 import com.study.service.ProjectRoadWordDetailService;
 import com.study.service.ProjectRoadWorkDailyService;
+import com.study.service.impl.DeptServiceImpl;
 import com.study.util.ResultUtil;
 import com.study.util.bean.DataGridResultInfo;
 import com.study.util.bean.PageBean;
@@ -36,10 +38,18 @@ public class ProjectRoadWorkDailyController {
   private ProjectRoadWorkDailyService roadWorkDailyService;
   @Autowired
   private ProjectRoadWordDetailService projectRoadWordDetailService;
+  @Autowired
+  private DeptServiceImpl deptService;
 
   @RequestMapping(value = "/workdailys/getItemData", method = { RequestMethod.GET })
   public DataGridResultInfo getItemData(@ModelAttribute PageBean bean,String proName){
+    Session session = SecurityUtils.getSubject().getSession();
+    User user = (User)session.getAttribute("userSession");
+    Dept selectByKey = deptService.selectByKey(user.getDeptId());
     ProjectItemConstruction construction=new ProjectItemConstruction();
+    if(!selectByKey.getCode().toUpperCase().equals("SCK")){
+      construction.setPcDept(selectByKey.getId());
+    }
     construction.setProName(proName);
     List<ProjectItemConstruction> selectProjectItemConstruction = roadWorkDailyService.selectProjectItemConstruction(construction, bean);
     PageInfo<ProjectItemConstruction> info=new PageInfo<ProjectItemConstruction>(selectProjectItemConstruction);

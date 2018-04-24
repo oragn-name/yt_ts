@@ -82,12 +82,19 @@ public class ProjectRoadWorkController {
 			roadWorkService.save(roadWork);
 			
 			if(roadWork.getPrwAst()!=null&&!"".equals(roadWork.getPrwAst())){//实际开工日期
-			   if(roadWork.getPrwAet()==null||"".equals(roadWork.getPrwAet())){
+			   if(roadWork.getPrwSwitchingDate()==null||"".equals(roadWork.getPrwSwitchingDate())){
 			     ProjectProduce selectByKey = projectProduceService.selectByKey(roadWork.getProId());
 			     selectByKey.setProStatus(1);
 			     projectProduceService.updateNotNull(selectByKey);
 			   }
 			}
+			if(roadWork.getPrwSwitchingDate()!=null&&!"".equals(roadWork.getPrwSwitchingDate())){
+        if(roadWork.getPrwFigureDate()==null||"".equals(roadWork.getPrwFigureDate())){
+          ProjectProduce selectByKey = projectProduceService.selectByKey(roadWork.getProId());
+          selectByKey.setProStatus(4);
+          projectProduceService.updateNotNull(selectByKey);
+        }
+     }
 			
 			if(roadWork.getPrwFigureDate()!=null&&!"".equals(roadWork.getPrwFigureDate())){
 			  ProjectProduce selectByKey = projectProduceService.selectByKey(roadWork.getProId());
@@ -113,7 +120,13 @@ public class ProjectRoadWorkController {
           projectProduceService.updateNotNull(selectByKey);
         }
      }
-     
+		  if(roadWork.getPrwSwitchingDate()!=null&&!"".equals(roadWork.getPrwSwitchingDate())){
+        if(roadWork.getPrwFigureDate()==null||"".equals(roadWork.getPrwFigureDate())){
+          ProjectProduce selectByKey = projectProduceService.selectByKey(roadWork.getProId());
+          selectByKey.setProStatus(4);
+          projectProduceService.updateNotNull(selectByKey);
+        }
+     }
      if(roadWork.getPrwFigureDate()!=null&&!"".equals(roadWork.getPrwFigureDate())){
        ProjectProduce selectByKey = projectProduceService.selectByKey(roadWork.getProId());
        selectByKey.setProStatus(3);

@@ -13,4 +13,7 @@ public interface ProjectRoadWordDetailMapper extends MyMapper<ProjectRoadWordDet
   
   
   public List<ProjectRoadWordDetail> getDetailByCreateTimeByWater(ProjectRoadWordDetail detail);
+  
+  
+  public List<ProjectRoadWordDetail>  getDetailBySum(ProjectRoadWordDetail detail);
 }

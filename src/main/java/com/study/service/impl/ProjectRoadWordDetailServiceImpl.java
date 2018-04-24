@@ -42,4 +42,10 @@ public class ProjectRoadWordDetailServiceImpl extends BaseService<ProjectRoadWor
     return projectRoadWordDetailMapper.getDetailByCreateTimeByWater(detail);
   }
 
+
+  @Override
+  public List<ProjectRoadWordDetail> getDetailBySum(ProjectRoadWordDetail detail) {
+    return projectRoadWordDetailMapper.getDetailBySum(detail);
+  }
+
 }

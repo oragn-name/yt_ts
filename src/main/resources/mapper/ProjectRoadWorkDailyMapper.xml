@@ -88,11 +88,14 @@
   </resultMap>
   
   <select id="selectProjectItemConstruction" parameterType="com.study.model.vo.ProjectItemConstruction" resultType="com.study.model.vo.ProjectItemConstruction">
-     select pp.pro_name as "proName",pp.pro_number as "proNumber",pp.pro_snap_number as "proSnapNumber",pp.pro_serial_number as "proSerialNumber",pp.id as "proId",pc.id as "pcId",(select name from dept where id=pc.pc_dept)  as "pcDeptName",
+     select pp.pro_status as "proStatus", pp.pro_name as "proName",pp.pro_number as "proNumber",pp.pro_snap_number as "proSnapNumber",pp.pro_serial_number as "proSerialNumber",pp.id as "proId",pc.id as "pcId",(select name from dept where id=pc.pc_dept)  as "pcDeptName",
      pc.pc_workers as "pcWorkers",pc.pc_phone as "pcPhone",pc.pc_month_plan as "pcMonthPlan",pc.pc_week_plan as "pcWeekPlan",pc.create_user as "createUser",(select name from user where id=pc.create_user) as "userName" ,pc.create_time as "createTime",pc.pc_remark as "pcRemark" 
      from project_produce pp INNER join project_construction pc on pp.id=pc.proId where 1=1
      <if test="proName!=null and proName!=''">
     and pp.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
+     </if>
+     <if test="pcDept!=null and pcDept!=''">
+    and pc.pc_dept=#{pcDept}
      </if>
   </select>
   

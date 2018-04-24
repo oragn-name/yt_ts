@@ -72,18 +72,48 @@
       GROUP BY substring(create_time,1,10)   order by substring(create_time,1,10)
   </select>
   <select id="getDetailByCreateTimeByWater" parameterType="com.study.model.ProjectRoadWordDetail" resultType="com.study.model.ProjectRoadWordDetail">
-     select pro_id as "proId",dn_id as "dnId",id,substring(create_time,1,10) as "createTime" from project_road_word_detail where (detail_stop_water=1 or detail_gas=1 or detail_rinse=1)   
+     select p.pro_id as "proId",p.dn_id as "dnId",p.id,substring(p.create_time,1,10) as "createTime" from project_road_word_detail p inner join dictionarydata d on d.id=p.dn_id inner join dictionary d1 on d1.id=d.dict_id where d1.dict_code='GZL' and (p.detail_stop_water=1 or p.detail_gas=1 or p.detail_rinse=1)   
 
      <if test="pcId!=null and pcId!=''">
-            and pc_id=#{pcId}
+            and p.pc_id=#{pcId}
           </if>
           <if test="dnId!=null and dnId!=''">
-            and dn_id=#{dnId}
+            and p.dn_id=#{dnId}
+          </if>
+          <if test="proId!=null and proId!=''">
+            and p.pro_id=#{proId}
+          </if>
+         <if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and p.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   p.create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and p.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+      group by p.pro_id,p.dn_id ,substring(p.create_time,1,10) order by substring(p.create_time,1,10)
+  </select>
+  <select id="getDetailBySum" parameterType="com.study.model.ProjectRoadWordDetail" resultType="com.study.model.ProjectRoadWordDetail">
+  select sum(detail_day) as "detailDay",sum(detail_next_day) as "detailNextDay",sum(detail_dma) as "detailDma",sum(detail_next_dma) as "detailNextDma",sum(detail_anti) as "detailAnti",sum(detail_next_anti) as "detailNextAnti" from project_road_word_detail where 1=1
+          <if test="pcId!=null and pcId!=''">
+            and pc_id=#{pcId}
+          </if>
+          <if test="dnIdName!=null and dnIdName!=''">
+            and dn_id in (select d1.id from dictionary d inner join dictionarydata d1 on d1.dict_id=d.id where 1=1 and d.dict_code=#{dnIdName})
           </if>
           <if test="proId!=null and proId!=''">
             and pro_id=#{proId}
           </if>
-         <if test="beginTime!=null and beginTime!=''">
+  <if test="beginTime!=null and beginTime!=''">
     <choose>
        <when test="endTime !=null and endTime!='' ">
            <choose>
@@ -100,6 +130,8 @@
        </when>
     </choose>
 </if>
-      group by pro_id,dn_id ,substring(create_time,1,10) order by substring(create_time,1,10)
+    group by pro_id,pc_id
   </select>
+  
+  
 </mapper>

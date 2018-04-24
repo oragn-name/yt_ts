@@ -12,6 +12,12 @@
             	<th data-options="field:'ck',checkbox:true"></th>
             	<th data-options="field:'proId',width:100,align:'center',sortable:'true',hidden:'true'">proId</th>
             	<th data-options="field:'pcId',width:100,align:'center',sortable:'true',hidden:'true'">pcId</th>
+            	<th data-options="field:'proStatus',width:150,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '在施';
+            							if (value == 2) return '待施';
+            							if (value == 4) return '<font style=color:red;>待转图</font>';
+	                                    return '已完工';
+	                		  }">状态</th>
             	<th data-options="field:'proNumber',width:100,align:'center',sortable:'true'">工号</th>
             	<th data-options="field:'proSnapNumber',width:100,align:'center',sortable:'true'">临时工号</th>
             	<th data-options="field:'proSerialNumber',width:100,align:'center',sortable:'true'">序号</th>
@@ -78,7 +84,7 @@
 							<th data-options="field:'detailTypeName',width:120,align:'center',sortable:'true'" rowspan="2">类别</th>
 							<th data-options="field:'dnIdName',width:120,align:'center',sortable:'true'" rowspan="2">型号</th>
 						<th  align="center"  colspan="2" width="300">工作量长度(长度)</th>  
-						<th  align="center"  colspan="2" width="300">倒流防止器口径(个数)</th>
+						<th  align="center"  colspan="2" width="300">倒流防止器(个数)</th>
 						<th  align="center"  colspan="2" width="300">DMA(个数)</th>
 						<th rowspan="2" data-options="field:'detailStopWater',width:150,align:'center',sortable:'true',formatter:function(value,row){
             							if (value == 1) return '是';
@@ -99,10 +105,10 @@
 						<tr>
 						   <th data-options="field:'detailDay',width:150,align:'center',sortable:'true'" >当天实际完成工作量</th>
 						   <th data-options="field:'detailNextDay',width:150,align:'center',sortable:'true'" >次日计划完成工作量</th>
-						   <th data-options="field:'detailAnti',width:150,align:'center',sortable:'true'" >倒流防止器口径</th>
-						   <th data-options="field:'detailNextAnti',width:150,align:'center',sortable:'true'" >次日倒流防止器口径</th>
-						   <th data-options="field:'detailDma',width:150,align:'center',sortable:'true'" >DMA口径</th>
-						   <th data-options="field:'detailNextDma',width:150,align:'center',sortable:'true'" >次日DMA口径</th>
+						   <th data-options="field:'detailAnti',width:150,align:'center',sortable:'true'" >倒流防止器</th>
+						   <th data-options="field:'detailNextAnti',width:150,align:'center',sortable:'true'" >次日倒流防止器</th>
+						   <th data-options="field:'detailDma',width:150,align:'center',sortable:'true'" >DMA</th>
+						   <th data-options="field:'detailNextDma',width:150,align:'center',sortable:'true'" >次日DMA</th>
 						
 						</tr>
         
