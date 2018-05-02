@@ -36,4 +36,6 @@ public interface ProjectRoadWorkDailyMapper extends MyMapper<ProjectRoadWorkDail
   
   public List<ProjectDetailType>  getOrderDetail(Map<String, Object> map);
   
+  List<ProjectType> getOrderTypeByAvg(Map<String, Object> map);
+  
 }

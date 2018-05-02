@@ -88,7 +88,7 @@
   </resultMap>
   
   <select id="selectProjectItemConstruction" parameterType="com.study.model.vo.ProjectItemConstruction" resultType="com.study.model.vo.ProjectItemConstruction">
-     select pp.pro_status as "proStatus", pp.pro_name as "proName",pp.pro_number as "proNumber",pp.pro_snap_number as "proSnapNumber",pp.pro_serial_number as "proSerialNumber",pp.id as "proId",pc.id as "pcId",(select name from dept where id=pc.pc_dept)  as "pcDeptName",
+     select pp.pro_status as "proStatus", pp.pro_name as "proName",(select dictdata_name from dictionarydata where id=pp.pro_engine_type) as "proEngineTypeName",(select dictdata_name from dictionarydata where id=pp.pro_period) as "proPeriodName",(select dictdata_name from dictionarydata where id=pp.pro_nature) as "proNatureName",(select name from dept where id=pp.pro_dept) as "proDeptName",pp.pro_number as "proNumber",pp.pro_snap_number as "proSnapNumber",pp.pro_serial_number as "proSerialNumber",pp.id as "proId",pc.id as "pcId",(select name from dept where id=pc.pc_dept)  as "pcDeptName",
      pc.pc_workers as "pcWorkers",pc.pc_phone as "pcPhone",pc.pc_month_plan as "pcMonthPlan",pc.pc_week_plan as "pcWeekPlan",pc.create_user as "createUser",(select name from user where id=pc.create_user) as "userName" ,pc.create_time as "createTime",pc.pc_remark as "pcRemark" 
      from project_produce pp INNER join project_construction pc on pp.id=pc.proId where 1=1
      <if test="proName!=null and proName!=''">
@@ -97,6 +97,31 @@
      <if test="pcDept!=null and pcDept!=''">
     and pc.pc_dept=#{pcDept}
      </if>
+     <if test="proSerialNumber!=null and proSerialNumber!=''">
+	 and pp.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
+	</if>
+	<if test="proNumber!=null and proNumber!=''">
+	 and pp.pro_number like CONCAT(CONCAT('%', #{proNumber}), '%')
+	</if>
+	<if test="proSnapNumber!=null and proSnapNumber!=''">
+	 and pp.pro_snap_number like CONCAT(CONCAT('%', #{proSnapNumber}), '%')
+	</if>
+	<if test="proEngineTypeName!=null and proEngineTypeName!=''">
+	 and pp.pro_engine_type= #{proEngineTypeName}
+	</if>
+	<if test="proPeriodName!=null and proPeriodName!=''">
+	 and pp.pro_period= #{proPeriodName}
+	</if>
+	<if test="proNatureName!=null and proNatureName!=''">
+	 and pp.pro_nature= #{proNatureName}
+	</if>
+	<if test="proDeptName!=null and proDeptName!=''">
+	 and pp.pro_dept= #{proDeptName}
+	</if>
+	<if test="proStatus!=null and proStatus!=''">
+	 and pp.pro_status= #{proStatus}
+	</if>
+	
   </select>
   
   <select id="selectRoadWorkDaily" parameterType="com.study.model.ProjectRoadWorkDaily" resultType="com.study.model.ProjectRoadWorkDaily">
@@ -681,4 +706,54 @@ and p.pro_period=#{proPeriod}
     </choose>
 </if>
   </select>
+  
+  
+  <select id="getOrderTypeByAvg" parameterType="java.util.Map" resultType="com.study.model.vo.ProjectType">
+     select proEngineTypeName,
+	proPeriodName,
+   dictdataLength,dictdataNumber,ifnull(sum(prwdTotal),0) as "prwdTotal",(ifnull(sum(prwdTotal),0)/dictdataLength)*100 as "avg"
+from(
+SELECT
+  p.id,
+	e.dictdata_name as "proEngineTypeName",
+	ta.dictdata_name as "proPeriodName",
+  ta.dictdata_length as "dictdataLength",
+ta.dictdata_number as "dictdataNumber",
+(select sum(detail_day) from project_road_word_detail e inner join dictionarydata d1 on d1.id=e.dn_id inner join dictionary d2 on d2.id=d1.dict_id where pro_id=p.id and d2.dict_code='GZL'
+<if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+) as "prwdTotal"
+FROM
+	dictionary d
+INNER JOIN dictionarydata e ON d.id = e.dict_id
+INNER JOIN project_produce p ON p.pro_engine_type = e.id
+inner join dictionarydata ta on ta.id=p.pro_period
+AND d.dict_code = 'GCLB'
+<if test="proEngineType!=null and proEngineType!=''">
+and p.pro_engine_type=#{proEngineType}
+</if>
+<if test="proPeriod!=null and proPeriod!=''">
+and p.pro_period=#{proPeriod}
+</if>
+) t
+ GROUP BY
+	proEngineTypeName,
+	proPeriodName
+  </select>
+  
 </mapper>

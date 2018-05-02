@@ -130,12 +130,12 @@ public class ProjectProduceController {
   
   @ApiOperation(value="其他获取生产科的所有数据",notes="其他获取所有的生产科数据，返回grid")
   @RequestMapping(value="/produces/getDataOther",method={RequestMethod.GET})
-  public DataGridResultInfo getDataOther(@ModelAttribute PageBean bean,@RequestParam(value="proName",required=false)String proName,String proContractNumber){
-    ProjectProduce produce=new ProjectProduce();
+  public DataGridResultInfo getDataOther(@ModelAttribute PageBean bean,@RequestParam(value="proName",required=false)String proName,String proContractNumber,ProjectProduce produce){
+   /* ProjectProduce produce=new ProjectProduce();*/
     Session session = SecurityUtils.getSubject().getSession();
     User user = (User)session.getAttribute("userSession");
-    produce.setProName(proName);
-    produce.setProContractNumber(proContractNumber);
+    /*produce.setProName(proName);
+    produce.setProContractNumber(proContractNumber);*/
     Dept dep = deptService.selectByKey(user.getDeptId());
     if(dep.getParentId()!=0&&!dep.getCode().toUpperCase().equals("SCK")){
       produce.setProDept(user.getDeptId());

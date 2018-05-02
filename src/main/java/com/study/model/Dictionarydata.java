@@ -21,6 +21,10 @@ public class Dictionarydata {
 
     @Column(name = "parent_id")
     private Integer parentId;
+    @Column(name = "dictdata_number")
+    private Double dictdataNumber;
+    @Column(name = "dictdata_length")
+    private Double dictdataLength;
     
     @Transient
     private String parentName;
@@ -141,4 +145,22 @@ public class Dictionarydata {
     public void setParentId(Integer parentId) {
         this.parentId = parentId;
     }
+
+    public Double getDictdataNumber() {
+      return dictdataNumber;
+    }
+
+    public void setDictdataNumber(Double dictdataNumber) {
+      this.dictdataNumber = dictdataNumber;
+    }
+
+    public Double getDictdataLength() {
+      return dictdataLength;
+    }
+
+    public void setDictdataLength(Double dictdataLength) {
+      this.dictdataLength = dictdataLength;
+    }
+    
+    
 }

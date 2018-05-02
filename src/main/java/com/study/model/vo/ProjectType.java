@@ -19,6 +19,12 @@ private Double prwTotal;// 工作量 当天总计
   
   private Double prwNextTotal;// 工作量 下一天总计
   
+  private Double dictdataLength;
+  
+  private Double dictdataNumber;
+  
+  private Double avg;
+  
   private String beginTime;
   
   private String endTime;
@@ -126,6 +132,30 @@ private Double prwTotal;// 工作量 当天总计
 
   public void setNum(Integer num) {
     this.num = num;
+  }
+
+  public Double getDictdataLength() {
+    return dictdataLength;
+  }
+
+  public void setDictdataLength(Double dictdataLength) {
+    this.dictdataLength = dictdataLength;
+  }
+
+  public Double getDictdataNumber() {
+    return dictdataNumber;
+  }
+
+  public void setDictdataNumber(Double dictdataNumber) {
+    this.dictdataNumber = dictdataNumber;
+  }
+
+  public Double getAvg() {
+    return avg;
+  }
+
+  public void setAvg(Double avg) {
+    this.avg = avg;
   }
   
 }

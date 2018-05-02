@@ -42,15 +42,15 @@ public class ProjectRoadWorkDailyController {
   private DeptServiceImpl deptService;
 
   @RequestMapping(value = "/workdailys/getItemData", method = { RequestMethod.GET })
-  public DataGridResultInfo getItemData(@ModelAttribute PageBean bean,String proName){
+  public DataGridResultInfo getItemData(@ModelAttribute PageBean bean,String proName,ProjectItemConstruction construction){
     Session session = SecurityUtils.getSubject().getSession();
     User user = (User)session.getAttribute("userSession");
     Dept selectByKey = deptService.selectByKey(user.getDeptId());
-    ProjectItemConstruction construction=new ProjectItemConstruction();
+    /*ProjectItemConstruction construction=new ProjectItemConstruction();*/
     if(!selectByKey.getCode().toUpperCase().equals("SCK")){
       construction.setPcDept(selectByKey.getId());
     }
-    construction.setProName(proName);
+    /*construction.setProName(proName);*/
     List<ProjectItemConstruction> selectProjectItemConstruction = roadWorkDailyService.selectProjectItemConstruction(construction, bean);
     PageInfo<ProjectItemConstruction> info=new PageInfo<ProjectItemConstruction>(selectProjectItemConstruction);
     return ResultUtil.createDataGridResult(info.getTotal(), info.getList());

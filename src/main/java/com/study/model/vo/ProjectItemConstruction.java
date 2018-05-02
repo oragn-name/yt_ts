@@ -40,6 +40,16 @@ public class ProjectItemConstruction {
   private Integer pcDept;
   
   
+  private String proEngineTypeName;
+  
+  private String proPeriodName;
+  
+  private String proNatureName;
+  
+  private String proDeptName;
+  
+  
+  
   
   public Integer getPcDept() {
     return pcDept;
@@ -175,6 +185,38 @@ public class ProjectItemConstruction {
 
   public void setUserName(String userName) {
     this.userName = userName;
+  }
+
+  public String getProEngineTypeName() {
+    return proEngineTypeName;
+  }
+
+  public void setProEngineTypeName(String proEngineTypeName) {
+    this.proEngineTypeName = proEngineTypeName;
+  }
+
+  public String getProPeriodName() {
+    return proPeriodName;
+  }
+
+  public void setProPeriodName(String proPeriodName) {
+    this.proPeriodName = proPeriodName;
+  }
+
+  public String getProNatureName() {
+    return proNatureName;
+  }
+
+  public void setProNatureName(String proNatureName) {
+    this.proNatureName = proNatureName;
+  }
+
+  public String getProDeptName() {
+    return proDeptName;
+  }
+
+  public void setProDeptName(String proDeptName) {
+    this.proDeptName = proDeptName;
   }
   
   

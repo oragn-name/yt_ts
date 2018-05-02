@@ -15,6 +15,7 @@ import io.swagger.annotations.ApiOperation;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,16 +24,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import tk.mybatis.mapper.entity.Example;
 import tk.mybatis.mapper.entity.Example.Criteria;
 
+import com.study.model.Dept;
+import com.study.model.Dictionarydata;
 import com.study.model.Resources;
 import com.study.model.User;
+import com.study.service.DictdataService;
 import com.study.service.ResourcesService;
+import com.study.service.impl.DeptServiceImpl;
 
 @Api(value="BaseController",description="所有菜单首页页面")
 @Controller
 public class BaseController {
   @Resource
   private ResourcesService resourcesService;
-  
+  @Autowired
+  private DictdataService dictdataService;
+  @Autowired
+  private DeptServiceImpl deptService;
   
   @ApiOperation(value="page_index页面",notes="所有菜单的首页")
   @ApiImplicitParams({
@@ -63,6 +71,12 @@ public class BaseController {
         }
       }
     }
+    List<Dictionarydata> dicts = dictdataService.selectDictdataByParentId(null, null);
+    Dept dept=new Dept();
+    dept.setParentCode("SGDW");
+    List<Dept>  selectAllDept= deptService.selectAllDept(dept, null);
+    request.setAttribute("dicts", dicts);
+    request.setAttribute("depts", selectAllDept);
     request.setAttribute("buttons", list);
     request.setAttribute("menuName", menuName);
     return path+"/"+path;

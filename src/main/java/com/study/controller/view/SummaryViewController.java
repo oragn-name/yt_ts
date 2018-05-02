@@ -787,7 +787,34 @@ public class SummaryViewController {
     request.setAttribute("proPeriod",proPeriod);
     return "day/type";
   }
-  
+  @RequestMapping("/avg/{menuName}/{id}")
+  public String avg(HttpServletRequest request,HttpServletResponse response,String type,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,String proEngineType,String proPeriod){
+    
+    List<Dictionarydata> dicts = dictdataService.selectDictdataByParentId(null, null);
+    request.setAttribute("dicts", dicts);
+    Map<String,Object> map=new HashMap<String, Object>();
+   /* map.put("proName", proName==null?"":proName.trim());
+    map.put("proNumber", proNumber==null?"":proNumber.trim());
+    map.put("proSerialNumber", proSerialNumber==null?"":proSerialNumber.trim());
+    map.put("beginTime", beginTime==null?"":beginTime.trim());
+    map.put("endTime", endTime==null?"":endTime.trim());*/
+    map.put("proEngineType", proEngineType==null?"":proEngineType.trim());
+    map.put("proPeriod", proPeriod==null?"":proPeriod.trim());
+    map.put("beginTime", beginTime==null?"":beginTime.trim());
+    map.put("endTime", endTime==null?"":endTime.trim());
+    List<ProjectType> selectProjectDetail = roadWorkDailyService.getOrderTypeByAvg(map);
+    request.setAttribute("proDetailType", selectProjectDetail);
+    /*request.setAttribute("proName", proName);
+    request.setAttribute("proNumber", proNumber);
+    request.setAttribute("proSerialNumber",proSerialNumber);
+    request.setAttribute("beginTime", beginTime);
+    request.setAttribute("endTime", endTime);*/
+    request.setAttribute("beginTime", beginTime);
+    request.setAttribute("endTime", endTime);
+    request.setAttribute("proEngineType",proEngineType);
+    request.setAttribute("proPeriod",proPeriod);
+    return "day/avg";
+  }
   
   @RequestMapping("/typeDetail/{menuName}/{id}")
   public String typeDetail(HttpServletRequest request,HttpServletResponse response,String type,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,String proEngineType,String proPeriod,Integer ids,String deptName){
