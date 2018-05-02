@@ -711,7 +711,7 @@ and p.pro_period=#{proPeriod}
   <select id="getOrderTypeByAvg" parameterType="java.util.Map" resultType="com.study.model.vo.ProjectType">
      select proEngineTypeName,
 	proPeriodName,
-   dictdataLength,dictdataNumber,ifnull(sum(prwdTotal),0) as "prwdTotal",(ifnull(sum(prwdTotal),0)/dictdataLength)*100 as "avg"
+   dictdataLength,dictdataNumber,ifnull(sum(prwdTotal),0) as "prwdTotal",convert((ifnull(sum(prwdTotal),0)/dictdataLength)*100,decimal)as "avg"
 from(
 SELECT
   p.id,

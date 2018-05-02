@@ -183,7 +183,7 @@
                           <td th:text="${rs.dictdataNumber}" class="td" ></td>
                           <td th:text="${rs.dictdataLength}" class="td" ></td>
                           <td th:text="${rs.prwdTotal}" class="td" ></td>
-                          <td th:text="${rs.avg+'%'}" class="td" ></td>
+                          <td th:text="${rs.avg}?${rs.avg+'%'}:'0%'" class="td" ></td>
                         </tr>
                     </table>
                 </div>

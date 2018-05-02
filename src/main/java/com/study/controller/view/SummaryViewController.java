@@ -1276,7 +1276,7 @@ public class SummaryViewController {
            detail1.setEndTime( endTime==null?"":endTime.trim());
            detail1.setDnIdName("GZL");
            List<ProjectRoadWordDetail> detailBySum = projectRoadWordDetailService.getDetailBySum(detail1);
-           if(detailBySum!=null&&detailBySum.size()>0){
+           if(detailBySum!=null&&detailBySum.size()>0&&detailBySum.get(0)!=null){
              buffer.append("<td class=\"td\" >"+detailBySum.get(0).getDetailDma()+"</td>");
              buffer.append("<td class=\"td\" >"+detailBySum.get(0).getDetailNextDma()+"</td>");
              buffer.append("<td class=\"td\" >"+detailBySum.get(0).getDetailAnti()+"</td>");
