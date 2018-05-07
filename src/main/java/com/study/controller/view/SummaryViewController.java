@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.server.PathParam;
 
 import io.swagger.annotations.Api;
 
@@ -15,6 +16,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.study.model.Dept;
@@ -815,14 +817,13 @@ public class SummaryViewController {
     request.setAttribute("proPeriod",proPeriod);
     return "day/avg";
   }
-  @RequestMapping("/sum/{menuName}/{id}")
-  public String sum(HttpServletRequest request,HttpServletResponse response,String type,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,String proEngineType,String proPeriod){
+  @RequestMapping("/sum/{code}/{menuName}/{id}")
+  public String sum(HttpServletRequest request,HttpServletResponse response,String type,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,String proEngineType,String proPeriod,@PathVariable(value="code") String code){
     
     
     StringBuffer buffer=new StringBuffer();
     buffer.append("<table id=\"tbHaederText\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" style=\"border-collapse: collapse; word-break: keep-all; border-color: Black;width: 100%;\">");
     buffer.append("<tr>");//第一行
-    buffer.append("<td class=\"th\" nowrap align=\"center\">工程类别</td>");
     buffer.append("<td class=\"th\" nowrap align=\"center\">期次</td>");
     buffer.append("<td class=\"th\" nowrap align=\"center\">任务户数</td>");
     buffer.append("<td class=\"th\" nowrap align=\"center\">任务长度</td>");
@@ -834,7 +835,7 @@ public class SummaryViewController {
     
     Map<String,Object> map=new HashMap<String, Object>();
     List<Dictionarydata> dicts =dictdataService.selectDictdataBySum(map);
-    String name="";
+    /*String name="";
     for (int i=0;i< dicts.size();i++) {
       buffer.append("<tr>");
       if(i==0){
@@ -864,7 +865,7 @@ public class SummaryViewController {
       buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
       buffer.append("</tr>");
       
-    }
+    }*/
     
     buffer.append("</table>");
     request.setAttribute("html", buffer.toString().replaceAll("null", ""));
