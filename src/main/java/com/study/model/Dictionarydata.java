@@ -38,8 +38,75 @@ public class Dictionarydata {
     private Integer count;
     
     
+    @Transient
+    private Integer one;
+    
+    @Transient
+    private Double oneDay;
+    
+    @Transient
+    private Integer two;
+    
+    @Transient
+    private Double twoDay;
+    
+    @Transient
+    private Integer three;
+    
+    @Transient
+    private Double threeDay;
     
     
+    
+    
+
+    public Integer getOne() {
+      return one;
+    }
+
+    public void setOne(Integer one) {
+      this.one = one;
+    }
+
+    public Double getOneDay() {
+      return oneDay;
+    }
+
+    public void setOneDay(Double oneDay) {
+      this.oneDay = oneDay;
+    }
+
+    public Integer getTwo() {
+      return two;
+    }
+
+    public void setTwo(Integer two) {
+      this.two = two;
+    }
+
+    public Double getTwoDay() {
+      return twoDay;
+    }
+
+    public void setTwoDay(Double twoDay) {
+      this.twoDay = twoDay;
+    }
+
+    public Integer getThree() {
+      return three;
+    }
+
+    public void setThree(Integer three) {
+      this.three = three;
+    }
+
+    public Double getThreeDay() {
+      return threeDay;
+    }
+
+    public void setThreeDay(Double threeDay) {
+      this.threeDay = threeDay;
+    }
 
     public Integer getCount() {
       return count;

@@ -14,7 +14,7 @@
   
   <select id="selectDictdataByParentId" parameterType="java.util.Map" resultType="com.study.model.Dictionarydata">
      select * from (select d1.dict_name as "parentName",d2.dictdata_name as "dictdataName",d2.dictdata_code as "dictdataCode",
-     d2.dictdata_mark as "dictdataMark",d2.id,d2.dict_id as "dictId", d2.parent_id as "parentId" ,d3.dictdata_name as "parentdataName",d1.dict_code as "dictCode", d2.dictdata_length as "dictdataLength",
+     d2.dictdata_mark as "dictdataMark",d2.id,d2.dict_id as "dictId", d2.parent_id as "parentId" ,d3.dictdata_name as "parentdataName",d3.dictdata_code as "parentdataCode",d1.dict_code as "dictCode", d2.dictdata_length as "dictdataLength",
      d2.dictdata_number as "dictdataNumber" from dictionary d1 inner join dictionarydata d2 on d1.id=d2.dict_id left join dictionarydata d3 on d3.id=d2.parent_id) t where 1=1
      <if test="dictId!=null and dictId!=''">
       and dictId=#{dictId}
@@ -31,28 +31,93 @@
      <if test="id!=null and id!=''">
       and id =#{id} 
      </if>
+     <if test="parentdataCode!=null and parentdataCode!=''">
+      and parentdataCode =#{parentdataCode} 
+     </if>
      order by id asc
   </select>
   
   
   <select id="selectDictdataBySum" parameterType="java.util.Map" resultType="com.study.model.Dictionarydata">
-    SELECT
-	d2.dictdata_name as "parentName",
-  d3.dictdata_name as "dictdataName",
-  d3.dictdata_number as "dictdataNumber",
-  d3.dictdata_length as "dictdataLength",
-  (select count(*) from dictionarydata where parent_id=d2.id) as "count"
+   SELECT
+	d.id,
+	d.dictdata_name as "dictdataName",
+	d.dictdata_length as "dictdataLength",
+	d.dictdata_number as "dictdataNumber",
+  (select count(*) from project_produce where pro_period=d.id and pro_status=3) as "one",
+  (select sum(e.detail_day) from project_produce p inner join project_road_word_detail e on e.pro_id=p.id  where p.pro_status=3 and p.pro_period=d.id and e.detail_type=(select id from dictionary where dict_code='GZL') 
+  <if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and e.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   e.create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and e.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+  ) as "oneDay",
+  (select count(*) from project_produce where pro_period=d.id and pro_status=1) as "two",
+  (select sum(e.detail_day) from project_produce p inner join project_road_word_detail e on e.pro_id=p.id where p.pro_status=1 and p.pro_period=d.id and e.detail_type=(select id from dictionary where dict_code='GZL') 
+  
+  <if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and e.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   e.create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and e.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>) as "twoDay",
+  (select count(*) from project_produce where pro_period=d.id and pro_status=4) as "three",
+  (select sum(e.detail_day) from project_produce p inner join project_road_word_detail e on e.pro_id=p.id where p.pro_status=4 and p.pro_period=d.id and e.detail_type=(select id from dictionary where dict_code='GZL') 
+  <if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and e.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   e.create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and e.create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>) as "threeDay"
+
 FROM
-	(
+	dictionarydata d
+WHERE
+	d.parent_id = (
 		SELECT
-			*
+			id
 		FROM
-			dictionary
+			dictionarydata
 		WHERE
-			dict_code = 'GCLB'
-	) d1
-LEFT JOIN dictionarydata d2 ON d1.id = d2.dict_id
-LEFT JOIN dictionarydata d3 on d3.parent_id=d2.id
+			upper(dictdata_code) = upper(#{code}) and dict_id=(select id from dictionary where dict_code='GCLB')
+	)
+	<if test="proPeriod!=null and proPeriod!=''">
+      and d.id =#{proPeriod} 
+     </if>
   </select>
   
   

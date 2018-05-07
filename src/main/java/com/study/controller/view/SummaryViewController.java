@@ -821,6 +821,12 @@ public class SummaryViewController {
   public String sum(HttpServletRequest request,HttpServletResponse response,String type,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,String proEngineType,String proPeriod,@PathVariable(value="code") String code){
     
     
+    
+    Map<String, Object> map1=new HashMap<String, Object>();
+    map1.put("parentdataCode", code);
+    List<Dictionarydata> dicts1 = dictdataService.selectDictdataByParentId(map1, null);
+    request.setAttribute("dicts",dicts1);
+    
     StringBuffer buffer=new StringBuffer();
     buffer.append("<table id=\"tbHaederText\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" style=\"border-collapse: collapse; word-break: keep-all; border-color: Black;width: 100%;\">");
     buffer.append("<tr>");//第一行
@@ -834,41 +840,41 @@ public class SummaryViewController {
 
     
     Map<String,Object> map=new HashMap<String, Object>();
+    map.put("code", code);
+    map.put("proPeriod", proPeriod==null?"":proPeriod.trim());
+    map.put("beginTime", beginTime==null?"":beginTime.trim());
+    map.put("endTime", endTime==null?"":endTime.trim());
     List<Dictionarydata> dicts =dictdataService.selectDictdataBySum(map);
-    /*String name="";
+    String name="";
     for (int i=0;i< dicts.size();i++) {
       buffer.append("<tr>");
-      if(i==0){
-        buffer.append("<td class=\"th\" rowspan=\""+(dicts.get(i).getCount()==0?1*3:dicts.get(i).getCount()*3)+"\" nowrap align=\"center\">"+dicts.get(i).getParentName()+"</td>");
-      }else{
-        if(!name.equals(dicts.get(i).getParentName())){
-          buffer.append("<td class=\"th\" rowspan=\""+(dicts.get(i).getCount()==0?1*3:dicts.get(i).getCount()*3)+"\" nowrap align=\"center\">"+dicts.get(i).getParentName()+"</td>");
-        }
-      }
       buffer.append("<td class=\"th\"  nowrap rowspan=\"3\"  align=\"center\">"+dicts.get(i).getDictdataName()+"</td>");
       buffer.append("<td class=\"th\"  nowrap rowspan=\"3\"  align=\"center\">"+dicts.get(i).getDictdataLength()+"</td>");
       buffer.append("<td class=\"th\"  nowrap rowspan=\"3\"  align=\"center\">"+dicts.get(i).getDictdataNumber()+"</td>");
-      
       buffer.append("<td class=\"th\"  nowrap  align=\"center\">已完工</td>");
-      buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
-      buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+dicts.get(i).getOne()+"</td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+dicts.get(i).getOneDay()+"</td>");
       name=dicts.get(i).getParentName();
       buffer.append("</tr>");
       buffer.append("<tr>");
-      buffer.append("<td class=\"th\"  nowrap  align=\"center\">再施</td>");
-      buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
-      buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">在施</td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+dicts.get(i).getTwo()+"</td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+dicts.get(i).getTwoDay()+"</td>");
       buffer.append("</tr>");
       buffer.append("<tr>");
       buffer.append("<td class=\"th\"  nowrap  align=\"center\">待转图</td>");
-      buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
-      buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+dicts.get(i).getThree()+"</td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+dicts.get(i).getThreeDay()+"</td>");
       buffer.append("</tr>");
       
-    }*/
+    }
     
     buffer.append("</table>");
     request.setAttribute("html", buffer.toString().replaceAll("null", ""));
+    request.setAttribute("code",code);
+    request.setAttribute("beginTime", beginTime);
+    request.setAttribute("endTime", endTime);
+    request.setAttribute("proPeriod",proPeriod);
     return "day/sum";
   }
   @RequestMapping("/typeDetail/{menuName}/{id}")
