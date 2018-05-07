@@ -125,7 +125,7 @@
         	var endTime=$("#endTime").val();
         	var proEngineType=$("#proEngineType").val();
         	var proPeriod=$("#proPeriod").val();
-        	location.href=encodeURI("/avg/工程类别汇总/115?proEngineType="+proEngineType+"&proPeriod="+proPeriod+"&beginTime="+beginTime+"&endTime="+endTime);
+        	location.href=encodeURI("/sum/工程类别汇总/115?proEngineType="+proEngineType+"&proPeriod="+proPeriod+"&beginTime="+beginTime+"&endTime="+endTime);
         }
     </script>
 </head>
@@ -166,26 +166,7 @@
                     </tr>
                 </table>
                 <div style="width: 97%;" class="xScroll">
-                    <table id="tbHaederText" border="1" cellpadding="0" cellspacing="0" align="center"
-                        style="border-collapse: collapse; word-break: keep-all; border-color: Black;
-                        width: 100%;">
-                        <tr align="center">
-                            <td class="th"  nowrap>工程类别</td>
-                            <td class="th"  nowrap>期次</td>
-                            <td class="th"  nowrap>任务长度</td>
-                            <td class="th"  nowrap>任务户数</td>
-                            <td class="th"  nowrap>当前实际完成</td>
-                            <td class="th"  nowrap>百分比</td>
-                        </tr>
-                        <tr th:each="rs : ${proDetailType}">
-                          <td th:text="${rs.proEngineTypeName}" class="td" ></td>
-                          <td th:text="${rs.proPeriodName}" class="td" ></td>
-                          <td th:text="${rs.dictdataNumber}" class="td" ></td>
-                          <td th:text="${rs.dictdataLength}" class="td" ></td>
-                          <td th:text="${rs.prwdTotal}" class="td" ></td>
-                          <td th:text="${rs.avg}?${rs.avg+'%'}:'0%'" class="td" ></td>
-                        </tr>
-                    </table>
+                    <p th:utext="${html}"></p>
                 </div>
             </div>
         </div>

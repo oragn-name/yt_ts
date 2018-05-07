@@ -26,5 +26,9 @@ public class DictdataServiceImpl extends BaseService<Dictionarydata> implements 
      List<Dictionarydata> dictdatas = dictionarydataMapper.selectDictdataByParentId(map);
     return dictdatas;
   }
+  @Override
+  public List<Dictionarydata> selectDictdataBySum(Map<String, Object> map) {
+    return dictionarydataMapper.selectDictdataBySum(map);
+  }
 
 }

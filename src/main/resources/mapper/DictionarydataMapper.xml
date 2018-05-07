@@ -34,4 +34,27 @@
      order by id asc
   </select>
   
+  
+  <select id="selectDictdataBySum" parameterType="java.util.Map" resultType="com.study.model.Dictionarydata">
+    SELECT
+	d2.dictdata_name as "parentName",
+  d3.dictdata_name as "dictdataName",
+  d3.dictdata_number as "dictdataNumber",
+  d3.dictdata_length as "dictdataLength",
+  (select count(*) from dictionarydata where parent_id=d2.id) as "count"
+FROM
+	(
+		SELECT
+			*
+		FROM
+			dictionary
+		WHERE
+			dict_code = 'GCLB'
+	) d1
+LEFT JOIN dictionarydata d2 ON d1.id = d2.dict_id
+LEFT JOIN dictionarydata d3 on d3.parent_id=d2.id
+  </select>
+  
+  
+  
 </mapper>

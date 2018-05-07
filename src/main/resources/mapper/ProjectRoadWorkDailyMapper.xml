@@ -712,14 +712,14 @@ and p.pro_period=#{proPeriod}
      select proEngineTypeName,
 	proPeriodName,
    dictdataLength,dictdataNumber,ifnull(sum(prwdTotal),0) as "prwdTotal",convert((ifnull(sum(prwdTotal),0)/dictdataLength)*100,decimal)as "avg"
-from(
-SELECT
-  p.id,
-	e.dictdata_name as "proEngineTypeName",
-	ta.dictdata_name as "proPeriodName",
-  ta.dictdata_length as "dictdataLength",
-ta.dictdata_number as "dictdataNumber",
-(select sum(detail_day) from project_road_word_detail e inner join dictionarydata d1 on d1.id=e.dn_id inner join dictionary d2 on d2.id=d1.dict_id where pro_id=p.id and d2.dict_code='GZL'
+	from(
+	SELECT
+	  p.id,
+		e.dictdata_name as "proEngineTypeName",
+		ta.dictdata_name as "proPeriodName",
+	  ta.dictdata_length as "dictdataLength",
+	ta.dictdata_number as "dictdataNumber",
+	(select sum(detail_day) from project_road_word_detail e inner join dictionarydata d1 on d1.id=e.dn_id inner join dictionary d2 on d2.id=d1.dict_id where pro_id=p.id and d2.dict_code='GZL'
 <if test="beginTime!=null and beginTime!=''">
     <choose>
        <when test="endTime !=null and endTime!='' ">
@@ -739,11 +739,11 @@ ta.dictdata_number as "dictdataNumber",
 </if>
 ) as "prwdTotal"
 FROM
-	dictionary d
-INNER JOIN dictionarydata e ON d.id = e.dict_id
-INNER JOIN project_produce p ON p.pro_engine_type = e.id
-inner join dictionarydata ta on ta.id=p.pro_period
-AND d.dict_code = 'GCLB'
+	(select * from dictionary where dict_code='GCLB') d
+left JOIN dictionarydata e ON d.id = e.dict_id
+left JOIN project_produce p ON p.pro_engine_type = e.id
+left join dictionarydata ta on ta.id=p.pro_period
+where d.dict_code = 'GCLB'
 <if test="proEngineType!=null and proEngineType!=''">
 and p.pro_engine_type=#{proEngineType}
 </if>

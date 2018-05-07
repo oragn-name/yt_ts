@@ -34,9 +34,20 @@ public class Dictionarydata {
     @Transient
     private String dictCode;
     
+    @Transient
+    private Integer count;
     
     
     
+    
+
+    public Integer getCount() {
+      return count;
+    }
+
+    public void setCount(Integer count) {
+      this.count = count;
+    }
 
     public String getDictCode() {
       return dictCode;

@@ -12,4 +12,7 @@ import com.study.util.MyMapper;
 public interface DictionarydataMapper extends MyMapper<Dictionarydata> {
   public List<Dictionarydata> selectDictdataByParentId(Map<String, Object> map);
   
+  
+  public List<Dictionarydata> selectDictdataBySum(Map<String, Object> map);
+  
 }

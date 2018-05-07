@@ -815,7 +815,61 @@ public class SummaryViewController {
     request.setAttribute("proPeriod",proPeriod);
     return "day/avg";
   }
-  
+  @RequestMapping("/sum/{menuName}/{id}")
+  public String sum(HttpServletRequest request,HttpServletResponse response,String type,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,String proEngineType,String proPeriod){
+    
+    
+    StringBuffer buffer=new StringBuffer();
+    buffer.append("<table id=\"tbHaederText\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" style=\"border-collapse: collapse; word-break: keep-all; border-color: Black;width: 100%;\">");
+    buffer.append("<tr>");//第一行
+    buffer.append("<td class=\"th\" nowrap align=\"center\">工程类别</td>");
+    buffer.append("<td class=\"th\" nowrap align=\"center\">期次</td>");
+    buffer.append("<td class=\"th\" nowrap align=\"center\">任务户数</td>");
+    buffer.append("<td class=\"th\" nowrap align=\"center\">任务长度</td>");
+    buffer.append("<td class=\"th\" nowrap align=\"center\">项目状态</td>");
+    buffer.append("<td class=\"th\" nowrap align=\"center\">实际户数</td>");
+    buffer.append("<td class=\"th\" nowrap align=\"center\">实际工作量</td>");
+    buffer.append("</tr>");
+
+    
+    Map<String,Object> map=new HashMap<String, Object>();
+    List<Dictionarydata> dicts =dictdataService.selectDictdataBySum(map);
+    String name="";
+    for (int i=0;i< dicts.size();i++) {
+      buffer.append("<tr>");
+      if(i==0){
+        buffer.append("<td class=\"th\" rowspan=\""+(dicts.get(i).getCount()==0?1*3:dicts.get(i).getCount()*3)+"\" nowrap align=\"center\">"+dicts.get(i).getParentName()+"</td>");
+      }else{
+        if(!name.equals(dicts.get(i).getParentName())){
+          buffer.append("<td class=\"th\" rowspan=\""+(dicts.get(i).getCount()==0?1*3:dicts.get(i).getCount()*3)+"\" nowrap align=\"center\">"+dicts.get(i).getParentName()+"</td>");
+        }
+      }
+      buffer.append("<td class=\"th\"  nowrap rowspan=\"3\"  align=\"center\">"+dicts.get(i).getDictdataName()+"</td>");
+      buffer.append("<td class=\"th\"  nowrap rowspan=\"3\"  align=\"center\">"+dicts.get(i).getDictdataLength()+"</td>");
+      buffer.append("<td class=\"th\"  nowrap rowspan=\"3\"  align=\"center\">"+dicts.get(i).getDictdataNumber()+"</td>");
+      
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">已完工</td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+      name=dicts.get(i).getParentName();
+      buffer.append("</tr>");
+      buffer.append("<tr>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">再施</td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+      buffer.append("</tr>");
+      buffer.append("<tr>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">待转图</td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\"></td>");
+      buffer.append("</tr>");
+      
+    }
+    
+    buffer.append("</table>");
+    request.setAttribute("html", buffer.toString().replaceAll("null", ""));
+    return "day/sum";
+  }
   @RequestMapping("/typeDetail/{menuName}/{id}")
   public String typeDetail(HttpServletRequest request,HttpServletResponse response,String type,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,String proEngineType,String proPeriod,Integer ids,String deptName){
     List<Dictionarydata> dicts = dictdataService.selectDictdataByParentId(null, null);
