@@ -11,6 +11,47 @@
 	   <form id="myfm" method="post" novalidate>
 	   <input type="hidden" th:value="${proId}"  name="proId">
 	   	   <table cellpadding="5">
+		   	   <tr>
+		   	      <td>工号</td>
+		   	      <td><input class="easyui-validatebox" type="text" th:value="${pro.proNumber}" readonly="readonly" ></td>
+		   	      <td>临时工号</td>
+		   	      <td><input class="easyui-validatebox" type="text" th:value="${pro.proSnapNumber}" readonly="readonly" ></td>
+		   	   </tr>
+		   	   <tr>
+		   	      <td>序号</td>
+		   	      <td><input class="easyui-validatebox" type="text" th:value="${pro.proSerialNumber}" readonly="readonly" ></td>
+		   	      <td>工程名称</td>
+		   	      <td><input class="easyui-validatebox" type="text" th:value="${pro.proName}" readonly="readonly" ></td>
+		   	   </tr>
+		   	   <tr>
+		   	      <td>项目状态</td>
+		   	      <td>
+                  <select class="easyui-combobox"  data-options="required:true,editable:false" disabled="disabled">
+	           				<option value="1" th:selected="${#strings.equals(pro.proStatus,1)}" >在施</option>
+	           				<option value="2" th:selected="${#strings.equals(pro.proStatus,2)}" >待施</option>
+	           				<option value="3" th:selected="${#strings.equals(pro.proStatus,3)}" >已完工</option>
+	           				<option value="4"  th:selected="${#strings.equals(pro.proStatus,4)}" >待转图</option>
+	           			</select>
+                </td>
+		   	      <td>工程性质</td>
+		   	      <td><input class="easyui-validatebox" type="text" th:value="${pro.proNatureName}" readonly="readonly" ></td>
+		   	   </tr>
+		   	   <tr>
+		   	      <td>工程来源</td>
+		   	      <td><input class="easyui-validatebox" type="text" th:value="${pro.proSourceName}" readonly="readonly" ></td>
+		   	      <td>期次</td>
+		   	      <td><input class="easyui-validatebox" type="text" th:value="${pro.proPeriodName}" readonly="readonly" ></td>
+		   	   </tr>
+		   	   <tr>
+		   	      <td>转入单位 </td>
+		   	      <td><input class="easyui-validatebox" type="text" th:value="${pro.proDeptName}" readonly="readonly" ></td>
+		   	      <td>施工单位</td>
+		   	      <td><input class="easyui-validatebox" type="text" th:value="${pro.proConst}" readonly="readonly" ></td>
+		   	   </tr>
+		   	   <tr>
+		   	      <td>转闸单时间 </td>
+		   	      <td><input class="easyui-validatebox" type="text" th:value="${projectRoadWork.prwSwitchingDate}"  readonly="readonly" ></td>
+		   	   </tr>
                 <tr>
                 <td  style="text-align: right;">图纸性质:</td>
                     <td>

@@ -27,6 +27,12 @@ public class ProjectContractViewController {
   private ProjectContractService projectContractService;
   @Autowired
   private DictdataService dictdataService;
+  
+  @RequestMapping(value="/contracts/pro")
+  public String pro(HttpServletRequest request, String contractNumber){
+    request.setAttribute("contractNumber", contractNumber);
+    return "contracts_pro/project";
+  }
   @RequestMapping(value="/contracts/add",method={RequestMethod.GET})
   public String add(HttpServletRequest request, String proIds, @ModelAttribute MenuBean bean,Integer contractId){
     request.setAttribute("menu", bean);

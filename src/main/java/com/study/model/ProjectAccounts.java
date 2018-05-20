@@ -19,6 +19,12 @@ public class ProjectAccounts {
      */
     @Column(name = "pro_id")
     private Integer proId;
+    
+    /**
+     * 施工单位id
+     */
+    @Column(name = "pc_id")
+    private Integer pcId;
 
     /**
      * 结算日期
@@ -37,12 +43,17 @@ public class ProjectAccounts {
      */
     @Column(name = "accounts_create_time")
     private String accountsCreateTime;
-
+    
     /**
      * 备注
      */
     @Column(name = "accounts_remark")
     private String accountsRemark;
+    /**
+     * 备注
+     */
+    @Column(name = "accounts_user")
+    private String accountsUser;
     
     @Transient
     private String proNumber;//项目工号
@@ -219,6 +230,22 @@ public class ProjectAccounts {
 
     public void setPrwRoadName(String prwRoadName) {
       this.prwRoadName = prwRoadName;
+    }
+
+    public Integer getPcId() {
+      return pcId;
+    }
+
+    public void setPcId(Integer pcId) {
+      this.pcId = pcId;
+    }
+
+    public String getAccountsUser() {
+      return accountsUser;
+    }
+
+    public void setAccountsUser(String accountsUser) {
+      this.accountsUser = accountsUser;
     }
     
 }

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="common/head :: header">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body class="easyui-layout">
+
+	<table id="tb1" class="easyui-datagrid" title="" title="" style="width:1260px;height:255px;" border="0"
+           data-options="rownumbers:true,pagination:true,url:'/contracts/getData.do',singleSelect:false,method:'get',toolbar:'#toolbar1'">
+        <thead>
+            <tr>
+            	<th data-options="field:'ck',checkbox:true"></th>
+            	<th data-options="field:'contractId',width:100,align:'center',sortable:'true',hidden:'true'">contractId</th>
+            	<th data-options="field:'contractBudgetPrice',width:150,align:'center',sortable:'true'">工程预算价</th>
+            	<th data-options="field:'contractBudgetPriceUser',width:150,align:'center',sortable:'true'">预算编制人</th>
+            	<th data-options="field:'contractType',width:100,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '有';
+	                                    return '无';
+	                		  }">有无合同</th>
+            	<th data-options="field:'contractBiddingTime',width:100,align:'center',sortable:'true'">招投标时间</th>
+            	<th data-options="field:'contractBeginTime',width:100,align:'center',sortable:'true'">合同开工时间</th>
+            	<th data-options="field:'contractEndTime',width:100,align:'center',sortable:'true'">合同完工时间</th>
+            	<th data-options="field:'contractSource',width:100,align:'center',sortable:'true' ,formatter:function(value,row){
+            							if (value == 1) return '集团内';
+	                                    return '集团外';
+	                		  }">合同来源</th>
+          		  <th data-options="field:'contractNumber',width:100,align:'center',sortable:'true'">合同编号</th>
+          		   <th data-options="field:'contractName',width:100,align:'center',sortable:'true'">合同名称</th>
+          		  <th data-options="field:'contractAlone',width:100,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }">是否单独合同</th>
+          		  <th data-options="field:'contractProNumber',width:100,align:'center',sortable:'true'">原合同工程号</th>
+          		  <th data-options="field:'contractArchTime',width:100,align:'center',sortable:'true'">合同归档日期</th>
+          		  <th data-options="field:'contractRemark',width:100,align:'center',sortable:'true'">合同备注</th>
+          		  <th data-options="field:'contractNatrueName',width:100,align:'center',sortable:'true'">合同性质</th>
+          		  <th data-options="field:'contractMoney',width:100,align:'center',sortable:'true'">合同金额</th>
+          		  <th data-options="field:'contractBiddingType',width:100,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }">是否招投标</th>
+          		  <th data-options="field:'contractAdvice',width:100,align:'center',sortable:'true'">合同审核意见</th>
+          		  <th data-options="field:'contractCheckUser',width:100,align:'center',sortable:'true'">合同审核人</th>
+          		  <th data-options="field:'contractCheckTime',width:100,align:'center',sortable:'true'">合同审核时间</th>
+          		  <th data-options="field:'contractSignTime',width:100,align:'center',sortable:'true'">合同签订日期</th>
+          		  <th data-options="field:'contractStampTime',width:100,align:'center',sortable:'true'">合同盖章日期</th>
+          		  <th data-options="field:'contractBackTime',width:100,align:'center',sortable:'true'">合同返回日期</th>
+          		  <th data-options="field:'contractBackUser',width:100,align:'center',sortable:'true'">合同经手人</th>
+          		  <th data-options="field:'contractSignUser',width:100,align:'center',sortable:'true'">合同签订人</th>
+          		  <th data-options="field:'contractDur',width:100,align:'center',sortable:'true'">工期</th>
+          		  <th data-options="field:'contractDuty',width:100,align:'center',sortable:'true'">印花税金额</th>
+          		  <th data-options="field:'contractDutyTime',width:100,align:'center',sortable:'true'">贴税日期</th>
+          		  <th data-options="field:'contractCreateUser',width:100,align:'center',sortable:'true'">创建人</th>
+          		  <th data-options="field:'contractCreateTime',width:100,align:'center',sortable:'true'">创建时间</th>
+            </tr>
+        </thead>
+   	</table>
+    <div id="toolbar1" class="easyui-layout" style="height:40px;margin:3px;">
+        <div data-options="region:'north',border:true" style="height:40px;">
+            <form id="fm" method="post" novalidate>
+            <table cellpadding="5">
+              <tr>
+                   <td>合同编号:</td>
+                   <td><input class="easyui-validatebox textbox" type="text" name="contractNumber" id="contractNumber"></input></td>
+                   <td><a href="javascript:search()" class="easyui-linkbutton" iconCls="icon-search">查找</a></td>
+               </tr>
+           </table>
+           </form>
+        </div> 
+        
+    </div> 
+    <table id="tb2" class="easyui-datagrid" title="" style="width:1260px;height:255px;"  border="0"
+           data-options="rownumbers:true,pagination:true,url:'',singleSelect:false,method:'get',toolbar:'#toolbar2'">
+        <thead>
+            <tr>
+            	<th data-options="field:'ck',checkbox:true"></th>
+            	<th data-options="field:'id',width:100,align:'center',sortable:'true',hidden:'true'">id</th>
+	            <th data-options="field:'packTypeName',width:100,align:'center',sortable:'true'">合同类别</th>
+            	<th data-options="field:'packNumber',width:100,align:'center',sortable:'true'">分包编号</th>
+            	<th data-options="field:'packNum',width:100,align:'center',sortable:'true'">工号</th>
+            	<th data-options="field:'packUnit',width:80,align:'center',sortable:'true'">单位</th>
+            	<th data-options="field:'packMoney',width:100,align:'center',sortable:'true'">金额</th>
+            	<th data-options="field:'packTime',width:100,align:'center',sortable:'true'">签订日期</th>
+            	<th data-options="field:'packReadUnitName',width:100,align:'center',sortable:'true'">签订单位</th>
+            	<th data-options="field:'packUser',width:100,align:'center',sortable:'true'">签订人</th>
+            	<th data-options="field:'packBeginTime',width:100,align:'center',sortable:'true'">开工日期</th>
+            	<th data-options="field:'packEndTime',width:100,align:'center',sortable:'true'">竣工日期</th>
+            	<th data-options="field:'packToalTime',width:100,align:'center',sortable:'true'">工期</th>
+            	<th data-options="field:'packRemark',width:100,align:'center',sortable:'true'">备注</th>
+            </tr>
+        </thead>
+   	</table>
+    <div id="toolbar2" class="easyui-layout" style="height:35px;margin:3px;">
+       <div data-options="region:'center',border:false">
+        <a th:each="but : ${buttons}" th:shiro:hasPermission="${but.resurl}" th: class="easyui-linkbutton" th:icon="${but.iconCls}" plain="true" th:href="|javascript:${but.butFun};|" th:text="${but.name}"></a>
+        </div>
+    </div> 
+    <script th:inline="javascript">
+    var menuName=[[${menuName}]]
+    
+    $(function(){ 
+    	$('#tb1').datagrid({
+    	onClickRow:function(rowIndex,rowData){
+    		searchProp();
+    	}
+    	});
+    	});
+    
+    function add(){
+    	var selecteds = $('#tb1').datagrid('getSelections');
+        if (selecteds == null || selecteds.length == 0) { 
+        	Common.showMsg('提示','请选一条数据');
+        	return;
+        }
+        if (selecteds.length>1) {
+        	Common.showMsg('提示','不支持多个操作！');
+        	return; 
+        }
+		top.framework.openTab('新增数据', '/packages/add?menuName=新增数据&parentMenuName='+menuName+"&pcId="+selecteds[0].contractId);
+	}
+    function edit(){
+		/* var selecteds = $('#tb1').datagrid('getSelections'); */
+		var selecteds2 = $('#tb2').datagrid('getSelections'); 
+        if (selecteds2 == null || selecteds2.length == 0) { 
+        	Common.showMsg('修改数据','请选择操作项！');
+        	return;
+        }
+        if (selecteds2.length>1) {
+        	Common.showMsg('修改数据','不支持多个操作！');
+        	return; 
+        }
+		top.framework.openTab('修改数据', '/packages/add.do?menuName=修改数据&id='+selecteds2[0].id+'&parentMenuName='+menuName);
+	}
+    
+    function remove(){
+		var selecteds = $('#tb2').datagrid('getSelections');
+        if (selecteds == null || selecteds.length == 0) { 
+        	Common.showMsg('提示','请选择操作项！');
+        	return;
+        }
+        $.messager.confirm('提示','确定删除吗?', 
+        function(r){
+            if (r){
+            	var ids = '';
+                $(selecteds).each(function (index) {
+                    ids = ids + selecteds[index].id + ",";
+                });
+                ids = ids.substring(0, ids.length - 1);
+        		$.ajax( {
+    				url : '/packages/delete.do?ids='+ids,
+    				dataType:'text',
+    				type: 'delete',
+    				success : function(result) {
+    					if ("success"==result){
+    						Common.showMsg('提示',"删除成功");
+        				    search();
+    					}else{
+    						Common.showMsg('提示',"删除失败");
+    					}
+    					
+    				}
+    			});
+            }
+        });
+        
+	}
+    function search(){
+    	var names = $("#contractNumber").val();
+		$('#tb1').datagrid({
+            url:"/contracts/getData.do",
+            queryParams:{
+            	contractNumber:names
+            }
+        });
+	}
+    function searchProp(){
+    	var selecteds = $('#tb1').datagrid('getSelections');
+		$('#tb2').datagrid({
+            url:"/packages/getData.do",
+            queryParams:{
+            	pcId:selecteds[0].contractId
+            }
+        });
+	} 
+   
+    </script>
+</body>
+

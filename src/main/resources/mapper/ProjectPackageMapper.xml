@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ProjectPackageMapper">
+  <resultMap id="BaseResultMap" type="com.study.model.ProjectPackage">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pack_type" jdbcType="INTEGER" property="packType" />
+    <result column="pack_number" jdbcType="VARCHAR" property="packNumber" />
+    <result column="pack_num" jdbcType="VARCHAR" property="packNum" />
+    <result column="pack_unit" jdbcType="VARCHAR" property="packUnit" />
+    <result column="pack_money" jdbcType="DOUBLE" property="packMoney" />
+    <result column="pack_read_unit" jdbcType="INTEGER" property="packReadUnit" />
+    <result column="pack_time" jdbcType="VARCHAR" property="packTime" />
+    <result column="pack_user" jdbcType="VARCHAR" property="packUser" />
+    <result column="pack_begin_time" jdbcType="VARCHAR" property="packBeginTime" />
+    <result column="pack_end_time" jdbcType="VARCHAR" property="packEndTime" />
+    <result column="pack_toal_time" jdbcType="VARCHAR" property="packToalTime" />
+    <result column="pack_remark" jdbcType="VARCHAR" property="packRemark" />
+    <result column="pc_id" jdbcType="INTEGER" property="pcId" />
+  </resultMap>
+  
+  <select id="selectByAll" parameterType="java.util.Map" resultMap="BaseResultMap">
+     
+       select t.*,(select dictdata_name from dictionarydata where id=t.pack_type) as packTypeName,(select name from dept where id=t.pack_read_unit) as packReadUnitName from project_package t where 1=1
+       <if test="pcId!=null and pcId!=''">
+         and t.pc_id=#{pcId}
+       </if>
+    
+  </select>
+  
+</mapper>

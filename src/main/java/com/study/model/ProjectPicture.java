@@ -51,6 +51,9 @@ public class ProjectPicture {
     @Column(name = "picture_create_user")
     private Integer pictureCreateUser;
 
+    
+    @Transient
+    private String prwSwitchingDate;
     /**
      * 创建时间
      */
@@ -217,6 +220,14 @@ public class ProjectPicture {
 
     public void setPictureNatureName(String pictureNatureName) {
       this.pictureNatureName = pictureNatureName;
+    }
+
+    public String getPrwSwitchingDate() {
+      return prwSwitchingDate;
+    }
+
+    public void setPrwSwitchingDate(String prwSwitchingDate) {
+      this.prwSwitchingDate = prwSwitchingDate;
     }
     
     

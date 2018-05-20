@@ -41,7 +41,8 @@
     <result column="pro_water_begintime" jdbcType="VARCHAR" property="proWaterBegintime" />
     <result column="pro_water_endtime" jdbcType="VARCHAR" property="proWaterEndtime" />
     <result column="pro_contract_number" jdbcType="VARCHAR" property="proContractNumber" />
-    
+    <result column="pro_unit" jdbcType="VARCHAR" property="proUnit" />
+    <result column="pro_address" jdbcType="VARCHAR" property="proAddress" />
     <result column="pro_status" jdbcType="INTEGER" property="proStatus" />
     <result column="pro_type" jdbcType="INTEGER" property="proType" />
   </resultMap>
@@ -50,7 +51,7 @@
     select * from (select id,pro_gauge as "proGauge",(select dictdata_name from dictionarydata where id=pro_job_type) as "proJobTypeName" ,(select dictdata_name from dictionarydata where id=pro_engine_type) as "proEngineTypeName" ,pro_engine_type as "proEngineType",(select dictdata_name from dictionarydata where id=pro_nature) as "proNatureName",pro_nature as "proNature",pro_name as "proName",(select dictdata_name from dictionarydata where id=pro_source) as "proSourceName",(select dictdata_name from dictionarydata where id=pro_number_type) as "proNumberName",pro_number as "proNumber",pro_snap_number as "proSnapNumber",
 	pro_serial_number as "proSerialNumber",pro_lssued_time as "proLssuedTime",(select dictdata_name from dictionarydata where id=pro_area) as "proAreaName",pro_roads_time as "proRoadsTime",pro_traffic_time as "proTrafficTime",(select dictdata_name from dictionarydata where id=pro_period) as "proPeriodName",pro_period as "proPeriod",(select name from dept where id=pro_dept) as "proDeptName",pro_dept as "proDept", pro_design_length as "proDesignLength",
 	pro_pipe_length as "proPipeLength",pro_snap_length as "proSnapLength",create_user as "createUser",create_time as "createTime",pro_user as "proUser",pro_user_phone as "proUserPhone",pro_remark as "proRemark",pro_pipe as "proPipe",pro_pipe_lengths as "proPipeLengths",
-	 pro_contract_number as "proContractNumber", pro_water as "proWater",pro_water_number as "proWaterNumber",pro_design as "proDesign",pro_billing as "proBilling",pro_water_begintime as "proWaterBegintime" , pro_water_endtime as "proWaterEndtime",pro_const as "proConst",pro_status as "proStatus", pro_type as "proType"   from project_produce) t where 1=1
+	 pro_contract_number as "proContractNumber", pro_water as "proWater",pro_unit as "proUnit",pro_address as "proAddress",pro_water_number as "proWaterNumber",pro_design as "proDesign",pro_billing as "proBilling",pro_water_begintime as "proWaterBegintime" , pro_water_endtime as "proWaterEndtime",pro_const as "proConst",pro_status as "proStatus", pro_type as "proType"   from project_produce) t where 1=1
 	<if test="proName!=null and proName!=''">
 	 and proName like CONCAT(CONCAT('%', #{proName}), '%')
 	</if>

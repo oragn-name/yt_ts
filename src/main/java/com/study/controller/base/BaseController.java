@@ -64,7 +64,8 @@ public class BaseController {
         for (Resources resources1 : buttons) {
           oht:
           for (Resources resources : loadUserResources) {
-          if(resources.getId()==resources1.getId()){
+            System.out.println("resources.getId()"+resources.getId()+"==resources1.getId()---"+resources1.getId());
+            if(resources.getId().equals(resources1.getId())){
             list.add(resources1);
             break oht;
           }

@@ -22,6 +22,7 @@
             	<th data-options="field:'dictdataNumber',width:150,align:'center',sortable:'true'">任务长度</th>
             	<th data-options="field:'dictdataLength',width:150,align:'center',sortable:'true'">任务户数</th>
             	<th data-options="field:'parentdataName',width:200,align:'center',sortable:'true'">上级单位</th>
+            	<th data-options="field:'dictdataDay',width:150,align:'center',sortable:'true'">预警天数</th>
             	<th data-options="field:'dictdataMark',width:200,align:'center',sortable:'true'">备注</th>
             </tr>
         </thead>
@@ -135,6 +136,11 @@
             	dictdataName:name,
             }
         });
+		if(code!="TZXZ"){
+			$("#tb1").datagrid("hideColumn", "dictdataDay");
+		}else{
+			$("#tb1").datagrid("showColumn", "dictdataDay");
+		}
 		if(code!="QC"){
 			$("#tb1").datagrid("hideColumn", "parentdataName"); // 设置隐藏列   
 			$("#tb1").datagrid("hideColumn", "dictdataNumber");

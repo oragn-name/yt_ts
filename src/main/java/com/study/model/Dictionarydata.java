@@ -25,6 +25,8 @@ public class Dictionarydata {
     private Double dictdataNumber;
     @Column(name = "dictdata_length")
     private Double dictdataLength;
+    @Column(name = "dictdata_day")
+    private Integer dictdataDay;
     
     @Transient
     private String parentName;
@@ -238,6 +240,14 @@ public class Dictionarydata {
 
     public void setDictdataLength(Double dictdataLength) {
       this.dictdataLength = dictdataLength;
+    }
+
+    public Integer getDictdataDay() {
+      return dictdataDay;
+    }
+
+    public void setDictdataDay(Integer dictdataDay) {
+      this.dictdataDay = dictdataDay;
     }
     
     

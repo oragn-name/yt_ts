@@ -35,9 +35,10 @@ public class ProjectAccountsController {
   private DictdataService dictdataService;
   
   @RequestMapping(value="/accounts/getData",method={RequestMethod.GET})
-  public DataGridResultInfo getData(@ModelAttribute PageBean bean,@RequestParam(value="proId",required=true)Integer proId){
+  public DataGridResultInfo getData(@ModelAttribute PageBean bean,@RequestParam(value="proId",required=true)Integer proId,@RequestParam(value="pcId",required=true)Integer pcId){
     ProjectAccounts projectAccounts=new ProjectAccounts();
     projectAccounts.setProId(proId);
+    projectAccounts.setPcId(pcId);
     List<ProjectAccounts> selectSafetyByAll = projectAccountsService.selectAccountsByAll(projectAccounts, bean);
     for (ProjectAccounts projectAccounts2 : selectSafetyByAll) {
       String proConsts="";

@@ -301,6 +301,11 @@ public class ProjectRoadWork {
     @Column(name = "prw_quality")
     private String prwQuality;
     
+    /**
+     * 图纸性质  1 简图，2蓝图
+     */
+    @Column(name = "prw_nature")
+    private Integer prwNature;
     
 
     /**
@@ -1059,6 +1064,14 @@ public class ProjectRoadWork {
 
     public void setPrwQuality(String prwQuality) {
       this.prwQuality = prwQuality;
+    }
+
+    public Integer getPrwNature() {
+      return prwNature;
+    }
+
+    public void setPrwNature(Integer prwNature) {
+      this.prwNature = prwNature;
     }
     
     

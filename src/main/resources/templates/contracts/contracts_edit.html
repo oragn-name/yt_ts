@@ -115,9 +115,24 @@
                    
                 </tr>
                 <tr>
-                   <td style="text-align: right;">贴税日期:</td>
-                    <td colspan="3"><input class="easyui-datetimebox" type="text" name="contractDutyTime" th:value="${contract.contractDutyTime}" data-options=""></input></td>
+                <td style="text-align: right;">合同开工时间:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="contractBeginTime" th:value="${contract.contractBeginTime}" data-options=""></input></td>
                     
+                <td  style="text-align: right;">合同完工时间:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="contractEndTime" th:value="${contract.contractEndTime}"  data-options=""></input></td>
+                   
+                </tr>
+                <tr>
+                   <td style="text-align: right;">贴税日期:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="contractDutyTime" th:value="${contract.contractDutyTime}" data-options=""></input></td>
+                     <td style="text-align: right;">合同来源:</td>
+                    <td>
+                    
+                      <select class="easyui-combobox" name="contractSource" style="width: 148px;" >
+                           <option value="1" th:selected="${#strings.equals(contract.contractSource,1)}">集团内</option>
+                           <option value="2" th:selected="${#strings.equals(contract.contractSource,2)}">集团外</option>
+                         </select>
+                    </td>
                 </tr>
                 <tr>
                     <td style="text-align: right;">合同备注:</td>

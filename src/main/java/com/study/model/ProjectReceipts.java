@@ -55,7 +55,18 @@ public class ProjectReceipts {
      */
     @Column(name = "receipts_source")
     private Integer receiptsSource;
+    
+    /**
+     * 施工单位id
+     */
+    @Column(name = "pc_id")
+    private Integer pcId;
 
+    @Column(name = "receipts_remark")
+    private String receiptsRemark;
+
+    
+    
     /**
      * @return receipts_id
      */
@@ -213,4 +224,23 @@ public class ProjectReceipts {
     public void setReceiptsSource(Integer receiptsSource) {
         this.receiptsSource = receiptsSource;
     }
+
+    public Integer getPcId() {
+      return pcId;
+    }
+
+    public void setPcId(Integer pcId) {
+      this.pcId = pcId;
+    }
+
+    public String getReceiptsRemark() {
+      return receiptsRemark;
+    }
+
+    public void setReceiptsRemark(String receiptsRemark) {
+      this.receiptsRemark = receiptsRemark;
+    }
+    
+    
+    
 }

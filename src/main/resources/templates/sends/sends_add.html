@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="common/head :: header">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'center'" border="false">
+	<div id="dlg" style="padding:10px 20px">
+	   <div class="myftitle">基本信息</div>
+	   <form id="myfm" method="post" novalidate>
+	   <input type="hidden" th:value="${pcId}"  name="pcId">
+	   	   <table cellpadding="5">
+	   	  <tr>
+                <td  style="text-align: right;">合同号:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${pc.contractNumber}" readonly="readonly" data-options=""></input></td>
+                    <td style="text-align: right;">合同日期:</td>
+                   <td><input class="easyui-validatebox" type="text" th:value="${pc.contractSignTime}" readonly="readonly" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">合同来源:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${pc.contractSource==1}?'集团内':'集团外'" readonly="readonly"   data-options=""></input></td>
+                    <td style="text-align: right;">合同名称:</td>
+                   <td><input class="easyui-validatebox" type="text" th:value="${pc.contractName}" readonly="readonly" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">合同金额:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${pc.contractMoney}" readonly="readonly" data-options=""></input></td>
+                    
+                </tr> 
+	   	   <tr>
+                <td  style="text-align: right;">申报年度:</td>
+                <td>
+                <input class="easyui-validatebox" type="text" name="pcsYear" data-options=""></input>
+                 </td>
+                    <td style="text-align: right;">申报月份:</td>
+                    <td><input class="easyui-validatebox" type="text" name="pcsMonth" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">长度:</td>
+                    <td><input class="easyui-validatebox" type="text" name="pcsLength"data-options=""></input></td>
+                    <td style="text-align: right;">金额:</td>
+                   <td><input class="easyui-validatebox" type="text" name="pcsMoney" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                    <td style="text-align: right;">备注:</td>
+                    <td colspan="3">
+<textarea rows="5" cols="70" name="pcsRemark"></textarea>
+                   </td>
+                </tr>
+            </table>
+	   </form>
+    </div>
+    </div>
+    <div data-options="region:'south'" style="height: 40px;" border="false">
+		<hr>
+		<div style="text-align:center;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">保存</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" th:onclick="|top.framework.closeTab('${menu.menuName}')|">关闭</a>
+    	</div>
+	</div>
+	<script th:inline="javascript">
+	var parentMenuName=[[${menu.parentMenuName}]]
+	var menuName=[[${menu.menuName}]]
+	function submitForm(){
+        $('#myfm').form('submit',{
+            url: '/sends/add.html',
+            onSubmit: function(){
+                return $(this).form('validate');
+            },
+            success: function(result){
+                if ("success"==result){
+                	Common.showMsg('提示',"添加成功");
+                	top.framework.closeAndReloadTab(menuName, parentMenuName);
+                } else {
+                	Common.showMsg('提示',"添加失败");
+                }
+            }
+        });
+	}
+	</script>
+</body>
+

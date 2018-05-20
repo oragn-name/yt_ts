@@ -32,10 +32,13 @@
      <result column="contract_create_user" jdbcType="INTEGER" property="contractCreateUser" />
       <result column="contract_create_time" jdbcType="VARCHAR" property="contractCreateTime" />
       <result column="contract_name" jdbcType="VARCHAR" property="contractName" />
+      <result column="contract_begin_time" jdbcType="VARCHAR" property="contractBeginTime" />
+      <result column="contract_end_time" jdbcType="VARCHAR" property="contractEndTime" />
+      <result column="contract_source" jdbcType="INTEGER" property="contractSource" />
   </resultMap>
   
   <select id="selectContractByAll" parameterType="com.study.model.ProjectContract" resultType="com.study.model.ProjectContract">
-  select contract_id as "contractId",contract_budget_price as "contractBudgetPrice",contract_budget_price_user as "contractBudgetPriceUser",
+  select contract_id as "contractId",contract_begin_time as "contractBeginTime",contract_end_time as "contract_end_time",contract_source as "contractSource", contract_budget_price as "contractBudgetPrice",contract_budget_price_user as "contractBudgetPriceUser",
   	     contract_bidding_time as "contractBiddingTime",contract_type as "contractType",contract_number as "contractNumber",
   	     contract_alone as "contractAlone",contract_pro_number as "contractProNumber",contract_arch_time as "contractArchTime",
   	     contract_remark as "contractRemark",contract_natrue as "contractNatrue",(select dictdata_name from dictionarydata where id=contract_natrue) as "contractNatrueName",contract_money as "contractMoney",contract_bidding_type as "contractBiddingType",

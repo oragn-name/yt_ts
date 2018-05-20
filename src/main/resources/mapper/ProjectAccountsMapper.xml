@@ -8,20 +8,91 @@
     <id column="accounts_id" jdbcType="INTEGER" property="accountsId" />
     <result column="accounts_money" jdbcType="DOUBLE" property="accountsMoney" />
     <result column="pro_id" jdbcType="INTEGER" property="proId" />
+    <result column="pc_id" jdbcType="INTEGER" property="pcId" />
     <result column="accounts_time" jdbcType="VARCHAR" property="accountsTime" />
     <result column="accounts_create_user" jdbcType="INTEGER" property="accountsCreateUser" />
     <result column="accounts_create_time" jdbcType="VARCHAR" property="accountsCreateTime" />
     <result column="accounts_remark" jdbcType="VARCHAR" property="accountsRemark" />
+    <result column="accounts_user" jdbcType="VARCHAR" property="accountsUser" />
   </resultMap>
   
   <select id="selectAccountsByAll" resultType="com.study.model.ProjectAccounts" parameterType="com.study.model.ProjectAccounts">
   
-    select a.accounts_id as "accountsId",a.accounts_money as "accountsMoney",a.pro_id as "proId",
+    select a.accounts_user as "accountsUser",a.accounts_id as "accountsId",a.accounts_money as "accountsMoney",a.pro_id as "proId",pc_id as "pcId",
            a.accounts_time as "accountsTime",a.accounts_create_user as "accountsCreateUser",
            a.accounts_create_time as "accountsCreateTime",a.accounts_remark as "accountsRemark",
            pro.pro_Number as "proNumber",(select name from dept where id=pro.pro_dept) as "proDeptName",
            pro.pro_const as "proConstName",rw.prw_budget as "prwBudget",rw.prw_road_name as "prwRoadName" 
-    from project_accounts a inner join project_produce pro on pro.id=a.pro_id inner join project_road_work rw on pro.id=rw.pro_id  and a.pro_id=#{proId}
+    from project_accounts a inner join project_produce pro on pro.id=a.pro_id inner join project_road_work rw on pro.id=rw.pro_id  and a.pro_id=#{proId} and a.pc_id=#{pcId}
   </select>
+  <select id="getOrderDay" parameterType="java.util.Map" resultType="com.study.model.vo.AccountsOrder">
   
+  SELECT
+	p.pro_number AS "proNumber",
+	p.pro_snap_number AS "proSnapNumber",
+	p.pro_serial_number AS "proSerialNumber",
+	p.pro_design_length as "proDesignLength",
+  p.pro_status as "proStatus",
+  p.pro_contract_number as "proContractNumber",
+  (select contract_name from project_contract where contract_number=p.pro_contract_number) as "contractName",
+  (select name from dept where id=p.pro_dept) as "proDeptName",
+	(select dictdata_name from dictionarydata where id=p.pro_engine_type) as "proEngineTypeName",
+	(select dictdata_name from dictionarydata where id=p.pro_nature) as "proNatureName",
+	 p.pro_name AS "proName",
+	(select dictdata_name from dictionarydata where id=p.pro_source) as "proSourceName",
+	(select dictdata_name from dictionarydata where id=p.pro_period) as "proPeriodName",
+	(select name from dept where id=c.pc_dept)  as "pcDeptName",
+	a.accounts_money as "accountsMoney", a.accounts_time as "accountsTime",
+	a.accounts_remark as "accountsRemark",a.accounts_user as "accountsUser"
+FROM
+	project_produce p
+INNER JOIN project_construction c ON  c.proId = p.id inner join project_accounts a on a.pc_id=c.id  where 1=1 and p.pro_type=1
+<if test="proName!=null and proName!=''">
+  and p.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
+</if>
+<if test="proNumber!=null and proNumber!=''">
+and p.pro_number like CONCAT(CONCAT('%', #{proNumber}), '%')
+</if>
+<if test="proSerialNumber!=null and proSerialNumber!=''">
+and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
+</if>
+  <if test="proStatus!=null and proStatus!=''">
+and p.pro_status=#{proStatus}
+</if>
+ <if test="proEngineTypeName!=null and proEngineTypeName!=''">
+and p.pro_engine_type=#{proEngineTypeName}
+</if>
+<if test="proDeptName!=null and proDeptName!=''">
+and p.pro_dept=#{proDeptName}
+</if>
+<if test="proSourceName!=null and proSourceName!=''">
+and p.pro_source=#{proSourceName}
+</if>
+<if test="proNatureName!=null and proNatureName!=''">
+and p.pro_nature=#{proNatureName}
+</if>
+<if test="proPeriodName!=null and proPeriodName!=''">
+and p.pro_period=#{proPeriodName}
+</if>
+<if test="pcDeptName!=null and pcDeptName!=''">
+and c.pc_dept=#{pcDeptName}
+</if>
+<if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and a.accounts_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   a.accounts_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and a.accounts_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+</select>
 </mapper>

@@ -23,6 +23,116 @@
   
   
   </select>
+  <select id="getOrderDay" parameterType="java.util.Map" resultType="com.study.model.vo.PictureOrder">
+ SELECT
+	p.pro_number AS "proNumber",
+	p.pro_snap_number AS "proSnapNumber",
+	p.pro_serial_number AS "proSerialNumber",
+	p.pro_design_length as "proDesignLength",
+  p.pro_status as "proStatus",
+  p.pro_contract_number as "proContractNumber",
+  (select contract_name from project_contract where contract_number=p.pro_contract_number) as "contractName",
+  (select name from dept where id=p.pro_dept) as "proDeptName",
+	(select dictdata_name from dictionarydata where id=p.pro_engine_type) as "proEngineTypeName",
+	(select dictdata_name from dictionarydata where id=p.pro_nature) as "proNatureName",
+	 p.pro_name AS "proName",
+	(select dictdata_name from dictionarydata where id=p.pro_source) as "proSourceName",
+	(select dictdata_name from dictionarydata where id=p.pro_period) as "proPeriodName",
+  w.prw_switching_date as "prwSwitchingDate",d.dictdata_name as "pictureNatureName",d.dictdata_day as "dictdataDay",c.picture_type as "pictureType",c.picture_remark as "pictureRemark"
+FROM
+	project_produce p inner join project_picture c on c.pro_id=p.id 
+  inner join  project_road_work w on w.pro_id=p.id inner join dictionarydata d on d.id=c.picture_nature
+ where 1=1 and p.pro_type=1
+
+  <if test="proName!=null and proName!=''">
+  and p.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
+</if>
+<if test="proNumber!=null and proNumber!=''">
+and p.pro_number like CONCAT(CONCAT('%', #{proNumber}), '%')
+</if>
+<if test="proSerialNumber!=null and proSerialNumber!=''">
+and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
+</if>
+  <if test="proStatus!=null and proStatus!=''">
+and p.pro_status=#{proStatus}
+</if>
+ <if test="proEngineTypeName!=null and proEngineTypeName!=''">
+and p.pro_engine_type=#{proEngineTypeName}
+</if>
+<if test="proDeptName!=null and proDeptName!=''">
+and p.pro_dept=#{proDeptName}
+</if>
+<if test="proSourceName!=null and proSourceName!=''">
+and p.pro_source=#{proSourceName}
+</if>
+<if test="proNatureName!=null and proNatureName!=''">
+and p.pro_nature=#{proNatureName}
+</if>
+<if test="proPeriodName!=null and proPeriodName!=''">
+and p.pro_period=#{proPeriodName}
+</if>
+<if test="pictureNatureName!=null and pictureNatureName!=''">
+and d.id=#{pictureNatureName}
+</if>
+<if test="pictureType!=null">
+and c.picture_type=#{pictureType}
+</if>
+  </select>
   
   
+   <select id="getOrderalarm" parameterType="java.util.Map" resultType="com.study.model.vo.PictureOrder">
+ SELECT
+	p.pro_number AS "proNumber",
+	p.pro_snap_number AS "proSnapNumber",
+	p.pro_serial_number AS "proSerialNumber",
+	p.pro_design_length as "proDesignLength",
+  p.pro_status as "proStatus",
+  p.pro_contract_number as "proContractNumber",
+  (select contract_name from project_contract where contract_number=p.pro_contract_number) as "contractName",
+  (select name from dept where id=p.pro_dept) as "proDeptName",
+	(select dictdata_name from dictionarydata where id=p.pro_engine_type) as "proEngineTypeName",
+	(select dictdata_name from dictionarydata where id=p.pro_nature) as "proNatureName",
+	 p.pro_name AS "proName",
+	(select dictdata_name from dictionarydata where id=p.pro_source) as "proSourceName",
+	(select dictdata_name from dictionarydata where id=p.pro_period) as "proPeriodName",
+  w.prw_switching_date as "prwSwitchingDate",d.dictdata_name as "pictureNatureName",d.dictdata_day as "dictdataDay",c.picture_type as "pictureType",c.picture_remark as "pictureRemark"
+FROM
+	project_produce p left join project_picture c on c.pro_id=p.id 
+  left join  project_road_work w on w.pro_id=p.id left join dictionarydata d on d.id=c.picture_nature
+ where 1=1 and p.pro_type=1
+
+  <if test="proName!=null and proName!=''">
+  and p.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
+</if>
+<if test="proNumber!=null and proNumber!=''">
+and p.pro_number like CONCAT(CONCAT('%', #{proNumber}), '%')
+</if>
+<if test="proSerialNumber!=null and proSerialNumber!=''">
+and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
+</if>
+  <if test="proStatus!=null and proStatus!=''">
+and p.pro_status=#{proStatus}
+</if>
+ <if test="proEngineTypeName!=null and proEngineTypeName!=''">
+and p.pro_engine_type=#{proEngineTypeName}
+</if>
+<if test="proDeptName!=null and proDeptName!=''">
+and p.pro_dept=#{proDeptName}
+</if>
+<if test="proSourceName!=null and proSourceName!=''">
+and p.pro_source=#{proSourceName}
+</if>
+<if test="proNatureName!=null and proNatureName!=''">
+and p.pro_nature=#{proNatureName}
+</if>
+<if test="proPeriodName!=null and proPeriodName!=''">
+and p.pro_period=#{proPeriodName}
+</if>
+<if test="pictureNatureName!=null and pictureNatureName!=''">
+and d.id=#{pictureNatureName}
+</if>
+<if test="pictureType!=null">
+and c.picture_type=#{pictureType}
+</if>
+  </select>
 </mapper>

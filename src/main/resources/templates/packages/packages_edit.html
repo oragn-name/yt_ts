@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="common/head :: header">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body class="easyui-layout">
+	<div data-options="region:'center'" border="false">
+	<div id="dlg" style="padding:10px 20px">
+	   <div class="myftitle">基本信息</div>
+	   <form id="myfm" method="post" novalidate>
+	   <input type="hidden" th:value="${pack.pcId}"  name="pcId">
+	   <input type="hidden" th:value="${pack.id}"  name="id">
+	   	   <table cellpadding="5">
+	   	    <tr>
+                <td  style="text-align: right;">合同号:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${pc.contractNumber}" readonly="readonly" data-options=""></input></td>
+                    <td style="text-align: right;">合同日期:</td>
+                   <td><input class="easyui-validatebox" type="text" th:value="${pc.contractSignTime}" readonly="readonly" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">合同来源:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${pc.contractSource==1}?'集团内':'集团外'" readonly="readonly"   data-options=""></input></td>
+                    <td style="text-align: right;">合同名称:</td>
+                   <td><input class="easyui-validatebox" type="text" th:value="${pc.contractName}" readonly="readonly" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">合同金额:</td>
+                    <td><input class="easyui-validatebox" type="text" th:value="${pc.contractMoney}" readonly="readonly" data-options=""></input></td>
+                    
+                </tr>
+	   	   <tr>
+                <td  style="text-align: right;">合同类别:</td>
+                    <td>
+                         <select class="easyui-combobox" name="packType" style="width: 148px;" >
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'HTLB')}" th:selected="${#strings.equals(pack.packType,dict1.id)}"></option>
+                         </select>
+                 </td>
+                    <td style="text-align: right;">分包编号:</td>
+                    <td><input class="easyui-validatebox" type="text" name="packNumber" th:value="${pack.packType}" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">工号:</td>
+                    <td><input class="easyui-validatebox" type="text" name="packNum" th:value="${pack.packNum}" data-options=""></input></td>
+                    <td style="text-align: right;">单位:</td>
+                   <td><input class="easyui-validatebox" type="text" name="packUnit" th:value="${pack.packUnit}" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td  style="text-align: right;">金额:</td>
+                    <td ><input class="easyui-validatebox" type="text" name="packMoney" th:value="${pack.packMoney}"  data-options=""></input></td>
+                     <td  style="text-align: right;">签订日期:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="packTime"  th:value="${pack.packTime}" data-options=""></input></td>
+                   
+                </tr>
+                <tr>
+                
+                <tr>
+                 <td style="text-align: right;">签订单位:</td>
+                    <td>
+                    <select id="packReadUnit" name="packReadUnit"  style="width: 148px;" >
+                         </select>
+                         <script th:inline="javascript">
+		                $('#packReadUnit').combotree({
+		                    url: '/dept/getDataTree',
+		                    method: 'get',
+		                    parentField:"pId",
+		                    textFiled:"name",
+		                    idFiled:"id"
+		                })
+		                var parents=[[${pack.packReadUnit}]]
+		                if(parents!=0){
+		                	 $('#packReadUnit').combotree('setValue', parents);
+		                }
+		               
+		                </script>
+                     </td>
+                    
+                <td  style="text-align: right;">签订人:</td>
+                    <td><input class="easyui-validatebox" type="text" name="packUser" th:value="${pack.packUser}" data-options=""></input></td>
+                   
+                </tr>
+                <tr>
+                 <td style="text-align: right;">开工时间:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="packBeginTime" th:value="${pack.packBeginTime}" data-options=""></input></td>
+                    
+                <td  style="text-align: right;">竣工日期:</td>
+                    <td><input class="easyui-datetimebox" type="text" name="packEndTime" th:value="${pack.packEndTime}" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                <td style="text-align: right;">工期:</td>
+                    <td><input class="easyui-validatebox" type="text" name="packToalTime" th:value="${pack.packToalTime}" data-options=""></input></td>
+                    
+                </tr>
+                <tr>
+                    <td style="text-align: right;">备注:</td>
+                    <td colspan="3">
+<textarea rows="5" cols="70" name="packRemark" th:text="${pack.packRemark}"></textarea>
+                   </td>
+                </tr>
+            </table>
+	   </form>
+    </div>
+    </div>
+    <div data-options="region:'south'" style="height: 40px;" border="false">
+		<hr>
+		<div style="text-align:center;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="submitForm()">保存</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" th:onclick="|top.framework.closeTab('${menu.menuName}')|">关闭</a>
+    	</div>
+	</div>
+	<script th:inline="javascript">
+	var parentMenuName=[[${menu.parentMenuName}]]
+	var menuName=[[${menu.menuName}]]
+	function submitForm(){
+        $('#myfm').form('submit',{
+            url: '/packages/edit.html',
+            onSubmit: function(){
+                return $(this).form('validate');
+            },
+            success: function(result){
+                if ("success"==result){
+                	Common.showMsg('提示',"添加成功");
+                	top.framework.closeAndReloadTab(menuName, parentMenuName);
+                } else {
+                	Common.showMsg('提示',"添加失败");
+                }
+            }
+        });
+	}
+	</script>
+</body>
+

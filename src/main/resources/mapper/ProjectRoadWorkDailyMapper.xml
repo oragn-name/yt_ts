@@ -122,6 +122,10 @@
 	 and pp.pro_status= #{proStatus}
 	</if>
 	
+	<if test="proId!=null">
+	 and pp.id= #{proId}
+	</if>
+	
   </select>
   
   <select id="selectRoadWorkDaily" parameterType="com.study.model.ProjectRoadWorkDaily" resultType="com.study.model.ProjectRoadWorkDaily">

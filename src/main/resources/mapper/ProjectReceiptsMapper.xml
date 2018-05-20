@@ -7,6 +7,7 @@
     -->
     <id column="receipts_id" jdbcType="INTEGER" property="receiptsId" />
     <result column="pro_id" jdbcType="INTEGER" property="proId" />
+    <result column="pc_id" jdbcType="INTEGER" property="pcId" />
     <result column="receipts_money" jdbcType="DOUBLE" property="receiptsMoney" />
     <result column="receipts_time" jdbcType="VARCHAR" property="receiptsTime" />
     <result column="receipts_unit" jdbcType="VARCHAR" property="receiptsUnit" />
@@ -14,12 +15,85 @@
     <result column="receipts_create_user" jdbcType="INTEGER" property="receiptsCreateUser" />
     <result column="receipts_create_time" jdbcType="VARCHAR" property="receiptsCreateTime" />
     <result column="receipts_source" jdbcType="INTEGER" property="receiptsSource" />
+    <result column="receipts_remark" jdbcType="VARCHAR" property="receiptsRemark" />
   </resultMap>
   <select id="selectReceiptsByAll" parameterType="com.study.model.ProjectReceipts" resultType="com.study.model.ProjectReceipts">
-   select  receipts_id as "receiptsId",pro_id as "proId",receipts_money as "receiptsMoney",
+   select receipts_remark as "receiptsRemark", receipts_id as "receiptsId",pc_id as "pcId",pro_id as "proId",receipts_money as "receiptsMoney",
            receipts_time as "receiptsTime",receipts_unit as "receiptsUnit",receipts_user as "receiptsUser",
            receipts_create_user as "receiptsCreateUser",receipts_create_time as "receiptsCreateTime",receipts_source as "receiptsSource"
       from project_receipts where 1=1 and pro_id=#{proId}
+  </select>
+  
+  <select id="getOrderDay" parameterType="java.util.Map" resultType="com.study.model.vo.ReceiptsOrder">
+  
+  SELECT
+	p.pro_number AS "proNumber",
+	p.pro_snap_number AS "proSnapNumber",
+	p.pro_serial_number AS "proSerialNumber",
+	p.pro_design_length as "proDesignLength",
+  p.pro_status as "proStatus",
+  p.pro_contract_number as "proContractNumber",
+  (select contract_name from project_contract where contract_number=p.pro_contract_number) as "contractName",
+  (select name from dept where id=p.pro_dept) as "proDeptName",
+	(select dictdata_name from dictionarydata where id=p.pro_engine_type) as "proEngineTypeName",
+	(select dictdata_name from dictionarydata where id=p.pro_nature) as "proNatureName",
+	 p.pro_name AS "proName",
+	(select dictdata_name from dictionarydata where id=p.pro_source) as "proSourceName",
+	(select dictdata_name from dictionarydata where id=p.pro_period) as "proPeriodName",
+	r.receipts_remark as "receiptsRemark",r.receipts_money as "receiptsMoney",
+  r.receipts_time as "receiptsTime",r.receipts_unit as "receiptsUnit",
+  r.receipts_user as "receiptsUser",r.receipts_source as "receiptsSource"
+FROM
+	project_produce p
+INNER JOIN project_receipts r ON p.id = r.pro_id where 1=1 and p.pro_type=1 
+  <if test="proName!=null and proName!=''">
+  and p.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
+</if>
+<if test="proNumber!=null and proNumber!=''">
+and p.pro_number like CONCAT(CONCAT('%', #{proNumber}), '%')
+</if>
+<if test="proSerialNumber!=null and proSerialNumber!=''">
+and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
+</if>
+  <if test="proStatus!=null and proStatus!=''">
+and p.pro_status=#{proStatus}
+</if>
+ <if test="proEngineTypeName!=null and proEngineTypeName!=''">
+and p.pro_engine_type=#{proEngineTypeName}
+</if>
+<if test="proDeptName!=null and proDeptName!=''">
+and p.pro_dept=#{proDeptName}
+</if>
+<if test="proSourceName!=null and proSourceName!=''">
+and p.pro_source=#{proSourceName}
+</if>
+<if test="proNatureName!=null and proNatureName!=''">
+and p.pro_nature=#{proNatureName}
+</if>
+<if test="proPeriodName!=null and proPeriodName!=''">
+and p.pro_period=#{proPeriodName}
+</if>
+<if test="receiptsUnit!=null and receiptsUnit!=''">
+and r.receipts_unit like CONCAT(CONCAT('%', #{receiptsUnit}), '%')
+</if>
+<if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and r.receipts_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   r.receipts_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and r.receipts_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+order by r.receipts_time desc
   </select>
   
 </mapper>

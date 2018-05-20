@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script th:src="@{/excel/jquery.js}" type="text/javascript"></script>
+    <script th:src="@{/excel/common.js}" type="text/javascript"></script>
+    <link th:href="@{/excel/global.css}" rel="stylesheet" type="text/css" />
+    <script th:src="@{/My97DatePicker/WdatePicker.js}" type="text/javascript"></script>
+    <style media="print" type="text/css">
+        .Noprint
+        {
+            display: none;
+        }
+        .PageNext
+        {
+            page-break-after: always;
+        }
+        .tblPrint
+        {
+            border: none;
+        }
+    </style>
+    <style type="text/css">
+        table
+        {
+            margin-bottom: 0;
+        }
+        table th, td
+        {
+            border: 0;
+        }
+        #tbHaederText .th
+        {
+            border: 1px solid windowtext;
+            padding: 0cm 2pt 0cm 2pt;
+            background-color: #FFFFFF;
+            height: 20px;
+            font-weight: bold;
+        }
+        #tbHaederText .td
+        {
+            border: 1px solid windowtext;
+        }
+    </style>
+    <script language="javascript" type="text/javascript">
+        function PrintDoc() {
+            $(".s_close").remove();
+            window.print();
+        }
+
+
+        //jQuery HTML导出Excel文件(兼容IE及所有浏览器)
+        function HtmlExportToExcel(tableid) {
+            $(".s_close").remove();
+            var timestamp = parseInt(new Date().getTime());
+            var filename = timestamp;
+            if (getExplorer() == 'ie' || getExplorer() == undefined) {
+                HtmlExportToExcelForIE(tableid, filename);
+            }
+            else {
+                HtmlExportToExcelForEntire(tableid, filename)
+            }
+        }
+        //IE浏览器导出Excel
+        function HtmlExportToExcelForIE(tableid, filename) {
+            try {
+                var winname = window.open('', '_blank', 'top=10000');
+                var strHTML = document.getElementById(tableid).innerHTML;
+
+                winname.document.open('application/vnd.ms-excel', 'export excel');
+                winname.document.writeln(strHTML);
+                winname.document.execCommand('saveas', '', filename + '.xls');
+                winname.close();
+
+            } catch (e) {
+                alert(e.description);
+            }
+        }
+        //非IE浏览器导出Excel
+        var HtmlExportToExcelForEntire = (function() {
+            var uri = 'data:application/vnd.ms-excel;base64,',
+        template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+        base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) },
+        format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+            return function(table, name) {
+                if (!table.nodeType) { table = document.getElementById(table); }
+                var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+                document.getElementById("dlink").href = uri + base64(format(template, ctx));
+                document.getElementById("dlink").download = name + ".xls";
+                document.getElementById("dlink").click();
+            }
+        })()
+        function getExplorer() {
+            var explorer = window.navigator.userAgent;
+            //ie 
+            if (explorer.indexOf("MSIE") >= 0) {
+                return 'ie';
+            }
+            //firefox 
+            else if (explorer.indexOf("Firefox") >= 0) {
+                return 'Firefox';
+            }
+            //Chrome
+            else if (explorer.indexOf("Chrome") >= 0) {
+                return 'Chrome';
+            }
+            //Opera
+            else if (explorer.indexOf("Opera") >= 0) {
+                return 'Opera';
+            }
+            //Safari
+            else if (explorer.indexOf("Safari") >= 0) {
+                return 'Safari';
+            }
+        }
+        
+        function search(){
+        	var proName=$("#proName").val();
+        	var proStatus=$("#proStatus").val();
+        	var proDeptName=$("#proDeptName").val();
+        	var proEngineTypeName=$("#proEngineTypeName").val();
+        	var proSourceName=$("#proSourceName").val();
+        	var proNatureName=$("#proNatureName").val();
+        	var proPeriodName=$("#proPeriodName").val();
+        	
+        	
+        	var pictureNatureName=$("#pictureNatureName").val();
+        	var pictureType=$("#pictureType").val();
+        	var proNumber=$("#proNumber").val();
+        	var proSerialNumber=$("#proSerialNumber").val();
+        /* 	
+        	var proContractNumber=$("#proContractNumber").val();
+        	
+        	var pcDeptName=$("#pcDeptName").val(); */
+        	
+        	
+        	
+        	
+        	
+        	location.href=encodeURI("/pic_alarm_order/每日工作量汇总/114?proName="+proName+"&proNumber="+proNumber+"&proSerialNumber="+proSerialNumber+"&proStatus="+proStatus+"&proPeriodName="+proPeriodName+"&proNatureName="+proNatureName+"&proSourceName="+proSourceName+"&proEngineTypeName="+proEngineTypeName+"&proDeptName="+proDeptName+"&pictureType="+pictureType+"&pictureNatureName="+pictureNatureName);
+        }
+    </script>
+</head>
+<body class="easyui-layout">
+	
+	<form name="aspnetForm" method="post" id="aspnetForm">
+    <div class="Noprint  inner">
+        项目名称:<input type="text"  id="proName" th:value="${proName}" />
+         项目状态:
+           <select name="proStatus" id="proStatus">
+              <option value=''>全部</option>
+              <option value='1' th:selected="${proStatus!=null and #strings.equals(proStatus,1)}">在施</option>
+              <option value='2'  th:selected="${proStatus!=null and #strings.equals(proStatus,2)}">待施</option>
+              <option value='3'  th:selected="${proStatus!=null and #strings.equals(proStatus,3)}">已完工</option>
+           </select>
+     转入单位:
+     <select  name="proDeptName" id="proDeptName" style="width: 148px;" >
+                         <option value="">--请选择--</option>
+                         <option th:each="dept : ${dept}" th:value="${dept.id}" th:text="${dept.name}"  th:selected="${proDeptName!=null and #strings.equals(proDeptName,dept.id)}"></option>
+                         </select>
+                       
+      工程类别:
+      <select  name="proEngineTypeName" id="proEngineTypeName" style="width: 148px;" >
+            <option value="">--请选择--</option>
+             <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'GCLB')}" th:selected="${proEngineTypeName!=null and #strings.equals(proEngineTypeName,dict1.id)}"></option>
+          </select><br>
+      工程来源:
+      <select  name="proSourceName" id="proSourceName" style="width: 148px;" >
+                         <option value="">--请选择--</option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'GCLY')}" th:selected="${proSourceName!=null and #strings.equals(proSourceName,dict1.id)}"></option>
+                         </select>
+      工程性质:
+      <select  name="proNatureName" id="proNatureName" style="width: 148px;" >
+                         <option value="">--请选择--</option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'GCXZ')}" th:selected="${proNatureName!=null and #strings.equals(proNatureName,dict1.id)}"></option>
+                         </select>
+       期次:
+       <select  name="proPeriodName" id="proPeriodName" style="width: 148px;" >
+                         <option value="">--请选择--</option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'QC')}" th:selected="${proPeriodName!=null and #strings.equals(proPeriodName,dict1.id)}"></option>
+                         </select>
+ 
+       工号:<input type="text"  id="proNumber" th:value="${proNumber}"/><br>
+       序号:<input type="text"  id="proSerialNumber" th:value="${proSerialNumber}"/>
+       图纸性质:
+      <select  name="pictureNatureName" id="pictureNatureName" style="width: 148px;" >
+                         <option value="">--请选择--</option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'TZXZ')}" th:selected="${proSourceName!=null and #strings.equals(proSourceName,dict1.id)}"></option>
+                         </select>
+       
+        是否合格:
+      <select  name="pictureType" id="pictureType" style="width: 148px;" >
+                         <option value="">--请选择--</option>
+                         <option value="1" th:selected="${#strings.equals(pictureType,1)}">合格</option>
+                         <option value="0" th:selected="${#strings.equals(pictureType,0)}">不合格</option>
+                         </select>
+        <input type="button" class="rbtn23" value="查询" onclick="search()" />
+        <input id="Button1" type="button" value="导出EXCEL" class="rbtn23" onclick="javascript:HtmlExportToExcel('PanelExcel')" />
+        <a id="dlink" style="display: none;"></a>
+    </div>
+    <hr class="Noprint" />
+    <div class="container_24" style="width: 95%; margin: 0 auto;">
+        <div style="width: 100%;">
+            <div id="PanelExcel">
+                <div style="width: 100%;height: 500px;" class="xScroll">
+                <table id="tbHaederText" border="1" cellpadding="0" cellspacing="0" align="center"
+                        style="border-collapse: collapse; word-break: keep-all; border-color: Black;
+                        width: 100%;">
+                        <tr align="center" >
+                            <td class="th"  nowrap>项目状态</td>
+                            <td class="th"  nowrap>工号</td>
+                            <td class="th"  nowrap>临时工号</td>
+                            <td class="th"  nowrap>工程名称</td>
+                            <td class="th"  nowrap>工程性质</td>
+                            <td class="th"  nowrap>工程来源</td>
+                            <td class="th"  nowrap>期次</td>
+                            <td class="th"  nowrap>转入单位</td>
+                            <td class="th"  nowrap>转闸时间</td>
+                            <td class="th"  nowrap>图纸性质</td>
+                            <td class="th"  nowrap>图纸预警天数</td>
+                            <td class="th"  nowrap>预警开始时间</td>
+                            <td class="th"  nowrap>超期天数</td>
+                             <td class="th"  nowrap>竣工图是否合格</td>
+                            <td class="th"  nowrap>备注</td>
+                        </tr>
+                         <tr th:each="rs : ${orderDay}" th:style="${rs.day>=3}?'background-color: red'">
+                             <td th:text="${rs.contractName}" class="td"></td>
+                             <td th:text="${rs.proNumber}" class="td"></td>
+                             <td th:text="${rs.proSnapNumber}" class="td"></td>
+                             <td th:text="${rs.proName}" class="td"></td>
+                             <td th:text="${rs.proNatureName}" class="td"></td>
+                             
+                             <td th:text="${rs.proSourceName}" class="td"></td>
+                             <td th:text="${rs.proPeriodName}" class="td"></td>
+                             <td th:text="${rs.proDeptName}" class="td"></td>
+                             <td th:text="${rs.prwSwitchingDate}" class="td"></td>
+                             <td th:text="${rs.pictureNatureName}" class="td"></td>
+                             <td th:text="${rs.dictdataDay}" class="td"></td>
+                             <td th:text="${rs.prwSwitchingDate2}" class="td"></td>
+                             <td th:text="${rs.day}" class="td"></td>
+                             <td th:text="${rs.pictureType==1}?'合格':'不合格'" class="td"></td>
+                             <td th:text="${rs.pictureRemark}" class="td"></td>
+                          </tr>
+                        </table>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </form>
+	
+	
+</body>
+<script type="text/javascript">
+/* function MergeCell(tableId, startRow, endRow, col) {  
+    var tb = document.getElementById(tableId); 
+    if (col >= 3) {  
+        return false;  
+    }  
+    //当检查第0列时检查所有行  
+    if (col == 0 || endRow == 0) {  
+        endRow = tb.rows.length - 1;  
+    }  
+    for (var i = startRow; i < endRow; i++) {  
+        //程序是自左向右合并  
+        if (tb.rows[startRow].cells[col].innerHTML == tb.rows[i + 1].cells[col].innerHTML) {  
+            //如果相同则删除下一行的第0列单元格  
+            tb.rows[i + 1].cells[col].style.display='none';  
+            //更新rowSpan属性  
+            tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan | 0) + 1;  
+            //当循环到终止行前一行并且起始行和终止行不相同时递归(因为上面的代码已经检查了i+1行，所以此处只到endRow-1)  
+            if (i == endRow - 1 && startRow != endRow) {  
+                MergeCell(tableId, startRow, endRow, col + 1);  
+            }  
+        } else {  
+            //起始行，终止行不变，检查下一列  
+            MergeCell(tableId, startRow, i, col + 1);  
+            //增加起始行  
+            startRow = i + 1;  
+        }  
+    }  
+}  
+
+$(function(){
+	MergeCell('tbHaederText', 0, 0, 0); 
+}) */
+
+
+</script>

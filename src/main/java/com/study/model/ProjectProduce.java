@@ -223,6 +223,18 @@ public class ProjectProduce {
     @Column(name = "pro_type")
     private Integer  proType;
     
+    /**
+     * 建设单位
+     */
+    @Column(name = "pro_unit")
+    private String  proUnit ;
+    
+    /**
+     * 工程地址
+     */
+    @Column(name = "pro_address")
+    private String  proAddress;
+    
 
     
     
@@ -829,6 +841,22 @@ public class ProjectProduce {
 
     public void setProType(Integer proType) {
       this.proType = proType;
+    }
+
+    public String getProUnit() {
+      return proUnit;
+    }
+
+    public void setProUnit(String proUnit) {
+      this.proUnit = proUnit;
+    }
+
+    public String getProAddress() {
+      return proAddress;
+    }
+
+    public void setProAddress(String proAddress) {
+      this.proAddress = proAddress;
     }
     
     

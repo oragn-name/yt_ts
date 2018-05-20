@@ -34,6 +34,40 @@ public class ProjectContractController {
   @Autowired
   private ProjectProduceService projectProduceService;
   
+  
+  @RequestMapping(value="/contracts/deletePro")
+  public String getData(String ids){
+    try {
+    if (ids != null) {
+      String[] id = ids.split(",");
+      for (String string : id) {
+        ProjectProduce selectByKey = projectProduceService.selectByKey(Integer.parseInt(string));
+        selectByKey.setProContractNumber(null);
+        projectProduceService.updateAll(selectByKey);
+      }
+    }
+    return "success";
+  } catch (Exception e) {
+    e.printStackTrace();
+          return "fail";
+  }
+  }
+  @RequestMapping(value="/contracts/proAdd")
+  public String getData(String ids,String contractNumber){
+    try {
+    String[] proId=ids.split(",");
+    for (String string : proId) {
+      ProjectProduce selectByKey = projectProduceService.selectByKey(Integer.parseInt(string));
+      selectByKey.setProContractNumber(contractNumber);
+      projectProduceService.updateNotNull(selectByKey);
+    }
+    return "success";
+    } catch (Exception e) {
+      e.printStackTrace();
+            return "fail";
+    }
+  }
+  
   @RequestMapping(value="/contracts/getData",method={RequestMethod.GET})
   public DataGridResultInfo getData(@ModelAttribute PageBean bean,String contractNumber){
     ProjectContract projectContract=new ProjectContract();
@@ -51,12 +85,12 @@ public class ProjectContractController {
     projectContract.setContractCreateUser(user.getId());
     projectContract.setContractCreateTime(sdf.format(new Date()));
     projectContractService.save(projectContract);
-    String[] proId=proIds.split(",");
+    /*String[] proId=proIds.split(",");
     for (String string : proId) {
       ProjectProduce selectByKey = projectProduceService.selectByKey(Integer.parseInt(string));
       selectByKey.setProContractNumber(projectContract.getContractNumber());
       projectProduceService.updateNotNull(selectByKey);
-    }
+    }*/
     return "success";
   } catch (Exception e) {
     e.printStackTrace();

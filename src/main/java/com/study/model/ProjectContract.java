@@ -7,12 +7,26 @@ public class ProjectContract {
     @Id
     @Column(name = "contract_id")
     private Integer contractId;
-
     /**
      * 工程预算价
      */
     @Column(name = "contract_budget_price")
     private Double contractBudgetPrice;
+    /**
+     * 合同开工
+     */
+    @Column(name = "contract_begin_time")
+    private String contractBeginTime;
+    /**
+     * 合同完工
+     */
+    @Column(name = "contract_end_time")
+    private String contractEndTime;
+    /**
+    * 合同来源 1 集团内 ，2 集团外
+    */
+   @Column(name = "contract_source")
+   private Integer contractSource;
 
     /**
      * 预算编制人
@@ -619,6 +633,30 @@ public class ProjectContract {
 
     public void setContractName(String contractName) {
       this.contractName = contractName;
+    }
+
+    public String getContractBeginTime() {
+      return contractBeginTime;
+    }
+
+    public void setContractBeginTime(String contractBeginTime) {
+      this.contractBeginTime = contractBeginTime;
+    }
+
+    public String getContractEndTime() {
+      return contractEndTime;
+    }
+
+    public void setContractEndTime(String contractEndTime) {
+      this.contractEndTime = contractEndTime;
+    }
+
+    public Integer getContractSource() {
+      return contractSource;
+    }
+
+    public void setContractSource(Integer contractSource) {
+      this.contractSource = contractSource;
     }
     
     

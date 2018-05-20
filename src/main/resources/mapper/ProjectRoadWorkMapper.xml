@@ -55,6 +55,7 @@
     <result column="prw_design_time" jdbcType="VARCHAR" property="prwDesignTime" />
     <result column="prw_billing_time" jdbcType="VARCHAR" property="prwBillingTime" />
     <result column="prw_quality" jdbcType="VARCHAR" property="prwQuality" />
+    <result column="prw_nature" jdbcType="INTEGER" property="prwNature" />
   </resultMap>
   
   <select id="selectProjectWorkAll" parameterType="com.study.model.ProjectRoadWork" resultType="com.study.model.ProjectRoadWork">
@@ -67,7 +68,7 @@
 		prw_repair as "prwRepair",prw_excavation as "prwExcavation",prw_preliminary_time as "prwPreliminaryTime",prw_user_id as "prwUserId",
 		prw_phone as "prwPhone",(select dictdata_name from dictionarydata where id=prw_condition) as "prwConditionName",prw_creator as "prwCreator",prw_create_at as "prwCreateAt",prw_roads_time as "prwRoadsTime",
 		prw_traffic_time as "prwTrafficTime",prw_team as "prwTeam",prw_budget_user as "prwBudgetUser",prw_budget_time as "prwBudgetTime",prw_contract_time as "prwContractTime",prw_archive_time as "prwArchiveTime",
-		prw_contract_number as "prwContractNumber",prw_contract_price as "prwContractPrice",prw_group_time as "prwGroupTime",prw_design_time as "prwDesignTime",prw_billing_time as "prwBillingTime",prw_quality as "prwQuality" from project_road_work where 1=1
+		prw_contract_number as "prwContractNumber",prw_nature as "prwNature",prw_contract_price as "prwContractPrice",prw_group_time as "prwGroupTime",prw_design_time as "prwDesignTime",prw_billing_time as "prwBillingTime",prw_quality as "prwQuality" from project_road_work where 1=1
 		<if test="proId!=null and proId!=''">
 		 and pro_id=#{proId}
 		</if>

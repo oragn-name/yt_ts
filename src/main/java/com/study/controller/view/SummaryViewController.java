@@ -1,41 +1,46 @@
 package com.study.controller.view;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.websocket.server.PathParam;
-
-import io.swagger.annotations.Api;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.study.model.Dept;
 import com.study.model.Dictionarydata;
-import com.study.model.ProjectConstruction;
-import com.study.model.ProjectProduce;
 import com.study.model.ProjectRoadWordDetail;
 import com.study.model.User;
-import com.study.model.vo.DeptVo;
+import com.study.model.vo.AccountsOrder;
+import com.study.model.vo.PictureOrder;
 import com.study.model.vo.ProjectDetail;
 import com.study.model.vo.ProjectDetailType;
-import com.study.model.vo.ProjectItemConstruction;
 import com.study.model.vo.ProjectType;
+import com.study.model.vo.ReceiptsOrder;
 import com.study.service.DictdataService;
+import com.study.service.ProjectAccountsService;
 import com.study.service.ProjectConstructionService;
+import com.study.service.ProjectPictureService;
 import com.study.service.ProjectProduceService;
+import com.study.service.ProjectReceiptsService;
 import com.study.service.ProjectRoadWordDetailService;
 import com.study.service.ProjectRoadWorkDailyService;
 import com.study.service.impl.DeptServiceImpl;
+
+import io.swagger.annotations.Api;
 
 @Api(value="SummaryViewController",description="汇总统计")
 @Controller
@@ -52,6 +57,14 @@ public class SummaryViewController {
   private ProjectProduceService projectProduceService;
   @Autowired
   private ProjectConstructionService projectConstructionService;
+  @Autowired
+  private ProjectReceiptsService projectReceiptsService;
+  @Autowired
+  private ProjectAccountsService projectAccountsService;
+  @Autowired
+  private ProjectPictureService projectPictureService;
+  
+  
   
   @RequestMapping("/day/{menuName}/{id}")
   public String day(HttpServletRequest request,HttpServletResponse response,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,String proEngineTypeName,String proSourceName,String proNatureName,String proPeriodName){
@@ -1401,4 +1414,260 @@ public class SummaryViewController {
     }
   }
   
+  
+  @RequestMapping("/receorder/{menuName}/{id}")
+  public String receorder(HttpServletRequest request,HttpServletResponse response,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,String proEngineTypeName,String proSourceName,String proNatureName,String proPeriodName,String receiptsUnit){
+    
+    Map<String,Object> map=new HashMap<String, Object>();
+    map.put("proName", proName==null?"":proName.trim());
+    map.put("proNumber", proNumber==null?"":proNumber.trim());
+    /*Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,
+    String proEngineTypeName,
+    String proSourceName,String proNatureName,String proPeriodName*/
+    map.put("proSerialNumber", proSerialNumber==null?"":proSerialNumber.trim());
+    map.put("proStatus", proStatus);
+    map.put("proDeptName", proDeptName==null?"":proDeptName.trim());
+    /*Session session = SecurityUtils.getSubject().getSession();
+    User user = (User)session.getAttribute("userSession");
+    Dept selectByKey = deptService.selectByKey(user.getDeptId());
+    if(!selectByKey.getCode().toUpperCase().equals("SCK")){
+      map.put("pcDeptName",user.getDeptId());
+    }else{
+      map.put("pcDeptName", pcDeptName==null?"":pcDeptName.trim());
+    }*/
+    map.put("proEngineTypeName", proEngineTypeName==null?"":proEngineTypeName.trim());
+    map.put("proSourceName", proSourceName==null?"":proSourceName.trim());
+    map.put("proNatureName", proNatureName==null?"":proNatureName.trim());
+    map.put("proPeriodName", proPeriodName==null?"":proPeriodName.trim());
+    map.put("beginTime", beginTime==null?"":beginTime.trim());
+    map.put("endTime", endTime==null?"":endTime.trim());
+    map.put("receiptsUnit", receiptsUnit==null?"":receiptsUnit.trim());
+    
+    List<ReceiptsOrder> orderDay = projectReceiptsService.getOrderDay(map);
+    if(orderDay!=null&&orderDay.size()>0){
+      for (ReceiptsOrder receiptsOrder : orderDay) {
+        receiptsOrder.setContractName(receiptsOrder.getProStatus()==null?"":receiptsOrder.getProStatus()==1?"在施":receiptsOrder.getProStatus()==2?"待施":receiptsOrder.getProStatus()==3?"已完工":receiptsOrder.getProStatus()==4?"待转图":"");
+      }
+      
+    }
+   
+    
+    request.setAttribute("orderDay", orderDay);
+    request.setAttribute("proStatus", proStatus);
+    request.setAttribute("proDeptName", proDeptName);
+    request.setAttribute("proEngineTypeName", proEngineTypeName);
+    request.setAttribute("proSourceName", proSourceName);
+    request.setAttribute("proNatureName", proNatureName);
+    request.setAttribute("proPeriodName", proPeriodName);
+    request.setAttribute("proName", proName);
+    request.setAttribute("proNumber", proNumber);
+    request.setAttribute("receiptsUnit",receiptsUnit);
+    request.setAttribute("proSerialNumber",proSerialNumber);
+    request.setAttribute("beginTime", beginTime);
+    request.setAttribute("endTime", endTime);
+    List<Dictionarydata>  dd= dictdataService.selectDictdataByParentId(null, null);
+    request.setAttribute("dicts", dd);
+    Dept dptt=new Dept(); 
+    dptt.setParentCode("sgdw");
+    List<Dept> dpt = deptService.selectAllDept(dptt, null);
+    request.setAttribute("dept", dpt);
+  
+    return "receipts/order";
+  }
+  
+  
+  @RequestMapping("/accorder/{menuName}/{id}")
+  public String accorder(HttpServletRequest request,HttpServletResponse response,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,String proEngineTypeName,String proSourceName,String proNatureName,String proPeriodName,String receiptsUnit){
+    
+    Map<String,Object> map=new HashMap<String, Object>();
+    map.put("proName", proName==null?"":proName.trim());
+    map.put("proNumber", proNumber==null?"":proNumber.trim());
+    /*Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,
+    String proEngineTypeName,
+    String proSourceName,String proNatureName,String proPeriodName*/
+    map.put("proSerialNumber", proSerialNumber==null?"":proSerialNumber.trim());
+    map.put("proStatus", proStatus);
+    map.put("proDeptName", proDeptName==null?"":proDeptName.trim());
+    map.put("pcDeptName", pcDeptName==null?"":pcDeptName.trim());
+    /*Session session = SecurityUtils.getSubject().getSession();
+    User user = (User)session.getAttribute("userSession");
+    Dept selectByKey = deptService.selectByKey(user.getDeptId());
+    if(!selectByKey.getCode().toUpperCase().equals("SCK")){
+      map.put("pcDeptName",user.getDeptId());
+    }else{
+      map.put("pcDeptName", pcDeptName==null?"":pcDeptName.trim());
+    }*/
+    map.put("proEngineTypeName", proEngineTypeName==null?"":proEngineTypeName.trim());
+    map.put("proSourceName", proSourceName==null?"":proSourceName.trim());
+    map.put("proNatureName", proNatureName==null?"":proNatureName.trim());
+    map.put("proPeriodName", proPeriodName==null?"":proPeriodName.trim());
+    map.put("beginTime", beginTime==null?"":beginTime.trim());
+    map.put("endTime", endTime==null?"":endTime.trim());
+    map.put("receiptsUnit", receiptsUnit==null?"":receiptsUnit.trim());
+    List<AccountsOrder> orderDay = projectAccountsService.getOrderDay(map);
+    if(orderDay!=null&&orderDay.size()>0){
+      for (AccountsOrder receiptsOrder : orderDay) {
+        receiptsOrder.setContractName(receiptsOrder.getProStatus()==null?"":receiptsOrder.getProStatus()==1?"在施":receiptsOrder.getProStatus()==2?"待施":receiptsOrder.getProStatus()==3?"已完工":receiptsOrder.getProStatus()==4?"待转图":"");
+      }
+    }
+   
+    
+    request.setAttribute("orderDay", orderDay);
+    request.setAttribute("pcDeptName", pcDeptName);
+    request.setAttribute("proStatus", proStatus);
+    request.setAttribute("proDeptName", proDeptName);
+    request.setAttribute("proEngineTypeName", proEngineTypeName);
+    request.setAttribute("proSourceName", proSourceName);
+    request.setAttribute("proNatureName", proNatureName);
+    request.setAttribute("proPeriodName", proPeriodName);
+    request.setAttribute("proName", proName);
+    request.setAttribute("proNumber", proNumber);
+    request.setAttribute("receiptsUnit",receiptsUnit);
+    request.setAttribute("proSerialNumber",proSerialNumber);
+    request.setAttribute("beginTime", beginTime);
+    request.setAttribute("endTime", endTime);
+    List<Dictionarydata>  dd= dictdataService.selectDictdataByParentId(null, null);
+    request.setAttribute("dicts", dd);
+    Dept dptt=new Dept(); 
+    dptt.setParentCode("sgdw");
+    List<Dept> dpt = deptService.selectAllDept(dptt, null);
+    request.setAttribute("dept", dpt);
+    return "accounts/order";
+  }
+  
+  @RequestMapping("/picorder/{menuName}/{id}")
+  public String picorder(HttpServletRequest request,HttpServletResponse response,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,String proEngineTypeName,String proSourceName,String proNatureName,String proPeriodName,String receiptsUnit,String pictureNatureName,Integer pictureType) throws ParseException{
+    
+    Map<String,Object> map=new HashMap<String, Object>();
+    map.put("proName", proName==null?"":proName.trim());
+    map.put("proNumber", proNumber==null?"":proNumber.trim());
+    map.put("pictureNatureName", pictureNatureName==null?"":pictureNatureName.trim());
+    map.put("pictureType", pictureType);
+    /*Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,
+    String proEngineTypeName,
+    String proSourceName,String proNatureName,String proPeriodName*/
+    map.put("proSerialNumber", proSerialNumber==null?"":proSerialNumber.trim());
+    map.put("proStatus", proStatus);
+    map.put("proDeptName", proDeptName==null?"":proDeptName.trim());
+    /*Session session = SecurityUtils.getSubject().getSession();
+    User user = (User)session.getAttribute("userSession");
+    Dept selectByKey = deptService.selectByKey(user.getDeptId());
+    if(!selectByKey.getCode().toUpperCase().equals("SCK")){
+      map.put("pcDeptName",user.getDeptId());
+    }else{
+      map.put("pcDeptName", pcDeptName==null?"":pcDeptName.trim());
+    }*/
+    map.put("proEngineTypeName", proEngineTypeName==null?"":proEngineTypeName.trim());
+    map.put("proSourceName", proSourceName==null?"":proSourceName.trim());
+    map.put("proNatureName", proNatureName==null?"":proNatureName.trim());
+    map.put("proPeriodName", proPeriodName==null?"":proPeriodName.trim());
+    List<PictureOrder> orderDay = projectPictureService.getOrderDay(map);
+    if (orderDay!=null&&orderDay.size()>0) {
+      for (PictureOrder pictureOrder : orderDay) {
+        pictureOrder.setContractName(pictureOrder.getProStatus()==null?"":pictureOrder.getProStatus()==1?"在施":pictureOrder.getProStatus()==2?"待施":pictureOrder.getProStatus()==3?"已完工":pictureOrder.getProStatus()==4?"待转图":"");
+         if(pictureOrder.getDictdataDay()!=null&&pictureOrder.getPrwSwitchingDate()!=null&&!"".equals(pictureOrder.getPrwSwitchingDate())){
+           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+           Date parse = format.parse(pictureOrder.getPrwSwitchingDate());
+           Calendar ca = Calendar.getInstance();
+           ca.setTime(parse);
+           ca.add(Calendar.DATE, pictureOrder.getDictdataDay());
+           parse = ca.getTime();
+           String enddate = format.format(parse);
+           pictureOrder.setPrwSwitchingDate(pictureOrder.getPrwSwitchingDate().substring(0, 10));
+           pictureOrder.setPrwSwitchingDate2(enddate);
+         }
+      }
+    }
+    request.setAttribute("orderDay", orderDay);
+    request.setAttribute("pictureNatureName", pictureNatureName);
+    request.setAttribute("pictureType", pictureType);
+    request.setAttribute("proStatus", proStatus);
+    request.setAttribute("proDeptName", proDeptName);
+    request.setAttribute("proEngineTypeName", proEngineTypeName);
+    request.setAttribute("proSourceName", proSourceName);
+    request.setAttribute("proNatureName", proNatureName);
+    request.setAttribute("proPeriodName", proPeriodName);
+    request.setAttribute("proName", proName);
+    request.setAttribute("proNumber", proNumber);
+    request.setAttribute("proSerialNumber",proSerialNumber);
+    List<Dictionarydata>  dd= dictdataService.selectDictdataByParentId(null, null);
+    request.setAttribute("dicts", dd);
+    Dept dptt=new Dept(); 
+    dptt.setParentCode("sgdw");
+    List<Dept> dpt = deptService.selectAllDept(dptt, null);
+    request.setAttribute("dept", dpt);
+    return "pictures/order";
+    
+  }
+  @RequestMapping("/pic_alarm_order/{menuName}/{id}")
+  public String pic_alarm_order(HttpServletRequest request,HttpServletResponse response,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,String proEngineTypeName,String proSourceName,String proNatureName,String proPeriodName,String receiptsUnit,String pictureNatureName,Integer pictureType) throws ParseException{
+    
+    Map<String,Object> map=new HashMap<String, Object>();
+    map.put("proName", proName==null?"":proName.trim());
+    map.put("proNumber", proNumber==null?"":proNumber.trim());
+    map.put("pictureNatureName", pictureNatureName==null?"":pictureNatureName.trim());
+    map.put("pictureType", pictureType);
+    /*Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,
+    String proEngineTypeName,
+    String proSourceName,String proNatureName,String proPeriodName*/
+    map.put("proSerialNumber", proSerialNumber==null?"":proSerialNumber.trim());
+    map.put("proStatus", proStatus);
+    map.put("proDeptName", proDeptName==null?"":proDeptName.trim());
+    /*Session session = SecurityUtils.getSubject().getSession();
+    User user = (User)session.getAttribute("userSession");
+    Dept selectByKey = deptService.selectByKey(user.getDeptId());
+    if(!selectByKey.getCode().toUpperCase().equals("SCK")){
+      map.put("pcDeptName",user.getDeptId());
+    }else{
+      map.put("pcDeptName", pcDeptName==null?"":pcDeptName.trim());
+    }*/
+    map.put("proEngineTypeName", proEngineTypeName==null?"":proEngineTypeName.trim());
+    map.put("proSourceName", proSourceName==null?"":proSourceName.trim());
+    map.put("proNatureName", proNatureName==null?"":proNatureName.trim());
+    map.put("proPeriodName", proPeriodName==null?"":proPeriodName.trim());
+    List<PictureOrder> orderDay = projectPictureService.getOrderalarm(map);
+    if (orderDay!=null&&orderDay.size()>0) {
+      for (PictureOrder pictureOrder : orderDay) {
+        pictureOrder.setContractName(pictureOrder.getProStatus()==null?"":pictureOrder.getProStatus()==1?"在施":pictureOrder.getProStatus()==2?"待施":pictureOrder.getProStatus()==3?"已完工":pictureOrder.getProStatus()==4?"待转图":"");
+         if(pictureOrder.getDictdataDay()!=null&&pictureOrder.getPrwSwitchingDate()!=null&&!"".equals(pictureOrder.getPrwSwitchingDate())){
+           SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+           Date parse = format.parse(pictureOrder.getPrwSwitchingDate());
+           Calendar ca = Calendar.getInstance();
+           ca.setTime(parse);
+           ca.add(Calendar.DATE, pictureOrder.getDictdataDay());
+           parse = ca.getTime();
+           String enddate = format.format(parse);
+           Date newdate=new Date();
+           if(newdate.getTime()>=parse.getTime()){
+             System.out.println((newdate.getTime() - parse.getTime()) / (1000*3600*24));
+             pictureOrder.setDay(Integer.parseInt(((newdate.getTime() - parse.getTime()) / (1000*3600*24))+""));
+           }else{
+             pictureOrder.setDay(0);
+           }
+           pictureOrder.setPrwSwitchingDate(pictureOrder.getPrwSwitchingDate().substring(0, 10));
+           pictureOrder.setPrwSwitchingDate2(enddate);
+         }
+      }
+    }
+    request.setAttribute("orderDay", orderDay);
+    request.setAttribute("pictureNatureName", pictureNatureName);
+    request.setAttribute("pictureType", pictureType);
+    request.setAttribute("proStatus", proStatus);
+    request.setAttribute("proDeptName", proDeptName);
+    request.setAttribute("proEngineTypeName", proEngineTypeName);
+    request.setAttribute("proSourceName", proSourceName);
+    request.setAttribute("proNatureName", proNatureName);
+    request.setAttribute("proPeriodName", proPeriodName);
+    request.setAttribute("proName", proName);
+    request.setAttribute("proNumber", proNumber);
+    request.setAttribute("proSerialNumber",proSerialNumber);
+    List<Dictionarydata>  dd= dictdataService.selectDictdataByParentId(null, null);
+    request.setAttribute("dicts", dd);
+    Dept dptt=new Dept(); 
+    dptt.setParentCode("sgdw");
+    List<Dept> dpt = deptService.selectAllDept(dptt, null);
+    request.setAttribute("dept", dpt);
+    return "pictures/alarm_order";
+    
+  }
 }

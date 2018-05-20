@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head th:include="common/head :: header">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body class="easyui-layout">
+<table id="tb2" class="easyui-datagrid" title="" width="100%" height="100%" fit="true" border="0"
+           data-options="rownumbers:true,pagination:true,url:'/produces/getDataOther.do',method:'get',toolbar:'#toolbar2'">
+        <thead>
+            <tr>
+            	<th data-options="field:'ck',checkbox:true"></th>
+            	<th data-options="field:'id',width:100,align:'center',sortable:'true',hidden:'true'">id</th>
+            	<th data-options="field:'proStatus',width:150,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '在施';
+            							if (value == 2) return '待施';
+            							if (value == 4) return '<font style=color:red;>待转图</font>';
+	                                    return '已完工';
+	                		  }">状态</th>
+            	<th data-options="field:'proGauge',width:80,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }">测量定线</th>
+	                		  
+	            <th data-options="field:'proNumber',width:100,align:'center',sortable:'true'">工号</th>
+            	<th data-options="field:'proSnapNumber',width:100,align:'center',sortable:'true'">临时工号</th>
+            	<th data-options="field:'proSerialNumber',width:100,align:'center',sortable:'true'">序号</th>
+            	<th data-options="field:'proNumberName',width:80,align:'center',sortable:'true'">编号性质</th>
+            	<th data-options="field:'proName',width:100,align:'center',sortable:'true'">工程名称</th>
+            	<!-- <th data-options="field:'proJobTypeName',width:100,align:'center',sortable:'true'">工号类别</th> -->
+            	<th data-options="field:'proEngineTypeName',width:100,align:'center',sortable:'true'">工程类别</th>
+            	<th data-options="field:'proNatureName',width:100,align:'center',sortable:'true'">工程性质</th>
+            	<th data-options="field:'proSourceName',width:100,align:'center',sortable:'true'">工程来源</th>
+            	<th data-options="field:'proUser',width:100,align:'center',sortable:'true'">联系人</th>
+            	<th data-options="field:'proUserPhone',width:100,align:'center',sortable:'true'">电话</th>
+            	<th data-options="field:'proLssuedTime',width:150,align:'center',sortable:'true'">任务下达时间</th>
+            	<th data-options="field:'proAreaName',width:100,align:'center',sortable:'true'">工程地址</th>
+            	<!-- <th data-options="field:'proRoadsTime',width:150,align:'center',sortable:'true'">路政报批时间</th>
+            	<th data-options="field:'proTrafficTime',width:150,align:'center',sortable:'true'">交通报批时间</th> -->
+            	<th data-options="field:'proPeriodName',width:100,align:'center',sortable:'true'">期次</th>
+            	<th data-options="field:'proConst',width:100,align:'center',sortable:'true'">施工单位</th>
+            	<th data-options="field:'proDeptName',width:100,align:'center',sortable:'true'">转入单位</th>
+            	<th data-options="field:'proDesignLength',width:100,align:'center',sortable:'true'">设计长度</th>
+            	<th data-options="field:'proPipeLength',width:100,align:'center',sortable:'true'">管径</th>
+            	<th data-options="field:'proSnapLength',width:100,align:'center',sortable:'true'">临时线长度</th>
+            	
+            	<!-- <th data-options="field:'proPipe',width:100,align:'center',sortable:'true'">管阀口径</th>
+            	<th data-options="field:'proPipeLengths',width:100,align:'center',sortable:'true'">管阀长度</th> -->
+            	<th data-options="field:'proWater',width:100,align:'center',sortable:'true'">水表口径</th>
+            	<th data-options="field:'proWaterNumber',width:100,align:'center',sortable:'true'">水表数量</th>
+            	<th data-options="field:'proDesign',width:100,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }">是否需设计交底</th>
+            	<th data-options="field:'proBilling',width:100,align:'center',sortable:'true',formatter:function(value,row){
+            							if (value == 1) return '是';
+	                                    return '否';
+	                		  }">是否需计费协议</th>
+            	<th data-options="field:'proWaterBegintime',width:100,align:'center',sortable:'true'">临水开始时间</th>
+            	<th data-options="field:'proWaterEndtime',width:100,align:'center',sortable:'true'">临水结束时间</th>
+            	<th data-options="field:'proRemark',width:100,align:'center',sortable:'true'">备注</th>
+            	
+            	
+            	
+            	
+            	
+            	
+            	<th data-options="field:'createUser',width:100,align:'center',sortable:'true'">创建人</th>
+            	<th data-options="field:'createTime',width:150,align:'center',sortable:'true'">创建时间</th>
+            	
+            </tr>
+        </thead>
+   	</table>
+    <div id="toolbar2" class="easyui-layout" style="height:70px;margin:3px;">
+        <div data-options="region:'north',border:true" style="height:70px;">
+            <form id="fm" method="post" novalidate>
+            <table cellpadding="5">
+              <tr>
+                   <td>工程名称:</td>
+                   <td><input class="easyui-validatebox " style="width: 80px;" type="text" name="pname" id="pname"></input></td>
+                   <td>工号:</td>
+                   <td><input class="easyui-validatebox" style="width: 80px;" type="text" name="proNumber" id="proNumber"></input></td>
+                   <td>临时工号:</td>
+                   <td><input class="easyui-validatebox" style="width: 80px;" type="text" name="proSnapNumber" id="proSnapNumber"></input></td>
+                   <td>序号:</td>
+                   <td><input class="easyui-validatebox" style="width: 80px;" type="text" name="proSerialNumber" id="proSerialNumber"></input></td>
+                   <td>工程类别:</td>
+                   <td>
+                      <select name="proEngineTypeName" id="proEngineTypeName">
+                         <option value=''>全部</option>
+                         <option th:each="dic : ${dicts}" th:if="${#strings.equals(dic.dictCode,'GCLB')}" th:value="${dic.id}" th:text="${dic.dictdataName}"></option>
+                      </select>
+                   </td>
+                   <td>期次:</td>
+                   <td>
+                      <select name="proPeriodName" id="proPeriodName">
+                         <option value=''>全部</option>
+                         <option th:each="dic : ${dicts}" th:if="${#strings.equals(dic.dictCode,'QC')}" th:value="${dic.id}" th:text="${dic.dictdataName}"></option>
+                      </select>
+                   </td>
+                   <td>工程性质:</td>
+                   <td>
+                      <select name="proNatureName" id="proNatureName">
+                         <option value=''>全部</option>
+                         <option th:each="dic : ${dicts}" th:if="${#strings.equals(dic.dictCode,'GCXZ')}" th:value="${dic.id}" th:text="${dic.dictdataName}"></option>
+                      </select>
+                   </td>
+                   </tr>
+                   <tr>
+                   <td>转入单位:</td>
+                   <td>
+                      <select name="proDeptName" id="proDeptName">
+                         <option value=''>全部</option>
+                         <option th:each="dept : ${depts}" th:value="${dept.id}" th:text="${dept.name}"></option>
+                      </select>
+                   </td>
+                   <td>状态:</td>
+                   <td>
+                      <select name="proStatus" id="proStatus">
+                         <option value=''>全部</option>
+                         <option value="1">在施</option>
+                         <option value="2">待施</option>
+                         <option value="3">已完工</option>
+                         <option value="4">待转图</option>
+                      </select>
+                   </td>
+                   
+                   <td><a href="javascript:searchProp()" class="easyui-linkbutton" iconCls="icon-search">查找</a></td>
+                   <td><a href="javascript:add()" class="easyui-linkbutton" iconCls="icon-search">确定</a></td>
+               
+               </tr>
+           </table>
+           </form>
+        </div>
+        
+    </div>
+	
+    <script th:inline="javascript">
+    var contractNumber=[[${contractNumber}]]
+    
+    function add(){
+    	var selecteds = $('#tb2').datagrid('getSelections');
+    	if (selecteds == null || selecteds.length == 0) { 
+        	Common.showMsg('提示','请选择操作项！');
+        	return;
+        }
+    	var ids="";
+    	$(selecteds).each(function (index) {
+            ids = ids + selecteds[index].id + ",";
+        });
+        ids = ids.substring(0, ids.length - 1);
+        $.ajax( {
+			url : '/contracts/proAdd.do?ids='+ids+"&contractNumber="+contractNumber,
+			dataType:'text',
+			type: 'delete',
+			success : function(result) {
+				if ("success"==result){
+					Common.showMsg('提示',"关联项目成功");
+					window.parent.closeWindow();
+				}else{
+					Common.showMsg('提示',"操作失败");
+				}
+				
+			}
+		});
+        
+        
+    }
+    
+    function searchProp(){
+    	var names = $.trim($("#pname").val());
+    	var proNumber = $.trim($("#proNumber").val());
+    	var proSnapNumber = $.trim($("#proSnapNumber").val());
+    	var proSerialNumber = $.trim($("#proSerialNumber").val());
+    	var proEngineTypeName = $.trim($("#proEngineTypeName").val());
+    	var proPeriodName = $.trim($("#proPeriodName").val());
+    	var proNatureName = $.trim($("#proNatureName").val());
+    	var proDeptName = $.trim($("#proDeptName").val());
+    	var proStatus = $.trim($("#proStatus").val());
+		$('#tb2').datagrid({
+            url:"/produces/getDataOther.do",
+            queryParams:{
+            	proName:names,
+            	proNumber:proNumber,
+            	proSnapNumber:proSnapNumber,
+            	proSerialNumber:proSerialNumber,
+            	proEngineTypeName:proEngineTypeName,
+            	proPeriodName:proPeriodName,
+            	proNatureName:proNatureName,
+            	proDeptName:proDeptName,
+            	proStatus:proStatus
+            }
+        });
+	}
+    </script>
+</body>
+

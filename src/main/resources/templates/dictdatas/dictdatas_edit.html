@@ -51,6 +51,12 @@
                      <input class="easyui-validatebox" type="text" name="dictdataLength" th:value="${dictdata.dictdataLength}" data-options="validType:'intOrFloat'"></input>
                     </td>
                 </tr>
+                 <tr  th:if="${code=='TZXZ'}">
+                <td>预警天数:</td>
+                    <td>
+                     <input class="easyui-validatebox" type="text" name="dictdataDay" th:value="${dictdata.dictdataDay}" data-options="validType:'number'"></input>
+                    </td>
+                </tr>
                 <tr>
                     <td>类别:</td>
                     <td>

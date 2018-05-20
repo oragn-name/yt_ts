@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
 import com.study.model.ProjectPicture;
+import com.study.model.ProjectRoadWork;
 import com.study.model.User;
 import com.study.service.ProjectPictureService;
+import com.study.service.ProjectRoadWorkService;
 import com.study.util.ResultUtil;
 import com.study.util.bean.DataGridResultInfo;
 import com.study.util.bean.PageBean;
@@ -29,12 +31,24 @@ public class ProjectPictureController {
 
   @Autowired
   private ProjectPictureService projectPictureService;
-  
+  @Autowired
+  private ProjectRoadWorkService roadWorkService;
   @RequestMapping(value="/pictures/getData",method={RequestMethod.GET})
   public DataGridResultInfo getData(@ModelAttribute PageBean bean,@RequestParam(value="proId",required=true)Integer proId){
     ProjectPicture projectPicture=new ProjectPicture();
     projectPicture.setProId(proId);
     List<ProjectPicture> selectPictureByAll = projectPictureService.selectPictureByAll(projectPicture, bean);
+    if(selectPictureByAll!=null&&selectPictureByAll.size()>0){
+      for (ProjectPicture projectPicture2 : selectPictureByAll) {
+        ProjectRoadWork projectRoadWork=new ProjectRoadWork();
+        projectRoadWork.setProId(projectPicture2.getProId());
+        List<ProjectRoadWork> projectRoadWorkAll = roadWorkService.getProjectRoadWorkAll(projectRoadWork, null);
+        if(projectRoadWorkAll!=null&&projectRoadWorkAll.size()>0){
+          projectRoadWork=projectRoadWorkAll.get(0);
+        }
+        projectPicture2.setPrwSwitchingDate(projectRoadWork.getPrwSwitchingDate());
+      }
+    }
     PageInfo<ProjectPicture> info=new PageInfo<ProjectPicture>(selectPictureByAll);
     return ResultUtil.createDataGridResult(info.getTotal(), info.getList());
   }

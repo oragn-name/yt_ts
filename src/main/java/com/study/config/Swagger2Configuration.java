@@ -11,13 +11,13 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@Configuration
-@EnableSwagger2
+/*@Configuration
+@EnableSwagger2*/
 /*
  * 访问地址http://localhost:8080/swagger-ui.html
  */
 public class Swagger2Configuration {
-    @Bean
+    /*@Bean
     public Docket buildDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(buildApiInf())
@@ -32,5 +32,5 @@ public class Swagger2Configuration {
                 .contact("YT")
                 .version("1.0")
                 .build();
-    }
+    }*/
 }

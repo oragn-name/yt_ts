@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.study.mapper.ProjectContractSendMapper">
+  <resultMap id="BaseResultMap" type="com.study.model.ProjectContractSend">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="pcs_year" jdbcType="INTEGER" property="pcsYear" />
+    <result column="pcs_month" jdbcType="VARCHAR" property="pcsMonth" />
+    <result column="pcs_length" jdbcType="DOUBLE" property="pcsLength" />
+    <result column="pcs_money" jdbcType="DOUBLE" property="pcsMoney" />
+    <result column="pcs_remark" jdbcType="VARCHAR" property="pcsRemark" />
+    <result column="pc_id" jdbcType="INTEGER" property="pcId" />
+  </resultMap>
+  
+  <select id="selectByAll" parameterType="java.util.Map" resultMap="BaseResultMap">
+     
+       select t.* from project_contract_send t where 1=1
+       <if test="pcId!=null and pcId!=''">
+         and t.pc_id=#{pcId}
+       </if>
+    
+  </select>
+  
+  
+</mapper>

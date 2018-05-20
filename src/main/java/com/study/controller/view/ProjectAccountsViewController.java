@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.study.model.Dictionarydata;
 import com.study.model.ProjectAccounts;
+import com.study.model.ProjectConstruction;
 import com.study.model.ProjectProduce;
 import com.study.model.ProjectRoadWork;
 import com.study.model.ProjectSatety;
 import com.study.service.DictdataService;
 import com.study.service.ProjectAccountsService;
+import com.study.service.ProjectConstructionService;
 import com.study.service.ProjectProduceService;
 import com.study.service.ProjectRoadWorkService;
 import com.study.util.bean.MenuBean;
@@ -36,9 +38,11 @@ public class ProjectAccountsViewController {
   private ProjectRoadWorkService roadWorkService;
   @Autowired
   private DictdataService dictdataService;
+  @Autowired
+  private ProjectConstructionService projectConstructionService;
   
   @RequestMapping(value="accounts/add",method={RequestMethod.GET})
-  public String add(HttpServletRequest request,@RequestParam(value="accountsId",required=false) Integer accountsId, @ModelAttribute MenuBean bean,@RequestParam(value="proId",required=false)Integer proId){
+  public String add(HttpServletRequest request,@RequestParam(value="accountsId",required=false) Integer accountsId, @ModelAttribute MenuBean bean,@RequestParam(value="proId",required=false)Integer proId,@RequestParam(value="pcId",required=false)Integer pcId){
     request.setAttribute("menu", bean);
     if (accountsId != null) {
       ProjectAccounts selectByKey = projectAccountsService.selectByKey(accountsId);
@@ -48,15 +52,12 @@ public class ProjectAccountsViewController {
       if(projectProduceAll!=null&&projectProduceAll.size()>0){
         produce=projectProduceAll.get(0);
         String proConsts="";
-        if(produce.getProConst()!=null&&!"".equals(produce.getProConst())){
-          String[] proConst=produce.getProConst().split(",");
-          for (String string : proConst) {
-            Dictionarydata selectByKeyq = dictdataService.selectByKey(Integer.parseInt(string));
+        ProjectConstruction selectByKey2 = projectConstructionService.selectByKey(pcId);
+            Dictionarydata selectByKeyq = dictdataService.selectByKey(selectByKey2.getPcDept());
             if(selectByKeyq!=null){
               proConsts+=selectByKeyq.getDictdataName()+",";
             }
-          }
-        }
+       
         if(proConsts.length()>0){
           proConsts=proConsts.substring(0, proConsts.length()-1);
         }
@@ -79,15 +80,12 @@ public class ProjectAccountsViewController {
       if(projectProduceAll!=null&&projectProduceAll.size()>0){
         produce=projectProduceAll.get(0);
         String proConsts="";
-        if(produce.getProConst()!=null&&!"".equals(produce.getProConst())){
-          String[] proConst=produce.getProConst().split(",");
-          for (String string : proConst) {
-            Dictionarydata selectByKeyq = dictdataService.selectByKey(Integer.parseInt(string));
+        ProjectConstruction selectByKey2 = projectConstructionService.selectByKey(pcId);
+            Dictionarydata selectByKeyq = dictdataService.selectByKey(selectByKey2.getPcDept());
             if(selectByKeyq!=null){
               proConsts+=selectByKeyq.getDictdataName()+",";
             }
-          }
-        }
+       
         if(proConsts.length()>0){
           proConsts=proConsts.substring(0, proConsts.length()-1);
         }
@@ -100,6 +98,7 @@ public class ProjectAccountsViewController {
         projectRoadWork=projectRoadWorkAll.get(0);
       }
       request.setAttribute("proId", proId);
+      request.setAttribute("pcId", pcId);
       request.setAttribute("produce", produce);
       request.setAttribute("projectRoadWork", projectRoadWork);
       return "accounts/accounts_add";
