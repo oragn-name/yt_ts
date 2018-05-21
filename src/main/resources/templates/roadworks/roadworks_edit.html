@@ -205,10 +205,13 @@
                     <td th:if="${#strings.equals(pro.proBilling,'1')}"><input class="easyui-datetimebox" type="text" name="prwBillingTime" th:value="${roadWork.prwBillingTime}"></input></td>
                     <td  style="text-align: right;">图纸性质:</td>
                     <td>
-                    <select class="easyui-combobox" name="prwNature" style="width: 148px;">
+                    <select class="easyui-combobox" name="prwNature" style="width: 148px;" >
+	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'TZXZ')}" th:selected="${#strings.equals(roadWork.prwNature,dict1.id)}"></option>
+	           					</select> 
+                    <!-- <select class="easyui-combobox" name="prwNature" style="width: 148px;">
 	           				  	<option value="1" th:selected="${#strings.equals(roadWork.prwNature,1)}">简图</option>
 	           				  	<option value="2" th:selected="${#strings.equals(roadWork.prwNature,2)}">蓝图</option>
-	           					</select>
+	           					</select> -->
                    </td>
                 </tr>
                 

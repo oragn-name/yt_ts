@@ -41,7 +41,7 @@
   w.prw_switching_date as "prwSwitchingDate",d.dictdata_name as "pictureNatureName",d.dictdata_day as "dictdataDay",c.picture_type as "pictureType",c.picture_remark as "pictureRemark"
 FROM
 	project_produce p inner join project_picture c on c.pro_id=p.id 
-  inner join  project_road_work w on w.pro_id=p.id inner join dictionarydata d on d.id=c.picture_nature
+  inner join  project_road_work w on w.pro_id=p.id inner join dictionarydata d on d.id=w.prw_nature
  where 1=1 and p.pro_type=1
 
   <if test="proName!=null and proName!=''">
@@ -98,7 +98,7 @@ and c.picture_type=#{pictureType}
   w.prw_switching_date as "prwSwitchingDate",d.dictdata_name as "pictureNatureName",d.dictdata_day as "dictdataDay",c.picture_type as "pictureType",c.picture_remark as "pictureRemark"
 FROM
 	project_produce p left join project_picture c on c.pro_id=p.id 
-  left join  project_road_work w on w.pro_id=p.id left join dictionarydata d on d.id=c.picture_nature
+  left join  project_road_work w on w.pro_id=p.id left join dictionarydata d on d.id=w.prw_nature
  where 1=1 and p.pro_type=1
 
   <if test="proName!=null and proName!=''">

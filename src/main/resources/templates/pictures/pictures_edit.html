@@ -56,9 +56,16 @@
                 <tr>
                 <td  style="text-align: right;">图纸性质:</td>
                     <td>
-                           <select class="easyui-combobox" name="pictureNature" style="width: 148px;" >
+                   <!--  <select class="easyui-combobox" style="width: 148px;" readonly="readonly">
+	           				  	<option value="1" th:selected="${#strings.equals(projectRoadWork.prwNature,1)}">简图</option>
+	           				  	<option value="2" th:selected="${#strings.equals(projectRoadWork.prwNature,2)}">蓝图</option>
+	           					</select> -->
+	           					<select class="easyui-combobox" readonly="readonly"  style="width: 148px;" >
+	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'TZXZ')}" th:selected="${#strings.equals(projectRoadWork.prwNature,dict1.id)}"></option>
+	           					</select> 
+                           <!-- <select class="easyui-combobox" name="pictureNature" style="width: 148px;" >
 	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'TZXZ')}" th:selected="${#strings.equals(picture.pictureNature,dict1.id)}"></option>
-	           					</select>
+	           					</select> -->
                      </td>
                     <td style="text-align: right;">接受竣工图时间:</td>
                     <td><input class="easyui-datetimebox" type="text" name="pictureTime" th:value="${picture.pictureTime}" data-options=""></input></td>

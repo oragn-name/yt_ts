@@ -47,6 +47,7 @@ public class ProjectPictureController {
           projectRoadWork=projectRoadWorkAll.get(0);
         }
         projectPicture2.setPrwSwitchingDate(projectRoadWork.getPrwSwitchingDate());
+        projectPicture2.setPictureNatureName(projectRoadWork.getPrwNatureName());
       }
     }
     PageInfo<ProjectPicture> info=new PageInfo<ProjectPicture>(selectPictureByAll);
