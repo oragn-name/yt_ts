@@ -25,6 +25,9 @@ public class ProjectContractSend {
 
     @Column(name = "pc_id")
     private Integer pcId;
+    
+    @Column(name = "pro_id")
+    private Integer proId;
 
     /**
      * @return id
@@ -123,4 +126,15 @@ public class ProjectContractSend {
     public void setPcId(Integer pcId) {
         this.pcId = pcId;
     }
+
+	public Integer getProId() {
+		return proId;
+	}
+
+	public void setProId(Integer proId) {
+		this.proId = proId;
+	}
+    
+    
+    
 }

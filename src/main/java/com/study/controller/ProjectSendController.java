@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.pagehelper.PageInfo;
 import com.study.model.ProjectContractSend;
 import com.study.model.ProjectPackage;
+import com.study.model.vo.ContractProject;
 import com.study.service.ProjectContractSendService;
 import com.study.util.ResultUtil;
 import com.study.util.bean.DataGridResultInfo;
@@ -25,14 +26,22 @@ public class ProjectSendController{
   private ProjectContractSendService projectContractSendService;
   
   @RequestMapping(value="/sends/getData",method={RequestMethod.GET})
-  public DataGridResultInfo getData(@ModelAttribute PageBean bean,Integer pcId){
+  public DataGridResultInfo getData(@ModelAttribute PageBean bean,Integer proId){
     Map<String, Object> map=new HashMap<String, Object>();
-    map.put("pcId", pcId);
+    map.put("proId", proId);
     List<ProjectContractSend> selectByAll = projectContractSendService.selectByAll(map, bean);
     PageInfo<ProjectContractSend> info=new PageInfo<ProjectContractSend>(selectByAll);
     return ResultUtil.createDataGridResult(info.getTotal(), info.getList());
   }
   
+  @RequestMapping(value="/sends/getDataPro",method={RequestMethod.GET})
+  public DataGridResultInfo getDataPro(@ModelAttribute PageBean bean,String contractNumber){
+	  Map<String, Object> map=new HashMap<String, Object>();
+	  map.put("contractNumber", contractNumber);
+	  List<ContractProject> selectByAllProject = projectContractSendService.selectByAllProject(map, bean);
+	  PageInfo<ContractProject> info=new PageInfo<ContractProject>(selectByAllProject);
+	  return ResultUtil.createDataGridResult(info.getTotal(), info.getList());
+  }
   
   @RequestMapping(value = "/sends/add", method = { RequestMethod.POST })
   public String add(@ModelAttribute ProjectContractSend projectContractSend) {
