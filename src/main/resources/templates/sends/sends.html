@@ -142,7 +142,7 @@
     function search(){
     	var names = $("#contractNumber").val();
 		$('#tb1').datagrid({
-            url:"/contracts/getData.do",
+            url:"/sends/getDataPro.do",
             queryParams:{
             	contractNumber:names
             }

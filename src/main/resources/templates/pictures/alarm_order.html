@@ -129,6 +129,7 @@
         	var pictureType=$("#pictureType").val();
         	var proNumber=$("#proNumber").val();
         	var proSerialNumber=$("#proSerialNumber").val();
+        	var proDay=$("#proDay").val();
         /* 	
         	var proContractNumber=$("#proContractNumber").val();
         	
@@ -138,7 +139,7 @@
         	
         	
         	
-        	location.href=encodeURI("/pic_alarm_order/每日工作量汇总/114?proName="+proName+"&proNumber="+proNumber+"&proSerialNumber="+proSerialNumber+"&proStatus="+proStatus+"&proPeriodName="+proPeriodName+"&proNatureName="+proNatureName+"&proSourceName="+proSourceName+"&proEngineTypeName="+proEngineTypeName+"&proDeptName="+proDeptName+"&pictureType="+pictureType+"&pictureNatureName="+pictureNatureName);
+        	location.href=encodeURI("/pic_alarm_order/每日工作量汇总/114?proName="+proName+"&proNumber="+proNumber+"&proSerialNumber="+proSerialNumber+"&proStatus="+proStatus+"&proPeriodName="+proPeriodName+"&proNatureName="+proNatureName+"&proSourceName="+proSourceName+"&proEngineTypeName="+proEngineTypeName+"&proDeptName="+proDeptName+"&pictureType="+pictureType+"&pictureNatureName="+pictureNatureName+"&proDay="+proDay);
         }
     </script>
 </head>
@@ -195,6 +196,7 @@
                          <option value="1" th:selected="${#strings.equals(pictureType,1)}">合格</option>
                          <option value="0" th:selected="${#strings.equals(pictureType,0)}">不合格</option>
                          </select>
+         预警天数:<input type="text"  id="proDay" th:value="${proDay}"/>
         <input type="button" class="rbtn23" value="查询" onclick="search()" />
         <input id="Button1" type="button" value="导出EXCEL" class="rbtn23" onclick="javascript:HtmlExportToExcel('PanelExcel')" />
         <a id="dlink" style="display: none;"></a>

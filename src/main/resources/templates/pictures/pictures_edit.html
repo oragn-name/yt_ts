@@ -52,19 +52,16 @@
 		   	   <tr>
 		   	      <td>转闸单时间 </td>
 		   	      <td><input class="easyui-validatebox" type="text" th:value="${projectRoadWork.prwSwitchingDate}"  readonly="readonly" ></td>
-		   	   </tr>
-                <tr>
-                <td  style="text-align: right;">图纸性质:</td>
+		   	       <td  style="text-align: right;">图纸性质:</td>
                     <td>
-                           <select class="easyui-combobox" name="pictureNature" style="width: 148px;" >
-	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'TZXZ')}" th:selected="${#strings.equals(picture.pictureNature,dict1.id)}"></option>
+                           <select class="easyui-combobox"  style="width: 148px;" disabled="disabled" >
+	           				  	    <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'TZXZ')}"  th:selected="${#strings.equals(projectRoadWork.prwNature,dict1.id)}"></option>
 	           					</select>
                      </td>
+		   	   </tr>
+                <tr>
                     <td style="text-align: right;">接受竣工图时间:</td>
                     <td><input class="easyui-datetimebox" type="text" name="pictureTime" th:value="${picture.pictureTime}" data-options=""></input></td>
-                    
-                </tr>
-                <tr>
                     <td style="text-align: right;">竣工图是否合格:</td>
                     <td>
 <select class="easyui-combobox" name="pictureType" style="width: 148px;">
@@ -72,6 +69,9 @@
 	           				  	<option value="0" th:selected="${#strings.equals(picture.pictureType,0)}">不合格</option>
 	           					</select>
                      </td>
+                </tr>
+                <tr>
+                    
                     <td  style="text-align: right;">竣工图和格时间:</td>
                     <td><input class="easyui-datetimebox" type="text" name="pictureTypeTime"  th:value="${picture.pictureTypeTime}" data-options=""></input></td>
                 </tr>

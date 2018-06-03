@@ -3,6 +3,7 @@ package com.study.controller.view;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -1604,7 +1605,7 @@ public class SummaryViewController {
     
   }
   @RequestMapping("/pic_alarm_order/{menuName}/{id}")
-  public String pic_alarm_order(HttpServletRequest request,HttpServletResponse response,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,String proEngineTypeName,String proSourceName,String proNatureName,String proPeriodName,String receiptsUnit,String pictureNatureName,Integer pictureType) throws ParseException{
+  public String pic_alarm_order(HttpServletRequest request,HttpServletResponse response,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,String proEngineTypeName,String proSourceName,String proNatureName,String proPeriodName,String receiptsUnit,String pictureNatureName,Integer pictureType,Integer proDay) throws ParseException{
     
     Map<String,Object> map=new HashMap<String, Object>();
     map.put("proName", proName==null?"":proName.trim());
@@ -1630,6 +1631,7 @@ public class SummaryViewController {
     map.put("proNatureName", proNatureName==null?"":proNatureName.trim());
     map.put("proPeriodName", proPeriodName==null?"":proPeriodName.trim());
     List<PictureOrder> orderDay = projectPictureService.getOrderalarm(map);
+    List<PictureOrder> list=new ArrayList<PictureOrder>();
     if (orderDay!=null&&orderDay.size()>0) {
       for (PictureOrder pictureOrder : orderDay) {
         pictureOrder.setContractName(pictureOrder.getProStatus()==null?"":pictureOrder.getProStatus()==1?"在施":pictureOrder.getProStatus()==2?"待施":pictureOrder.getProStatus()==3?"已完工":pictureOrder.getProStatus()==4?"待转图":"");
@@ -1650,10 +1652,19 @@ public class SummaryViewController {
            }
            pictureOrder.setPrwSwitchingDate(pictureOrder.getPrwSwitchingDate().substring(0, 10));
            pictureOrder.setPrwSwitchingDate2(enddate);
+           
+         }
+         if(proDay!=null&&!"".equals(proDay)){
+      	   if(proDay==pictureOrder.getDay()){
+      		   list.add(pictureOrder);
+      	   }
+         }else{
+      	   list.add(pictureOrder);
          }
       }
     }
-    request.setAttribute("orderDay", orderDay);
+    request.setAttribute("orderDay", list);
+    request.setAttribute("proDay", proDay);
     request.setAttribute("pictureNatureName", pictureNatureName);
     request.setAttribute("pictureType", pictureType);
     request.setAttribute("proStatus", proStatus);
