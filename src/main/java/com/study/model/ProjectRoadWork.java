@@ -182,7 +182,8 @@ public class ProjectRoadWork {
     private Integer prwOwnership;
     @Transient
     private String prwOwnershipName;
-    
+    @Transient
+    private String prwNatureName;
     
 
     /**
@@ -1072,6 +1073,14 @@ public class ProjectRoadWork {
 
     public void setPrwNature(Integer prwNature) {
       this.prwNature = prwNature;
+    }
+
+    public String getPrwNatureName() {
+      return prwNatureName;
+    }
+
+    public void setPrwNatureName(String prwNatureName) {
+      this.prwNatureName = prwNatureName;
     }
     
     

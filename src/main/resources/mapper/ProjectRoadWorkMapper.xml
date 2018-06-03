@@ -67,6 +67,7 @@
 		prw_address as "prwAddress",prw_road_name as "prwRoadName",prw_origin as "prwOrigin",prw_stop as "prwStop",(select dictdata_name from dictionarydata where id=prw_ownership) as "prwOwnershipName",
 		prw_repair as "prwRepair",prw_excavation as "prwExcavation",prw_preliminary_time as "prwPreliminaryTime",prw_user_id as "prwUserId",
 		prw_phone as "prwPhone",(select dictdata_name from dictionarydata where id=prw_condition) as "prwConditionName",prw_creator as "prwCreator",prw_create_at as "prwCreateAt",prw_roads_time as "prwRoadsTime",
+		(select dictdata_name from dictionarydata where id=prw_nature) as "prwNatureName",
 		prw_traffic_time as "prwTrafficTime",prw_team as "prwTeam",prw_budget_user as "prwBudgetUser",prw_budget_time as "prwBudgetTime",prw_contract_time as "prwContractTime",prw_archive_time as "prwArchiveTime",
 		prw_contract_number as "prwContractNumber",prw_nature as "prwNature",prw_contract_price as "prwContractPrice",prw_group_time as "prwGroupTime",prw_design_time as "prwDesignTime",prw_billing_time as "prwBillingTime",prw_quality as "prwQuality" from project_road_work where 1=1
 		<if test="proId!=null and proId!=''">
