@@ -47,8 +47,17 @@ public class ProjectRoadWorkDailyController {
     User user = (User)session.getAttribute("userSession");
     Dept selectByKey = deptService.selectByKey(user.getDeptId());
     /*ProjectItemConstruction construction=new ProjectItemConstruction();*/
-    if(!selectByKey.getCode().toUpperCase().equals("SCK")){
+    if(selectByKey.getParentId()!=0&&!selectByKey.getCode().toUpperCase().equals("SCK")){
       construction.setPcDept(selectByKey.getId());
+      String userRole = user.getUserRole();
+      if(userRole!=null){
+        String[] split = userRole.split(",");
+        Integer[] ints=new Integer[split.length];
+        for (int i=0;i<split.length;i++) {
+          ints[i]=Integer.parseInt(split[i]);
+        }
+        construction.setProDeptId(ints);
+       }
     }
     /*construction.setProName(proName);*/
     List<ProjectItemConstruction> selectProjectItemConstruction = roadWorkDailyService.selectProjectItemConstruction(construction, bean);

@@ -27,6 +27,11 @@ public class User implements Serializable{
     @Column(name = "dept_id")
     private Integer deptId;
     
+    @Column(name = "user_role")
+    private String userRole;
+    
+    
+    
     @Transient
     private String deptName;
 
@@ -136,6 +141,14 @@ public class User implements Serializable{
      */
     public void setEnable(Integer enable) {
         this.enable = enable;
+    }
+
+    public String getUserRole() {
+      return userRole;
+    }
+
+    public void setUserRole(String userRole) {
+      this.userRole = userRole;
     }
 
     @Override

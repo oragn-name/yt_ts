@@ -1,6 +1,7 @@
 package com.study.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,14 @@ public class ProjectProduceServiceImpl extends BaseService<ProjectProduce> imple
     }
     List<ProjectProduce> selectByExample = projectProduceMapper.selectProjectProAll(produce);
     return selectByExample;
+  }
+  @Override
+  public List<ProjectProduce> selectProjectProAllMap(Map<String, Object> map, PageBean bean) {
+    if(PageBeanUtil.pageBeanIsNotEmpty(bean)){
+      PageHelper.startPage(bean.getPage(), bean.getRows());
+    }
+    List<ProjectProduce> selectProjectProAllMap = projectProduceMapper.selectProjectProAllMap(map);
+    return selectProjectProAllMap;
   }
 
 }

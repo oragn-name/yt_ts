@@ -94,9 +94,22 @@
      <if test="proName!=null and proName!=''">
     and pp.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
      </if>
-     <if test="pcDept!=null and pcDept!=''">
+     <choose>
+	   <when test="proDeptId!=null">
+	       and pc.pc_dept 
+
+       <foreach  collection="proDeptId" item="id" open="in (" close=")" separator=","> 
+				#{id}
+			</foreach>
+       
+	   </when>
+	   <otherwise>
+	     <if test="pcDept!=null and pcDept!=''">
     and pc.pc_dept=#{pcDept}
      </if>
+	   </otherwise>
+	</choose>
+     
      <if test="proSerialNumber!=null and proSerialNumber!=''">
 	 and pp.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
 	</if>

@@ -48,9 +48,18 @@ public class ProjectItemConstruction {
   
   private String proDeptName;
   
+  private Integer[] ProDeptId;
   
   
   
+  public Integer[] getProDeptId() {
+    return ProDeptId;
+  }
+
+  public void setProDeptId(Integer[] proDeptId) {
+    ProDeptId = proDeptId;
+  }
+
   public Integer getPcDept() {
     return pcDept;
   }

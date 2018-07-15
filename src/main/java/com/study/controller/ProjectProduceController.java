@@ -2,7 +2,9 @@ package com.study.controller;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -139,7 +141,16 @@ public class ProjectProduceController {
     Dept dep = deptService.selectByKey(user.getDeptId());
     if(dep.getParentId()!=0&&!dep.getCode().toUpperCase().equals("SCK")){
       produce.setProDept(user.getDeptId());
-    }
+      String userRole = user.getUserRole();
+      if(userRole!=null){
+        String[] split = userRole.split(",");
+        Integer[] ints=new Integer[split.length];
+        for (int i=0;i<split.length;i++) {
+          ints[i]=Integer.parseInt(split[i]);
+        }
+        produce.setProDeptId(ints);
+       }
+      }
     List<ProjectProduce> projectProduceAll = projectProduceService.getProjectProduceAll(produce, bean);
     for (ProjectProduce projectProduce : projectProduceAll) {
       String proConsts="";

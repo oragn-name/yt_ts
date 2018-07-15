@@ -256,7 +256,8 @@ public class ProjectProduce {
     private String proDeptName;
     @Transient
     private String proNumberName;
-    
+    @Transient
+    private Integer[] proDeptId;
     
     
     public String getProJobTypeName() {
@@ -858,6 +859,16 @@ public class ProjectProduce {
     public void setProAddress(String proAddress) {
       this.proAddress = proAddress;
     }
+
+    public Integer[] getProDeptId() {
+      return proDeptId;
+    }
+
+    public void setProDeptId(Integer[] proDeptId) {
+      this.proDeptId = proDeptId;
+    }
+
+
     
     
     

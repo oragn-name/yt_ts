@@ -64,8 +64,69 @@
 	<if test="id!=null and id!=''">
 	 and id=#{id}
 	</if>
+	
+	<choose>
+	   <when test="proDeptId!=null">
+	       and proDept 
+
+       <foreach  collection="proDeptId" item="id" open="in (" close=")" separator=","> 
+				#{id}
+			</foreach>
+       
+	   </when>
+	   <otherwise>
+	     <if test="proDept!=null and proDept!=''">
+				 and proDept=#{proDept}
+			 </if>
+	   </otherwise>
+	</choose>
+	
+	<if test="proSerialNumber!=null and proSerialNumber!=''">
+	 and proSerialNumber like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
+	</if>
+	<if test="proNumber!=null and proNumber!=''">
+	 and proNumber like CONCAT(CONCAT('%', #{proNumber}), '%')
+	</if>
+	<if test="proSnapNumber!=null and proSnapNumber!=''">
+	 and proSnapNumber like CONCAT(CONCAT('%', #{proSnapNumber}), '%')
+	</if>
+	<if test="proEngineTypeName!=null and proEngineTypeName!=''">
+	 and proEngineType= #{proEngineTypeName}
+	</if>
+	<if test="proPeriodName!=null and proPeriodName!=''">
+	 and proPeriod= #{proPeriodName}
+	</if>
+	<if test="proNatureName!=null and proNatureName!=''">
+	 and proNature= #{proNatureName}
+	</if>
+	<if test="proDeptName!=null and proDeptName!=''">
+	 and proDept= #{proDeptName}
+	</if>
+	<if test="proStatus!=null and proStatus!=''">
+	 and proStatus= #{proStatus}
+	</if>
+    
+  </select>
+  
+  <select id="selectProjectProAllMap" parameterType="Map" resultType="com.study.model.ProjectProduce">
+    select * from (select id,pro_gauge as "proGauge",(select dictdata_name from dictionarydata where id=pro_job_type) as "proJobTypeName" ,(select dictdata_name from dictionarydata where id=pro_engine_type) as "proEngineTypeName" ,pro_engine_type as "proEngineType",(select dictdata_name from dictionarydata where id=pro_nature) as "proNatureName",pro_nature as "proNature",pro_name as "proName",(select dictdata_name from dictionarydata where id=pro_source) as "proSourceName",(select dictdata_name from dictionarydata where id=pro_number_type) as "proNumberName",pro_number as "proNumber",pro_snap_number as "proSnapNumber",
+	pro_serial_number as "proSerialNumber",pro_lssued_time as "proLssuedTime",(select dictdata_name from dictionarydata where id=pro_area) as "proAreaName",pro_roads_time as "proRoadsTime",pro_traffic_time as "proTrafficTime",(select dictdata_name from dictionarydata where id=pro_period) as "proPeriodName",pro_period as "proPeriod",(select name from dept where id=pro_dept) as "proDeptName",pro_dept as "proDept", pro_design_length as "proDesignLength",
+	pro_pipe_length as "proPipeLength",pro_snap_length as "proSnapLength",create_user as "createUser",create_time as "createTime",pro_user as "proUser",pro_user_phone as "proUserPhone",pro_remark as "proRemark",pro_pipe as "proPipe",pro_pipe_lengths as "proPipeLengths",
+	 pro_contract_number as "proContractNumber", pro_water as "proWater",pro_unit as "proUnit",pro_address as "proAddress",pro_water_number as "proWaterNumber",pro_design as "proDesign",pro_billing as "proBilling",pro_water_begintime as "proWaterBegintime" , pro_water_endtime as "proWaterEndtime",pro_const as "proConst",pro_status as "proStatus", pro_type as "proType"   from project_produce) t where 1=1
+	<if test="proName!=null and proName!=''">
+	 and proName like CONCAT(CONCAT('%', #{proName}), '%')
+	</if>
+	<if test="proContractNumber!=null and proContractNumber!=''">
+	 and proContractNumber like CONCAT(CONCAT('%', #{proContractNumber}), '%')
+	</if>
+	<if test="proEngineType!=null and proEngineType!=''">
+	 and proEngineType=#{proEngineType}
+	</if>
+	<if test="id!=null and id!=''">
+	 and id=#{id}
+	</if>
 	<if test="proDept!=null and proDept!=''">
-	 and proDept=#{proDept}
+	 and proDept in (#{proDept})
 	</if>
 	<if test="proSerialNumber!=null and proSerialNumber!=''">
 	 and proSerialNumber like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
