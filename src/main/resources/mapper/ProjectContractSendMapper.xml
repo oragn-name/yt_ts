@@ -12,16 +12,140 @@
     <result column="pcs_money" jdbcType="DOUBLE" property="pcsMoney" />
     <result column="pcs_remark" jdbcType="VARCHAR" property="pcsRemark" />
     <result column="pc_id" jdbcType="INTEGER" property="pcId" />
+    <result column="pro_id" jdbcType="INTEGER" property="proId" />
   </resultMap>
   
   <select id="selectByAll" parameterType="java.util.Map" resultMap="BaseResultMap">
      
        select t.* from project_contract_send t where 1=1
-       <if test="pcId!=null and pcId!=''">
-         and t.pc_id=#{pcId}
+       <if test="proId!=null and proId!=''">
+         and t.pro_id=#{proId}
        </if>
     
   </select>
+  <select id="selectByAllProject" parameterType="java.util.Map" resultType="com.study.model.vo.ContractProject">
+     SELECT
+	p.pro_number AS "proNumber",
+	p.pro_snap_number AS "proSnapNumber",
+	p.pro_serial_number AS "proSerialNumber",
+	p.pro_design_length as "proDesignLength",
+  p.pro_status as "proStatus",
+  (select name from dept where id=p.pro_dept) as "proDeptName",
+	(select dictdata_name from dictionarydata where id=p.pro_engine_type) as "proEngineTypeName",
+	(select dictdata_name from dictionarydata where id=p.pro_nature) as "proNatureName",
+	 p.pro_name AS "proName",
+	(select dictdata_name from dictionarydata where id=p.pro_source) as "proSourceName",
+	(select dictdata_name from dictionarydata where id=p.pro_period) as "proPeriodName",
+	p.id as "proId",
+	c.contract_number as "contractNumber",
+	c.contract_name as "contractName",
+	CONCAT(c.contract_money,'') as "contractMoney",
+	c.contract_sign_time as "contractSignTime",
+	c.contract_source as "contractSource"
+FROM
+	project_produce p RIGHT join project_contract c on c.contract_number=p.pro_contract_number where 1=1 and p.pro_type=1
+	<if test="contractNumber!=null and contractNumber!=''">
+	  and c.contract_number like CONCAT(CONCAT('%', #{contractNumber}), '%')
+	</if>
+    
+  </select>
   
+  <select id="selectByorder" parameterType="java.util.Map" resultType="com.study.model.vo.ContractProject">
+     
+		SELECT
+			p.pro_number AS "proNumber",
+			p.pro_snap_number AS "proSnapNumber",
+			p.pro_serial_number AS "proSerialNumber",
+			p.pro_design_length AS "proDesignLength",
+			p.pro_status AS "proStatus",
+			(
+				SELECT
+					NAME
+				FROM
+					dept
+				WHERE
+					id = p.pro_dept
+			) AS "proDeptName",
+			(
+				SELECT
+					dictdata_name
+				FROM
+					dictionarydata
+				WHERE
+					id = p.pro_engine_type
+			) AS "proEngineTypeName",
+			(
+				SELECT
+					dictdata_name
+				FROM
+					dictionarydata
+				WHERE
+					id = p.pro_nature
+			) AS "proNatureName",
+			p.pro_name AS "proName",
+			(
+				SELECT
+					dictdata_name
+				FROM
+					dictionarydata
+				WHERE
+					id = p.pro_source
+			) AS "proSourceName",
+			(
+				SELECT
+					dictdata_name
+				FROM
+					dictionarydata
+				WHERE
+					id = p.pro_period
+			) AS "proPeriodName",
+			p.id AS "proId",
+			c.contract_number AS "contractNumber",
+			c.contract_name AS "contractName",
+			CONCAT(c.contract_money, '') AS "contractMoney",
+			c.contract_sign_time AS "contractSignTime",
+			c.contract_source AS "contractSource",
+      s.pcs_length as "pcsLength",
+      s.pcs_money as "pcsMoney",
+      s.pcs_month as "pcsMonth",
+      s.pcs_remark as "pcsRemark",
+      s.pcs_year as "pcsYear",
+      (select ifnull(sum(d.detail_day),0) from project_road_word_detail d inner join dictionarydata d1 on  d1.id=d.dn_id where d.pro_id=p.id) as "gzl"
+		FROM
+			project_produce p
+		RIGHT JOIN project_contract c ON c.contract_number = p.pro_contract_number
+    right join project_contract_send s on p.id=s.pro_id
+		WHERE
+			1 = 1
+		AND p.pro_type = 1
+	
+  <if test="proName!=null and proName!=''">
+  and p.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
+</if>
+<if test="proNumber!=null and proNumber!=''">
+and p.pro_number like CONCAT(CONCAT('%', #{proNumber}), '%')
+</if>
+<if test="proSerialNumber!=null and proSerialNumber!=''">
+and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
+</if>
+  <if test="proStatus!=null and proStatus!=''">
+and p.pro_status=#{proStatus}
+</if>
+ <if test="proEngineTypeName!=null and proEngineTypeName!=''">
+and p.pro_engine_type=#{proEngineTypeName}
+</if>
+<if test="proDeptName!=null and proDeptName!=''">
+and p.pro_dept=#{proDeptName}
+</if>
+<if test="proSourceName!=null and proSourceName!=''">
+and p.pro_source=#{proSourceName}
+</if>
+<if test="proNatureName!=null and proNatureName!=''">
+and p.pro_nature=#{proNatureName}
+</if>
+<if test="proPeriodName!=null and proPeriodName!=''">
+and p.pro_period=#{proPeriodName}
+</if>
+  </select>
   
 </mapper>

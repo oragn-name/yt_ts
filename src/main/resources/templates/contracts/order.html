@@ -123,23 +123,17 @@
         	var proSourceName=$("#proSourceName").val();
         	var proNatureName=$("#proNatureName").val();
         	var proPeriodName=$("#proPeriodName").val();
-        	
-        	
-        	var pictureNatureName=$("#pictureNatureName").val();
-        	var pictureType=$("#pictureType").val();
         	var proNumber=$("#proNumber").val();
         	var proSerialNumber=$("#proSerialNumber").val();
-        	var proDay=$("#proDay").val();
         /* 	
-        	var proContractNumber=$("#proContractNumber").val();
-        	
-        	var pcDeptName=$("#pcDeptName").val(); */
+        	var proContractNumber=$("#proContractNumber").val();*/
         	
         	
         	
         	
         	
-        	location.href=encodeURI("/pic_alarm_order/每日工作量汇总/114?proName="+proName+"&proNumber="+proNumber+"&proSerialNumber="+proSerialNumber+"&proStatus="+proStatus+"&proPeriodName="+proPeriodName+"&proNatureName="+proNatureName+"&proSourceName="+proSourceName+"&proEngineTypeName="+proEngineTypeName+"&proDeptName="+proDeptName+"&pictureType="+pictureType+"&pictureNatureName="+pictureNatureName+"&proDay="+proDay);
+        	
+        	location.href=encodeURI("/sends/每日工作量汇总/114?proName="+proName+"&proNumber="+proNumber+"&proSerialNumber="+proSerialNumber+"&proStatus="+proStatus+"&proPeriodName="+proPeriodName+"&proNatureName="+proNatureName+"&proSourceName="+proSourceName+"&proEngineTypeName="+proEngineTypeName+"&proDeptName="+proDeptName);
         }
     </script>
 </head>
@@ -184,19 +178,6 @@
  
        工号:<input type="text"  id="proNumber" th:value="${proNumber}"/><br>
        序号:<input type="text"  id="proSerialNumber" th:value="${proSerialNumber}"/>
-       图纸性质:
-      <select  name="pictureNatureName" id="pictureNatureName" style="width: 148px;" >
-                         <option value="">--请选择--</option>
-                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'TZXZ')}" th:selected="${proSourceName!=null and #strings.equals(proSourceName,dict1.id)}"></option>
-                         </select>
-       
-        是否合格:
-      <select  name="pictureType" id="pictureType" style="width: 148px;" >
-                         <option value="">--请选择--</option>
-                         <option value="1" th:selected="${#strings.equals(pictureType,1)}">合格</option>
-                         <option value="0" th:selected="${#strings.equals(pictureType,0)}">不合格</option>
-                         </select>
-         预警天数:<input type="text"  id="proDay" th:value="${proDay}"/>
         <input type="button" class="rbtn23" value="查询" onclick="search()" />
         <input id="Button1" type="button" value="导出EXCEL" class="rbtn23" onclick="javascript:HtmlExportToExcel('PanelExcel')" />
         <a id="dlink" style="display: none;"></a>
@@ -205,11 +186,23 @@
     <div class="container_24" style="width: 95%; margin: 0 auto;">
         <div style="width: 100%;">
             <div id="PanelExcel">
+                <table cellspacing="0" cellpadding="0" align="center" border="0" class="tblPrint"
+                    style="border: 0px; display: none;">
+                    <tr>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
                 <div style="width: 100%;height: 500px;" class="xScroll">
                 <table id="tbHaederText" border="1" cellpadding="0" cellspacing="0" align="center"
                         style="border-collapse: collapse; word-break: keep-all; border-color: Black;
                         width: 100%;">
-                        <tr align="center" >
+                        <tr align="center">
+                            <td class="th"  nowrap>合同编号</td>
+                            <td class="th"  nowrap>合同名称</td>
+                            <td class="th"  nowrap>合同日期</td>
+                            <td class="th"  nowrap>合同金额</td>
+                            <td class="th"  nowrap>合同来源</td>
                             <td class="th"  nowrap>项目状态</td>
                             <td class="th"  nowrap>工号</td>
                             <td class="th"  nowrap>临时工号</td>
@@ -218,16 +211,20 @@
                             <td class="th"  nowrap>工程来源</td>
                             <td class="th"  nowrap>期次</td>
                             <td class="th"  nowrap>转入单位</td>
-                            <td class="th"  nowrap>转闸时间</td>
-                            <td class="th"  nowrap>图纸性质</td>
-                            <td class="th"  nowrap>图纸预警天数</td>
-                            <td class="th"  nowrap>预警开始时间</td>
-                            <td class="th"  nowrap>超期天数</td>
-                             <td class="th"  nowrap>竣工图是否合格</td>
-                            <td class="th"  nowrap>备注</td>
+                            <td class="th"  nowrap>累计工作量</td>
+                            <td class="th"  nowrap>申报年度</td>
+                            <td class="th"  nowrap>申报月份</td>
+                            <td class="th"  nowrap>长度</td>
+                            <td class="th"  nowrap>金额</td>
+                           
                         </tr>
-                         <tr th:each="rs : ${orderDay}" th:style="${rs.day>=3}?'background-color: red'">
+                         <tr th:each="rs : ${order}">
                              <td th:text="${rs.contractName}" class="td"></td>
+                             <td th:text="${rs.contractName}" class="td"></td>
+                             <td th:text="${rs.contractSignTime}" class="td"></td>
+                             <td th:text="${rs.contractMoney}" class="td"></td>
+                             <td th:text="${rs.contractSource==1}?'集团内':'集团外'" class="td"></td>
+                             <td th:text="${rs.pcDeptName}" class="td"></td>
                              <td th:text="${rs.proNumber}" class="td"></td>
                              <td th:text="${rs.proSnapNumber}" class="td"></td>
                              <td th:text="${rs.proName}" class="td"></td>
@@ -236,13 +233,11 @@
                              <td th:text="${rs.proSourceName}" class="td"></td>
                              <td th:text="${rs.proPeriodName}" class="td"></td>
                              <td th:text="${rs.proDeptName}" class="td"></td>
-                             <td th:text="${rs.prwSwitchingDate}" class="td"></td>
-                             <td th:text="${rs.pictureNatureName}" class="td"></td>
-                             <td th:text="${rs.dictdataDay}" class="td"></td>
-                             <td th:text="${rs.prwSwitchingDate2}" class="td"></td>
-                             <td th:text="${rs.day}" class="td"></td>
-                             <td th:text="${rs.pictureType==1}?'合格':'不合格'" class="td"></td>
-                             <td th:text="${rs.pictureRemark}" class="td"></td>
+                             <td th:text="${rs.gzl}" class="td"></td>
+                             <td th:text="${rs.pcsYear}" class="td"></td>
+                             <td th:text="${rs.pcsMonth}" class="td"></td>
+                             <td th:text="${rs.pcsLength}" class="td"></td>
+                             <td th:text="${rs.pcsMoney}" class="td"></td>
                           </tr>
                         </table>
                     

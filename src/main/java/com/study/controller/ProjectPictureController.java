@@ -16,9 +16,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.pagehelper.PageInfo;
+import com.study.model.Dictionary;
+import com.study.model.Dictionarydata;
 import com.study.model.ProjectPicture;
 import com.study.model.ProjectRoadWork;
 import com.study.model.User;
+import com.study.service.DictdataService;
+import com.study.service.DictionaryService;
 import com.study.service.ProjectPictureService;
 import com.study.service.ProjectRoadWorkService;
 import com.study.util.ResultUtil;
@@ -31,6 +35,8 @@ public class ProjectPictureController {
 
   @Autowired
   private ProjectPictureService projectPictureService;
+  @Autowired
+  private DictdataService dictdataService;
   @Autowired
   private ProjectRoadWorkService roadWorkService;
   @RequestMapping(value="/pictures/getData",method={RequestMethod.GET})
@@ -46,6 +52,11 @@ public class ProjectPictureController {
         if(projectRoadWorkAll!=null&&projectRoadWorkAll.size()>0){
           projectRoadWork=projectRoadWorkAll.get(0);
         }
+        if(projectRoadWork.getPrwNature()!=null){
+        	Dictionarydata selectByKey = dictdataService.selectByKey(projectRoadWork.getPrwNature());
+        	projectPicture2.setPictureNatureName(selectByKey.getDictdataName());
+        }
+        
         projectPicture2.setPrwSwitchingDate(projectRoadWork.getPrwSwitchingDate());
         projectPicture2.setPictureNatureName(projectRoadWork.getPrwNatureName());
       }
