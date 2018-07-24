@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <script th:src="@{/excel/jquery.js}" type="text/javascript"></script>
+    <script th:src="@{/excel/common.js}" type="text/javascript"></script>
+    <link th:href="@{/excel/global.css}" rel="stylesheet" type="text/css" />
+    <script th:src="@{/My97DatePicker/WdatePicker.js}" type="text/javascript"></script>
+    <style media="print" type="text/css">
+        .Noprint
+        {
+            display: none;
+        }
+        .PageNext
+        {
+            page-break-after: always;
+        }
+        .tblPrint
+        {
+            border: none;
+        }
+    </style>
+    <style type="text/css">
+        table
+        {
+            margin-bottom: 0;
+        }
+        table th, td
+        {
+            border: 0;
+        }
+        #tbHaederText .th
+        {
+            border: 1px solid windowtext;
+            padding: 0cm 2pt 0cm 2pt;
+            background-color: #FFFFFF;
+            height: 20px;
+            font-weight: bold;
+        }
+        #tbHaederText .td
+        {
+            border: 1px solid windowtext;
+        }
+    </style>
+    <script language="javascript" type="text/javascript">
+        function PrintDoc() {
+            $(".s_close").remove();
+            window.print();
+        }
+
+
+        //jQuery HTML导出Excel文件(兼容IE及所有浏览器)
+        function HtmlExportToExcel(tableid) {
+            $(".s_close").remove();
+            var timestamp = parseInt(new Date().getTime());
+            var filename = timestamp;
+            if (getExplorer() == 'ie' || getExplorer() == undefined) {
+                HtmlExportToExcelForIE(tableid, filename);
+            }
+            else {
+                HtmlExportToExcelForEntire(tableid, filename)
+            }
+        }
+        //IE浏览器导出Excel
+        function HtmlExportToExcelForIE(tableid, filename) {
+            try {
+                var winname = window.open('', '_blank', 'top=10000');
+                var strHTML = document.getElementById(tableid).innerHTML;
+
+                winname.document.open('application/vnd.ms-excel', 'export excel');
+                winname.document.writeln(strHTML);
+                winname.document.execCommand('saveas', '', filename + '.xls');
+                winname.close();
+
+            } catch (e) {
+                alert(e.description);
+            }
+        }
+        //非IE浏览器导出Excel
+        var HtmlExportToExcelForEntire = (function() {
+            var uri = 'data:application/vnd.ms-excel;base64,',
+        template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>',
+        base64 = function(s) { return window.btoa(unescape(encodeURIComponent(s))) },
+        format = function(s, c) { return s.replace(/{(\w+)}/g, function(m, p) { return c[p]; }) }
+            return function(table, name) {
+                if (!table.nodeType) { table = document.getElementById(table); }
+                var ctx = { worksheet: name || 'Worksheet', table: table.innerHTML }
+                document.getElementById("dlink").href = uri + base64(format(template, ctx));
+                document.getElementById("dlink").download = name + ".xls";
+                document.getElementById("dlink").click();
+            }
+        })()
+        function getExplorer() {
+            var explorer = window.navigator.userAgent;
+            //ie 
+            if (explorer.indexOf("MSIE") >= 0) {
+                return 'ie';
+            }
+            //firefox 
+            else if (explorer.indexOf("Firefox") >= 0) {
+                return 'Firefox';
+            }
+            //Chrome
+            else if (explorer.indexOf("Chrome") >= 0) {
+                return 'Chrome';
+            }
+            //Opera
+            else if (explorer.indexOf("Opera") >= 0) {
+                return 'Opera';
+            }
+            //Safari
+            else if (explorer.indexOf("Safari") >= 0) {
+                return 'Safari';
+            }
+        }
+        
+        function search(){
+        	var proName=$("#proName").val();
+        	var proNumber=$("#proNumber").val();
+        	var proSerialNumber=$("#proSerialNumber").val();
+        	var beginTime=$("#beginTime").val();
+        	var endTime=$("#endTime").val();
+        	
+        	var proContractNumber=$("#proContractNumber").val();
+        	var proDeptName=$("#proDeptName").val();
+        	var pcDeptName=$("#pcDeptName").val();
+        	var proEngineTypeName=$("#proEngineTypeName").val();
+        	var proSourceName=$("#proSourceName").val();
+        	var proNatureName=$("#proNatureName").val();
+        	var proPeriodName=$("#proPeriodName").val();
+        	var proStatus=$("#proStatus").val();
+        	location.href=encodeURI("/dayTotal/每日工作量汇总/114?proName="+proName+"&proNumber="+proNumber+"&proSerialNumber="+proSerialNumber+"&beginTime="+beginTime+"&endTime="+endTime+"&proStatus="+proStatus+"&proPeriodName="+proPeriodName+"&proNatureName="+proNatureName+"&proSourceName="+proSourceName+"&proEngineTypeName="+proEngineTypeName+"&pcDeptName="+pcDeptName+"&proDeptName="+proDeptName+"&proContractNumber="+proContractNumber);
+        }
+    </script>
+</head>
+<body class="easyui-layout">
+	
+	<form name="aspnetForm" method="post" id="aspnetForm">
+    <div class="Noprint  inner">
+        项目名称:<input type="text"  id="proName" th:value="${proName}" />
+         项目状态:
+           <select name="proStatus" id="proStatus">
+              <option value=''>全部</option>
+              <option value='1' th:selected="${proStatus!=null and #strings.equals(proStatus,1)}">在施</option>
+              <option value='2'  th:selected="${proStatus!=null and #strings.equals(proStatus,2)}">待施</option>
+              <option value='3'  th:selected="${proStatus!=null and #strings.equals(proStatus,3)}">已完工</option>
+           </select>
+     合同编号:<input type="text"  id="proContractNumber" th:value="${proContractNumber}" />
+     转入单位:
+     <select  name="proDeptName" id="proDeptName" style="width: 148px;" >
+                         <option value="">--请选择--</option>
+                         <option th:each="dept : ${dept}" th:value="${dept.id}" th:text="${dept.name}"  th:selected="${proDeptName!=null and #strings.equals(proDeptName,dept.id)}"></option>
+                         </select>
+                        施工单位:
+     <select  name="pcDeptName" id="pcDeptName" style="width: 148px;" >
+                         <option value="">--请选择--</option>
+                         <option th:each="dept : ${dept}" th:value="${dept.id}" th:text="${dept.name}"  th:selected="${pcDeptName!=null and #strings.equals(pcDeptName,dept.id)}"></option>
+                         </select>
+      工程类别:
+      <select  name="proEngineTypeName" id="proEngineTypeName" style="width: 148px;" >
+            <option value="">--请选择--</option>
+             <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'GCLB')}" th:selected="${proEngineTypeName!=null and #strings.equals(proEngineTypeName,dict1.id)}"></option>
+          </select><br>
+      工程来源:
+      <select  name="proSourceName" id="proSourceName" style="width: 148px;" >
+                         <option value="">--请选择--</option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'GCLY')}" th:selected="${proSourceName!=null and #strings.equals(proSourceName,dict1.id)}"></option>
+                         </select>
+      工程性质:
+      <select  name="proNatureName" id="proNatureName" style="width: 148px;" >
+                         <option value="">--请选择--</option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'GCXZ')}" th:selected="${proNatureName!=null and #strings.equals(proNatureName,dict1.id)}"></option>
+                         </select>
+       期次:
+       <select  name="proPeriodName" id="proPeriodName" style="width: 148px;" >
+                         <option value="">--请选择--</option>
+                         <option th:each="dict1 : ${dicts}" th:value="${dict1.id}" th:text="${dict1.dictdataName}" th:if="${#strings.equals(dict1.dictCode,'QC')}" th:selected="${proPeriodName!=null and #strings.equals(proPeriodName,dict1.id)}"></option>
+                         </select>
+ 
+       工号:<input type="text"  id="proNumber" th:value="${proNumber}"/><br>
+       序号:<input type="text"  id="proSerialNumber" th:value="${proSerialNumber}"/>
+       开始时间:<input type="text"  id="beginTime" th:value="${beginTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
+        至<input type="text"  id="endTime" th:value="${endTime}" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+        <input type="button" class="rbtn23" value="查询" onclick="search()" />
+        <input id="Button1" type="button" value="导出EXCEL" class="rbtn23" onclick="javascript:HtmlExportToExcel('PanelExcel')" />
+        <a id="dlink" style="display: none;"></a>
+    </div>
+    <hr class="Noprint" />
+    <div class="container_24" style="width: 95%; margin: 0 auto;">
+        <div style="width: 100%;">
+            <div id="PanelExcel">
+                <table cellspacing="0" cellpadding="0" align="center" border="0" class="tblPrint"
+                    style="border: 0px; display: none;">
+                    <tr>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+                <div style="width: 100%;height: 500px;" class="xScroll">
+                <p th:utext="${html}"></p>
+                    <!-- 
+                    <table id="tbHaederText" border="1" cellpadding="0" cellspacing="0" align="center"
+                        style="border-collapse: collapse; word-break: keep-all; border-color: Black;
+                        width: 100%;">
+                        <tr align="center">
+                            <td class="th" rowspan="3"  nowrap>工号</td>
+                            <td class="th" rowspan="3"    nowrap>临时工号</td>
+                            <td class="th" rowspan="3"    nowrap>序号</td>
+                            <td class="th" rowspan="3"    nowrap align='center'>工程来源</td>
+                            <td class="th" rowspan="3"    nowrap align='center'>工程性质</td>
+                            <td class="th" rowspan="3"    nowrap align='center'>工程类别</td>
+                            <td class="th" rowspan="3"    nowrap>期次</td>
+                            <td class="th" rowspan="3"    nowrap>实际开工时间</td>
+                            <td class="th" rowspan="3"    nowrap>实际竣工时间</td>
+                            <td class="th" rowspan="3"    nowrap>施工单位 </td>
+                            <td class="th" rowspan="3"    nowrap>设计长度 </td>
+                            <td class="th" rowspan="3"  nowrap>日期</td>
+                            
+                            <td class="th"  nowrap>勾头</td>
+                            <td class="th"  nowrap>冲洗</td>
+                            <td class="th"  nowrap>砌井</td>
+                            
+                            <td class="th" colspan="2" nowrap>穿管</td>
+                            <td class="th"  colspan="2" nowrap>内衬</td>
+                            <td class="th"  colspan="2" nowrap>包封</td>
+                            
+                            <td class="th"  colspan="20" nowrap>DMA口径(个数)</td>
+                            
+                            <td class="th"  colspan="20" nowrap>倒流防止器口径(个数)</td>
+                            
+                            <td class="th"  colspan="20" nowrap>工作量(长度)</td>
+                            
+                        </tr>
+                        <tr>
+                          <td class="th"  nowrap rowspan="2" colspan="3" align='center'>当前实际完成</td>
+                          
+                          <td class="th"  nowrap rowspan="2">当前实际完成</td>
+                          <td class="th"  nowrap rowspan="2">次日实际完成</td>
+                          <td class="th"  nowrap rowspan="2">当前实际完成</td>
+                          <td class="th"  nowrap rowspan="2">次日实际完成</td>
+                          <td class="th"  nowrap rowspan="2">当前实际完成</td>
+                          <td class="th"  nowrap rowspan="2">次日实际完成</td>
+                          
+                          <td class="th"  nowrap colspan="10" align='center'>当前实际完成</td>
+                          <td class="th"  nowrap colspan="10" align='center'>次日实际完成</td>
+                          
+                          <td class="th"  nowrap colspan="10" align='center'>当前实际完成</td>
+                          <td class="th"  nowrap colspan="10" align='center'>次日实际完成</td>
+                          
+                          <td class="th"  nowrap colspan="10" align='center'>当前实际完成</td>
+                          <td class="th"  nowrap colspan="10" align='center'>次日实际完成</td>
+                          
+                        </tr>
+                        
+                        <tr>
+                            <td class="th"  nowrap >DN15</td>
+                            <td class="th"  nowrap >DN20</td>
+                            <td class="th"  nowrap >DN25</td>
+                            <td class="th"  nowrap >DN40</td>
+                            <td class="th"  nowrap >DN50</td>
+                            <td class="th"  nowrap >DN75</td>
+                            <td class="th"  nowrap >DN100</td>
+                            <td class="th"  nowrap >DN150</td>
+                            <td class="th"  nowrap >DN200</td>
+                            <td class="th"  nowrap >小计</td>
+                            
+                            <td class="th"  nowrap >DN15</td>
+                            <td class="th"  nowrap >DN20</td>
+                            <td class="th"  nowrap >DN25</td>
+                            <td class="th"  nowrap >DN40</td>
+                            <td class="th"  nowrap >DN50</td>
+                            <td class="th"  nowrap >DN75</td>
+                            <td class="th"  nowrap >DN100</td>
+                            <td class="th"  nowrap >DN150</td>
+                            <td class="th"  nowrap >DN200</td>
+                            <td class="th"  nowrap >小计</td>
+                            
+                            <td class="th"  nowrap >DN15</td>
+                            <td class="th"  nowrap >DN20</td>
+                            <td class="th"  nowrap >DN25</td>
+                            <td class="th"  nowrap >DN40</td>
+                            <td class="th"  nowrap >DN50</td>
+                            <td class="th"  nowrap >DN75</td>
+                            <td class="th"  nowrap >DN100</td>
+                            <td class="th"  nowrap >DN150</td>
+                            <td class="th"  nowrap >DN200</td>
+                            <td class="th"  nowrap >小计</td>
+                            
+                            
+                            <td class="th"  nowrap >DN15</td>
+                            <td class="th"  nowrap >DN20</td>
+                            <td class="th"  nowrap >DN25</td>
+                            <td class="th"  nowrap >DN40</td>
+                            <td class="th"  nowrap >DN50</td>
+                            <td class="th"  nowrap >DN75</td>
+                            <td class="th"  nowrap >DN100</td>
+                            <td class="th"  nowrap >DN150</td>
+                            <td class="th"  nowrap >DN200</td>
+                            <td class="th"  nowrap >小计</td>
+                            
+                            <td class="th"  nowrap >DN15</td>
+                            <td class="th"  nowrap >DN20</td>
+                            <td class="th"  nowrap >DN25</td>
+                            <td class="th"  nowrap >DN40</td>
+                            <td class="th"  nowrap >DN50</td>
+                            <td class="th"  nowrap >DN75</td>
+                            <td class="th"  nowrap >DN100</td>
+                            <td class="th"  nowrap >DN150</td>
+                            <td class="th"  nowrap >DN200</td>
+                            <td class="th"  nowrap >小计</td>
+                            
+                            
+                            <td class="th"  nowrap >DN15</td>
+                            <td class="th"  nowrap >DN20</td>
+                            <td class="th"  nowrap >DN25</td>
+                            <td class="th"  nowrap >DN40</td>
+                            <td class="th"  nowrap >DN50</td>
+                            <td class="th"  nowrap >DN75</td>
+                            <td class="th"  nowrap >DN100</td>
+                            <td class="th"  nowrap >DN150</td>
+                            <td class="th"  nowrap >DN200</td>
+                            <td class="th"  nowrap >小计</td>
+                        </tr>
+                           <tr th:each="res : ${proDetail}">
+                              <td th:text="${res.proNumber}" class="td" ></td>
+                              <td th:text="${res.proSnapNumber}" class="td" ></td>
+                              <td th:text="${res.proSerialNumber}" class="td" ></td>
+                              <td th:text="${res.proSourceName}" class="td" ></td>
+                              <td th:text="${res.proNatureName}" class="td" ></td>
+                              <td th:text="${res.proEngineTypeName}" class="td" ></td>
+                              <td th:text="${res.proPeriodName}" class="td" ></td>
+                              <td th:text="${res.prwAst}" class="td" ></td>
+                              <td th:text="${res.prwAet}" class="td" ></td>
+                              <td th:text="${res.pcDeptName}" class="td" ></td>
+                              <td th:text="${res.proDesignLength}" class="td" ></td>
+                              <td th:text="${res.dateTime}" class="td" ></td>
+                              
+                              <td th:text="${res.prHead}" class="td" ></td>
+                              <td th:text="${res.prRinse}" class="td" ></td>
+                              <td th:text="${res.prConstru}" class="td" ></td>
+                              
+                              <td th:text="${res.prTube}" class="td" ></td>
+                              <td th:text="${res.prTubeNext}" class="td" ></td>
+                              <td th:text="${res.prLining}" class="td" ></td>
+                              <td th:text="${res.prLiningNext}" class="td" ></td>
+                              <td th:text="${res.prEnca}" class="td" ></td>
+                              <td th:text="${res.prEncaNext}" class="td" ></td>
+                              
+                              <td th:text="${res.prDmaOne}" class="td" ></td>
+                              <td th:text="${res.prDmaTwo}" class="td" ></td>
+                              <td th:text="${res.prDmaThree}" class="td" ></td>
+                              <td th:text="${res.prDmaFour}" class="td" ></td>
+                              <td th:text="${res.prDmaFive}" class="td" ></td>
+                              <td th:text="${res.prDmaSix}" class="td" ></td>
+                              <td th:text="${res.prDmaSeven}" class="td" ></td>
+                              <td th:text="${res.prDmaEight}" class="td" ></td>
+                              <td th:text="${res.prDmaNine}" class="td" ></td>
+                              <td th:text="${res.prDmaSubtotal}" class="td" ></td>
+                              
+                              <td th:text="${res.prDmaOneNext}" class="td" ></td>
+                              <td th:text="${res.prDmaTwoNext}" class="td" ></td>
+                              <td th:text="${res.prDmaThreeNext}" class="td" ></td>
+                              <td th:text="${res.prDmaFourNext}" class="td" ></td>
+                              <td th:text="${res.prDmaFiveNext}" class="td" ></td>
+                              <td th:text="${res.prDmaSixNext}" class="td" ></td>
+                              <td th:text="${res.prDmaSevenNext}" class="td" ></td>
+                              <td th:text="${res.prDmaEightNext}" class="td" ></td>
+                              <td th:text="${res.prDmaNineNext}" class="td" ></td>
+                              <td th:text="${res.prDmaSubtotalNext}" class="td" ></td>
+                              
+                              <td th:text="${res.prwdOne}" class="td" ></td>
+                              <td th:text="${res.prwdTwo}" class="td" ></td>
+                              <td th:text="${res.prwdThree}" class="td" ></td>
+                              <td th:text="${res.prwdFour}" class="td" ></td>
+                              <td th:text="${res.prwdFive}" class="td" ></td>
+                              <td th:text="${res.prwdSix}" class="td" ></td>
+                              <td th:text="${res.prwdSeven}" class="td" ></td>
+                              <td th:text="${res.prwdEight}" class="td" ></td>
+                              <td th:text="${res.prwdNine}" class="td" ></td>
+                              <td th:text="${res.prwdSubtotal}" class="td" ></td>
+                              
+                              <td th:text="${res.prwdOneNext}" class="td" ></td>
+                              <td th:text="${res.prwdTwoNext}" class="td" ></td>
+                              <td th:text="${res.prwdThreeNext}" class="td" ></td>
+                              <td th:text="${res.prwdFourNext}" class="td" ></td>
+                              <td th:text="${res.prwdFiveNext}" class="td" ></td>
+                              <td th:text="${res.prwdSixNext}" class="td" ></td>
+                              <td th:text="${res.prwdSevenNext}" class="td" ></td>
+                              <td th:text="${res.prwdEightNext}" class="td" ></td>
+                              <td th:text="${res.prwdNineNext}" class="td" ></td>
+                              <td th:text="${res.prwdSubtotalNext}" class="td" ></td>
+                              
+                              <td th:text="${res.prwOne}" class="td" ></td>
+                              <td th:text="${res.prwTwo}" class="td" ></td>
+                              <td th:text="${res.prwThree}" class="td" ></td>
+                              <td th:text="${res.prwFour}" class="td" ></td>
+                              <td th:text="${res.prwFive}" class="td" ></td>
+                              <td th:text="${res.prwSix}" class="td" ></td>
+                              <td th:text="${res.prwSeven}" class="td" ></td>
+                              <td th:text="${res.prwEight}" class="td" ></td>
+                              <td th:text="${res.prwNine}" class="td" ></td>
+                              <td th:text="${res.prwSubtotal}" class="td" ></td>
+                              
+                              <td th:text="${res.prwOneNext}" class="td" ></td>
+                              <td th:text="${res.prwTwoNext}" class="td" ></td>
+                              <td th:text="${res.prwThreeNext}" class="td" ></td>
+                              <td th:text="${res.prwFourNext}" class="td" ></td>
+                              <td th:text="${res.prwFiveNext}" class="td" ></td>
+                              <td th:text="${res.prwSixNext}" class="td" ></td>
+                              <td th:text="${res.prwSevenNext}" class="td" ></td>
+                              <td th:text="${res.prwEightNext}" class="td" ></td>
+                              <td th:text="${res.prwNineNext}" class="td" ></td>
+                              <td th:text="${res.prwSubtotalNext}" class="td" ></td>
+                           </tr>
+                        
+                    </table> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    </form>
+	
+	
+</body>
+<script type="text/javascript">
+/* function MergeCell(tableId, startRow, endRow, col) {  
+    var tb = document.getElementById(tableId); 
+    if (col >= 3) {  
+        return false;  
+    }  
+    //当检查第0列时检查所有行  
+    if (col == 0 || endRow == 0) {  
+        endRow = tb.rows.length - 1;  
+    }  
+    for (var i = startRow; i < endRow; i++) {  
+        //程序是自左向右合并  
+        if (tb.rows[startRow].cells[col].innerHTML == tb.rows[i + 1].cells[col].innerHTML) {  
+            //如果相同则删除下一行的第0列单元格  
+            tb.rows[i + 1].cells[col].style.display='none';  
+            //更新rowSpan属性  
+            tb.rows[startRow].cells[col].rowSpan = (tb.rows[startRow].cells[col].rowSpan | 0) + 1;  
+            //当循环到终止行前一行并且起始行和终止行不相同时递归(因为上面的代码已经检查了i+1行，所以此处只到endRow-1)  
+            if (i == endRow - 1 && startRow != endRow) {  
+                MergeCell(tableId, startRow, endRow, col + 1);  
+            }  
+        } else {  
+            //起始行，终止行不变，检查下一列  
+            MergeCell(tableId, startRow, i, col + 1);  
+            //增加起始行  
+            startRow = i + 1;  
+        }  
+    }  
+}  
+
+$(function(){
+	MergeCell('tbHaederText', 0, 0, 0); 
+}) */
+
+
+</script>
