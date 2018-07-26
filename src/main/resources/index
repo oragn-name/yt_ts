@@ -1,0 +1,10 @@
+CREATE INDEX table_dn_id ON project_road_word_detail(dn_id);
+CREATE INDEX table_pro_id ON project_road_word_detail(pro_id);
+
+CREATE INDEX table_pro_type ON project_produce(pro_type);
+CREATE INDEX table_proId ON project_construction(proId);
+CREATE INDEX table_pro_id ON project_road_work(pro_id);
+CREATE INDEX table_contract_number ON project_contract(contract_number);
+
+CREATE INDEX table_pc_id ON project_road_word_detail(pc_id);
+CREATE INDEX table_create_time ON project_road_word_detail(create_time);

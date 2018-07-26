@@ -537,9 +537,23 @@ and p.pro_nature=#{proNatureName}
 <if test="proPeriodName!=null and proPeriodName!=''">
 and p.pro_period=#{proPeriodName}
 </if>
-<if test="pcDeptName!=null and pcDeptName!=''">
+<choose>
+<when test="pcDeptNameUser!=null">
+  and c.pc_dept 
+
+       <foreach  collection="pcDeptNameUser" item="id" open="in (" close=")" separator=","> 
+				#{id}
+			</foreach>
+</when>
+<otherwise>
+	     <if test="pcDeptName!=null and pcDeptName!=''">
 and c.pc_dept=#{pcDeptName}
 </if>
+	   </otherwise>
+</choose>
+
+
+
 
   </select>
   

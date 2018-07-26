@@ -89,6 +89,15 @@ public class SummaryViewController {
     Dept selectByKey = deptService.selectByKey(user.getDeptId());
     if(!selectByKey.getCode().toUpperCase().equals("SCK")){
       map.put("pcDeptName",user.getDeptId());
+      String userRole = user.getUserRole();
+      if(userRole!=null){
+        String[] split = userRole.split(",");
+        Integer[] ints=new Integer[split.length];
+        for (int i=0;i<split.length;i++) {
+          ints[i]=Integer.parseInt(split[i]);
+        }
+        map.put("pcDeptNameUser",ints);
+       }
     }else{
       map.put("pcDeptName", pcDeptName==null?"":pcDeptName.trim());
     }
@@ -910,6 +919,15 @@ public class SummaryViewController {
     Dept selectByKey = deptService.selectByKey(user.getDeptId());
     if(!selectByKey.getCode().toUpperCase().equals("SCK")){
       d.setId(user.getDeptId());
+      String userRole = user.getUserRole();
+      if(userRole!=null){
+        String[] split = userRole.split(",");
+        Integer[] ints=new Integer[split.length];
+        for (int i=0;i<split.length;i++) {
+          ints[i]=Integer.parseInt(split[i]);
+        }
+        d.setProDeptId(ints);
+       }
     }else{
       d.setId(ids);
     }
@@ -1224,6 +1242,16 @@ public class SummaryViewController {
     Dept selectByKey = deptService.selectByKey(user.getDeptId());
     if(!selectByKey.getCode().toUpperCase().equals("SCK")){
       map.put("pcDeptName",user.getDeptId());
+      
+      String userRole = user.getUserRole();
+      if(userRole!=null){
+        String[] split = userRole.split(",");
+        Integer[] ints=new Integer[split.length];
+        for (int i=0;i<split.length;i++) {
+          ints[i]=Integer.parseInt(split[i]);
+        }
+        map.put("pcDeptNameUser",ints);
+       }
     }else{
       map.put("pcDeptName", pcDeptName==null?"":pcDeptName.trim());
     }

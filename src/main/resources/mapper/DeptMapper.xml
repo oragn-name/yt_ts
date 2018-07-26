@@ -18,9 +18,22 @@
          <if test="parentCode!=null and parentCode!=''">
            and parentCode = #{parentCode}
          </if>
-         <if test="id!=null and id!=''">
+         
+         <choose>
+	   <when test="proDeptId!=null">
+	       and id
+
+       <foreach  collection="proDeptId" item="id" open="in (" close=")" separator=","> 
+				#{id}
+			</foreach>
+       
+	   </when>
+	   <otherwise>
+	    <if test="id!=null and id!=''">
            and id = #{id}
          </if>
+	   </otherwise>
+	</choose>
   order by id
   </select>
   
