@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,6 +48,7 @@ import io.swagger.annotations.Api;
 
 @Api(value="SummaryViewController",description="汇总统计")
 @Controller
+@Scope("prototype")
 public class SummaryViewController {
   @Autowired
   private ProjectRoadWorkDailyService roadWorkDailyService;
@@ -116,39 +118,45 @@ public class SummaryViewController {
     request.setAttribute("proNatureName", proNatureName);
     request.setAttribute("proPeriodName", proPeriodName);
     
-    Map<String, Object> mapDic=new HashMap<String, Object>();
-    mapDic.put("dictCode", "GZL");
-    List<Dictionarydata> dicts = dictdataService.selectDictdataByParentId(mapDic, null);
-    mapDic=new HashMap<String, Object>();
-    mapDic.put("dictCode", "XHS");
-    List<Dictionarydata> XHS = dictdataService.selectDictdataByParentId(mapDic, null);
-    mapDic=new HashMap<String, Object>();
-    mapDic.put("dictCode", "PQF");
-    List<Dictionarydata> PQF = dictdataService.selectDictdataByParentId(mapDic, null);
-    mapDic=new HashMap<String, Object>();
-    mapDic.put("dictCode", "CL");
-    List<Dictionarydata> CL = dictdataService.selectDictdataByParentId(mapDic, null);
-    mapDic=new HashMap<String, Object>();
-    mapDic.put("dictCode", "YJSBPT");
-    List<Dictionarydata> YJSBPT = dictdataService.selectDictdataByParentId(mapDic, null);
-    mapDic=new HashMap<String, Object>();
-    mapDic.put("dictCode", "YJSBGJ");
-    List<Dictionarydata> YJSBGJ = dictdataService.selectDictdataByParentId(mapDic, null);
-    mapDic=new HashMap<String, Object>();
-    mapDic.put("dictCode", "EJSBPT");
-    List<Dictionarydata> EJSBPT = dictdataService.selectDictdataByParentId(mapDic, null);
-    mapDic=new HashMap<String, Object>();
-    mapDic.put("dictCode", "EJSBGJ");
-    List<Dictionarydata> EJSBGJ = dictdataService.selectDictdataByParentId(mapDic, null);
-    mapDic=new HashMap<String, Object>();
-    mapDic.put("dictCode", "JJM");
-    List<Dictionarydata> JJM = dictdataService.selectDictdataByParentId(mapDic, null);
-    mapDic=new HashMap<String, Object>();
-    mapDic.put("dictCode", "ZM");
-    List<Dictionarydata> ZM = dictdataService.selectDictdataByParentId(mapDic, null);
-    mapDic=new HashMap<String, Object>();
-    mapDic.put("dictCode", "LLJ");
-    List<Dictionarydata> LLJ = dictdataService.selectDictdataByParentId(mapDic, null);
+    List<Dictionarydata> dicts=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> XHS=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> PQF=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> CL=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> YJSBPT=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> YJSBGJ=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> EJSBPT=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> EJSBGJ=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> JJM=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> ZM=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> LLJ=new ArrayList<Dictionarydata>();
+    Map<String, Object> map2=new HashMap<String, Object>();
+    List<Dictionarydata> sdp = dictdataService.selectDictdataByParentId(map2, null);
+    for (Dictionarydata dictionarydata : sdp) {
+    	System.out.println(dictionarydata.getDictCode()+"-=-=-=");
+		if(dictionarydata.getDictCode().equals("GZL")){
+			dicts.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("XHS")){
+			XHS.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("PQF")){
+			PQF.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("CL")){
+			CL.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("YJSBPT")){
+			YJSBPT.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("YJSBGJ")){
+			YJSBGJ.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("EJSBPT")){
+			EJSBPT.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("EJSBGJ")){
+			EJSBGJ.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("JJM")){
+			JJM.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("ZM")){
+			ZM.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("LLJ")){
+			LLJ.add(dictionarydata);
+		}
+	}
    /* List<ProjectDetail> selectProjectDetail = roadWorkDailyService.selectProjectDetail(map);
     request.setAttribute("proDetail", selectProjectDetail);*/
     StringBuffer buffer=new StringBuffer();
@@ -241,9 +249,11 @@ public class SummaryViewController {
          ProjectRoadWordDetail detail=new ProjectRoadWordDetail();
          detail.setProId(projectDetail.getProId());
          detail.setPcId(projectDetail.getPcId());
-         detail.setBeginTime( beginTime==null?"":beginTime.trim());
-         detail.setEndTime( endTime==null?"":endTime.trim());
-         List<ProjectRoadWordDetail> prwd = projectRoadWordDetailService.getDetailByCreateTime(detail);
+         beginTime=beginTime==null?new SimpleDateFormat("yyyy-MM-dd").format(new Date()):beginTime.trim();
+         endTime=endTime==null?new SimpleDateFormat("yyyy-MM-dd").format(new Date()):endTime.trim();
+         detail.setBeginTime(beginTime);
+         detail.setEndTime(endTime);
+         List<ProjectRoadWordDetail> prwd = projectRoadWordDetailService.getDetailByCreateTimeDay(detail);
          if(prwd!=null&&prwd.size()>=1){
            int row=1;
            if(prwd!=null&&prwd.size()>0){
@@ -745,8 +755,10 @@ public class SummaryViewController {
          ProjectRoadWordDetail detail=new ProjectRoadWordDetail();
          detail.setProId(projectDetail.getProId());
          detail.setPcId(projectDetail.getPcId());
-         detail.setBeginTime( beginTime==null?"":beginTime.trim());
-         detail.setEndTime( endTime==null?"":endTime.trim());
+         beginTime=beginTime==null?new SimpleDateFormat("yyyy-MM-dd").format(new Date()):beginTime.trim();
+         endTime=endTime==null?new SimpleDateFormat("yyyy-MM-dd").format(new Date()):endTime.trim();
+         detail.setBeginTime(beginTime);
+         detail.setEndTime(endTime);
          List<ProjectRoadWordDetail> prwd = projectRoadWordDetailService.getDetailByCreateTime(detail);
          if(prwd!=null&&prwd.size()>=1){
            int row=1;
@@ -1308,8 +1320,10 @@ public class SummaryViewController {
     map.put("endTime", endTime==null?"":endTime.trim());*/
     map.put("proEngineType", proEngineType==null?"":proEngineType.trim());
     map.put("proPeriod", proPeriod==null?"":proPeriod.trim());
-    map.put("beginTime", beginTime==null?"":beginTime.trim());
-    map.put("endTime", endTime==null?"":endTime.trim());
+    beginTime=beginTime==null?new SimpleDateFormat("yyyy-MM-dd").format(new Date()):beginTime.trim();
+    endTime=endTime==null?new SimpleDateFormat("yyyy-MM-dd").format(new Date()):endTime.trim();
+    map.put("beginTime", beginTime);
+    map.put("endTime", endTime);
     List<ProjectType> selectProjectDetail = roadWorkDailyService.getOrderType(map);
     request.setAttribute("proDetailType", selectProjectDetail);
     /*request.setAttribute("proName", proName);
@@ -1386,19 +1400,19 @@ public class SummaryViewController {
       buffer.append("<td class=\"th\"  nowrap rowspan=\"3\"  align=\"center\">"+dicts.get(i).getDictdataLength()+"</td>");
       buffer.append("<td class=\"th\"  nowrap rowspan=\"3\"  align=\"center\">"+dicts.get(i).getDictdataNumber()+"</td>");
       buffer.append("<td class=\"th\"  nowrap  align=\"center\">已完工</td>");
-      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+dicts.get(i).getOne()+"</td>");
-      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+dicts.get(i).getOneDay()+"</td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+new BigDecimal(dicts.get(i).getOne()==null?0:dicts.get(i).getOne()).setScale(2, BigDecimal.ROUND_UP).doubleValue()+"</td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+new BigDecimal(dicts.get(i).getOneDay()==null?0:dicts.get(i).getOneDay()).setScale(2, BigDecimal.ROUND_UP).doubleValue()+"</td>");
       name=dicts.get(i).getParentName();
       buffer.append("</tr>");
       buffer.append("<tr>");
       buffer.append("<td class=\"th\"  nowrap  align=\"center\">在施</td>");
-      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+dicts.get(i).getTwo()+"</td>");
-      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+dicts.get(i).getTwoDay()+"</td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+new BigDecimal(dicts.get(i).getTwo()==null?0:dicts.get(i).getTwo()).setScale(2, BigDecimal.ROUND_UP).doubleValue()+"</td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+new BigDecimal(dicts.get(i).getTwoDay()==null?0:dicts.get(i).getTwoDay()).setScale(2, BigDecimal.ROUND_UP).doubleValue()+"</td>");
       buffer.append("</tr>");
       buffer.append("<tr>");
       buffer.append("<td class=\"th\"  nowrap  align=\"center\">待转图</td>");
-      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+dicts.get(i).getThree()+"</td>");
-      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+dicts.get(i).getThreeDay()+"</td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+new BigDecimal(dicts.get(i).getThree()==null?0:dicts.get(i).getThree()).setScale(2, BigDecimal.ROUND_UP).doubleValue()+"</td>");
+      buffer.append("<td class=\"th\"  nowrap  align=\"center\">"+new BigDecimal(dicts.get(i).getThreeDay()==null?0:dicts.get(i).getThreeDay()).setScale(2, BigDecimal.ROUND_UP).doubleValue()+"</td>");
       buffer.append("</tr>");
       
     }
@@ -1482,8 +1496,10 @@ public class SummaryViewController {
         Map<String, Object> map2=new HashMap<String, Object>();
         map2.put("proEngineType", dd.get(i).getId());
         map2.put("pcDept", selectAllDept.get(j).getId());
-        map2.put("beginTime", beginTime==null?"":beginTime.trim());
-        map2.put("endTime", endTime==null?"":endTime.trim());
+        beginTime=beginTime==null?new SimpleDateFormat("yyyy-MM-dd").format(new Date()):beginTime.trim();
+        endTime=endTime==null?new SimpleDateFormat("yyyy-MM-dd").format(new Date()):endTime.trim();
+        map2.put("beginTime", beginTime);
+        map2.put("endTime", endTime);
         List<ProjectDetailType> orderDetail = roadWorkDailyService.getOrderDetail(map2);
         if(orderDetail!=null&&orderDetail.size()>0){
           for (int k = 0; k < orderDetail.size(); k++) {
@@ -1508,8 +1524,10 @@ public class SummaryViewController {
         Map<String, Object> map2=new HashMap<String, Object>();
         map2.put("proEngineType", dd.get(i).getId());
         map2.put("pcDept", selectAllDept.get(j).getId());
-        map2.put("beginTime", beginTime==null?"":beginTime.trim());
-        map2.put("endTime", endTime==null?"":endTime.trim());
+        beginTime=beginTime==null?new SimpleDateFormat("yyyy-MM-dd").format(new Date()):beginTime.trim();
+        endTime=endTime==null?new SimpleDateFormat("yyyy-MM-dd").format(new Date()):endTime.trim();
+        map2.put("beginTime", beginTime);
+        map2.put("endTime", endTime);
         List<ProjectDetailType> orderDetail = roadWorkDailyService.getOrderDetail(map2);
         if(orderDetail!=null&&orderDetail.size()>0){
           for (int k = 0; k < orderDetail.size(); k++) {
@@ -1636,8 +1654,10 @@ public class SummaryViewController {
          ProjectRoadWordDetail detail=new ProjectRoadWordDetail();
          detail.setProId(projectDetail.getProId());
          detail.setPcId(projectDetail.getPcId());
-         detail.setBeginTime( beginTime==null?"":beginTime.trim());
-         detail.setEndTime( endTime==null?"":endTime.trim());
+         beginTime=beginTime==null?new SimpleDateFormat("yyyy-MM-dd").format(new Date()):beginTime.trim();
+         endTime=endTime==null?new SimpleDateFormat("yyyy-MM-dd").format(new Date()):endTime.trim();
+         detail.setBeginTime(beginTime);
+         detail.setEndTime(endTime);
          detail.setDnId(dnId);
          List<ProjectRoadWordDetail> prwd = projectRoadWordDetailService.getDetailByCreateTimeByWater(detail);
          if(prwd!=null&&prwd.size()>0){

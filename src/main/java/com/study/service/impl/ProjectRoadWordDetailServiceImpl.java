@@ -48,4 +48,11 @@ public class ProjectRoadWordDetailServiceImpl extends BaseService<ProjectRoadWor
     return projectRoadWordDetailMapper.getDetailBySum(detail);
   }
 
+
+@Override
+public List<ProjectRoadWordDetail> getDetailByCreateTimeDay(
+		ProjectRoadWordDetail detail) {
+	return projectRoadWordDetailMapper.getDetailByCreateTimeDay(detail);
+}
+
 }

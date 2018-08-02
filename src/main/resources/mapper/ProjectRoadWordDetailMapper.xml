@@ -132,6 +132,32 @@
 </if>
     group by pro_id,pc_id
   </select>
-  
+  <select id="getDetailByCreateTimeDay" parameterType="com.study.model.ProjectRoadWordDetail" resultType="com.study.model.ProjectRoadWordDetail">
+     select create_time as "createTime" from project_road_word_detail where 1=1  
+     <if test="pcId!=null and pcId!=''">
+            and pc_id=#{pcId}
+          </if>
+          <if test="proId!=null and proId!=''">
+            and pro_id=#{proId}
+          </if>
+         <if test="beginTime!=null and beginTime!=''">
+    <choose>
+       <when test="endTime !=null and endTime!='' ">
+           <choose>
+               <when test="beginTime==endTime ">
+               and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+               </when>
+               <when test="beginTime!=endTime ">
+                and   create_time between  CONCAT(#{beginTime},' 00:00:00') and CONCAT(#{endTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="endTime ==null or endTime=='' "> 
+       and create_time like CONCAT(CONCAT('%', #{beginTime}), '%')
+       </when>
+    </choose>
+</if>
+      GROUP BY create_time   order by create_time
+  </select>
   
 </mapper>

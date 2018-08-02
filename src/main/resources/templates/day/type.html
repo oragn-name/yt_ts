@@ -190,12 +190,12 @@
                           <td th:text="${rs.proPeriodName}" class="td" ></td>
                           <td th:text="${rs.num}" class="td" ></td>
                           
-                          <td th:text="${rs.prDmaTotal}" class="td" ></td>
-                          <td th:text="${rs.prDmaNextTotal}" class="td" ></td>
-                          <td th:text="${rs.prwdTotal}" class="td" ></td>
-                          <td th:text="${rs.prwdNextTotal}" class="td" ></td>
-                          <td th:text="${rs.prwTotal}" class="td" ></td>
-                          <td th:text="${rs.prwNextTotal}" class="td" ></td>
+                          <td th:text="${#numbers.formatDecimal(rs.prDmaTotal,1,2)}" class="td" ></td>
+                          <td th:text="${#numbers.formatDecimal(rs.prDmaNextTotal,1,2)}" class="td" ></td>
+                          <td th:text="${#numbers.formatDecimal(rs.prwdTotal,1,2)}" class="td" ></td>
+                          <td th:text="${#numbers.formatDecimal(rs.prwdNextTotal,1,2)}" class="td" ></td>
+                          <td th:text="${#numbers.formatDecimal(rs.prwTotal,1,2)}" class="td" ></td>
+                          <td th:text="${#numbers.formatDecimal(rs.prwNextTotal,1,2)}" class="td" ></td>
                         </tr>
                     </table>
                 </div>
