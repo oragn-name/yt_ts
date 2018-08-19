@@ -259,8 +259,28 @@ public class ProjectProduce {
     @Transient
     private Integer[] proDeptId;
     
+    @Transient
+    private String proLssuedBeginTime;
+    @Transient
+    private String proLssuedEndTime;
     
-    public String getProJobTypeName() {
+    public String getProLssuedBeginTime() {
+		return proLssuedBeginTime;
+	}
+
+	public void setProLssuedBeginTime(String proLssuedBeginTime) {
+		this.proLssuedBeginTime = proLssuedBeginTime;
+	}
+
+	public String getProLssuedEndTime() {
+		return proLssuedEndTime;
+	}
+
+	public void setProLssuedEndTime(String proLssuedEndTime) {
+		this.proLssuedEndTime = proLssuedEndTime;
+	}
+
+	public String getProJobTypeName() {
       return proJobTypeName;
     }
 

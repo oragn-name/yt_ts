@@ -503,7 +503,9 @@ GROUP BY
 FROM
 	project_produce p
 INNER JOIN project_road_work r ON p.id = r.pro_id
-INNER JOIN project_construction c ON  c.proId = p.id  where 1=1 and p.pro_type=1 
+INNER JOIN project_construction c ON  c.proId = p.id
+INNER JOIN project_road_word_detail d ON d.pro_id = p.id
+  where 1=1 and p.pro_type=1 
   <if test="proName!=null and proName!=''">
   and p.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
 </if>
@@ -553,8 +555,7 @@ and c.pc_dept=#{pcDeptName}
 </choose>
 
 
-
-
+group by proId
   </select>
   
   <select id="getOrderType" parameterType="java.util.Map" resultType="com.study.model.vo.ProjectType">
@@ -786,5 +787,85 @@ and p.pro_period=#{proPeriod}
 	proEngineTypeName,
 	proPeriodName
   </select>
+  <select id="getOrderDaySum" parameterType="java.util.Map" resultType="com.study.model.vo.ProjectDetail">
   
+  SELECT
+	p.pro_number AS "proNumber",
+	p.pro_snap_number AS "proSnapNumber",
+	p.pro_serial_number AS "proSerialNumber",
+	p.pro_design_length as "proDesignLength",
+  p.pro_status as "proStatus",
+  p.pro_contract_number as "proContractNumber",
+  (select contract_name from project_contract where contract_number=p.pro_contract_number) as "contractName",
+  (select name from dept where id=p.pro_dept) as "proDeptName",
+	(select dictdata_name from dictionarydata where id=p.pro_engine_type) as "proEngineTypeName",
+	(select dictdata_name from dictionarydata where id=p.pro_nature) as "proNatureName",
+	 p.pro_name AS "proName",
+	(select dictdata_name from dictionarydata where id=p.pro_source) as "proSourceName",
+	(select dictdata_name from dictionarydata where id=p.pro_period) as "proPeriodName",
+	r.prw_ast AS "prwAst",
+	r.prw_aet AS "prwAet",
+	r.prw_budget as "prwBudget",
+  r.prw_progress_report as "prwProgressReport",
+	(select name from dept where id=c.pc_dept)  as "pcDeptName",
+	p.id as "proId"
+
+FROM
+	project_produce p
+INNER JOIN project_road_work r ON p.id = r.pro_id
+INNER JOIN project_construction c ON  c.proId = p.id
+INNER JOIN project_road_word_detail d ON d.pro_id = p.id
+  where 1=1 and p.pro_type=1 
+  <if test="proName!=null and proName!=''">
+  and p.pro_name like CONCAT(CONCAT('%', #{proName}), '%')
+</if>
+<if test="proNumber!=null and proNumber!=''">
+and p.pro_number like CONCAT(CONCAT('%', #{proNumber}), '%')
+</if>
+<!-- Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,
+    String proEngineTypeName,
+    String proSourceName,String proNatureName,String proPeriodName -->
+<if test="proSerialNumber!=null and proSerialNumber!=''">
+and p.pro_serial_number like CONCAT(CONCAT('%', #{proSerialNumber}), '%')
+</if>
+  <if test="proStatus!=null and proStatus!=''">
+and p.pro_status=#{proStatus}
+</if>
+<if test="proContractNumber!=null and proContractNumber!=''">
+and p.pro_contract_number  like CONCAT(CONCAT('%', #{proContractNumber}), '%')
+</if>
+ <if test="proEngineTypeName!=null and proEngineTypeName!=''">
+and p.pro_engine_type=#{proEngineTypeName}
+</if>
+<if test="proDeptName!=null and proDeptName!=''">
+and p.pro_dept=#{proDeptName}
+</if>
+<if test="proSourceName!=null and proSourceName!=''">
+and p.pro_source=#{proSourceName}
+</if>
+<if test="proNatureName!=null and proNatureName!=''">
+and p.pro_nature=#{proNatureName}
+</if>
+<if test="proPeriodName!=null and proPeriodName!=''">
+and p.pro_period=#{proPeriodName}
+</if>
+<choose>
+<when test="pcDeptNameUser!=null">
+  and c.pc_dept 
+
+       <foreach  collection="pcDeptNameUser" item="id" open="in (" close=")" separator=","> 
+				#{id}
+			</foreach>
+</when>
+<otherwise>
+	     <if test="pcDeptName!=null and pcDeptName!=''">
+and c.pc_dept=#{pcDeptName}
+</if>
+	   </otherwise>
+</choose>
+
+GROUP BY
+	proId
+
+  </select>
 </mapper>

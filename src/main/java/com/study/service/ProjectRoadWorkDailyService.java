@@ -30,5 +30,6 @@ public interface ProjectRoadWorkDailyService extends IService<ProjectRoadWorkDai
   public List<ProjectDetailType>  getOrderDetail(Map<String, Object> map);
   
   List<ProjectType> getOrderTypeByAvg(Map<String, Object> map);
+  public  List<ProjectDetail> getOrderDaySum(Map<String, Object> map);
   
 }

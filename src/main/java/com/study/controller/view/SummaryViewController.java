@@ -2291,4 +2291,217 @@ public class SummaryViewController {
 	    request.setAttribute("dept", dpt);
 	  return "contracts/order";
   }
+  
+  @RequestMapping("/orderSum/{menuName}/{id}")
+  public String orderSum(HttpServletRequest request,HttpServletResponse response,String proName,String proNumber,String proSerialNumber,String beginTime,String endTime,Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,String proEngineTypeName,String proSourceName,String proNatureName,String proPeriodName){
+    long begintime=System.currentTimeMillis();
+    Map<String,Object> map=new HashMap<String, Object>();
+    map.put("proName", proName==null?"":proName.trim());
+    map.put("proNumber", proNumber==null?"":proNumber.trim());
+    /*Integer proStatus,String proContractNumber,String proDeptName,String pcDeptName,
+    String proEngineTypeName,
+    String proSourceName,String proNatureName,String proPeriodName*/
+    map.put("proSerialNumber", proSerialNumber==null?"":proSerialNumber.trim());
+    map.put("proStatus", proStatus);
+    map.put("proContractNumber", proContractNumber==null?"":proContractNumber.trim());
+    map.put("proDeptName", proDeptName==null?"":proDeptName.trim());
+    Session session = SecurityUtils.getSubject().getSession();
+    User user = (User)session.getAttribute("userSession");
+    Dept selectByKey = deptService.selectByKey(user.getDeptId());
+    if(!selectByKey.getCode().toUpperCase().equals("SCK")){
+      map.put("pcDeptName",user.getDeptId());
+      String userRole = user.getUserRole();
+      if(userRole!=null){
+        String[] split = userRole.split(",");
+        Integer[] ints=new Integer[split.length];
+        for (int i=0;i<split.length;i++) {
+          ints[i]=Integer.parseInt(split[i]);
+        }
+        map.put("pcDeptNameUser",ints);
+       }
+    }else{
+      map.put("pcDeptName", pcDeptName==null?"":pcDeptName.trim());
+    }
+    map.put("proEngineTypeName", proEngineTypeName==null?"":proEngineTypeName.trim());
+    map.put("proSourceName", proSourceName==null?"":proSourceName.trim());
+    map.put("proNatureName", proNatureName==null?"":proNatureName.trim());
+    map.put("proPeriodName", proPeriodName==null?"":proPeriodName.trim());
+    
+    
+    request.setAttribute("proStatus", proStatus);
+    request.setAttribute("proContractNumber", proContractNumber);
+    request.setAttribute("proDeptName", proDeptName);
+    request.setAttribute("pcDeptName", pcDeptName);
+    request.setAttribute("proEngineTypeName", proEngineTypeName);
+    request.setAttribute("proSourceName", proSourceName);
+    request.setAttribute("proNatureName", proNatureName);
+    request.setAttribute("proPeriodName", proPeriodName);
+    
+    List<Dictionarydata> dicts=new ArrayList<Dictionarydata>();
+    /*List<Dictionarydata> XHS=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> PQF=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> CL=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> YJSBPT=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> YJSBGJ=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> EJSBPT=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> EJSBGJ=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> JJM=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> ZM=new ArrayList<Dictionarydata>();
+    List<Dictionarydata> LLJ=new ArrayList<Dictionarydata>();*/
+    Map<String, Object> map2=new HashMap<String, Object>();
+    List<Dictionarydata> sdp = dictdataService.selectDictdataByParentId(map2, null);
+    for (Dictionarydata dictionarydata : sdp) {
+    	System.out.println(dictionarydata.getDictCode()+"-=-=-=");
+		if(dictionarydata.getDictCode().equals("GZL")){
+			dicts.add(dictionarydata);
+		}/*else if(dictionarydata.getDictCode().equals("XHS")){
+			XHS.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("PQF")){
+			PQF.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("CL")){
+			CL.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("YJSBPT")){
+			YJSBPT.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("YJSBGJ")){
+			YJSBGJ.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("EJSBPT")){
+			EJSBPT.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("EJSBGJ")){
+			EJSBGJ.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("JJM")){
+			JJM.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("ZM")){
+			ZM.add(dictionarydata);
+		}else if(dictionarydata.getDictCode().equals("LLJ")){
+			LLJ.add(dictionarydata);
+		}*/
+	}
+   /* List<ProjectDetail> selectProjectDetail = roadWorkDailyService.selectProjectDetail(map);
+    request.setAttribute("proDetail", selectProjectDetail);*/
+    StringBuffer buffer=new StringBuffer();
+    buffer.append("<table id=\"tbHaederText\" border=\"1\" cellpadding=\"0\" cellspacing=\"0\" align=\"center\" style=\"border-collapse: collapse; word-break: keep-all; border-color: Black;width: 100%;\">");
+    buffer.append("<tr>");//第一行
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>工号</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>临时工号</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>序号</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap align=\"center\">工程来源</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap align=\"center\">工程性质</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap align=\"center\">工程类别</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>期次</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>合同编号</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>合同名称</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\" style=\"width:300px;\"  nowrap>工程进展问题</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>转入单位</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>项目状态</td>");
+    
+    
+    
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>实际开工时间</td>");
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>实际竣工时间</td>");
+    /*buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>施工单位</td>");*/
+    buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>设计长度</td>");
+    /*buffer.append("<td class=\"th\" rowspan=\"3\"  nowrap>时间</td>");*/
+    buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(1)+"\"  nowrap>DMA(个数)</td>");
+    buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(1)+"\"  nowrap>倒流防止器(个数)</td>");
+    buffer.append("<td class=\"th\" align=\"center\" colspan=\""+(1)+"\"  nowrap>工作量(长度)</td>");
+    
+    buffer.append("</tr>");
+    
+    
+    buffer.append("<tr>");//第二行
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(1)+"\" align=\"center\">当前实际完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(1)+"\" align=\"center\">当前实际完成</td>");
+    buffer.append("<td class=\"th\"  nowrap colspan=\""+(1)+"\" align=\"center\">当前实际完成</td>");
+    buffer.append("</tr>");
+    
+    
+    buffer.append("<tr>");//第三行
+     for (int i = 0; i < 3; i++) {
+       for (int ii=0;ii<dicts.size();ii++) {
+         if(ii==dicts.size()-1){
+           buffer.append("<td class=\"th\"  nowrap  align=\"center\">小计</td>");
+         }
+       } 
+     }
+    buffer.append("</tr>");
+    //=================表头end====================
+    
+    List<ProjectDetail> orderDay = roadWorkDailyService.getOrderDaySum(map);
+    if(orderDay!=null&&orderDay.size()>0){
+       for (ProjectDetail projectDetail : orderDay) {
+    	   
+           buffer.append("<tr>");
+           buffer.append("<td class=\"td\" >"+projectDetail.getProNumber()+"</td>");
+           buffer.append("<td class=\"td\" >"+projectDetail.getProSnapNumber()+"</td>");
+           buffer.append("<td class=\"td\" >"+projectDetail.getProSerialNumber()+"</td>");
+           buffer.append("<td class=\"td\" >"+projectDetail.getProSourceName()+"</td>");
+           buffer.append("<td class=\"td\" >"+projectDetail.getProNatureName()+"</td>");
+           buffer.append("<td class=\"td\" >"+projectDetail.getProEngineTypeName()+"</td>");
+           buffer.append("<td class=\"td\" >"+projectDetail.getProPeriodName()+"</td>");
+           buffer.append("<td class=\"td\" >"+projectDetail.getProContractNumber()+"</td>");
+           buffer.append("<td class=\"td\" >"+projectDetail.getContractName()+"</td>");
+           buffer.append("<td class=\"td\"  style=\"width:300px;word-wrap:break-word ;\">"+projectDetail.getPrwProgressReport()+"</td>");
+           buffer.append("<td class=\"td\" >"+projectDetail.getProDeptName()+"</td>");
+           buffer.append("<td class=\"td\" >"+(projectDetail.getProStatus()==null?"":projectDetail.getProStatus()==1?"在施":projectDetail.getProStatus()==2?"待施":projectDetail.getProStatus()==3?"已完工":projectDetail.getProStatus()==4?"待转图":"")+"</td>");
+
+           buffer.append("<td class=\"td\" >"+projectDetail.getPrwAst()+"</td>");
+           buffer.append("<td class=\"td\" >"+projectDetail.getPrwAet()+"</td>");
+           /*buffer.append("<td class=\"td\" >"+projectDetail.getPcDeptName()+"</td>");*/
+           buffer.append("<td class=\"td\" >"+projectDetail.getProDesignLength()+"</td>");
+           for (int i = 0; i < 3; i++) {
+             BigDecimal one=new BigDecimal("0");
+             BigDecimal two=new BigDecimal("0");
+             BigDecimal three=new BigDecimal("0");
+             for (int ii=0;ii<dicts.size();ii++) {
+               ProjectRoadWordDetail det=new ProjectRoadWordDetail();
+               det.setProId(projectDetail.getProId());
+               /*det.setPcId(projectDetail.getPcId());*/
+               det.setDnId(dicts.get(ii).getId());
+               List<ProjectRoadWordDetail> prwds = projectRoadWordDetailService.getDetailByAll(det, null);
+               if(prwds!=null&&prwds.size()>0){
+            	   for (ProjectRoadWordDetail projectRoadWordDetail : prwds) {
+            		   if(i==0){
+                           one=one.add(new BigDecimal(projectRoadWordDetail.getDetailDma()==null?"0":projectRoadWordDetail.getDetailDma().toString()));
+                        }else if(i==1){
+                            two=two.add(new BigDecimal(projectRoadWordDetail.getDetailAnti()==null?"0":projectRoadWordDetail.getDetailAnti().toString()));
+                        }else if(i==2){
+                            three=three.add(new BigDecimal(projectRoadWordDetail.getDetailDay()==null?"0":projectRoadWordDetail.getDetailDay().toString()));
+                        }
+				}
+                
+               }
+               if(ii==dicts.size()-1){
+                 if(i==0){
+                   buffer.append("<td class=\"td\" >"+one.doubleValue()+"</td>");
+                 }else if(i==1){
+                   buffer.append("<td class=\"td\" >"+two.doubleValue()+"</td>");
+                 }else if(i==2){
+                   buffer.append("<td class=\"td\" >"+three.doubleValue()+"</td>");
+                 }
+                 
+               }
+             }
+           }
+         buffer.append("</tr>");
+      }
+    }    
+    
+    
+    buffer.append("</table>");
+    List<Dictionarydata>  dd= dictdataService.selectDictdataByParentId(null, null);
+    request.setAttribute("dicts", dd);
+    Dept dptt=new Dept(); 
+    dptt.setParentCode("sgdw");
+    List<Dept> dpt = deptService.selectAllDept(dptt, null);
+    request.setAttribute("dept", dpt);
+    request.setAttribute("html", buffer.toString().replaceAll("null", ""));
+    request.setAttribute("proName", proName);
+    request.setAttribute("proNumber", proNumber);
+    request.setAttribute("proSerialNumber",proSerialNumber);
+    request.setAttribute("beginTime", beginTime);
+    request.setAttribute("endTime", endTime);
+    long endtime=System.currentTimeMillis();
+    System.out.println("耗时:"+(endtime-begintime)/1000);
+    return "day/orderSum";
+  }
 }

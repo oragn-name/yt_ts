@@ -106,6 +106,26 @@
 	 and proStatus= #{proStatus}
 	</if>
     
+    <if test="proLssuedBeginTime!=null and proLssuedBeginTime!=''">
+    <choose>
+       <when test="proLssuedEndTime !=null and proLssuedEndTime!='' ">
+           <choose>
+               <when test="proLssuedBeginTime==proLssuedEndTime ">
+               and proLssuedTime like CONCAT(CONCAT('%', #{proLssuedBeginTime}), '%')
+               </when>
+               <when test="proLssuedBeginTime!=proLssuedEndTime ">
+                and   proLssuedTime between  CONCAT(#{proLssuedBeginTime},' 00:00:00') and CONCAT(#{proLssuedEndTime} ,' 23:59:59')
+               </when>
+           </choose>
+       </when>
+       <when test="proLssuedEndTime ==null or proLssuedEndTime=='' "> 
+       and proLssuedTime like CONCAT(CONCAT('%', #{proLssuedBeginTime}), '%')
+       </when>
+    </choose>
+</if>
+    
+    
+    
   </select>
   
   <select id="selectProjectProAllMap" parameterType="Map" resultType="com.study.model.ProjectProduce">
